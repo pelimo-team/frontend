@@ -14,11 +14,14 @@ const Signup = () => {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
+
+  // هندل تغییر اینپوت‌ها
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     setFormData({ ...formData, [name]: value });
 
+    // اعتبارسنجی ایمیل
     if (name === "email") {
       const sanitizedValue = value.replace(/[^a-zA-Z0-9@._%+-]/g, "");
       setFormData({ ...formData, email: sanitizedValue });
@@ -27,6 +30,7 @@ const Signup = () => {
       setEmailError(emailRegex.test(sanitizedValue) ? "" : "Invalid email address");
     }
 
+    // اعتبارسنجی شماره تلفن
     if (name === "phone") {
       let phone = value.replace(/\D/g, "");
       const phoneStartRegex = /^09/;
@@ -44,6 +48,7 @@ const Signup = () => {
       setFormData({ ...formData, phone });
     }
 
+    // اعتبارسنجی پسورد
     if (name === "password") {
       let password = value.replace(/[آ-ی]/g, "");
       if (password.length < 8) {
@@ -67,6 +72,7 @@ const Signup = () => {
     setShowPassword(!showPassword);
   };
 
+  // بررسی صحت فرم برای فعال/غیرفعال کردن دکمه
   const isFormValid =
     formData.username.trim() !== "" &&
     formData.password.trim() !== "" &&
@@ -76,12 +82,37 @@ const Signup = () => {
     !phoneError &&
     !passwordError;
 
+  // تابع ارسال فرم
   const handleSubmit = (e) => {
     e.preventDefault();
     setButtonClicked(true);
 
     if (isFormValid) {
       console.log("Form is valid. Sending data to backend.");
+
+      // درخواست POST به سرور Django (مسیر register یا api/signup را بر اساس نیاز خودتان بگذارید)
+      fetch("http://127.0.0.1:8000/api/accounts/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+          password2: formData.password, // متد register نیاز به password2 دارد
+          email: formData.email,
+          phone_number: formData.phone,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Server response:", data);
+          // در صورت موفقیت، می‌توانید پیام موفقیت را نمایش بدهید
+          // یا ریدایرکت کنید به صفحه لاگین
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     } else {
       console.log("Form is invalid. Not sending data to backend.");
     }
@@ -99,9 +130,10 @@ const Signup = () => {
         <div className="signup-container">
           <div className="signup-box">
             <h1 className="signup-heading">Sign Up</h1>
-            <p className="signup-subheading">Fill the information boxes for signing up</p>
+            <p className="signup-subheading">
+              Fill the information boxes for signing up
+            </p>
             <form onSubmit={handleSubmit}>
-
               {/* Username */}
               <div className="input-wrapper">
                 <img src="username.png" alt="User Icon" className="input-icon" />
@@ -166,7 +198,9 @@ const Signup = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className={`signup-button ${buttonClicked && !isFormValid ? "disabled-button" : ""}`}
+                className={`signup-button ${
+                  buttonClicked && !isFormValid ? "disabled-button" : ""
+                }`}
                 disabled={buttonClicked && !isFormValid}
               >
                 Register
@@ -175,10 +209,12 @@ const Signup = () => {
               {/* Login Link */}
               <div className="text-center mt-3">
                 <span>
-                  Already have an account? <a href="/login" className="login-link">login</a>
+                  Already have an account?{" "}
+                  <a href="/" className="login-link">
+                    login
+                  </a>
                 </span>
               </div>
-
             </form>
           </div>
         </div>
