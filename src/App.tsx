@@ -5,7 +5,7 @@ export default App;
 
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
-import ForgotPassword from './ForgotPassword.jsx';
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
@@ -17,7 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path='/forgotpassword' element = {<ForgotPassword />} />
+           
           </Routes>
       </Router>
 
@@ -27,4 +27,4 @@ function App() {
   );
 }
 
-export default App;
+
