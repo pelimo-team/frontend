@@ -175,7 +175,14 @@ const Login = () => {
                   {errorMessage}
                 </div>
               )}
-
+              <div className="text-center mt-3">
+                <span>
+                  
+                  <a href="/signup" className="login-link">
+                  Forgot password?
+                  </a>
+                </span>
+              </div>
               {/* دکمه لاگین */}
               <button
                 type="submit"
@@ -187,7 +194,7 @@ const Login = () => {
               >
                 Login
               </button>
-
+                
               {/* لینک ثبت‌نام */}
               <div className="text-center mt-3">
                 <span>
