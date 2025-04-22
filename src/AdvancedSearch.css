@@ -80,6 +80,9 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
+    min-height: 60px;
+    width: 100%;
+    
   }
   
   .search-bar-advanced-search input {
@@ -87,13 +90,15 @@
     padding: 0.5rem;
     border: none;
     outline: none;
-    font-size: 1rem;
+    font-size: 2rem;
+    min-height: 60px;
+    width: 100%;
   }
   
   .close-btn-advanced-search {
     padding: 0.5rem;
     border: none;
-    background: #eee;
+    background: none;
     cursor: pointer;
   }
   
@@ -101,32 +106,46 @@
   .category-tabs-container-advanced-search {
     position: relative;
     margin-top: 1rem;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    
+}
+
   
-  .category-tabs-advanced-search {
-    display: inline-flex;
-    position: relative;
-    border-bottom: 1px solid #ddd;
-  }
+.category-tabs-advanced-search {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+}
   
-  .category-tab-advanced-search {
-    background: none;
-    border: none;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    color: #333;
-    position: relative;
-    white-space: nowrap;
-    transition: color 0.3s ease;
-  }
+.category-tab-advanced-search {
+  background: white;
+  border: none;
+  font-size: 2rem;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+  color: #333;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+  flex: 1 1 auto;
+  min-width: 150px;
+  text-align: center;
+}
+.category-tab-advanced-search:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-2px);
+}
   
-  .category-tab-advanced-search.active-advanced-search {
-    font-weight: bold;
-    color: #a65c41; /* رنگ قهوه‌ای */
-  }
+.category-tab-advanced-search.active-advanced-search {
+  font-weight: bold;
+  color: #a65c41; /* قهوه‌ای */
+  background-color: #ffe9e3; /* یک بک‌گراند لطیف */
+}
   
   .underline-advanced-search {
     position: absolute;
@@ -138,24 +157,27 @@
   
   /* --- فیلترها --- */
   .filters-advanced-search {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    position: relative;
     margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
   
   .filter-button-advanced-search {
-    padding: 0.4rem 0.8rem;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    background-color: white;
+    background: white;
+    border: none;
+    font-size: 1rem;
+    padding: 0.5rem 2rem;
     cursor: pointer;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s ease;
     color: #333;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+    flex: 1 1 1;
+    min-width: 150px;
+    text-align: center;
   }
   
   .filter-button-advanced-search.active-filter-advanced-search {

@@ -68,9 +68,10 @@ function Login() {
         )
         .then(({ status, data }) => {
           if (status === 200) {
-            // لاگین موفق
+            localStorage.setItem("isLoggedIn", "true");
             navigate("/");
-          } else {
+        }
+         else {
             setErrorMessage(data.error || "Invalid credentials");
           }
         })

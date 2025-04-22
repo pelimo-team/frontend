@@ -6,7 +6,7 @@ import ForgotPassword from "./ForgotPassword";
 import EnterCode from "./entercode";         // فایل صفحه واردکردن کد
 import SetNewPassword from "./SetNewPassword"; // فایل صفحه تعیین رمز جدید
 import EnterCodeSignup from "./EnterCodeSignup";
-import AddComment from "./AddComment";
+
 import Userprofile from "./Userprofile";
 import Search from "./Search";
 import AdvancedSearch from "./AdvancedSearch";
@@ -43,7 +43,7 @@ function App() {
         <Route path="/userprofile" element={<Userprofile />} />
 
         {/* مشاهده و افزودن کامنت */}
-        <Route path="/add-comment" element={<AddComment />} />
+        
 
         {/* صفحه جستجوی غذا */}
         <Route path="/search" element={<Search />} />

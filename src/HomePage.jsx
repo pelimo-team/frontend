@@ -2,10 +2,15 @@ import React, { useState, useRef, useEffect} from "react";
 import styles from "./HomePage.module.css";
 import Search from "./Search";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
+
+
 
 
 function HomePage() {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   // اسلایدر Hero
   const slides = [
@@ -62,7 +67,12 @@ function HomePage() {
   const [showSearch, setShowSearch] = useState(false);
   const searchBoxRef = useRef(null);
   const popupRef = useRef(null);
-
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn");
+    if (loggedIn === "true") {
+      setIsLoggedIn(true);
+    }
+  }, []);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -96,15 +106,45 @@ function HomePage() {
   
     const visibleItems = bestOnesData.slice(startIndex, startIndex + 2);
   return (
+    
     <div className={styles["home-container"]}>
       {/* هدر */}
       <header className={styles["home-header"]}>
         {/* ستون 1: Login | Sign up */}
         <div className={styles["header-left"]}>
-          <a href="/login" className={styles["login-link"]}>Login</a>
-          <span> | </span>
-          <a href="/signup" className={styles["signup-link"]}>Sign up</a>
+  {isLoggedIn ? (
+    <div className={styles["profile-container"]}>
+      <button 
+        className={styles["homepage-profile"]} 
+        onClick={() => setShowDropdown(!showDropdown)}
+      >
+        <img src="profile.png" alt="User Avatar" className={styles["user-avatar"]} />
+      </button>
+      {showDropdown && (
+        <div className={styles["dropdown-menu"]}>
+          <a href="/profile">Profile</a>
+          <button 
+            onClick={() => {
+              localStorage.removeItem("isLoggedIn");
+              setIsLoggedIn(false);
+              setShowDropdown(false);
+            }}
+          >
+            Log out
+          </button>
         </div>
+      )}
+    </div>
+  ) : (
+    <>
+      <a href="/login" className={styles["login-link"]}>Login</a>
+      <span> | </span>
+      <a href="/signup" className={styles["signup-link"]}>Sign up</a>
+    </>
+  )}
+</div>
+
+
 
         {/* ستون 2: فیلد Address */}
         <div className={styles["address-search"]}>
