@@ -122,7 +122,9 @@ function HomePage() {
       </button>
       {showDropdown && (
         <div className={styles["dropdown-menu"]}>
-          <a href="/profile">Profile</a>
+          <button onClick={()=> navigate("/userprofile")}>
+           profile
+          </button>
           <button 
             onClick={() => {
               localStorage.removeItem("isLoggedIn");

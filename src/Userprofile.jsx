@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import "./UserProfile.css";
+import { useNavigate } from 'react-router-dom';
+
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const UserProfile = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     nationalCode: "",
@@ -91,7 +94,7 @@ const UserProfile = () => {
       </div>
 
       <div className="actions-userprofile">
-        <button className="btn-userprofile btn-cancel-userprofile">Cancel</button>
+        <button className="btn-userprofile btn-cancel-userprofile" onClick={() => navigate("/")}>Cancel</button>
         <button className="btn-userprofile btn-save-userprofile" onClick={handleSave}>Save</button>
       </div>
     </div>
