@@ -1,0 +1,85 @@
+.food-page {
+    width: 100%;
+    margin: 0;
+  }
+  
+  .food-header {
+    height: 80px;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    color: white;
+    width: 100%;
+  }
+  
+  .food-logocenter {
+    height: 50px;
+    object-fit: contain;
+  }
+  
+  .food-useravatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .food-username {
+    font-size: 10px;
+    color: white;
+  }
+  
+  .food-userinfo {
+    gap: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .food-menuicon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .food-banner {
+    background: #f2f2f2;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .food-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 550px;
+    object-fit: cover;
+  }
+  
+  .food-infosection {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    background: #f9f9f9;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .food-rating {
+    font-size: 20px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .food-infotext {
+    text-align: right;
+  }
+  

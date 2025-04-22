@@ -1,0 +1,312 @@
+/* --- ساختار کلی صفحه --- */
+.advanced-search {
+    font-family: 'Tahoma', sans-serif;
+    direction: rtl;
+    padding: 1rem;
+    background-color: #f9f9f9;
+  }
+  
+  /* --- سربرگ بالا --- */
+  .header-advanced-search {
+    margin-bottom: 1rem;
+  }
+  
+  .header-top-advanced-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  
+  .back-btn-advanced-search {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .back-btn-advanced-search:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+  }
+  
+  .back-btn-advanced-search:active {
+    transform: scale(0.95);
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+
+
+.back-btn-advanced-search img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.cart-icon-advanced-search {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.cart-icon-advanced-search:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.05);
+}
+
+.cart-icon-advanced-search:active {
+  transform: scale(0.95);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+  
+
+.cart-icon-advanced-search img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+  
+  .logo-advanced-search {
+    height: 80px;
+  }
+  
+  /* --- نوار جستجو --- */
+  .search-bar-advanced-search {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .search-bar-advanced-search input {
+    flex-grow: 1;
+    padding: 0.5rem;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+  }
+  
+  .close-btn-advanced-search {
+    padding: 0.5rem;
+    border: none;
+    background: #eee;
+    cursor: pointer;
+  }
+  
+  /* --- تب‌های دسته‌بندی با انیمیشن زیرخط --- */
+  .category-tabs-container-advanced-search {
+    position: relative;
+    margin-top: 1rem;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .category-tabs-advanced-search {
+    display: inline-flex;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .category-tab-advanced-search {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    color: #333;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+  }
+  
+  .category-tab-advanced-search.active-advanced-search {
+    font-weight: bold;
+    color: #a65c41; /* رنگ قهوه‌ای */
+  }
+  
+  .underline-advanced-search {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #a65c41;
+    transition: all 0.3s ease;
+  }
+  
+  /* --- فیلترها --- */
+  .filters-advanced-search {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .filter-button-advanced-search {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    color: #333;
+  }
+  
+  .filter-button-advanced-search.active-filter-advanced-search {
+    background-color: #a65c41;
+    color: white;
+    border-color: #a65c41;
+  }
+  
+  .filter-button-advanced-search .close-tag-advanced-search {
+    background-color: white;
+    color: #a65c41;
+    font-weight: bold;
+    padding: 0 0.5rem;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* --- فروشگاه‌ها --- */
+  .shops-section-advanced-search,
+  .products-section-advanced-search {
+    margin-top: 2rem;
+  }
+  
+  .section-header-advanced-search {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    color: #a65c41;
+    font-weight: bold;
+  }
+  
+  .shop-cards-advanced-search {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .shop-card-advanced-search {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 12px;
+    width: 220px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .shop-card-advanced-search:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .shop-card-advanced-search.selected-advanced-search {
+    border: 2px solid #a65c41;
+    background-color: #fff8f5;
+    box-shadow: 0 0 10px rgba(166, 92, 65, 0.3);
+  }
+  
+  .shop-name-advanced-search {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .shop-rating-advanced-search {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  .delivery-cost-advanced-search {
+    font-size: 0.9rem;
+    color: #a65c41;
+    font-weight: 500;
+  }
+  .scrollable-row-advanced-search {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding-bottom: 10px;
+  }
+  
+  .scrollable-row-advanced-search::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .scrollable-row-advanced-search::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+  }
+  
+
+  
+  /* --- محصولات --- */
+  .product-cards-advanced-search {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .product-card-advanced-search.selected-advanced-search {
+    border: 2px solid #ff9900;
+    box-shadow: 0 0 8px rgba(255, 153, 0, 0.4);
+    border-radius: 10px;
+  }
+  
+  .product-card-advanced-search {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1rem;
+    width: 200px;
+    text-align: center;
+  }
+  
+  .product-rating-advanced-search {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #999;
+  }
+  
+  .product-image-advanced-search {
+    background-color: #eee;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-info-advanced-search p {
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+  }
+  
+  .restaurant-name-advanced-search,
+  .delivery-price-advanced-search {
+    color: #777;
+  }
+  
+  .price-advanced-search {
+    font-weight: bold;
+    color: #a65c41;
+  }
+  

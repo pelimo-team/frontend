@@ -1,0 +1,254 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Tahoma', sans-serif;
+  direction: rtl;
+  background-color: #fff;
+}
+
+.restaurant-page {
+  width: 100%;
+  margin: 0;
+}
+
+.restaurant-header {
+  height: 80px;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: white;
+  width: 100%;
+}
+
+.restaurant-logocenter {
+  height: 73px;
+  object-fit: contain;
+}
+
+.restaurant-useravatar{
+  width: 53px;
+  height: 53px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.restaurant-username {
+  font-size: 10px;
+  color: #945436;
+}
+
+.restaurant-userinfo {
+  gap: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.restaurant-menuicon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.restaurant-menuicon svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+.restaurant-banner {
+  background: #f2f2f2;
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.restaurant-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 550px;
+  object-fit: cover;
+}
+
+
+
+.restaurant-infosection {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 20px;
+  background: #f9f9f9;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restaurant-rating {
+  font-size: 20px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.restaurant-infotext {
+  text-align: right;
+}
+
+.restaurant-tabs {
+  display: flex;
+  border-top: 1px solid #ccc;
+  width: 100%;
+}
+
+.restaurant-tab {
+  flex: 1;
+  text-align: center;
+  padding: 16px;
+  background: #eee;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.restaurant-tab.active {
+  background-color: #fff;
+  border-bottom: 2px solid #945436;
+}
+
+.menu-container {
+  width: 100%;
+}
+
+.menu-categories {
+  background: #eee;
+  flex-wrap: wrap;
+  width: 100%;
+  font-size: 14px;
+}
+
+.menu-category {
+  background: #fdfdfd;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+}
+
+.menu-item-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.menu-item {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.menu-section-title {
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.restaurant-commentssection {
+  
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.progress {
+  background-color: #e0e0e0;
+}
+
+.progress-bar {
+  background-color: #ffc107;
+}
+
+textarea:focus, input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(148, 84, 54, 0.2);
+}
+
+.btn-primary {
+  background-color: #945436;
+  border: none;
+}
+
+.btn-outline-primary {
+  border-color: #945436;
+  color: #945436;
+}
+
+.btn-outline-primary:hover {
+  background-color: #945436;
+  color: white;
+}
+
+.border-start {
+  border-left: 4px solid #ccc !important;
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .restaurant-useravatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .restaurant-username {
+    font-size: 10px;
+  }
+
+  .menu-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .restaurant-image {
+    max-height: 250px;
+  }
+
+  .restaurant-backbutton {
+    width: 90%;
+    text-align: center;
+  }
+
+  .restaurant-infosection {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .restaurant-tabs .restaurant-tab {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .menu-item-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .menu-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .progress {
+    height: 6px;
+  }
+}
