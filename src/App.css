@@ -15,9 +15,7 @@ body {
 .section-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 100vh;
 }
-
 
 .right-section {
   display: grid;
@@ -104,7 +102,7 @@ body {
   border-radius: 15px;
 }
 
-.eye-icon {
+.login-eye {
   position: absolute;
   right: 10px;
   top: 50%;

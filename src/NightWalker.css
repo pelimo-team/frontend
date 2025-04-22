@@ -1,0 +1,183 @@
+/* پایه */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f2f4f8;
+  }
+  
+  .nightwalker-container {
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* بخش تصویر گربه */
+  .nightwalker-hero-section {
+    background-image: url('/shabgard-cat.png'); /* مسیر تصویر گربه */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+    color: white;
+  }
+  
+  /* لوگو و آیکون‌ها */
+  .nightwalker-hero-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+    font-size: 22px;
+  }
+  
+  .nightwalker-logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* باکس سرچ و گزینه‌ها */
+  .nightwalker-centered-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+  }
+  
+  .nightwalker-search-box {
+    margin-bottom: 15px;
+    width: 15cm;
+  }
+  
+  .nightwalker-search-input {
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+  }
+
+  .nightwalker-search-icon {
+    position: absolute;
+    transform: translateY(70%);
+    margin-left: 10px;
+  }
+
+  .nightwalker-search-box input{
+    padding-left: 10px;
+    width: 100%;
+    padding-inline: 35px;
+  }
+  
+  /* باکس آدرس و زمان */
+  .nightwalker-dropdown-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .nightwalker-dropdown-wrapper select {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  /* دسته‌بندی‌ها */
+  .nightwalker-category-bar-wrapper {
+    padding: 30px 20px;
+    background-color: #ffffff;
+  }
+  
+  .nightwalker-category-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .nightwalker-category-button {
+    width: 100px;
+    height: 100px;
+    font-size: 14px;
+    background-color: #f1f4fc;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .nightwalker-category-button:hover {
+    background-color: #d8e7ff;
+    transform: translateY(-5px);
+  }
+  
+  /* اسلایدرها */
+  .nightwalker-slider-section {
+    padding: 40px 30px;
+    background-color: #f8faff;
+  }
+  
+  .nightwalker-slider-section h2 {
+    color: #123865;
+    margin-bottom: 15px;
+  }
+  
+  /* کارت‌ها */
+  .nightwalker-slider {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(50% - 20px);
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 30px;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .nightwalker-card {
+    scroll-snap-align: center;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .nightwalker-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .nightwalker-card .nightwalker-image {
+    height: 150px;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  
+  .nightwalker-card .nightwalker-info {
+    padding: 10px;
+  }
+  
+  .nightwalker-stars {
+    color: gold;
+    font-size: 14px;
+  }
+  
+  /* فوتر */
+  .nightwalker-footer {
+    padding: 30px;
+    background-color: #113f87;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+  }
+  
