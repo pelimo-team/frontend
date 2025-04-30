@@ -21,10 +21,63 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
+<<<<<<< Updated upstream
     background-color: #333;
     background-image: url('public/coffee shop.png'); /* یا آدرس تصویر پروفایل */
     background-size: cover;
     background-position: center;
+=======
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+  }
+  
+  .avatar-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .avatar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 50%;
+  }
+  
+  .avatar-overlay span {
+    color: white;
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  .avatar-userprofile:hover .avatar-overlay {
+    opacity: 1;
+>>>>>>> Stashed changes
   }
   
   .profile-info-userprofile h2 {
@@ -151,4 +204,26 @@
     display: flex;
     justify-content: flex-end;
   }
+<<<<<<< Updated upstream
+=======
+  
+  .message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .message.success {
+    background-color: #e6ffe6;
+    color: #006600;
+    border: 1px solid #00cc00;
+  }
+
+  .message.error {
+    background-color: #ffe6e6;
+    color: #cc0000;
+    border: 1px solid #ff0000;
+  }
+>>>>>>> Stashed changes
   

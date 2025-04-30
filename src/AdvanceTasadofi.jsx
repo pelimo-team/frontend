@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useState } from "react";
 import "./AdvanceTasadofi.css";
 
@@ -107,6 +108,101 @@ const AdvanceTasadofi = () => {
         <div className="tasadofi-slider-container">
           {games.map(renderCard)}
         </div>
+=======
+import React, { useState } from 'react';
+import axios from 'axios';
+import './AdvanceTasadofi.css';
+
+const RestaurantCard = ({ restaurant }) => {
+  if (!restaurant) return null;
+  
+  console.log('Restaurant data:', restaurant); // Debug log
+  
+  return (
+    <div className="tasadofi-card">
+      <img 
+        src={restaurant.cover_image || '/restaurant-placeholder.png'} 
+        alt={restaurant.name}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = '/restaurant-placeholder.png';
+        }}
+      />
+      <div className="tasadofi-name">{restaurant.name}</div>
+      <div className="tasadofi-location">📍 {restaurant.city?.name || 'Unknown Location'}</div>
+      <div className="tasadofi-stars">
+        {'⭐'.repeat(Math.round(restaurant.average_rating || 0))}
+      </div>
+    </div>
+  );
+};
+
+const AdvanceTasadofi = () => {
+  const [randomRestaurant, setRandomRestaurant] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleStart = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      setRandomRestaurant(null); // Clear previous result
+      
+      console.log('Fetching random restaurant...'); // Debug log
+      const response = await axios.get('http://localhost:8000/api/restaurants/random/');
+      console.log('API Response:', response.data); // Debug log
+      
+      if (response.data) {
+        setRandomRestaurant(response.data);
+      } else {
+        setError('No restaurant data received');
+      }
+    } catch (err) {
+      console.error('Error fetching random restaurant:', err.response || err);
+      setError(
+        err.response?.data?.error || 
+        'Failed to get a random restaurant. Please try again!'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="tasadofi-wrapper">
+      {/* Background + Adventure Button */}
+      <div className="tasadofi-background">
+        <header className="tasadofi-header">
+          <button className="tasadofi-profile">
+            <img src="/gg_profile.png" alt="profile" />
+          </button>
+          <img src="/Group 13 (1).png" alt="logo" />
+          <button className="tasadofi-menu">
+            <img src="/material-symbols_menu-rounded.png" alt="menu" />
+          </button>
+        </header>
+        <div className="tasadofi-emoji">🤔</div>
+        <button 
+          className="tasadofi-start-button" 
+          onClick={handleStart}
+          disabled={loading}
+        >
+          {loading ? 'Finding your adventure...' : 'Start the adventure'}
+        </button>
+
+        {error && (
+          <div className="error-message">
+            {error}
+          </div>
+        )}
+
+        {randomRestaurant && (
+          <div className="tasadofi-result">
+            <h2>Here's your random pick!</h2>
+            <RestaurantCard restaurant={randomRestaurant} />
+          </div>
+        )}
+>>>>>>> Stashed changes
       </div>
 
       {/* Footer */}

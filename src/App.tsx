@@ -6,7 +6,11 @@ import ForgotPassword from "./ForgotPassword";
 import EnterCode from "./entercode";         // فایل صفحه واردکردن کد
 import SetNewPassword from "./SetNewPassword"; // فایل صفحه تعیین رمز جدید
 import EnterCodeSignup from "./EnterCodeSignup";
+<<<<<<< Updated upstream
 
+=======
+import AddComment from "./AddComment";
+>>>>>>> Stashed changes
 import Userprofile from "./Userprofile";
 import Search from "./Search";
 import AdvancedSearch from "./AdvancedSearch";
@@ -43,7 +47,11 @@ function App() {
         <Route path="/userprofile" element={<Userprofile />} />
 
         {/* مشاهده و افزودن کامنت */}
+<<<<<<< Updated upstream
         
+=======
+        <Route path="/add-comment" element={<AddComment />} />
+>>>>>>> Stashed changes
 
         {/* صفحه جستجوی غذا */}
         <Route path="/search" element={<Search />} />

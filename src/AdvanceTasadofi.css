@@ -61,12 +61,20 @@
     background-image: url("/tasadofi-background.png");
     background-size: cover;
     background-position: center;
+<<<<<<< Updated upstream
     height: 620px;
+=======
+    min-height: 620px;
+>>>>>>> Stashed changes
     position: relative;
     display: flex;
     
     align-items: center;
     flex-direction: column;
+<<<<<<< Updated upstream
+=======
+    padding-bottom: 40px;
+>>>>>>> Stashed changes
   }
   
   .tasadofi-emoji {
@@ -288,4 +296,199 @@
   .tasadofi-footer-column li:hover {
     color: #0d0a01;
   }
+<<<<<<< Updated upstream
+=======
+  
+.tasadofi-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px;
+}
+
+.tasadofi-header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.pelimo-logo {
+  height: 60px;
+  object-fit: contain;
+}
+
+.tasadofi-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.mood-section {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.mood-section h1 {
+  color: #333;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.mood-section p {
+  color: #666;
+  font-size: 1.2em;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.adventure-button {
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+  border: none;
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 15px 40px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.adventure-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.adventure-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.error-message {
+  color: #ff4444;
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background: rgba(255, 230, 230, 0.9);
+  border-radius: 8px;
+  max-width: 400px;
+}
+
+.random-result {
+  margin-top: 30px;
+}
+
+.random-result h2 {
+  color: #333;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.restaurant-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin: 20px auto;
+  max-width: 400px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.restaurant-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.restaurant-info {
+  padding: 20px;
+}
+
+.restaurant-info h3 {
+  color: #333;
+  font-size: 1.5em;
+  margin: 0 0 10px 0;
+}
+
+.restaurant-location {
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.location-icon {
+  font-size: 1.2em;
+}
+
+.restaurant-rating {
+  color: #ffd700;
+  font-size: 1.2em;
+}
+
+/* Random Restaurant Result */
+.tasadofi-result {
+  margin-top: 30px;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 20px;
+}
+
+.tasadofi-result h2 {
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.tasadofi-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.tasadofi-card:hover {
+  transform: translateY(-5px);
+}
+
+.tasadofi-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.tasadofi-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  margin: 15px 0 10px;
+  padding: 0 15px;
+}
+
+.tasadofi-location {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  padding: 0 15px;
+}
+
+.tasadofi-stars {
+  color: #ffc107;
+  font-size: 1.2rem;
+  padding: 0 15px 15px;
+}
+>>>>>>> Stashed changes
   

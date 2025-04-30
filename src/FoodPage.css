@@ -1,4 +1,5 @@
 .food-page {
+<<<<<<< Updated upstream
     width: 100%;
     margin: 0;
   }
@@ -82,4 +83,216 @@
   .food-infotext {
     text-align: right;
   }
+=======
+  font-family: 'Vazir', 'Tahoma', sans-serif;
+  direction: rtl;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.food-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 16px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.back-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.food-logocenter {
+  height: 40px;
+}
+
+.food-userinfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.food-useravatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.food-username {
+  font-weight: bold;
+}
+
+.food-banner {
+  margin-bottom: 24px;
+}
+
+.food-image {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.food-details {
+  margin-bottom: 32px;
+}
+
+.food-name {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.food-description {
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.food-price-section {
+  font-size: 18px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.sale-price {
+  color: #e53935;
+  font-weight: bold;
+}
+
+.regular-price {
+  font-weight: bold;
+}
+
+.restaurant-section {
+  background-color: #f9f9f9;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.restaurant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.restaurant-header h2 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.restaurant-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stars {
+  color: #ffd700;
+  letter-spacing: -2px;
+}
+
+.restaurant-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  margin: 0;
+}
+
+.reviews-section {
+  margin-top: 32px;
+}
+
+.reviews-section h3 {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.review-card {
+  background-color: #f9f9f9;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.reviewer-name {
+  font-weight: bold;
+}
+
+.review-rating {
+  color: #ffd700;
+  letter-spacing: -2px;
+}
+
+.review-text {
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.review-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 18px;
+  color: #666;
+}
+
+.error-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #e53935;
+  text-align: center;
+}
+
+.custom-continue-btn {
+  margin-top: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+}
+>>>>>>> Stashed changes
   

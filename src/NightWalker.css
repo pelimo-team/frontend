@@ -1,8 +1,13 @@
+<<<<<<< Updated upstream
 /* پایه */
+=======
+/* Base styles */
+>>>>>>> Stashed changes
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
     background-color: #f2f4f8;
+<<<<<<< Updated upstream
   }
   
   .nightwalker-container {
@@ -13,21 +18,41 @@ body {
   /* بخش تصویر گربه */
   .nightwalker-hero-section {
     background-image: url('/shabgard-cat.png'); /* مسیر تصویر گربه */
+=======
+}
+  
+.nightwalker-container {
+    width: 100%;
+    overflow-x: hidden;
+}
+  
+/* Hero section */
+.nightwalker-hero-section {
+    background-image: url('/shabgard-cat.png');
+>>>>>>> Stashed changes
     background-size: cover;
     background-position: center;
     height: 100vh;
     position: relative;
     color: white;
+<<<<<<< Updated upstream
   }
   
   /* لوگو و آیکون‌ها */
   .nightwalker-hero-header {
+=======
+}
+  
+/* Logo and icons */
+.nightwalker-hero-header {
+>>>>>>> Stashed changes
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
     position: absolute;
     top: 0;
+<<<<<<< Updated upstream
     width: 100%;
     z-index: 2;
     font-size: 22px;
@@ -40,12 +65,27 @@ body {
   
   /* باکس سرچ و گزینه‌ها */
   .nightwalker-centered-content {
+=======
+    width: calc(100% - 80px);
+    z-index: 2;
+    font-size: 22px;
+}
+  
+.nightwalker-logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+  
+/* Search box */
+.nightwalker-centered-content {
+>>>>>>> Stashed changes
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 2;
+<<<<<<< Updated upstream
   }
   
   .nightwalker-search-box {
@@ -56,10 +96,30 @@ body {
   .nightwalker-search-input {
     padding: 12px 20px;
     margin-bottom: 10px;
+=======
+    width: 100%;
+    max-width: 600px;
+    padding: 0 20px;
+}
+  
+.nightwalker-search-box {
+    margin-bottom: 15px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+  
+.nightwalker-search-input {
+    flex: 1;
+    padding: 15px 45px;
+>>>>>>> Stashed changes
     font-size: 16px;
     border-radius: 25px;
     border: none;
     outline: none;
+<<<<<<< Updated upstream
   }
 
   .nightwalker-search-icon {
@@ -96,13 +156,66 @@ body {
   }
   
   .nightwalker-category-bar {
+=======
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.nightwalker-search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.6;
+}
+  
+.nightwalker-search-button {
+    padding: 15px 30px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    background-color: #123865;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+  
+.nightwalker-search-button:hover {
+    background-color: #1a4c8f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+  
+.nightwalker-search-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+  
+/* Categories */
+.nightwalker-category-bar-wrapper {
+    padding: 30px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+  
+.nightwalker-category-bar {
+>>>>>>> Stashed changes
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
+<<<<<<< Updated upstream
   }
   
   .nightwalker-category-button {
+=======
+    max-width: 1200px;
+    margin: 0 auto;
+}
+  
+.nightwalker-category-button {
+>>>>>>> Stashed changes
     width: 100px;
     height: 100px;
     font-size: 14px;
@@ -112,6 +225,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     cursor: pointer;
+<<<<<<< Updated upstream
   }
   
   .nightwalker-category-button:hover {
@@ -174,10 +288,275 @@ body {
   
   /* فوتر */
   .nightwalker-footer {
+=======
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+}
+  
+.nightwalker-category-button.active {
+    background-color: #123865;
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+  
+.nightwalker-category-button:hover {
+    background-color: #d8e7ff;
+    transform: translateY(-5px);
+}
+  
+.nightwalker-category-button.active:hover {
+    background-color: #1a4c8f;
+}
+  
+.category-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+  
+/* Sliders and Cards */
+.nightwalker-slider-section {
+    padding: 40px 30px;
+    background-color: #f8faff;
+    min-height: 200px;
+}
+  
+.nightwalker-slider-section h2 {
+    color: #123865;
+    margin-bottom: 15px;
+    text-align: center;
+}
+  
+.nightwalker-slider {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(33.333% - 20px);
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px 0;
+    scroll-snap-type: x mandatory;
+    max-width: 1200px;
+    margin: 0 auto;
+    scrollbar-width: thin;
+    scrollbar-color: #123865 #f0f0f0;
+}
+  
+.nightwalker-slider::-webkit-scrollbar {
+    height: 8px;
+}
+  
+.nightwalker-slider::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+  
+.nightwalker-slider::-webkit-scrollbar-thumb {
+    background-color: #123865;
+    border-radius: 4px;
+}
+  
+.nightwalker-card {
+    scroll-snap-align: start;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-width: 280px;
+    cursor: pointer;
+    position: relative;
+}
+  
+.nightwalker-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+  
+.nightwalker-card:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+  
+.nightwalker-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+  
+.nightwalker-card:hover::after {
+    opacity: 1;
+}
+  
+.nightwalker-card .nightwalker-image {
+    height: 150px;
+    background: #f0f0f0;
+    overflow: hidden;
+}
+  
+.nightwalker-info {
+    padding: 15px;
+    background: white;
+    position: relative;
+}
+  
+.nightwalker-info p {
+    margin: 8px 0;
+    color: #333;
+}
+  
+.nightwalker-info p:first-child {
+    font-size: 1.1em;
+    color: #123865;
+}
+  
+.nightwalker-info p:nth-child(2) {
+    color: #666;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+  
+.nightwalker-info p:nth-child(3) {
+    color: #2d3748;
+    font-weight: 500;
+}
+  
+.nightwalker-stars {
+    color: gold;
+    font-size: 14px;
+    margin-top: 10px;
+}
+  
+/* Footer */
+.nightwalker-footer {
+>>>>>>> Stashed changes
     padding: 30px;
     background-color: #113f87;
     color: white;
     text-align: center;
     font-size: 14px;
+<<<<<<< Updated upstream
   }
+=======
+}
+
+/* Loading indicator */
+.loading-indicator {
+    text-align: center;
+    padding: 40px;
+    color: #123865;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 200px;
+}
+
+.loading-indicator::after {
+    content: "";
+    width: 24px;
+    height: 24px;
+    border: 3px solid #123865;
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .nightwalker-slider {
+        grid-auto-columns: calc(100% - 40px);
+    }
+    
+    .nightwalker-search-box {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nightwalker-search-button {
+        width: 100%;
+    }
+    
+    .nightwalker-category-bar {
+        gap: 10px;
+    }
+    
+    .nightwalker-category-button {
+        width: 80px;
+        height: 80px;
+        font-size: 12px;
+    }
+
+    .category-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .error-message,
+    .no-results {
+        margin: 20px;
+        width: auto;
+    }
+}
+
+/* Add these new styles at the end of the file */
+
+.error-message {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #fee2e2;
+    color: #dc2626;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+    font-size: 16px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+/* Add error boundary styles */
+.error-boundary {
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    text-align: center;
+    background-color: #fee2e2;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.error-boundary h2 {
+    color: #dc2626;
+    margin-bottom: 1rem;
+}
+
+.error-boundary p {
+    color: #7f1d1d;
+}
+>>>>>>> Stashed changes
   

@@ -1,4 +1,5 @@
 // Login.jsx
+<<<<<<< Updated upstream
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AuthPages.css";
@@ -6,8 +7,16 @@ import "./AuthPages.css";
 function Login() {
   const navigate = useNavigate();
 
+=======
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./AuthPages.css";
+
+function Login() {
+  const navigate = useNavigate();
+>>>>>>> Stashed changes
   const [formData, setFormData] = useState({
-    username: "",
+    phone_number: "",
     password: "",
   });
   const [passwordError, setPasswordError] = useState("");
@@ -15,6 +24,20 @@ function Login() {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+<<<<<<< Updated upstream
+=======
+  useEffect(() => {
+    // Get CSRF token when component mounts
+    fetch("http://127.0.0.1:8000/api/accounts/csrf/", {
+      method: 'GET',
+      credentials: "include",
+    }).catch((err) => {
+      console.error("Error fetching CSRF token:", err);
+      setErrorMessage("Error connecting to server. Please try again.");
+    });
+  }, []);
+
+>>>>>>> Stashed changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "password") {
@@ -27,8 +50,15 @@ function Login() {
         setPasswordError("");
       }
       setFormData({ ...formData, password: pass });
+<<<<<<< Updated upstream
     } else {
       setFormData({ ...formData, [name]: value });
+=======
+    } else if (name === "phone_number") {
+      // Only allow numbers and limit to 11 digits
+      const phoneNumber = value.replace(/[^0-9]/g, '').slice(0, 11);
+      setFormData({ ...formData, phone_number: phoneNumber });
+>>>>>>> Stashed changes
     }
   };
 
@@ -43,16 +73,21 @@ function Login() {
   };
 
   const isFormValid =
-    formData.username.trim() !== "" &&
+    formData.phone_number.trim().length === 11 &&
     formData.password.trim() !== "" &&
     !passwordError;
 
+<<<<<<< Updated upstream
   const handleSubmit = (e) => {
+=======
+  const handleSubmit = async (e) => {
+>>>>>>> Stashed changes
     e.preventDefault();
     setButtonClicked(true);
     setErrorMessage("");
 
     if (isFormValid) {
+<<<<<<< Updated upstream
       console.log("Login form is valid. Submitting...");
       // نمونه درخواست به بک‌اند
       fetch("http://127.0.0.1:8000/api/accounts/login/", {
@@ -81,6 +116,43 @@ function Login() {
         });
     } else {
       console.log("Login form invalid.");
+=======
+      try {
+        console.log("Sending login request with data:", {
+          phone_number: formData.phone_number,
+          password: formData.password,
+        });
+        
+        const response = await fetch("http://127.0.0.1:8000/api/accounts/login/", {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json",
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            phone_number: formData.phone_number,
+            password: formData.password,
+          }),
+        });
+
+        const data = await response.json();
+        console.log("Response status:", response.status);
+        console.log("Response data:", data);
+
+        if (response.ok) {
+          localStorage.setItem('user', JSON.stringify(data.user));
+          if (data.token) {
+            localStorage.setItem('token', data.token);
+          }
+          navigate("/");
+        } else {
+          setErrorMessage(data.error || "Login failed. Please check your credentials.");
+        }
+      } catch (err) {
+        console.error("Login error:", err);
+        setErrorMessage("Network error. Please try again.");
+      }
+>>>>>>> Stashed changes
     }
   };
 
@@ -98,6 +170,7 @@ function Login() {
 
           <form onSubmit={handleSubmit}>
             <div className="login-input-group">
+<<<<<<< Updated upstream
               <img src="username.png" alt="User" className="input-icon" />
               <input
                 type="text"
@@ -106,6 +179,17 @@ function Login() {
                 value={formData.username}
                 onChange={handleChange}
                 className="input-field"
+=======
+              <img src="username.png" alt="Phone" className="input-icon" />
+              <input
+                type="tel"
+                name="phone_number"
+                placeholder="Phone Number (e.g. 09121234567)"
+                value={formData.phone_number}
+                onChange={handleChange}
+                className="input-field"
+                maxLength="11"
+>>>>>>> Stashed changes
               />
             </div>
 

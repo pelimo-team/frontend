@@ -2,15 +2,21 @@ import React, { useState, useRef, useEffect} from "react";
 import styles from "./HomePage.module.css";
 import Search from "./Search";
 import { useNavigate } from "react-router-dom";
+<<<<<<< Updated upstream
 import { useAuth } from "./AuthContext";
 
 
+=======
+>>>>>>> Stashed changes
 
 
 function HomePage() {
   const navigate = useNavigate();
+<<<<<<< Updated upstream
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+=======
+>>>>>>> Stashed changes
 
   // اسلایدر Hero
   const slides = [
@@ -67,12 +73,16 @@ function HomePage() {
   const [showSearch, setShowSearch] = useState(false);
   const searchBoxRef = useRef(null);
   const popupRef = useRef(null);
+<<<<<<< Updated upstream
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn");
     if (loggedIn === "true") {
       setIsLoggedIn(true);
     }
   }, []);
+=======
+
+>>>>>>> Stashed changes
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -106,12 +116,16 @@ function HomePage() {
   
     const visibleItems = bestOnesData.slice(startIndex, startIndex + 2);
   return (
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     <div className={styles["home-container"]}>
       {/* هدر */}
       <header className={styles["home-header"]}>
         {/* ستون 1: Login | Sign up */}
         <div className={styles["header-left"]}>
+<<<<<<< Updated upstream
   {isLoggedIn ? (
     <div className={styles["profile-container"]}>
       <button 
@@ -147,6 +161,12 @@ function HomePage() {
 </div>
 
 
+=======
+          <a href="/login" className={styles["login-link"]}>Login</a>
+          <span> | </span>
+          <a href="/signup" className={styles["signup-link"]}>Sign up</a>
+        </div>
+>>>>>>> Stashed changes
 
         {/* ستون 2: فیلد Address */}
         <div className={styles["address-search"]}>

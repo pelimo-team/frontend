@@ -54,6 +54,7 @@ body {
 .signup-link:hover {
   background: #fff;
 }
+<<<<<<< Updated upstream
 .homepage-profile  {
   background: none;
   border: none;
@@ -87,6 +88,8 @@ body {
 .dropdown-menu a:hover, .dropdown-menu button:hover {
   background: #f0f0f0;
 }
+=======
+>>>>>>> Stashed changes
 
 /* ستون 2: فیلد Address */
 .address-search {

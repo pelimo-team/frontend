@@ -1,12 +1,19 @@
+<<<<<<< Updated upstream
 import React, { useState } from "react";
 import "./UserProfile.css";
 import { useNavigate } from 'react-router-dom';
 
+=======
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import "./UserProfile.css";
+>>>>>>> Stashed changes
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const UserProfile = () => {
   const navigate = useNavigate();
+<<<<<<< Updated upstream
   const [formData, setFormData] = useState({
     fullName: "",
     nationalCode: "",
@@ -24,18 +31,163 @@ const UserProfile = () => {
 
   const handleSave = () => {
     console.log("Saved Data:", formData);
+=======
+  const fileInputRef = useRef(null);
+  const [formData, setFormData] = useState({
+    username: "",
+    national_code: "",
+    gender: "",
+    country: "",
+    phone: "",
+    birthday: "",
+    email: "",
+    profile_image: null
+  });
+  const [message, setMessage] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
+
+  // Load user data when component mounts
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+          const { phone_number } = JSON.parse(userData);
+          const response = await fetch(`http://127.0.0.1:8000/api/accounts/customer/${phone_number}/`, {
+            credentials: 'include'
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setFormData({
+              username: data.username || "",
+              national_code: data.national_code || "",
+              gender: data.gender || "",
+              country: data.country || "",
+              phone: phone_number || "",
+              birthday: data.birthday || "",
+              email: data.email || "",
+              profile_image: data.profile_image || null
+            });
+            if (data.profile_image) {
+              setImagePreview(`http://127.0.0.1:8000${data.profile_image}`);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Error loading user data:", error);
+        setMessage("Error loading user data");
+      }
+    };
+
+    loadUserData();
+  }, []);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    if (id === 'phone') {
+      // Only allow numbers and limit to 11 digits for phone
+      const phoneNumber = value.replace(/[^0-9]/g, '').slice(0, 11);
+      setFormData({ ...formData, phone: phoneNumber });
+    } else {
+      setFormData({ ...formData, [id]: value });
+    }
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({ ...formData, profile_image: file });
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleCancel = () => {
+    navigate('/');
+  };
+
+  const handleSave = async () => {
+    try {
+      const userData = localStorage.getItem('user');
+      if (!userData) {
+        setMessage("Please log in first");
+        return;
+      }
+
+      const { phone_number } = JSON.parse(userData);
+      
+      // Create FormData to handle file upload
+      const formDataToSend = new FormData();
+      formDataToSend.append('username', formData.username);
+      formDataToSend.append('national_code', formData.national_code);
+      formDataToSend.append('gender', formData.gender.toLowerCase());
+      formDataToSend.append('country', formData.country);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('birthday', formData.birthday);
+      formDataToSend.append('email', formData.email);
+      if (formData.profile_image instanceof File) {
+        formDataToSend.append('profile_image', formData.profile_image);
+      }
+
+      const response = await fetch(`http://127.0.0.1:8000/api/accounts/customer/update/${phone_number}/`, {
+        method: 'PUT',
+        credentials: 'include',
+        body: formDataToSend
+      });
+
+      if (response.ok) {
+        setMessage("Profile updated successfully!");
+        // Navigate to homepage after successful update
+        setTimeout(() => navigate('/'), 1000);
+      } else {
+        const errorData = await response.json();
+        setMessage(errorData.error || "Error updating profile");
+      }
+    } catch (error) {
+      console.error("Error saving profile:", error);
+      setMessage("Error saving profile");
+    }
+>>>>>>> Stashed changes
   };
 
   return (
     <div className="container-userprofile">
       <div className="profile-userprofile">
+<<<<<<< Updated upstream
         <div className="avatar-userprofile"></div>
         <div className="profile-info-userprofile">
           <h2>{formData.fullName || "Full Name"}</h2>
+=======
+        <div className="avatar-userprofile" onClick={handleImageClick}>
+          {imagePreview ? (
+            <img src={imagePreview} alt="Profile" className="profile-image" />
+          ) : (
+            <div className="avatar-placeholder">
+              <img src="public/coffee shop.png" alt="Default" />
+            </div>
+          )}
+          <div className="avatar-overlay">
+            <span>Change Photo</span>
+          </div>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            accept="image/*"
+            style={{ display: 'none' }}
+          />
+        </div>
+        <div className="profile-info-userprofile">
+          <h2>{formData.username || "Full Name"}</h2>
+>>>>>>> Stashed changes
           <p>{formData.email || "example@email.com"}</p>
         </div>
       </div>
 
+<<<<<<< Updated upstream
       <div className="form-grid-userprofile">
         <div className="form-group-userprofile">
           <div>
@@ -45,13 +197,31 @@ const UserProfile = () => {
           <div>
             <label htmlFor="nationalCode">National Code</label><br></br>
             <input type="text" id="nationalCode" value={formData.nationalCode} onChange={handleChange} placeholder="e.g. 0123456789" />
+=======
+      {message && <div className={`message ${message.includes("Error") ? "error" : "success"}`}>{message}</div>}
+
+      <div className="form-grid-userprofile">
+        <div className="form-group-userprofile">
+          <div>
+            <label htmlFor="username">Full Name</label><br></br>
+            <input type="text" id="username" value={formData.username} onChange={handleChange} placeholder="Enter your name" />
+          </div>
+          <div>
+            <label htmlFor="national_code">National Code</label><br></br>
+            <input type="text" id="national_code" value={formData.national_code} onChange={handleChange} placeholder="e.g. 0123456789" />
+>>>>>>> Stashed changes
           </div>
           <div>
             <label htmlFor="gender">Gender</label><br></br>
             <select id="gender" value={formData.gender} onChange={handleChange}>
               <option value="">Select gender</option>
+<<<<<<< Updated upstream
               <option>Female</option>
               <option>Male</option>
+=======
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+>>>>>>> Stashed changes
             </select>
           </div>
         </div>
@@ -60,19 +230,41 @@ const UserProfile = () => {
             <label htmlFor="country">Country</label><br></br>
             <select id="country" value={formData.country} onChange={handleChange}>
               <option value="">Select country</option>
+<<<<<<< Updated upstream
               <option>America</option>
               <option>Canada</option>
               <option>UK</option>
               <option>Iran</option>
+=======
+              <option value="Iran">Iran</option>
+              <option value="America">America</option>
+              <option value="Canada">Canada</option>
+              <option value="UK">UK</option>
+>>>>>>> Stashed changes
             </select>
           </div>
           <div>
             <label htmlFor="phone">Phone</label><br></br>
+<<<<<<< Updated upstream
             <input type="text" id="phone" value={formData.phone} onChange={handleChange} placeholder="e.g. 09123456789" />
           </div>
           <div>
             <label htmlFor="birthDate">Birth Day</label><br></br>
             <input type="date" id="birthDate" value={formData.birthDate} onChange={handleChange} />
+=======
+            <input 
+              type="tel"
+              id="phone" 
+              value={formData.phone} 
+              onChange={handleChange} 
+              placeholder="e.g. 09123456789"
+              maxLength="11"
+            />
+          </div>
+          <div>
+            <label htmlFor="birthday">Birth Day</label><br></br>
+            <input type="date" id="birthday" value={formData.birthday} onChange={handleChange} />
+>>>>>>> Stashed changes
           </div>
         </div>
       </div>
@@ -84,8 +276,13 @@ const UserProfile = () => {
             <img src="public/email.svg" alt="email icon" style={{ width: "25px", height: "25px", marginRight: "10px" }} />
           </span>
           <div className="email-information-userprofile">
+<<<<<<< Updated upstream
             <p style={{ marginTop: "10px" }}>{formData.email || "example@email.com"}</p>
             <p style={{ fontSize: "small", color: "gray" }}>1 month ago</p>
+=======
+            <p style={{ marginTop: "10px" }}>{formData.email || "No email added yet"}</p>
+            <p style={{ fontSize: "small", color: "gray" }}>Primary Email</p>
+>>>>>>> Stashed changes
           </div>
         </div>
         <button className="btn-userprofile btn-addemail-userprofile" style={{ marginTop: "10px", backgroundColor: "#e0eaff" }}>
@@ -94,7 +291,11 @@ const UserProfile = () => {
       </div>
 
       <div className="actions-userprofile">
+<<<<<<< Updated upstream
         <button className="btn-userprofile btn-cancel-userprofile" onClick={() => navigate("/")}>Cancel</button>
+=======
+        <button className="btn-userprofile btn-cancel-userprofile" onClick={handleCancel}>Cancel</button>
+>>>>>>> Stashed changes
         <button className="btn-userprofile btn-save-userprofile" onClick={handleSave}>Save</button>
       </div>
     </div>
