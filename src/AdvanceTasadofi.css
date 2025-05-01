@@ -61,20 +61,13 @@
     background-image: url("/tasadofi-background.png");
     background-size: cover;
     background-position: center;
-<<<<<<< Updated upstream
-    height: 620px;
-=======
     min-height: 620px;
->>>>>>> Stashed changes
     position: relative;
     display: flex;
     
     align-items: center;
     flex-direction: column;
-<<<<<<< Updated upstream
-=======
     padding-bottom: 40px;
->>>>>>> Stashed changes
   }
   
   .tasadofi-emoji {
@@ -296,8 +289,6 @@
   .tasadofi-footer-column li:hover {
     color: #0d0a01;
   }
-<<<<<<< Updated upstream
-=======
   
 .tasadofi-container {
   min-height: 100vh;
@@ -490,5 +481,4 @@
   font-size: 1.2rem;
   padding: 0 15px 15px;
 }
->>>>>>> Stashed changes
   

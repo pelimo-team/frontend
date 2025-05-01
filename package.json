@@ -11,10 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.12",
-<<<<<<< Updated upstream
-=======
     "axios": "^1.8.4",
->>>>>>> Stashed changes
     "bootstrap": "^5.3.5",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",

@@ -54,42 +54,6 @@ body {
 .signup-link:hover {
   background: #fff;
 }
-<<<<<<< Updated upstream
-.homepage-profile  {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 94px;
-  right: 95%;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  z-index: 100;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
-.dropdown-menu a, .dropdown-menu button {
-  background: none;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  text-align: right;
-  width: 100%;
-}
-
-.dropdown-menu a:hover, .dropdown-menu button:hover {
-  background: #f0f0f0;
-}
-=======
->>>>>>> Stashed changes
 
 /* ستون 2: فیلد Address */
 .address-search {

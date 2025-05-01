@@ -13,11 +13,7 @@ body {
 
 .restaurant-header {
   height: 80px;
-<<<<<<< Updated upstream
-  background-color: #FFFFFF;
-=======
   background-color: #945436;
->>>>>>> Stashed changes
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,15 +23,6 @@ body {
 }
 
 .restaurant-logocenter {
-<<<<<<< Updated upstream
-  height: 73px;
-  object-fit: contain;
-}
-
-.restaurant-useravatar{
-  width: 53px;
-  height: 53px;
-=======
   height: 50px;
   object-fit: contain;
 }
@@ -43,18 +30,13 @@ body {
 .restaurant-useravatar {
   width: 36px;
   height: 36px;
->>>>>>> Stashed changes
   border-radius: 50%;
   object-fit: cover;
 }
 
 .restaurant-username {
   font-size: 10px;
-<<<<<<< Updated upstream
-  color: #945436;
-=======
   color: white;
->>>>>>> Stashed changes
 }
 
 .restaurant-userinfo {
@@ -64,8 +46,6 @@ body {
   align-items: center;
 }
 
-<<<<<<< Updated upstream
-=======
 /* Added style for cart button within user info */
 .restaurant-userinfo .cart-icon-restaurant {
   background: none;
@@ -91,7 +71,6 @@ body {
   font-weight: bold;
 }
 
->>>>>>> Stashed changes
 .restaurant-menuicon {
   cursor: pointer;
   display: flex;
@@ -99,18 +78,11 @@ body {
   justify-content: center;
 }
 
-<<<<<<< Updated upstream
-.restaurant-menuicon svg {
-  width: 24px;
-  height: 24px;
-  fill: white;
-=======
 /* Style for the back button image */
 .restaurant-menuicon img {
   width: 24px; /* Adjust size as needed */
   height: 24px;
   filter: brightness(0) invert(1); /* Make icon white */
->>>>>>> Stashed changes
 }
 
 .restaurant-banner {
@@ -118,10 +90,7 @@ body {
   text-align: center;
   padding: 20px;
   width: 100%;
-<<<<<<< Updated upstream
-=======
   box-sizing: border-box; /* Include padding in width */
->>>>>>> Stashed changes
 }
 
 .restaurant-image {
@@ -129,17 +98,10 @@ body {
   height: auto;
   max-height: 550px;
   object-fit: cover;
-<<<<<<< Updated upstream
-}
-
-
-
-=======
   display: block; /* Prevent extra space below image */
   margin: 0 auto; /* Center image if banner is wider */
 }
 
->>>>>>> Stashed changes
 .restaurant-infosection {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
@@ -147,19 +109,6 @@ body {
   background: #f9f9f9;
   width: 100%;
   display: flex;
-<<<<<<< Updated upstream
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.restaurant-rating {
-  font-size: 20px;
-  color: #000;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-=======
   flex-direction: row-reverse; /* Keep elements right-aligned */
   justify-content: space-between;
   align-items: center;
@@ -172,15 +121,12 @@ body {
   display: flex;
   align-items: center;
   gap: 4px;
->>>>>>> Stashed changes
 }
 
 .restaurant-infotext {
   text-align: right;
 }
 
-<<<<<<< Updated upstream
-=======
 /* Added specific styling for name/location */
 .restaurant-infotext .fs-5 {
    font-size: 1.1rem; /* Adjust as needed */
@@ -193,7 +139,6 @@ body {
    margin-top: 5px;
 }
 
->>>>>>> Stashed changes
 .restaurant-tabs {
   display: flex;
   border-top: 1px solid #ccc;
@@ -207,8 +152,6 @@ body {
   background: #eee;
   cursor: pointer;
   font-weight: bold;
-<<<<<<< Updated upstream
-=======
   border-radius: 0; /* Remove border-radius */
   margin: 0; /* Remove margin */
   box-shadow: none; /* Remove inset shadow */
@@ -218,100 +161,10 @@ body {
 
 .restaurant-tab:hover {
   background-color: #e5e5e5;
->>>>>>> Stashed changes
 }
 
 .restaurant-tab.active {
   background-color: #fff;
-<<<<<<< Updated upstream
-  border-bottom: 2px solid #945436;
-}
-
-.menu-container {
-  width: 100%;
-}
-
-.menu-categories {
-  background: #eee;
-  flex-wrap: wrap;
-  width: 100%;
-  font-size: 14px;
-}
-
-.menu-category {
-  background: #fdfdfd;
-  border-bottom: 1px solid #ddd;
-  width: 100%;
-}
-
-.menu-item-img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.menu-item {
-  padding: 10px;
-  font-size: 14px;
-}
-
-.menu-section-title {
-  font-weight: bold;
-  margin-bottom: 20px;
-  font-size: 18px;
-}
-
-.restaurant-commentssection {
-  
-  width: 100%;
-  padding-left: 10%;
-  padding-right: 10%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.progress {
-  background-color: #e0e0e0;
-}
-
-.progress-bar {
-  background-color: #ffc107;
-}
-
-textarea:focus, input:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(148, 84, 54, 0.2);
-}
-
-.btn-primary {
-  background-color: #945436;
-  border: none;
-}
-
-.btn-outline-primary {
-  border-color: #945436;
-  color: #945436;
-}
-
-.btn-outline-primary:hover {
-  background-color: #945436;
-  color: white;
-}
-
-.border-start {
-  border-left: 4px solid #ccc !important;
-}
-
-/* ریسپانسیو */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    height: auto;
-    padding: 10px;
-  }
-
-=======
   color: #945436;
   border-bottom-color: #945436; /* Use border instead of shadow */
 }
@@ -341,19 +194,10 @@ textarea:focus, input:focus {
      flex-direction: row; /* Align items horizontally */
      gap: 8px;
   }
->>>>>>> Stashed changes
   .restaurant-useravatar {
     width: 32px;
     height: 32px;
   }
-<<<<<<< Updated upstream
-
-  .restaurant-username {
-    font-size: 10px;
-  }
-
-  .menu-icon svg {
-=======
   .restaurant-username {
     font-size: 10px;
   }
@@ -362,7 +206,6 @@ textarea:focus, input:focus {
     height: 20px;
   }
    .restaurant-userinfo .cart-icon-restaurant img {
->>>>>>> Stashed changes
     width: 20px;
     height: 20px;
   }
@@ -371,17 +214,6 @@ textarea:focus, input:focus {
     max-height: 250px;
   }
 
-<<<<<<< Updated upstream
-  .restaurant-backbutton {
-    width: 90%;
-    text-align: center;
-  }
-
-  .restaurant-infosection {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
-=======
   .restaurant-infosection {
     /* Stack vertically on small screens */
     flex-direction: column-reverse; 
@@ -391,30 +223,10 @@ textarea:focus, input:focus {
   }
    .restaurant-rating {
      align-self: flex-end; /* Keep rating aligned right */
->>>>>>> Stashed changes
   }
 
   .restaurant-tabs .restaurant-tab {
     font-size: 14px;
-<<<<<<< Updated upstream
-    padding: 10px;
-  }
-
-  .menu-item-img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .menu-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .progress {
-    height: 6px;
-  }
-=======
     padding: 12px 5px; /* Adjust padding */
   }
 
@@ -422,5 +234,4 @@ textarea:focus, input:focus {
     padding: 15px; /* Reduce padding on small screens */
   }
   
->>>>>>> Stashed changes
 }

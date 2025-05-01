@@ -21,12 +21,6 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-<<<<<<< Updated upstream
-    background-color: #333;
-    background-image: url('public/coffee shop.png'); /* یا آدرس تصویر پروفایل */
-    background-size: cover;
-    background-position: center;
-=======
     position: relative;
     cursor: pointer;
     overflow: hidden;
@@ -77,7 +71,6 @@
   
   .avatar-userprofile:hover .avatar-overlay {
     opacity: 1;
->>>>>>> Stashed changes
   }
   
   .profile-info-userprofile h2 {
@@ -204,8 +197,6 @@
     display: flex;
     justify-content: flex-end;
   }
-<<<<<<< Updated upstream
-=======
   
   .message {
     padding: 10px;
@@ -225,5 +216,4 @@
     color: #cc0000;
     border: 1px solid #ff0000;
   }
->>>>>>> Stashed changes
   

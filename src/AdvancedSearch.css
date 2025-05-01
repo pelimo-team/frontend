@@ -80,12 +80,6 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
-<<<<<<< Updated upstream
-    min-height: 60px;
-    width: 100%;
-    
-=======
->>>>>>> Stashed changes
   }
   
   .search-bar-advanced-search input {
@@ -93,23 +87,13 @@
     padding: 0.5rem;
     border: none;
     outline: none;
-<<<<<<< Updated upstream
-    font-size: 2rem;
-    min-height: 60px;
-    width: 100%;
-=======
     font-size: 1rem;
->>>>>>> Stashed changes
   }
   
   .close-btn-advanced-search {
     padding: 0.5rem;
     border: none;
-<<<<<<< Updated upstream
-    background: none;
-=======
     background: #eee;
->>>>>>> Stashed changes
     cursor: pointer;
   }
   
@@ -117,48 +101,6 @@
   .category-tabs-container-advanced-search {
     position: relative;
     margin-top: 1rem;
-<<<<<<< Updated upstream
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    
-}
-
-  
-.category-tabs-advanced-search {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  gap: 1rem;
-}
-  
-.category-tab-advanced-search {
-  background: white;
-  border: none;
-  font-size: 2rem;
-  padding: 0.5rem 2rem;
-  cursor: pointer;
-  color: #333;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
-  flex: 1 1 auto;
-  min-width: 150px;
-  text-align: center;
-}
-.category-tab-advanced-search:hover {
-  background-color: #f5f5f5;
-  transform: translateY(-2px);
-}
-  
-.category-tab-advanced-search.active-advanced-search {
-  font-weight: bold;
-  color: #a65c41; /* قهوه‌ای */
-  background-color: #ffe9e3; /* یک بک‌گراند لطیف */
-}
-=======
     overflow-x: auto;
     white-space: nowrap;
   }
@@ -185,7 +127,6 @@
     font-weight: bold;
     color: #a65c41; /* رنگ قهوه‌ای */
   }
->>>>>>> Stashed changes
   
   .underline-advanced-search {
     position: absolute;
@@ -197,29 +138,6 @@
   
   /* --- فیلترها --- */
   .filters-advanced-search {
-<<<<<<< Updated upstream
-    position: relative;
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .filter-button-advanced-search {
-    background: white;
-    border: none;
-    font-size: 1rem;
-    padding: 0.5rem 2rem;
-    cursor: pointer;
-    color: #333;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
-    flex: 1 1 1;
-    min-width: 150px;
-    text-align: center;
-=======
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -238,7 +156,6 @@
     gap: 0.5rem;
     transition: all 0.3s ease;
     color: #333;
->>>>>>> Stashed changes
   }
   
   .filter-button-advanced-search.active-filter-advanced-search {
@@ -392,8 +309,6 @@
     font-weight: bold;
     color: #a65c41;
   }
-<<<<<<< Updated upstream
-=======
   
   .shop-image-container {
     width: 100%;
@@ -541,5 +456,4 @@
     border-radius: 4px;
     font-size: 0.8rem;
   }
->>>>>>> Stashed changes
   

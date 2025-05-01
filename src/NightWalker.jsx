@@ -1,30 +1,3 @@
-<<<<<<< Updated upstream
-import React from 'react';
-import './NightWalker.css';
-
-const categories = [
-  { icon: '🍬', label: 'Confectionary' },
-  { icon: '🍦', label: 'Juice & Ice Cream' },
-  { icon: '🍎', label: 'Fruit' },
-  { icon: '☕', label: 'Coffee Shop' },
-  { icon: '🍽️', label: 'Restaurant' },
-  { icon: '🍔', label: 'Fast Food' },
-];
-
-const Card = ({ title }) => (
-  <div className="nightwalker-card">
-    <div className="nightwalker-image">{title} image</div>
-    <div className="nightwalker-info">
-      <p><strong>name</strong></p>
-      <p>description</p>
-      <p>extra info</p>
-      <div className="nightwalker-stars">⭐⭐⭐⭐⭐</div>
-    </div>
-  </div>
-);
-
-const NightWalker = () => {
-=======
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NightWalker.css';
@@ -168,21 +141,11 @@ const NightWalker = () => {
     return <div className="error-message">{error}</div>;
   }
 
->>>>>>> Stashed changes
   return (
     <div className="nightwalker-container">
       <section className="nightwalker-hero-section">
         <header className="nightwalker-hero-header">
           <div className="nightwalker-profile-icon">
-<<<<<<< Updated upstream
-            <img src='public/profile.png' alt='profile' style={{width:"50px", marginBottom:"30px"}}/>
-          </div>
-          <div className="nightwalker-logo">
-            <img src='public/white-logo.png' alt='logo' style={{width:"4cm", marginLeft:"20px"}}/>
-          </div>
-          <div className="nightwalker-menu-icon">
-            <img src='public/menubar.png' alt='menu' style={{width:"50px", marginBottom:"30px"}}/>
-=======
             <img src='/profile.png' alt='profile' style={{width:"50px", marginBottom:"30px"}}/>
           </div>
           <div className="nightwalker-logo">
@@ -190,30 +153,11 @@ const NightWalker = () => {
           </div>
           <div className="nightwalker-menu-icon">
             <img src='/menubar.png' alt='menu' style={{width:"50px", marginBottom:"30px"}}/>
->>>>>>> Stashed changes
           </div>
         </header>
 
         <div className="nightwalker-centered-content">
           <div className="nightwalker-search-box">
-<<<<<<< Updated upstream
-            <img src='public/magnifying-glass-solid.svg' alt='search' style={{width:"20px"}}
-                 className='nightwalker-search-icon'/>
-            <input className="nightwalker-search-input" type="text" placeholder="Search" />
-          </div>
-
-          <div className="nightwalker-dropdown-wrapper">
-            <select>
-              <option>Choosing address</option>
-              <option>Address 1</option>
-              <option>Address 2</option>
-            </select>
-            <select>
-              <option>Choosing time</option>
-              <option>21:00-22:00</option>
-              <option>22:00-23:00</option>
-            </select>
-=======
             <img src='/magnifying-glass-solid.svg' alt='search' style={{width:"20px"}}
                  className='nightwalker-search-icon'/>
             <input 
@@ -227,17 +171,12 @@ const NightWalker = () => {
             <button className="nightwalker-search-button" onClick={handleSearch}>
               Search
             </button>
->>>>>>> Stashed changes
           </div>
         </div>
       </section>
 
       <div className="nightwalker-category-bar-wrapper">
         <div className="nightwalker-category-bar">
-<<<<<<< Updated upstream
-          {categories.map((cat, index) => (
-            <button key={index} className="nightwalker-category-button">{cat.icon}<br />{cat.label}</button>
-=======
           {Array.isArray(restaurantTypes) && restaurantTypes.map((type) => (
             <button 
               key={type.id} 
@@ -248,28 +187,11 @@ const NightWalker = () => {
               <br />
               {type.name}
             </button>
->>>>>>> Stashed changes
           ))}
         </div>
       </div>
 
       <main className="nightwalker-slider-section">
-<<<<<<< Updated upstream
-        <h2>The Best Restaurant</h2>
-        <div className="nightwalker-slider">
-          {[1, 2, 3, 4, 5].map((i) => <Card key={i} title="Restaurant" />)}
-        </div>
-
-        <h2>The Best Food</h2>
-        <div className="nightwalker-slider">
-          {[1, 2, 3, 4, 5].map((i) => <Card key={i} title="Food" />)}
-        </div>
-
-        <h2>Games</h2>
-        <div className="nightwalker-slider">
-          {[1, 2, 3, 4, 5].map((i) => <Card key={i} title="Game" />)}
-        </div>
-=======
         {loading ? (
           <div className="loading-indicator">Searching...</div>
         ) : error ? (
@@ -302,7 +224,6 @@ const NightWalker = () => {
             </div>
           </>
         )}
->>>>>>> Stashed changes
       </main>
 
       <footer className="nightwalker-footer">
@@ -314,9 +235,6 @@ const NightWalker = () => {
   );
 };
 
-<<<<<<< Updated upstream
-export default NightWalker;
-=======
 const NightWalkerWithErrorBoundary = () => (
   <ErrorBoundary>
     <NightWalker />
@@ -324,4 +242,3 @@ const NightWalkerWithErrorBoundary = () => (
 );
 
 export default NightWalkerWithErrorBoundary;
->>>>>>> Stashed changes

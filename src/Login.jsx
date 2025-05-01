@@ -1,20 +1,10 @@
 // Login.jsx
-<<<<<<< Updated upstream
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./AuthPages.css";
-
-function Login() {
-  const navigate = useNavigate();
-
-=======
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AuthPages.css";
 
 function Login() {
   const navigate = useNavigate();
->>>>>>> Stashed changes
   const [formData, setFormData] = useState({
     phone_number: "",
     password: "",
@@ -24,8 +14,6 @@ function Login() {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-<<<<<<< Updated upstream
-=======
   useEffect(() => {
     // Get CSRF token when component mounts
     fetch("http://127.0.0.1:8000/api/accounts/csrf/", {
@@ -37,7 +25,6 @@ function Login() {
     });
   }, []);
 
->>>>>>> Stashed changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "password") {
@@ -50,15 +37,10 @@ function Login() {
         setPasswordError("");
       }
       setFormData({ ...formData, password: pass });
-<<<<<<< Updated upstream
-    } else {
-      setFormData({ ...formData, [name]: value });
-=======
     } else if (name === "phone_number") {
       // Only allow numbers and limit to 11 digits
       const phoneNumber = value.replace(/[^0-9]/g, '').slice(0, 11);
       setFormData({ ...formData, phone_number: phoneNumber });
->>>>>>> Stashed changes
     }
   };
 
@@ -77,46 +59,12 @@ function Login() {
     formData.password.trim() !== "" &&
     !passwordError;
 
-<<<<<<< Updated upstream
-  const handleSubmit = (e) => {
-=======
   const handleSubmit = async (e) => {
->>>>>>> Stashed changes
     e.preventDefault();
     setButtonClicked(true);
     setErrorMessage("");
 
     if (isFormValid) {
-<<<<<<< Updated upstream
-      console.log("Login form is valid. Submitting...");
-      // نمونه درخواست به بک‌اند
-      fetch("http://127.0.0.1:8000/api/accounts/login/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: formData.username,
-          password: formData.password,
-        }),
-      })
-        .then((res) =>
-          res.json().then((data) => ({ status: res.status, data }))
-        )
-        .then(({ status, data }) => {
-          if (status === 200) {
-            localStorage.setItem("isLoggedIn", "true");
-            navigate("/");
-        }
-         else {
-            setErrorMessage(data.error || "Invalid credentials");
-          }
-        })
-        .catch((err) => {
-          setErrorMessage("Something went wrong.");
-          console.error(err);
-        });
-    } else {
-      console.log("Login form invalid.");
-=======
       try {
         console.log("Sending login request with data:", {
           phone_number: formData.phone_number,
@@ -152,7 +100,6 @@ function Login() {
         console.error("Login error:", err);
         setErrorMessage("Network error. Please try again.");
       }
->>>>>>> Stashed changes
     }
   };
 
@@ -170,16 +117,6 @@ function Login() {
 
           <form onSubmit={handleSubmit}>
             <div className="login-input-group">
-<<<<<<< Updated upstream
-              <img src="username.png" alt="User" className="input-icon" />
-              <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={formData.username}
-                onChange={handleChange}
-                className="input-field"
-=======
               <img src="username.png" alt="Phone" className="input-icon" />
               <input
                 type="tel"
@@ -189,7 +126,6 @@ function Login() {
                 onChange={handleChange}
                 className="input-field"
                 maxLength="11"
->>>>>>> Stashed changes
               />
             </div>
 

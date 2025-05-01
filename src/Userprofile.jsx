@@ -1,37 +1,11 @@
-<<<<<<< Updated upstream
-import React, { useState } from "react";
-import "./UserProfile.css";
-import { useNavigate } from 'react-router-dom';
-
-=======
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserProfile.css";
->>>>>>> Stashed changes
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const UserProfile = () => {
   const navigate = useNavigate();
-<<<<<<< Updated upstream
-  const [formData, setFormData] = useState({
-    fullName: "",
-    nationalCode: "",
-    gender: "",
-    country: "",
-    phone: "",
-    birthDate: "",
-    email: ""
-  });
-
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
-  };
-
-  const handleSave = () => {
-    console.log("Saved Data:", formData);
-=======
   const fileInputRef = useRef(null);
   const [formData, setFormData] = useState({
     username: "",
@@ -150,17 +124,11 @@ const UserProfile = () => {
       console.error("Error saving profile:", error);
       setMessage("Error saving profile");
     }
->>>>>>> Stashed changes
   };
 
   return (
     <div className="container-userprofile">
       <div className="profile-userprofile">
-<<<<<<< Updated upstream
-        <div className="avatar-userprofile"></div>
-        <div className="profile-info-userprofile">
-          <h2>{formData.fullName || "Full Name"}</h2>
-=======
         <div className="avatar-userprofile" onClick={handleImageClick}>
           {imagePreview ? (
             <img src={imagePreview} alt="Profile" className="profile-image" />
@@ -182,22 +150,10 @@ const UserProfile = () => {
         </div>
         <div className="profile-info-userprofile">
           <h2>{formData.username || "Full Name"}</h2>
->>>>>>> Stashed changes
           <p>{formData.email || "example@email.com"}</p>
         </div>
       </div>
 
-<<<<<<< Updated upstream
-      <div className="form-grid-userprofile">
-        <div className="form-group-userprofile">
-          <div>
-            <label htmlFor="fullName">Full Name</label><br></br>
-            <input type="text" id="fullName" value={formData.fullName} onChange={handleChange} placeholder="Enter your name" />
-          </div>
-          <div>
-            <label htmlFor="nationalCode">National Code</label><br></br>
-            <input type="text" id="nationalCode" value={formData.nationalCode} onChange={handleChange} placeholder="e.g. 0123456789" />
-=======
       {message && <div className={`message ${message.includes("Error") ? "error" : "success"}`}>{message}</div>}
 
       <div className="form-grid-userprofile">
@@ -209,19 +165,13 @@ const UserProfile = () => {
           <div>
             <label htmlFor="national_code">National Code</label><br></br>
             <input type="text" id="national_code" value={formData.national_code} onChange={handleChange} placeholder="e.g. 0123456789" />
->>>>>>> Stashed changes
           </div>
           <div>
             <label htmlFor="gender">Gender</label><br></br>
             <select id="gender" value={formData.gender} onChange={handleChange}>
               <option value="">Select gender</option>
-<<<<<<< Updated upstream
-              <option>Female</option>
-              <option>Male</option>
-=======
               <option value="female">Female</option>
               <option value="male">Male</option>
->>>>>>> Stashed changes
             </select>
           </div>
         </div>
@@ -230,28 +180,14 @@ const UserProfile = () => {
             <label htmlFor="country">Country</label><br></br>
             <select id="country" value={formData.country} onChange={handleChange}>
               <option value="">Select country</option>
-<<<<<<< Updated upstream
-              <option>America</option>
-              <option>Canada</option>
-              <option>UK</option>
-              <option>Iran</option>
-=======
               <option value="Iran">Iran</option>
               <option value="America">America</option>
               <option value="Canada">Canada</option>
               <option value="UK">UK</option>
->>>>>>> Stashed changes
             </select>
           </div>
           <div>
             <label htmlFor="phone">Phone</label><br></br>
-<<<<<<< Updated upstream
-            <input type="text" id="phone" value={formData.phone} onChange={handleChange} placeholder="e.g. 09123456789" />
-          </div>
-          <div>
-            <label htmlFor="birthDate">Birth Day</label><br></br>
-            <input type="date" id="birthDate" value={formData.birthDate} onChange={handleChange} />
-=======
             <input 
               type="tel"
               id="phone" 
@@ -264,7 +200,6 @@ const UserProfile = () => {
           <div>
             <label htmlFor="birthday">Birth Day</label><br></br>
             <input type="date" id="birthday" value={formData.birthday} onChange={handleChange} />
->>>>>>> Stashed changes
           </div>
         </div>
       </div>
@@ -276,13 +211,8 @@ const UserProfile = () => {
             <img src="public/email.svg" alt="email icon" style={{ width: "25px", height: "25px", marginRight: "10px" }} />
           </span>
           <div className="email-information-userprofile">
-<<<<<<< Updated upstream
-            <p style={{ marginTop: "10px" }}>{formData.email || "example@email.com"}</p>
-            <p style={{ fontSize: "small", color: "gray" }}>1 month ago</p>
-=======
             <p style={{ marginTop: "10px" }}>{formData.email || "No email added yet"}</p>
             <p style={{ fontSize: "small", color: "gray" }}>Primary Email</p>
->>>>>>> Stashed changes
           </div>
         </div>
         <button className="btn-userprofile btn-addemail-userprofile" style={{ marginTop: "10px", backgroundColor: "#e0eaff" }}>
@@ -291,11 +221,7 @@ const UserProfile = () => {
       </div>
 
       <div className="actions-userprofile">
-<<<<<<< Updated upstream
-        <button className="btn-userprofile btn-cancel-userprofile" onClick={() => navigate("/")}>Cancel</button>
-=======
         <button className="btn-userprofile btn-cancel-userprofile" onClick={handleCancel}>Cancel</button>
->>>>>>> Stashed changes
         <button className="btn-userprofile btn-save-userprofile" onClick={handleSave}>Save</button>
       </div>
     </div>
