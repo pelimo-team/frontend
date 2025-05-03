@@ -8,7 +8,7 @@ import SetNewPassword from "./SetNewPassword"; // فایل صفحه تعیین �
 import EnterCodeSignup from "./EnterCodeSignup";
 import AddComment from "./AddComment";
 import Userprofile from "./Userprofile";
-import Search from "../comp/Search";
+import Search from "./Search";
 import AdvancedSearch from "./AdvancedSearch";
 import NightWalker from "./NightWalker";
 import Restaurant from "./Restaurant";

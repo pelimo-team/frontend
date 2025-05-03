@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "../HomePage.module.css";
 import { useNavigate } from "react-router-dom";
-import Search from "../comp/Search";
+import Search from "./Search";
 
 interface Slide {
   title1?: string;
