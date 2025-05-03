@@ -1,23 +1,28 @@
 // Login.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import "./AuthPages.css";
+import "../AuthPages.css";
+
+interface FormData {
+  phone_number: string;
+  password: string;
+}
 
 function Login() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     phone_number: "",
     password: "",
   });
-  const [passwordError, setPasswordError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [buttonClicked, setButtonClicked] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [buttonClicked, setButtonClicked] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     // Get CSRF token when component mounts
     fetch("http://127.0.0.1:8000/api/accounts/csrf/", {
-      method: 'GET',
+      method: "GET",
       credentials: "include",
     }).catch((err) => {
       console.error("Error fetching CSRF token:", err);
@@ -25,32 +30,34 @@ function Login() {
     });
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "password") {
       let pass = value.replace(/[آ-ی]/g, "");
       if (pass.length < 8) {
         setPasswordError("Password must be at least 8 characters");
       } else if (!isPasswordValid(pass)) {
-        setPasswordError("Password must contain at least two special characters");
+        setPasswordError(
+          "Password must contain at least two special characters"
+        );
       } else {
         setPasswordError("");
       }
       setFormData({ ...formData, password: pass });
     } else if (name === "phone_number") {
       // Only allow numbers and limit to 11 digits
-      const phoneNumber = value.replace(/[^0-9]/g, '').slice(0, 11);
+      const phoneNumber = value.replace(/[^0-9]/g, "").slice(0, 11);
       setFormData({ ...formData, phone_number: phoneNumber });
     }
   };
 
-  const isPasswordValid = (password) => {
+  const isPasswordValid = (password: string): boolean => {
     const re = /[!@#$%^&*(),.?":{}|<>]/g;
     const matches = password.match(re);
-    return matches && matches.length >= 2;
+    return matches ? matches.length >= 2 : false;
   };
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (): void => {
     setShowPassword(!showPassword);
   };
 
@@ -59,7 +66,7 @@ function Login() {
     formData.password.trim() !== "" &&
     !passwordError;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setButtonClicked(true);
     setErrorMessage("");
@@ -70,31 +77,36 @@ function Login() {
           phone_number: formData.phone_number,
           password: formData.password,
         });
-        
-        const response = await fetch("http://127.0.0.1:8000/api/accounts/login/", {
-          method: "POST",
-          headers: { 
-            "Content-Type": "application/json",
-          },
-          credentials: 'include',
-          body: JSON.stringify({
-            phone_number: formData.phone_number,
-            password: formData.password,
-          }),
-        });
+
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/accounts/login/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({
+              phone_number: formData.phone_number,
+              password: formData.password,
+            }),
+          }
+        );
 
         const data = await response.json();
         console.log("Response status:", response.status);
         console.log("Response data:", data);
 
         if (response.ok) {
-          localStorage.setItem('user', JSON.stringify(data.user));
+          localStorage.setItem("user", JSON.stringify(data.user));
           if (data.token) {
-            localStorage.setItem('token', data.token);
+            localStorage.setItem("token", data.token);
           }
           navigate("/");
         } else {
-          setErrorMessage(data.error || "Login failed. Please check your credentials.");
+          setErrorMessage(
+            data.error || "Login failed. Please check your credentials."
+          );
         }
       } catch (err) {
         console.error("Login error:", err);
@@ -125,7 +137,7 @@ function Login() {
                 value={formData.phone_number}
                 onChange={handleChange}
                 className="input-field"
-                maxLength="11"
+                maxLength={11}
               />
             </div>
 
@@ -146,7 +158,9 @@ function Login() {
                 onClick={togglePasswordVisibility}
               />
             </div>
-            {passwordError && <small className="login-error">{passwordError}</small>}
+            {passwordError && (
+              <small className="login-error">{passwordError}</small>
+            )}
             {errorMessage && <div className="login-error">{errorMessage}</div>}
 
             <div className="login-extra" style={{ marginTop: "10px" }}>
@@ -155,7 +169,9 @@ function Login() {
 
             <button
               type="submit"
-              className={`login-btn ${buttonClicked && !isFormValid ? "login-btn-disabled" : ""}`}
+              className={`login-btn ${
+                buttonClicked && !isFormValid ? "login-btn-disabled" : ""
+              }`}
               disabled={buttonClicked && !isFormValid}
             >
               Login

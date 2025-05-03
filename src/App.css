@@ -1,3 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your custom styles below */
+
 :root {
   --bg-color: #F4F1EB;
   --box-color: #F4F1EB;

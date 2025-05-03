@@ -1,20 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
+
+interface City {
+  id: number;
+  name: string;
+  province: string;
+}
+
+type SearchMode = "normal" | "advanced";
 
 function CitySearch() {
   // برای انتخاب حالت جست‌وجو (Normal یا Advanced)
-  const [searchMode, setSearchMode] = useState("normal"); // یا "advanced"
+  const [searchMode, setSearchMode] = useState<SearchMode>("normal");
 
   // فیلدهای جست‌وجو
-  const [q, setQ] = useState("");           // برای جست‌وجوی ساده
-  const [name, setName] = useState("");     // برای جست‌وجوی پیشرفته
-  const [province, setProvince] = useState(""); 
-  const [ordering, setOrdering] = useState(""); // مثلاً "name", "-name", "province", ...
+  const [q, setQ] = useState<string>(""); // برای جست‌وجوی ساده
+  const [name, setName] = useState<string>(""); // برای جست‌وجوی پیشرفته
+  const [province, setProvince] = useState<string>("");
+  const [ordering, setOrdering] = useState<string>(""); // مثلاً "name", "-name", "province", ...
 
   // نتایج
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<City[]>([]);
 
   // هندلر جابجایی حالت جست‌وجو
-  const handleModeChange = (mode) => {
+  const handleModeChange = (mode: SearchMode): void => {
     setSearchMode(mode);
     // ریست فیلدها
     setQ("");
@@ -25,10 +33,12 @@ function CitySearch() {
   };
 
   // جست‌وجوی ساده
-  const doNormalSearch = async () => {
+  const doNormalSearch = async (): Promise<void> => {
     try {
       const resp = await fetch(
-        `http://127.0.0.1:8000/api/pages/cities/search/?q=${encodeURIComponent(q)}`
+        `http://127.0.0.1:8000/api/pages/cities/search/?q=${encodeURIComponent(
+          q
+        )}`
       );
       const data = await resp.json();
       setResults(data); // data آرایهٔ شهرهاست
@@ -38,7 +48,7 @@ function CitySearch() {
   };
 
   // جست‌وجوی پیشرفته
-  const doAdvancedSearch = async () => {
+  const doAdvancedSearch = async (): Promise<void> => {
     // ساختن QueryString
     let qs = [];
     if (name) qs.push(`name=${encodeURIComponent(name)}`);
@@ -65,7 +75,7 @@ function CitySearch() {
   };
 
   // تابع ارسال فرم
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (searchMode === "normal") {
       doNormalSearch();
@@ -78,10 +88,16 @@ function CitySearch() {
     <div style={{ padding: "20px" }}>
       <h2>City Search</h2>
       <div style={{ marginBottom: "10px" }}>
-        <button onClick={() => handleModeChange("normal")} disabled={searchMode === "normal"}>
+        <button
+          onClick={() => handleModeChange("normal")}
+          disabled={searchMode === "normal"}
+        >
           Normal search
         </button>
-        <button onClick={() => handleModeChange("advanced")} disabled={searchMode === "advanced"}>
+        <button
+          onClick={() => handleModeChange("advanced")}
+          disabled={searchMode === "advanced"}
+        >
           Advanced search
         </button>
       </div>
@@ -89,11 +105,7 @@ function CitySearch() {
       {searchMode === "normal" && (
         <form onSubmit={handleSubmit}>
           <label>Search (name): </label>
-          <input
-            type="text"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
+          <input type="text" value={q} onChange={(e) => setQ(e.target.value)} />
           <button type="submit">Search</button>
         </form>
       )}
@@ -118,7 +130,10 @@ function CitySearch() {
           </div>
           <div>
             <label>Ordering: </label>
-            <select value={ordering} onChange={(e) => setOrdering(e.target.value)}>
+            <select
+              value={ordering}
+              onChange={(e) => setOrdering(e.target.value)}
+            >
               <option value="">(default: name ascending)</option>
               <option value="name">name ASC</option>
               <option value="-name">name DESC</option>

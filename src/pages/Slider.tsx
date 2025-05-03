@@ -1,8 +1,18 @@
-// Slider.jsx
+// Slider.tsx
 import React, { useState } from "react";
-import "./Slider.css";
+import "../Slider.css";
 
-export default function Slider({ items, visibleCount = 2, renderItem }) {
+interface SliderProps<T> {
+  items: T[];
+  visibleCount?: number;
+  renderItem: (item: T) => React.ReactNode;
+}
+
+export default function Slider<T>({
+  items,
+  visibleCount = 2,
+  renderItem,
+}: SliderProps<T>) {
   const [index, setIndex] = useState(0);
   const maxIndex = items.length - visibleCount;
 

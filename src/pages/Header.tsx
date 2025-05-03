@@ -1,20 +1,30 @@
-// Header.jsx
-import React, { useState, useEffect } from "react";
+// Header.tsx
+import React, { useState } from "react";
+
+interface City {
+  id: number;
+  name: string;
+  province: string;
+}
 
 function Header() {
-  const [address, setAddress] = useState("");
-  const [cityOptions, setCityOptions] = useState([]);
+  const [address, setAddress] = useState<string>("");
+  const [cityOptions, setCityOptions] = useState<City[]>([]);
 
-  const handleAddressChange = async (e) => {
+  const handleAddressChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const val = e.target.value;
     setAddress(val);
 
     // اگر بخواهید فقط بعد از چند کاراکتر سرچ کنید
     if (val.length > 1) {
       try {
-        const resp = await fetch(`http://127.0.0.1:8000/api/pages/cities/search/?q=${val}`);
+        const resp = await fetch(
+          `http://127.0.0.1:8000/api/pages/cities/search/?q=${val}`
+        );
         const data = await resp.json();
-        setCityOptions(data); 
+        setCityOptions(data);
       } catch (err) {
         console.error("Autocomplete error:", err);
         setCityOptions([]);
@@ -38,7 +48,9 @@ function Header() {
         {cityOptions.length > 0 && (
           <ul className="dropdown">
             {cityOptions.map((city) => (
-              <li key={city.id}>{city.name}, {city.province}</li>
+              <li key={city.id}>
+                {city.name}, {city.province}
+              </li>
             ))}
           </ul>
         )}

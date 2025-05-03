@@ -1,14 +1,19 @@
-// ForgotPassword.jsx
-import React, { useState } from "react";
+// ForgotPassword.tsx
+import React, { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import "./ForgotPassword.css";
+import "../ForgotPassword.css";
 
-function ForgotPassword() {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+interface ResetResponse {
+  error?: string;
+  [key: string]: any;
+}
+
+const ForgotPassword: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setError("");
 
@@ -18,19 +23,22 @@ function ForgotPassword() {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/accounts/reset/send-code/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await response.json();
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/accounts/reset/send-code/",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        }
+      );
+      const data: ResetResponse = await response.json();
       if (!response.ok) {
         throw new Error(data.error || "Failed to send reset code.");
       }
       // موفقیت → هدایت به enter-code
       navigate(`/enter-code?email=${encodeURIComponent(email)}`);
     } catch (err) {
-      setError(err.message);
+      setError(err instanceof Error ? err.message : "An error occurred");
     }
   };
 
@@ -53,7 +61,7 @@ function ForgotPassword() {
             <p className="forgot-password-subheading">
               No worries, we'll send you reset instructions.
             </p>
-            
+
             <form onSubmit={handleSubmit}>
               <div className="input-wrapper">
                 <img src="email.png" alt="Email Icon" className="input-icon" />
@@ -61,22 +69,23 @@ function ForgotPassword() {
                   type="email"
                   placeholder="Email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setEmail(e.target.value)
+                  }
                   className="input-field"
                 />
               </div>
 
               {error && <small className="text-danger">{error}</small>}
 
-              <button
-                type="submit"
-                className="forgot-password-button"
-              >
+              <button type="submit" className="forgot-password-button">
                 Reset Password
               </button>
 
               <div>
-                <a href="/login" className="login-link">Back to login</a>
+                <a href="/login" className="login-link">
+                  Back to login
+                </a>
               </div>
             </form>
           </div>
@@ -84,6 +93,6 @@ function ForgotPassword() {
       </div>
     </div>
   );
-}
+};
 
 export default ForgotPassword;

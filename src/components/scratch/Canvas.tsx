@@ -54,7 +54,7 @@ export function Canvas() {
   };
 
   return (
-    <div className="flex-1 bg-white rounded-lg shadow-sm p-6 h-[600px] flex flex-col">
+    <div className="flex-1 bg-white rounded-lg shadow-sm p-6 h-[calc(100vh-8rem)] flex flex-col">
       <div className="mb-4 flex-shrink-0">
         <h2 className="font-semibold text-gray-800">Menu Canvas</h2>
         <p className="text-sm text-gray-500">
@@ -84,9 +84,10 @@ export function Canvas() {
                   <span className="font-medium">{block.label}</span>
                   <button
                     onClick={() => handleDelete(block.id)}
-                    className="absolute right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-1 hover:bg-white/20 rounded"
+                    className="absolute right-2 opacity-70 hover:opacity-100 transition-opacity duration-200 p-1 hover:bg-white/20 rounded"
+                    title="Delete item"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-4 h-4 text-white" />
                   </button>
                 </div>
               </Draggable>

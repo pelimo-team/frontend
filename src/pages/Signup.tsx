@@ -1,25 +1,32 @@
-// Signup.jsx
-import React, { useState } from "react";
+// Signup.tsx
+import  { useState, FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import "./AuthPages.css";
+import "../AuthPages.css";
+
+interface FormData {
+  username: string;
+  password: string;
+  phone: string;
+  email: string;
+}
 
 function Signup() {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     username: "",
     password: "",
     phone: "",
     email: "",
   });
-  const [emailError, setEmailError] = useState("");
-  const [phoneError, setPhoneError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [buttonClicked, setButtonClicked] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [phoneError, setPhoneError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [buttonClicked, setButtonClicked] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     if (name === "email") {
@@ -42,7 +49,9 @@ function Signup() {
       if (pass.length < 8) {
         setPasswordError("Password must be at least 8 characters");
       } else if (!isPasswordValid(pass)) {
-        setPasswordError("Password must contain at least two special characters");
+        setPasswordError(
+          "Password must contain at least two special characters"
+        );
       } else {
         setPasswordError("");
       }
@@ -52,13 +61,13 @@ function Signup() {
     }
   };
 
-  const isPasswordValid = (password) => {
+  const isPasswordValid = (password: string): boolean => {
     const re = /[!@#$%^&*(),.?":{}|<>]/g;
     const matches = password.match(re);
-    return matches && matches.length >= 2;
+    return matches !== null && matches.length >= 2;
   };
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (): void => {
     setShowPassword(!showPassword);
   };
 
@@ -71,45 +80,46 @@ function Signup() {
     !phoneError &&
     !passwordError;
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      setButtonClicked(true);
-      setErrorMessage("");
-  
-      if (isFormValid) {
-        console.log("Form is valid. Sending data to /register/send-code...");
-        fetch("http://127.0.0.1:8000/api/accounts/register/send-code/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: formData.username,
-            password: formData.password,
-            email: formData.email,
-            phone_number: formData.phone,
-          }),
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setButtonClicked(true);
+    setErrorMessage("");
+
+    if (isFormValid) {
+      console.log("Form is valid. Sending data to /register/send-code...");
+      fetch("http://127.0.0.1:8000/api/accounts/register/send-code/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+          email: formData.email,
+          phone_number: formData.phone,
+        }),
+      })
+        .then((res) =>
+          res.json().then((data) => ({ status: res.status, data }))
+        )
+        .then(({ status, data }) => {
+          if (status === 200) {
+            console.log("Verification code sent to:", formData.email);
+            navigate(
+              `/enter-code-signup?email=${encodeURIComponent(formData.email)}`
+            );
+          } else {
+            console.error("Register error:", data.error || data);
+            setErrorMessage(data.error || "Registration failed.");
+          }
         })
-          .then((res) => res.json().then((data) => ({ status: res.status, data })))
-          .then(({ status, data }) => {
-            if (status === 200) {
-              // ارسال کد فعال‌سازی موفقیت‌آمیز بود
-              console.log("Verification code sent to:", formData.email);
-              // هدایت به صفحه وارد کردن کد
-              navigate(`/enter-code-signup?email=${encodeURIComponent(formData.email)}`);
-            } else {
-              console.error("Register error:", data.error || data);
-              setErrorMessage(data.error || "Registration failed.");
-            }
-          })
-          .catch((err) => {
-            console.error("Request failed:", err);
-            setErrorMessage("Something went wrong. Please try again.");
-          });
-      } else {
-        console.log("Form is invalid. Not sending data.");
-        setErrorMessage("Please fix the errors and fill all fields correctly.");
-      }
-    };
-  
+        .catch((err) => {
+          console.error("Request failed:", err);
+          setErrorMessage("Something went wrong. Please try again.");
+        });
+    } else {
+      console.log("Form is invalid. Not sending data.");
+      setErrorMessage("Please fix the errors and fill all fields correctly.");
+    }
+  };
 
   return (
     <div className="signup-container">
@@ -121,7 +131,9 @@ function Signup() {
 
         <div className="signup-form-box">
           <h1 className="signup-title">Sign Up</h1>
-          <p className="signup-subtitle">Fill the information boxes for signing up</p>
+          <p className="signup-subtitle">
+            Fill the information boxes for signing up
+          </p>
 
           <form onSubmit={handleSubmit}>
             <div className="signup-input-group">
@@ -137,7 +149,7 @@ function Signup() {
             </div>
 
             <div className="signup-input-group">
-              <img src="password.png" alt="Password" className="input-icon"/>
+              <img src="password.png" alt="Password" className="input-icon" />
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
@@ -153,7 +165,9 @@ function Signup() {
                 onClick={togglePasswordVisibility}
               />
             </div>
-            {passwordError && <small className="signup-error">{passwordError}</small>}
+            {passwordError && (
+              <small className="signup-error">{passwordError}</small>
+            )}
 
             <div className="signup-input-group">
               <img src="email.png" alt="Email" className="input-icon" />
@@ -169,7 +183,7 @@ function Signup() {
             {emailError && <small className="signup-error">{emailError}</small>}
 
             <div className="signup-input-group">
-              <img src="phone.png" alt="Phone" className="input-icon"/>
+              <img src="phone.png" alt="Phone" className="input-icon" />
               <input
                 type="text"
                 name="phone"
@@ -185,7 +199,9 @@ function Signup() {
 
             <button
               type="submit"
-              className={`signup-btn ${buttonClicked && !isFormValid ? "signup-btn-disabled" : ""}`}
+              className={`signup-btn ${
+                buttonClicked && !isFormValid ? "signup-btn-disabled" : ""
+              }`}
               disabled={buttonClicked && !isFormValid}
             >
               Register

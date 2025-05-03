@@ -1,8 +1,12 @@
 // Add the base URL for the backend API
 const API_BASE_URL = 'http://localhost:8000';
 
+interface RequestOptions extends RequestInit {
+    headers?: Record<string, string>;
+}
+
 export const api = {
-    request: async (endpoint, options = {}) => {
+    request: async (endpoint: string, options: RequestOptions = {}) => {
         const token = localStorage.getItem('token');
         const headers = {
             'Accept': 'application/json',
@@ -35,25 +39,25 @@ export const api = {
         return response.json();
     },
 
-    get: (endpoint) => {
+    get: (endpoint: string) => {
         return api.request(endpoint, { method: 'GET' });
     },
 
-    post: (endpoint, data) => {
+    post: (endpoint: string, data: unknown) => {
         return api.request(endpoint, {
             method: 'POST',
             body: JSON.stringify(data)
         });
     },
 
-    patch: (endpoint, data) => {
+    patch: (endpoint: string, data: unknown) => {
         return api.request(endpoint, {
             method: 'PATCH',
             body: JSON.stringify(data)
         });
     },
 
-    delete: (endpoint) => {
+    delete: (endpoint: string) => {
         return api.request(endpoint, { method: 'DELETE' });
     }
 }; 
