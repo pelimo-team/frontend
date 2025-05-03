@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import Menu from "./Menu";
-import CommentsSection from "./CommentsSection";
+import Menu from "../comp/Menu";
+import CommentsSection from "../comp/CommentsSection";
 import "../RestaurantPage.css";
 import { api } from "../utils/api";
 

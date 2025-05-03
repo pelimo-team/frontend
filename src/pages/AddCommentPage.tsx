@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import CommentsSection from './CommentsSection';
+import CommentsSection from '../comp/CommentsSection';
 import './CommentsSection.css';
 
 const AddCommentPage = () => {
