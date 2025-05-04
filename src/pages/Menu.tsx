@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../Menu.css";
+import MenuCategory from "../components/Menu/MenuCategory";
 
 interface MenuItem {
   id: string;
@@ -27,7 +28,6 @@ const Menu: React.FC<MenuProps> = ({
   categories,
   cart,
   updateCart,
-  
 }) => {
   const navigate = useNavigate();
   console.log("Menu component received categories:", categories);
@@ -62,89 +62,15 @@ const Menu: React.FC<MenuProps> = ({
 
   return (
     <div className="menu-container">
-      {categories.map((category) => {
-        console.log("Rendering category:", category);
-        if (!category.items || !Array.isArray(category.items)) {
-          return null;
-        }
-        return (
-          <div key={category.id} className="menu-category">
-            <h3 className="category-title">{category.name}</h3>
-            <div className="menu-items">
-              {category.items.map((item) => {
-                console.log("Rendering menu item:", item);
-                if (!item || !item.id) return null;
-                return (
-                  <div
-                    key={item.id}
-                    className="menu-item"
-                    onClick={(e) => handleItemClick(e, item.id)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <div className="item-image">
-                      {item.image && (
-                        <img
-                          src={
-                            item.image.startsWith("http")
-                              ? item.image
-                              : `http://localhost:8000${item.image}`
-                          }
-                          alt={item.name}
-                          onError={(
-                            e: React.SyntheticEvent<HTMLImageElement>
-                          ) => {
-                            const target = e.target as HTMLImageElement;
-                            target.onerror = null;
-                            target.src = "/food-placeholder.png";
-                          }}
-                        />
-                      )}
-                    </div>
-                    <div className="item-details">
-                      <h4 className="item-name">{item.name}</h4>
-                      <p className="item-description">{item.description}</p>
-                      <div className="item-price">
-                        {typeof item.price === "number"
-                          ? `${item.price.toLocaleString()} تومان`
-                          : "قیمت نامشخص"}
-                      </div>
-                    </div>
-                    <div
-                      className="item-actions"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      {cart[item.id] > 0 ? (
-                        <div className="quantity-controls">
-                          <button
-                            className="quantity-btn decrease"
-                            onClick={() => handleQuantityChange(item.id, -1)}
-                          >
-                            -
-                          </button>
-                          <span className="quantity">{cart[item.id]}</span>
-                          <button
-                            className="quantity-btn increase"
-                            onClick={() => handleQuantityChange(item.id, 1)}
-                          >
-                            +
-                          </button>
-                        </div>
-                      ) : (
-                        <button
-                          className="add-to-cart"
-                          onClick={() => handleQuantityChange(item.id, 1)}
-                        >
-                          افزودن به سبد خرید
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
+      {categories.map((category) => (
+        <MenuCategory
+          key={category.id}
+          category={category}
+          cart={cart}
+          onQuantityChange={handleQuantityChange}
+          onItemClick={handleItemClick}
+        />
+      ))}
     </div>
   );
 };

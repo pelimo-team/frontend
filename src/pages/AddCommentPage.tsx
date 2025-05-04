@@ -1,11 +1,18 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import CommentsSection from './CommentsSection';
-import './CommentsSection.css';
+import RestaurantHeader from '../components/AddComment/RestaurantHeader';
+import RestaurantInfo from '../components/AddComment/RestaurantInfo';
+import CommentsSection from '../components/CommentSection/CommentsSection';
+
+interface LocationState {
+  restaurantId: number;
+  restaurantName: string;
+}
 
 const AddCommentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { restaurantId, restaurantName } = location.state || {};
+  const state = location.state as LocationState;
+  const { restaurantId, restaurantName } = state || {};
 
   if (!restaurantId) {
     return <div>Error: Restaurant ID not provided</div>;
@@ -13,18 +20,11 @@ const AddCommentPage = () => {
 
   return (
     <div className="comments-page">
-      <header className="restaurant-header">
-        <div className="restaurant-menuicon" onClick={() => navigate(-1)}>
-          <img src="/back.png" alt="برگشت" />
-        </div>
-        <img src="/Logo.png" alt="لوگو" className="restaurant-logocenter" />
-      </header>
-      <div className="restaurant-info">
-        <h2>{restaurantName}</h2>
-      </div>
+      <RestaurantHeader onBack={() => navigate(-1)} />
+      <RestaurantInfo restaurantName={restaurantName} />
       <CommentsSection restaurantId={restaurantId} />
     </div>
   );
 };
 
-export default AddCommentPage; 
+export default AddCommentPage;

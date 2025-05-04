@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import "../EnterCodeSignup.css";
+import LogoBox from "../components/EnterCodeSignup/LogoBox";
+import VerificationForm from "../components/EnterCodeSignup/VerificationForm";
+import RightSection from "../components/EnterCodeSignup/RightSection";
 
 function EnterCodeSignup() {
   const [code1, setCode1] = useState<string>("");
@@ -71,71 +74,24 @@ function EnterCodeSignup() {
 
   return (
     <div className="enter-code-container">
-      {/* ستون چپ */}
       <div className="enter-code-left">
-        <div className="logo-box">
-          <img src="Logo.png" alt="Logo" />
-        </div>
-
-        <div className="enter-code-box">
-          <h1 className="enter-code-title">ENTER VERIFICATION CODE</h1>
-          <p className="enter-code-subtitle">
-            We sent a code to{" "}
-            <span style={{ fontWeight: "bold" }}>{email}</span>
-          </p>
-
-          {error && <div className="enter-code-error">{error}</div>}
-
-          <div className="code-inputs">
-            <input
-              type="text"
-              maxLength={1}
-              value={code1}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setCode1(e.target.value.replace(/\D/, ""))
-              }
-            />
-            <input
-              type="text"
-              maxLength={1}
-              value={code2}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setCode2(e.target.value.replace(/\D/, ""))
-              }
-            />
-            <input
-              type="text"
-              maxLength={1}
-              value={code3}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setCode3(e.target.value.replace(/\D/, ""))
-              }
-            />
-            <input
-              type="text"
-              maxLength={1}
-              value={code4}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setCode4(e.target.value.replace(/\D/, ""))
-              }
-            />
-          </div>
-
-          <div className="button-group">
-            <button className="cancel-btn" onClick={handleCancel}>
-              cancel
-            </button>
-            <button className="verify-btn" onClick={handleVerify}>
-              verify
-            </button>
-          </div>
-        </div>
+        <LogoBox />
+        <VerificationForm
+          email={email}
+          error={error}
+          code1={code1}
+          code2={code2}
+          code3={code3}
+          code4={code4}
+          setCode1={setCode1}
+          setCode2={setCode2}
+          setCode3={setCode3}
+          setCode4={setCode4}
+          onVerify={handleVerify}
+          onCancel={handleCancel}
+        />
       </div>
-
-      {/* ستون راست */}
-      <div className="enter-code-right">
-        <img src="right section.jpg" alt="Burger" />
-      </div>
+      <RightSection />
     </div>
   );
 }

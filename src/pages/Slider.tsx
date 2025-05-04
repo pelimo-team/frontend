@@ -1,6 +1,8 @@
 // Slider.tsx
 import React, { useState } from "react";
 import "../Slider.css";
+import SliderArrow from "../components/Slider/SliderArrow";
+import SliderViewport from "../components/Slider/SliderViewport";
 
 interface SliderProps<T> {
   items: T[];
@@ -21,32 +23,24 @@ export default function Slider<T>({
 
   return (
     <div className="slider-wrapper">
-      <button className="arrow left" onClick={prev} disabled={index === 0}>
-        &lt;
-      </button>
+      <SliderArrow
+        direction="left"
+        onClick={prev}
+        disabled={index === 0}
+      />
 
-      <div className="viewport">
-        <div
-          className="slider"
-          style={{
-            transform: `translateX(-${(index * 100) / visibleCount}%)`,
-          }}
-        >
-          {items.map((item, idx) => (
-            <div key={idx} className="slider-item">
-              {renderItem(item)}
-            </div>
-          ))}
-        </div>
-      </div>
+      <SliderViewport
+        items={items}
+        index={index}
+        visibleCount={visibleCount}
+        renderItem={renderItem}
+      />
 
-      <button
-        className="arrow right"
+      <SliderArrow
+        direction="right"
         onClick={next}
         disabled={index === maxIndex}
-      >
-        &gt;
-      </button>
+      />
     </div>
   );
 }

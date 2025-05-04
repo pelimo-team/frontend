@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import "../UserProfile.css";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import ProfileHeader from "../components/UserProfile/ProfileHeader";
+import ProfileForm from "../components/UserProfile/ProfileForm";
+import EmailSection from "../components/UserProfile/EmailSection";
+import ActionButtons from "../components/UserProfile/ActionButtons";
 
 interface FormData {
   username: string;
@@ -17,7 +19,6 @@ interface FormData {
 
 const UserProfile: React.FC = () => {
   const navigate = useNavigate();
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState<FormData>({
     username: "",
     national_code: "",
@@ -31,7 +32,6 @@ const UserProfile: React.FC = () => {
   const [message, setMessage] = useState<string>("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  // Load user data when component mounts
   useEffect(() => {
     const loadUserData = async () => {
       try {
@@ -75,17 +75,10 @@ const UserProfile: React.FC = () => {
   ) => {
     const { id, value } = e.target;
     if (id === "phone") {
-      // Only allow numbers and limit to 11 digits for phone
       const phoneNumber = value.replace(/[^0-9]/g, "").slice(0, 11);
       setFormData({ ...formData, phone: phoneNumber });
     } else {
       setFormData({ ...formData, [id]: value });
-    }
-  };
-
-  const handleImageClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
     }
   };
 
@@ -111,7 +104,6 @@ const UserProfile: React.FC = () => {
 
       const { phone_number } = JSON.parse(userData);
 
-      // Create FormData to handle file upload
       const formDataToSend = new FormData();
       formDataToSend.append("username", formData.username);
       formDataToSend.append("national_code", formData.national_code);
@@ -135,7 +127,6 @@ const UserProfile: React.FC = () => {
 
       if (response.ok) {
         setMessage("Profile updated successfully!");
-        // Navigate to homepage after successful update
         setTimeout(() => navigate("/"), 1000);
       } else {
         const errorData = await response.json();
@@ -149,31 +140,12 @@ const UserProfile: React.FC = () => {
 
   return (
     <div className="container-userprofile">
-      <div className="profile-userprofile">
-        <div className="avatar-userprofile" onClick={handleImageClick}>
-          {imagePreview ? (
-            <img src={imagePreview} alt="Profile" className="profile-image" />
-          ) : (
-            <div className="avatar-placeholder">
-              <img src="public/coffee shop.png" alt="Default" />
-            </div>
-          )}
-          <div className="avatar-overlay">
-            <span>Change Photo</span>
-          </div>
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleImageChange}
-            accept="image/*"
-            style={{ display: "none" }}
-          />
-        </div>
-        <div className="profile-info-userprofile">
-          <h2>{formData.username || "Full Name"}</h2>
-          <p>{formData.email || "example@email.com"}</p>
-        </div>
-      </div>
+      <ProfileHeader
+        imagePreview={imagePreview}
+        username={formData.username}
+        email={formData.email}
+        onImageChange={handleImageChange}
+      />
 
       {message && (
         <div
@@ -185,120 +157,9 @@ const UserProfile: React.FC = () => {
         </div>
       )}
 
-      <div className="form-grid-userprofile">
-        <div className="form-group-userprofile">
-          <div>
-            <label htmlFor="username">Full Name</label>
-            <br></br>
-            <input
-              type="text"
-              id="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder="Enter your name"
-            />
-          </div>
-          <div>
-            <label htmlFor="national_code">National Code</label>
-            <br></br>
-            <input
-              type="text"
-              id="national_code"
-              value={formData.national_code}
-              onChange={handleChange}
-              placeholder="e.g. 0123456789"
-            />
-          </div>
-          <div>
-            <label htmlFor="gender">Gender</label>
-            <br></br>
-            <select id="gender" value={formData.gender} onChange={handleChange}>
-              <option value="">Select gender</option>
-              <option value="female">Female</option>
-              <option value="male">Male</option>
-            </select>
-          </div>
-        </div>
-        <div className="form-group-userprofile">
-          <div>
-            <label htmlFor="country">Country</label>
-            <br></br>
-            <select
-              id="country"
-              value={formData.country}
-              onChange={handleChange}
-            >
-              <option value="">Select country</option>
-              <option value="Iran">Iran</option>
-              <option value="America">America</option>
-              <option value="Canada">Canada</option>
-              <option value="UK">UK</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="phone">Phone</label>
-            <br></br>
-            <input
-              type="tel"
-              id="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="e.g. 09123456789"
-              maxLength={11}
-            />
-          </div>
-          <div>
-            <label htmlFor="birthday">Birth Day</label>
-            <br></br>
-            <input
-              type="date"
-              id="birthday"
-              value={formData.birthday}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="email-section-userprofile">
-        <h5>My Email Address</h5>
-        <div className="email-box-userprofile">
-          <span>
-            <img
-              src="public/email.svg"
-              alt="email icon"
-              style={{ width: "25px", height: "25px", marginRight: "10px" }}
-            />
-          </span>
-          <div className="email-information-userprofile">
-            <p style={{ marginTop: "10px" }}>
-              {formData.email || "No email added yet"}
-            </p>
-            <p style={{ fontSize: "small", color: "gray" }}>Primary Email</p>
-          </div>
-        </div>
-        <button
-          className="btn-userprofile btn-addemail-userprofile"
-          style={{ marginTop: "10px", backgroundColor: "#e0eaff" }}
-        >
-          + Add Email Address
-        </button>
-      </div>
-
-      <div className="actions-userprofile">
-        <button
-          className="btn-userprofile btn-cancel-userprofile"
-          onClick={handleCancel}
-        >
-          Cancel
-        </button>
-        <button
-          className="btn-userprofile btn-save-userprofile"
-          onClick={handleSave}
-        >
-          Save
-        </button>
-      </div>
+      <ProfileForm formData={formData} onChange={handleChange} />
+      <EmailSection email={formData.email} />
+      <ActionButtons onCancel={handleCancel} onSave={handleSave} />
     </div>
   );
 };

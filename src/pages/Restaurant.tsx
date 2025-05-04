@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import Menu from "./Menu";
-import CommentsSection from "./CommentsSection";
 import "../RestaurantPage.css";
 import { api } from "../utils/api";
+import RestaurantHeader from "../components/Restaurant/RestaurantHeader";
+import RestaurantBanner from "../components/Restaurant/RestaurantBanner";
+import RestaurantInfo from "../components/Restaurant/RestaurantInfo";
+import RestaurantTabs from "../components/Restaurant/RestaurantTabs";
+import RestaurantContent from "../components/Restaurant/RestaurantContent";
 
 interface MenuItem {
   id: string;
@@ -185,91 +188,30 @@ const Restaurant = () => {
     return <div className="error-message">Error: {error}</div>;
   }
 
+  const cartItemCount = Object.values(cart).reduce((a: number, b: number) => a + b, 0);
+
   return (
     <div className="restaurant-page restaurant-container-fluid p-0">
-      <header className="restaurant-header">
-        <div className="restaurant-menuicon" onClick={() => navigate(-1)}>
-          <img src="images/back.png" alt="برگشت" />
-        </div>
-        <img
-          src="images/Logo.png"
-          alt="لوگو"
-          className="restaurant-logocenter"
-        />
-        <div className="restaurant-userinfo d-flex flex-column align-items-center">
-          <button
-            className="cart-icon-restaurant"
-            onClick={() => navigate("/cart")}
-          >
-            <img src="images/basket.png" alt="سبد خرید" />
-            {Object.values(cart).reduce((a: number, b: number) => a + b, 0) >
-              0 && (
-              <span className="cart-badge">
-                {Object.values(cart).reduce((a: number, b: number) => a + b, 0)}
-              </span>
-            )}
-          </button>
-          <img
-            src={restaurant.logo || "images/profile.png"}
-            alt="پروفایل"
-            className="restaurant-useravatar"
-          />
-          <span className="restaurant-username">{restaurant.name}</span>
-        </div>
-      </header>
-
-      <div className="restaurant-banner">
-        {restaurant.image && (
-          <img
-            src={restaurant.image}
-            alt={restaurant.name}
-            className="restaurant-image"
-          />
-        )}
-      </div>
-
-      <div className="restaurant-infosection px-5 py-4">
-        <div className="restaurant-infotext">
-          <div className="fs-5 fw-bold">اسم رستوران: {restaurant.name}</div>
-          <div className="fs-6 mt-2">لوکیشن: {restaurant.location}</div>
-        </div>
-        <div className="restaurant-rating">
-          <span>{"⭐".repeat(Math.round(restaurant.rating || 0))}</span>
-          <span className="ms-2">
-            {restaurant.rating ? restaurant.rating.toFixed(1) : "N/A"}/5
-          </span>
-        </div>
-      </div>
-
-      <div className="restaurant-tabs">
-        <div
-          className={`restaurant-tab ${activeTab === "menu" ? "active" : ""}`}
-          onClick={() => setActiveTab("menu")}
-        >
-          منو
-        </div>
-        <div
-          className={`restaurant-tab ${
-            activeTab === "comments" ? "active" : ""
-          }`}
-          onClick={() => setActiveTab("comments")}
-        >
-          نظرات
-        </div>
-      </div>
-
-      {activeTab === "menu" && menuCategories.length > 0 ? (
-        <Menu
-          categories={menuCategories}
-          cart={cart}
-          updateCart={updateCart}
-          isAuthenticated={isAuthenticated}
-        />
-      ) : activeTab === "menu" ? (
-        <div className="menu-empty">منو در دسترس نیست</div>
-      ) : (
-        <CommentsSection restaurantId={Number(id)} />
-      )}
+      <RestaurantHeader
+        restaurantName={restaurant.name}
+        restaurantLogo={restaurant.logo}
+        cartItemCount={cartItemCount}
+      />
+      <RestaurantBanner image={restaurant.image} name={restaurant.name} />
+      <RestaurantInfo
+        name={restaurant.name}
+        location={restaurant.location}
+        rating={restaurant.rating}
+      />
+      <RestaurantTabs activeTab={activeTab} onTabChange={setActiveTab} />
+      <RestaurantContent
+        activeTab={activeTab}
+        menuCategories={menuCategories}
+        cart={cart}
+        updateCart={updateCart}
+        isAuthenticated={isAuthenticated}
+        restaurantId={Number(id)}
+      />
     </div>
   );
 };
