@@ -1,4 +1,4 @@
-import React from "react";
+
 import { BlockPalette } from "../components/scratch/BlockPalette";
 import { Canvas } from "../components/scratch/Canvas";
 import { DragDropProvider } from "../components/dnd";
