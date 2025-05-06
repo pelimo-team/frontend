@@ -1,4 +1,4 @@
-import "../AddComment.css";
+import "../../styles/AddComment.css";
 
 interface RestaurantInfoProps {
   restaurantName: string;

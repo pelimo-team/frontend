@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../CommentsSection.css";
+import "../styles/CommentsSection.css";
 import { api } from "../utils/api";
 import CommentList from "../components/CommentsSection/CommentList";
 import CommentForm from "../components/CommentsSection/CommentForm";

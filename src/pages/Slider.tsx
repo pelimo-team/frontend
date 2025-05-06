@@ -1,6 +1,6 @@
 // Slider.tsx
 import React, { useState } from "react";
-import "../Slider.css";
+import "../styles/Slider.css";
 import SliderArrow from "../components/Slider/SliderArrow";
 import SliderViewport from "../components/Slider/SliderViewport";
 

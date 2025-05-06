@@ -1,7 +1,7 @@
 // EnterCodeSignup.tsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import "../EnterCodeSignup.css";
+import "../styles/EnterCodeSignup.css";
 import LogoBox from "../components/EnterCodeSignup/LogoBox";
 import VerificationForm from "../components/EnterCodeSignup/VerificationForm";
 import RightSection from "../components/EnterCodeSignup/RightSection";

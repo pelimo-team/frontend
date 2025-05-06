@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { api } from "../utils/api";
-import "../Cart.css";
+import "../styles/Cart.css";
 
 import CartHeader from "../components/Cart/CartHeader";
 import CartRestaurantInfo from "../components/Cart/CartRestaurantInfo";

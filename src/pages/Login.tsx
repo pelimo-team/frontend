@@ -1,6 +1,6 @@
 // Login.jsx
 import { useEffect } from "react";
-import "../AuthPages.css";
+import "../styles/AuthPages.css";
 import LoginHeader from "../components/Login/LoginHeader";
 import LoginForm from "../components/Login/LoginForm";
 import LoginSidebar from "../components/Login/LoginSidebar";

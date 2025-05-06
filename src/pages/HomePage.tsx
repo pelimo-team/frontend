@@ -1,4 +1,4 @@
-import styles from "../HomePage.module.css";
+import styles from "../styles/HomePage.module.css";
 import Header from "../components/HomePage/Header";
 import HeroSection from "../components/HomePage/HeroSection";
 import CategoriesSection from "../components/HomePage/CategoriesSection";

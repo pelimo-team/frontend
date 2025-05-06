@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import "../RestaurantPage.css";
+import "../styles/RestaurantPage.css";
 import { api } from "../utils/api";
 import RestaurantHeader from "../components/Restaurant/RestaurantHeader";
 import RestaurantBanner from "../components/Restaurant/RestaurantBanner";
@@ -31,9 +31,9 @@ interface Restaurant {
   logo?: string;
 }
 
-interface MenuResponse {
-  categories?: Category[];
-}
+// interface MenuResponse {
+//   categories?: Category[];
+// }
 
 const Restaurant = () => {
   const location = useLocation();

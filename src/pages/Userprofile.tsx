@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import "../UserProfile.css";
+import "../styles/UserProfile.css";
 import ProfileHeader from "../components/UserProfile/ProfileHeader";
 import ProfileForm from "../components/UserProfile/ProfileForm";
 import EmailSection from "../components/UserProfile/EmailSection";

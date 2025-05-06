@@ -1,41 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../utils/api";
-import "../FoodPage.css";
-import type { MenuItem } from "../types/types";
+import "../styles/FoodPage.css";
+import MenuItem from "../components/Menu/MenuItem"
 
 import LoadingState from "../components/FoodPage/LoadingState";
 import ErrorState from "../components/FoodPage/ErrorState";
 import FoodContent from "../components/FoodPage/FoodContent";
+import { MenuItem as MenuItemType } from "../components/AdvancedSearch/types";
+
+
+const mockMenuItem = {
+  id: 1,
+  name: "name",
+  image:  null,
+  bestseller: true,
+  restaurant: {
+    id: 1,
+    name: "name2",
+  },
+  category_name: "name3",
+  rate: 3,
+  onsale: true,
+  price: 1200000,
+  sale_price: 120,
+}
 
 const FoodPage: React.FC = () => {
-  const { id } = useParams();
-  const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  // const { id } = useParams();
+  const [menuItem, setMenuItem] = useState<MenuItemType | null>(null);
+  const [loading, __] = useState<boolean>(false);
+  const [error, _] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (!id) {
-        setError("شناسه غذا یافت نشد");
-        setLoading(false);
-        return;
-      }
+    setMenuItem(mockMenuItem);
+  }, [])
 
-      try {
-        setLoading(true);
-        const response = (await api.get(`/api/items/${id}/`)) as MenuItem;
-        if (!response) throw new Error("No data received from API");
-        setMenuItem(response);
-      } catch (err: unknown) {
-        setError(err instanceof Error ? err.message : "خطا در دریافت اطلاعات");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (!id) {
+  //       setError("شناسه غذا یافت نشد");
+  //       setLoading(false);
+  //       return;
+  //     }
 
-    fetchData();
-  }, [id]);
+  //     try {
+  //       setLoading(true);
+  //       const response = (await api.get(`/api/items/${id}/`)) as MenuItemType;
+  //       if (!response) throw new Error("No data received from API");
+  //       setMenuItem(response);
+  //     } catch (err: unknown) {
+  //       setError(err instanceof Error ? err.message : "خطا در دریافت اطلاعات");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [id]);
 
   if (loading) {
     return <LoadingState />;
@@ -45,7 +67,12 @@ const FoodPage: React.FC = () => {
     return <ErrorState error={error} />;
   }
 
-  return <FoodContent menuItem={menuItem} />;
+  return (
+    <>
+    <FoodContent menuItem={menuItem} />
+    {/* <MenuItem cartQuantity={} item={} onItemClick={} onQuantityChange={}/> */}
+    </>
+  )
 };
 
 export default FoodPage;

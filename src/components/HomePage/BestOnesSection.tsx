@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../HomePage.module.css";
+import styles from "../../styles/HomePage.module.css";
 
 interface Restaurant {
   id: number;

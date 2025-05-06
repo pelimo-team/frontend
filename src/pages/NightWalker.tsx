@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../NightWalker.css";
+import "../styles/NightWalker.css";
 import axios from "axios";
 import ErrorBoundary from "../components/NightWalker/ErrorBoundary";
 import HeroSection from "../components/NightWalker/HeroSection";

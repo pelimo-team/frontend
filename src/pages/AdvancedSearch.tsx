@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../AdvancedSearch.css";
+import "../styles/AdvancedSearch.css";
 import { useLocation } from "react-router-dom";
 import { CategoryType, FilterType, Restaurant, MenuItem } from "../components/AdvancedSearch/types";
 import Header from "../components/AdvancedSearch/Header";

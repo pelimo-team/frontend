@@ -1,7 +1,7 @@
 // entercode.tsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import "../EnterCode.css";
+import "../styles/EnterCode.css";
 import LogoSection from "../components/EnterCode/LogoSection";
 import CodeInputSection from "../components/EnterCode/CodeInputSection";
 import RightSection from "../components/EnterCode/RightSection";

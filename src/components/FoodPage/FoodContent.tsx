@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { MenuItem } from '../../types/types';
 
 import FoodHeader from './FoodHeader';
 import FoodBanner from './FoodBanner';
 import FoodDetails from './FoodDetails';
 import RestaurantInfoSection from './RestaurantInfoSection';
 import ReviewsSection from './ReviewsSection';
+import { MenuItem } from '../AdvancedSearch/types';
 
 interface FoodContentProps {
   menuItem: MenuItem;
@@ -19,7 +19,7 @@ const FoodContent: React.FC<FoodContentProps> = ({ menuItem }) => {
   return (
     <div className="food-page">
       <FoodHeader
-        restaurantName={restaurant.name}
+        restaurantName={restaurant?.name || ""}
         restaurantLogo={restaurant.logo || ""}
         onBack={() => navigate(-1)}
       />

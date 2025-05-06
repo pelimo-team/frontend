@@ -1,7 +1,7 @@
 // SetNewPassword.jsx
 import { useState, useEffect, FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import "../SetNewPassword.css";
+import "../styles/SetNewPassword.css";
 import LeftSection from "../components/SetNewPassword/LeftSection";
 import RightSection from "../components/SetNewPassword/RightSection";
 

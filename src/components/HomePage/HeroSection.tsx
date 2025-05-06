@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../../HomePage.module.css";
+import styles from "../../styles/HomePage.module.css";
 
 interface Slide {
   title1?: string;

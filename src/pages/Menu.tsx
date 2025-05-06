@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "../Menu.css";
+import "../styles/Menu.css";
 import MenuCategory from "../components/Menu/MenuCategory";
 
 interface MenuItem {

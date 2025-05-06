@@ -6,7 +6,6 @@ import ForgotPassword from "./ForgotPassword";
 import EnterCode from "./entercode"; // فایل صفحه واردکردن کد
 import SetNewPassword from "./SetNewPassword"; // فایل صفحه تعیین رمز جدید
 import EnterCodeSignup from "./EnterCodeSignup";
-import AddComment from "./AddComment";
 import Userprofile from "./Userprofile";
 import Search from "./Search";
 import AdvancedSearch from "./AdvancedSearch";
@@ -16,6 +15,7 @@ import FoodPage from "./FoodPage";
 import AdvanceTasadofi from "./AdvanceTasadofi";
 import MenuBuilder from "./Model";
 import Cart from "./Cart";
+import AddCommentPage from "./AddCommentPage";
 
 export const ProjectRoutes = () => {
   return (
@@ -44,7 +44,7 @@ export const ProjectRoutes = () => {
         <Route path="/userprofile" element={<Userprofile />} />
 
         {/* مشاهده و افزودن کامنت */}
-        <Route path="/add-comment" element={<AddComment />} />
+        <Route path="/add-comment" element={<AddCommentPage />} />
 
         {/* صفحه جستجوی غذا */}
         <Route path="/search" element={<Search />} />
@@ -59,7 +59,7 @@ export const ProjectRoutes = () => {
         <Route path="/restaurant/:id" element={<Restaurant />} />
 
         {/* صفحه غذاها */}
-        <Route path="/foodpage" element={<FoodPage />} />
+        <Route path="/foodpage/:id" element={<FoodPage />} />
 
         {/* صفحه جستجوی تصادفی */}
         <Route path="/advance-tasadofi" element={<AdvanceTasadofi />} />

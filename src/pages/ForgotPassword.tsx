@@ -1,6 +1,6 @@
 // ForgotPassword.tsx
 import React from "react";
-import "../ForgotPassword.css";
+import "../styles/ForgotPassword.css";
 import RightSection from "../components/ForgotPassword/RightSection";
 import LeftSection from "../components/ForgotPassword/LeftSection";
 
