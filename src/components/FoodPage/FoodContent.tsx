@@ -1,12 +1,12 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-import FoodHeader from './FoodHeader';
-import FoodBanner from './FoodBanner';
-import FoodDetails from './FoodDetails';
-import RestaurantInfoSection from './RestaurantInfoSection';
-import ReviewsSection from './ReviewsSection';
-import { MenuItem } from '../AdvancedSearch/types';
+import FoodHeader from "./FoodHeader";
+import FoodBanner from "./FoodBanner";
+import FoodDetails from "./FoodDetails";
+import RestaurantInfoSection from "./RestaurantInfoSection";
+import ReviewsSection from "./ReviewsSection";
+import { MenuItem } from "../AdvancedSearch/types";
 
 interface FoodContentProps {
   menuItem: MenuItem;
@@ -20,7 +20,7 @@ const FoodContent: React.FC<FoodContentProps> = ({ menuItem }) => {
     <div className="food-page">
       <FoodHeader
         restaurantName={restaurant?.name || ""}
-        restaurantLogo={restaurant.logo || ""}
+        restaurantLogo={restaurant?.logo || ""}
         onBack={() => navigate(-1)}
       />
 
@@ -36,17 +36,20 @@ const FoodContent: React.FC<FoodContentProps> = ({ menuItem }) => {
         />
 
         <RestaurantInfoSection
-          name={restaurant.name}
-          rating={restaurant.rating}
-          city={restaurant.city}
+          name={restaurant?.name || ""}
+          rating={restaurant?.rating || 0}
+          city={restaurant?.city || ""}
         />
 
-        {restaurant.reviews && restaurant.reviews.length > 0 && (
-          <ReviewsSection name={restaurant.name} reviews={restaurant.reviews} />
+        {restaurant?.reviews && restaurant.reviews.length > 0 && (
+          <ReviewsSection
+            restaurantName={restaurant?.name || ""}
+            reviews={restaurant.reviews || []}
+          />
         )}
       </div>
     </div>
   );
 };
 
-export default FoodContent; 
+export default FoodContent;

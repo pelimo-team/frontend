@@ -11,10 +11,15 @@ export interface MenuItem {
   id: number;
   name: string;
   image: string | null;
+  description?: string;
   bestseller: boolean;
   restaurant?: {
     id: number;
     name: string;
+    logo?: string;
+    rating?: number;
+    city?: string;
+    reviews?: any[];
   };
   category_name?: string;
   rate: number | null;

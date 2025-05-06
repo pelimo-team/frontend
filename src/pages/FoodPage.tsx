@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { api } from "../utils/api";
 import "../styles/FoodPage.css";
-import MenuItem from "../components/Menu/MenuItem"
+
 
 import LoadingState from "../components/FoodPage/LoadingState";
 import ErrorState from "../components/FoodPage/ErrorState";

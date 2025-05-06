@@ -84,18 +84,30 @@ export function Canvas() {
         ingredient_names: ingredientNames,
       });
 
-      // The backend now returns { suggestions: text }
+      // The backend now returns only the meal name (ideally), but filter just in case
+      let mealName = response.data.suggestions.trim();
+      // Only take the first line or first sentence
+      mealName = mealName
+        .split("\n")[0]
+        .split(".")[0]
+        .replace(/^Answer:/i, "")
+        .trim();
+
       setMeals([
         {
           id: "huggingface",
-          name: "AI Suggestions",
-          description: response.data.suggestions,
+          name: mealName,
+          description: "",
           ingredients: ingredientNames,
         },
       ]);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching meal suggestions:", error);
-      alert("Failed to get meal suggestions. Please try again.");
+      const errorMessage =
+        error.response?.data?.error ||
+        "Failed to get meal suggestions. Please try again.";
+      alert(errorMessage);
+      setMeals([]);
     } finally {
       setIsLoading(false);
     }

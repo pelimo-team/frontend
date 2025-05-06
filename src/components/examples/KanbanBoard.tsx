@@ -18,13 +18,6 @@ interface Column {
   tasks: Task[];
 }
 
-// Define ingredient interface
-interface Ingredient {
-  id: number;
-  name: string;
-  category: string;
-}
-
 // Dummy data
 const initialColumns: Column[] = [
   {
@@ -67,18 +60,12 @@ export function KanbanBoard() {
   const [addingTaskToColumn, setAddingTaskToColumn] = useState<string | null>(
     null
   );
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [suggestions, setSuggestions] = useState<string>("");
 
   useEffect(() => {
     axios.get("http://localhost:8000/api/ingredients/").then((res) => {
-      // Flatten grouped ingredients
-      const grouped = res.data;
-      const all: Ingredient[] = [];
-      Object.values(grouped).forEach((arr) =>
-        all.push(...(arr as Ingredient[]))
-      );
-      setIngredients(all);
+      // No need to store ingredients since they're not used
+      console.log("Ingredients loaded:", res.data);
     });
   }, []);
 

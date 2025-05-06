@@ -1,7 +1,7 @@
 import React from "react";
 
 interface FoodBannerProps {
-  image?: string;
+  image?: string | null;
   name: string;
 }
 
