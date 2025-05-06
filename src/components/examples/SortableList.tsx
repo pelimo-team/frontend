@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { GripVertical } from 'lucide-react';
 import { DragDropProvider, Draggable, DropZone, DragPreview } from '../dnd';
 
@@ -19,7 +19,7 @@ const initialItems: Item[] = [
 export function SortableList() {
   const [items, setItems] = useState<Item[]>(initialItems);
 
-  const handleDrop = (droppedItem: any, sourceContainerId: string | null, index: number) => {
+  const handleDrop = (droppedItem: any, ourceContainerId: string | null, index: number) => {
     if (!droppedItem.id) return;
     
     // Remove the item from its current position

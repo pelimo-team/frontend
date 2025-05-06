@@ -79,7 +79,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ restaurantId }) => {
       return;
     }
 
-    const currentReaction = reactions[commentId];
+    
     const endpoint = `/api/restaurants/${restaurantId}/reviews/${commentId}/${reactionType}/`;
 
     const previousReactions = { ...reactions };

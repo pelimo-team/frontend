@@ -1,5 +1,5 @@
 import { ChefHat } from "lucide-react";
-import axios from "axios";
+
 
 interface Meal {
   id: string;

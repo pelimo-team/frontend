@@ -12,7 +12,6 @@ interface DropZoneProps {
 }
 
 export function DropZone({
-  id,
   accept,
   onDrop,
   children,

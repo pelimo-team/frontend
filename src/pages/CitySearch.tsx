@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import { City, SearchMode } from "../components/CitySearch/types";
 import SearchModeSelector from "../components/CitySearch/SearchModeSelector";
 import NormalSearchForm from "../components/CitySearch/NormalSearchForm";

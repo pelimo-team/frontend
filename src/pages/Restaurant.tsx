@@ -35,7 +35,7 @@ interface Restaurant {
 //   categories?: Category[];
 // }
 
-const Restaurant = () => {
+  const Restaurant = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { restaurant: initialRestaurant } = location.state || {};

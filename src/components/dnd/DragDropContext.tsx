@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import { createContext, useContext, useReducer, ReactNode } from "react";
 
 // Define types for our drag and drop context
 export interface DragItem {
@@ -14,9 +14,9 @@ interface DragDropState {
 }
 
 type DragDropAction =
-  | { type: 'START_DRAG'; item: DragItem; sourceContainerId: string }
-  | { type: 'END_DRAG' }
-  | { type: 'CANCEL_DRAG' };
+  | { type: "START_DRAG"; item: DragItem; sourceContainerId: string }
+  | { type: "END_DRAG" }
+  | { type: "CANCEL_DRAG" };
 
 // Create the initial state
 const initialState: DragDropState = {
@@ -26,17 +26,20 @@ const initialState: DragDropState = {
 };
 
 // Create the reducer to handle state updates
-function dragDropReducer(state: DragDropState, action: DragDropAction): DragDropState {
+function dragDropReducer(
+  state: DragDropState,
+  action: DragDropAction
+): DragDropState {
   switch (action.type) {
-    case 'START_DRAG':
+    case "START_DRAG":
       return {
         ...state,
         isDragging: true,
         currentItem: action.item,
         sourceContainerId: action.sourceContainerId,
       };
-    case 'END_DRAG':
-    case 'CANCEL_DRAG':
+    case "END_DRAG":
+    case "CANCEL_DRAG":
       return {
         ...state,
         isDragging: false,
@@ -56,7 +59,9 @@ interface DragDropContextValue {
   cancelDrag: () => void;
 }
 
-const DragDropContext = createContext<DragDropContextValue | undefined>(undefined);
+const DragDropContext = createContext<DragDropContextValue | undefined>(
+  undefined
+);
 
 // Create a provider component
 interface DragDropProviderProps {
@@ -67,15 +72,15 @@ export function DragDropProvider({ children }: DragDropProviderProps) {
   const [state, dispatch] = useReducer(dragDropReducer, initialState);
 
   const startDrag = (item: DragItem, sourceContainerId: string) => {
-    dispatch({ type: 'START_DRAG', item, sourceContainerId });
+    dispatch({ type: "START_DRAG", item, sourceContainerId });
   };
 
   const endDrag = () => {
-    dispatch({ type: 'END_DRAG' });
+    dispatch({ type: "END_DRAG" });
   };
 
   const cancelDrag = () => {
-    dispatch({ type: 'CANCEL_DRAG' });
+    dispatch({ type: "CANCEL_DRAG" });
   };
 
   return (
@@ -89,7 +94,7 @@ export function DragDropProvider({ children }: DragDropProviderProps) {
 export function useDragDrop() {
   const context = useContext(DragDropContext);
   if (context === undefined) {
-    throw new Error('useDragDrop must be used within a DragDropProvider');
+    throw new Error("useDragDrop must be used within a DragDropProvider");
   }
   return context;
 }

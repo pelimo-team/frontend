@@ -1,5 +1,5 @@
 // Add the base URL for the backend API
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = "https://pelimo.liara.run/" // 'http://localhost:8000';
 
 interface RequestOptions extends RequestInit {
     headers?: Record<string, string>;
@@ -60,4 +60,4 @@ export const api = {
     delete: (endpoint: string) => {
         return api.request(endpoint, { method: 'DELETE' });
     }
-}; 
+};
