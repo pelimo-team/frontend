@@ -156,19 +156,19 @@ body {
 
 /* بخش Hero */
 .hero-section {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(to right, #d4b7a3, #9f6549);
   color: #fff;
   padding: 40px;
-  position: relative;
-  overflow: hidden;
-
 }
 .slides-viewport {
   overflow: hidden;
 }
+
 .slides-wrapper {
   display: flex;
   transition: transform 0.6s ease-in-out;
@@ -179,36 +179,24 @@ body {
   min-width: 100%;
   padding: 2rem;
 }
+
 .hero-content {
   flex: 1;
   padding: 1rem;
 }
 
-
-.title1 {
-  font-size: 700%;
-  margin-bottom: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-.title2 {
-  font-size: 650%;
-  margin-bottom: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-.title3 {
-  font-size: 650%;
-  margin-bottom: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
+.title1 { font-size: 700%; margin-bottom: 15px; }
+.title2,
+.title3,
 .title4 {
   font-size: 650%;
   margin-bottom: 15px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .hero-content p {
   margin-bottom: 15px;
   font-size: 20px;
 }
+
 .hero-button {
   background: #945436;
   border: none;
@@ -218,6 +206,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 .hero-button:hover {
   background-color: #945436;
   transform: scale(1.05);
@@ -227,9 +216,9 @@ body {
 .hero-image img {
   width: 600px;
   height: auto;
-  border-radius: 50px
+  border-radius: 50px;
 }
-/* فلش‌های اسلایدر */
+/* فلش‌های چپ و راست اسلایدر */
 .arrow {
   position: absolute;
   top: 50%;
@@ -243,8 +232,8 @@ body {
   border-radius: 50%;
   transition: background-color 0.3s ease, transform 0.2s ease;
   z-index: 10;
-  
 }
+
 .arrow:hover {
   background-color: rgba(197, 136, 75, 0.8);
   transform: translateY(-50%) scale(1.1);
@@ -256,7 +245,6 @@ body {
 .arrow-right {
   right: 1rem;
 }
-
 /* سکشن دسته‌بندی‌ها (Categories) */
 .categories-section {
   display:grid;
@@ -422,7 +410,7 @@ transition: transform 0.2s;
 
 /* سکشن The Games */
 .games-section {
-  background: #f8f8f8;
+  background: #f5ebe0;
   padding: 40px;
 }
 .games-title {
@@ -602,3 +590,127 @@ transition: transform 0.2s;
   display: block;
 }
 
+/* کوچکتر کردن layout دسته‌بندی */
+.categories-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  padding: 20px;
+  background-color: #f5ebe0;
+  direction: rtl;
+}
+
+.category-item {
+  padding: 16px;
+  border-radius: 12px;
+  background: #f0d7c3;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: transform, opacity;
+  pointer-events: auto; /* اضافه برای احتیاط */
+}
+
+.category-item:hover {
+  transform: translateY(-10px);
+}
+
+.category-item img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.category-item p {
+  font-size: 1.4rem;
+  color: #945436;
+  font-weight: bold;
+}
+
+/* انیمیشن نرم هنگام اسکرول */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+/* فقط یک انیمیشن ساده هنگام سوییچ کارت‌ها روی container */
+.slide-animation {
+  animation: slideFade 0.4s ease;
+}
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* fade-in فقط هنگام اسکرول */
+.slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.best-ones-viewport {
+  overflow: hidden;
+  flex: 1;
+  max-width: 100%;
+}
+
+.best-ones-slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.best-ones-item {
+  flex: 0 0 calc(50% - 1rem); /* دوتا آیتم با فاصله منطقی */
+  margin: 0 0.5rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 10px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.best-ones-item:hover {
+  transform: translateY(-5px);
+}
+
+.image-box img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* انیمیشن اسکرول */
+.fade-in-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

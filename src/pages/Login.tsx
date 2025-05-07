@@ -1,13 +1,10 @@
-// Login.jsx
+// Login.tsx
 import { useEffect } from "react";
 import "../styles/AuthPages.css";
-import LoginHeader from "../components/Login/LoginHeader";
 import LoginForm from "../components/Login/LoginForm";
-import LoginSidebar from "../components/Login/LoginSidebar";
 
 function Login() {
   useEffect(() => {
-    // Get CSRF token when component mounts
     fetch("http://127.0.0.1:8000/api/accounts/csrf/", {
       method: "GET",
       credentials: "include",
@@ -17,14 +14,22 @@ function Login() {
   }, []);
 
   return (
-    <div className="login-container">
-      <div className="login-left">
-        <LoginHeader />
-        <div className="login-form-box">
+    <div className="signup-container">
+      <div className="signup-left">
+        <div className="signup-logo">
+          <img src="Logo.png" alt="Logo" />
+        </div>
+
+        <div className="signup-form-box">
+          <h1 className="signup-title">Login</h1>
+          <p className="signup-subtitle">Enter your credentials to login</p>
           <LoginForm />
         </div>
       </div>
-      <LoginSidebar />
+
+      <div className="signup-right">
+        <img src="right section.jpg" alt="Burger" />
+      </div>
     </div>
   );
 }
