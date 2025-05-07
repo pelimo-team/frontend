@@ -232,7 +232,7 @@ export function BlockPalette() {
   };
 
   return (
-    <div className="w-64 bg-white rounded-lg shadow-sm overflow-hidden flex-shrink-0 flex flex-col h-[600px]">
+    <div className="w-[36rem] bg-white rounded-lg shadow-sm overflow-hidden flex-shrink-0 flex flex-col h-[calc(100vh-8rem)]">
       <div className="p-4 border-b border-gray-200 flex-shrink-0">
         <h2 className="font-semibold text-gray-800">Food Items</h2>
       </div>
@@ -248,46 +248,33 @@ export function BlockPalette() {
             <div key={category} className="p-4">
               <button
                 onClick={() => toggleCategory(category)}
-                className="w-full flex items-center justify-between text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors duration-200"
+                className="w-full flex items-center justify-between text-left"
               >
-                <div className="flex items-center gap-2">
-                  {category === "Meat" && <Beef className="w-5 h-5" />}
-                  {category === "Vegetables" && <Carrot className="w-5 h-5" />}
-                  {category === "Fruit" && <Apple className="w-5 h-5" />}
-                  {category === "Bread" && <Cookie className="w-5 h-5" />}
-                  {category === "Dairy" && <Milk className="w-5 h-5" />}
-                  {category === "Beverages" && <Coffee className="w-5 h-5" />}
-                  {category === "Desserts" && <IceCream className="w-5 h-5" />}
-                  <span>{category}</span>
-                </div>
+                <span className="font-medium text-gray-900">{category}</span>
                 <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-200 ${
-                    isExpanded ? "transform rotate-180" : ""
+                  className={`w-5 h-5 text-gray-500 transition-transform ${
+                    isExpanded ? "rotate-180" : ""
                   }`}
                 />
               </button>
 
-              <div
-                className={`space-y-2 overflow-hidden transition-all duration-200 ${
-                  isExpanded ? "max-h-[500px] mt-3" : "max-h-0"
-                }`}
-              >
-                {categoryBlocks.map((block) => (
-                  <Draggable
-                    key={block.id}
-                    id={block.id}
-                    type="block"
-                    data={block}
-                    containerId="palette"
-                    className={`${block.color} text-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200`}
-                  >
-                    <div className="p-3 flex items-center gap-2">
+              {isExpanded && (
+                <div className="mt-2 space-y-2">
+                  {categoryBlocks.map((block) => (
+                    <Draggable
+                      key={block.id}
+                      id={block.id}
+                      type="block"
+                      data={block}
+                      containerId="palette"
+                      className={`${block.color} text-white rounded-lg shadow-sm p-3 flex items-center gap-2`}
+                    >
                       {block.icon}
                       <span className="font-medium">{block.label}</span>
-                    </div>
-                  </Draggable>
-                ))}
-              </div>
+                    </Draggable>
+                  ))}
+                </div>
+              )}
             </div>
           );
         })}
