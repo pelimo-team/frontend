@@ -12,21 +12,24 @@ const RestaurantHeader = ({ restaurantName, restaurantLogo, cartItemCount }: Res
   return (
     <header className="restaurant-header">
       <div className="restaurant-menuicon" onClick={() => navigate(-1)}>
-        <img src="images/back.png" alt="برگشت" />
+        <img src="cart-shopping-solid.svg" alt="Basket" />
       </div>
-      <img src="images/Logo.png" alt="لوگو" className="restaurant-logocenter" />
-      <div className="restaurant-userinfo d-flex flex-column align-items-center">
-        <button className="cart-icon-restaurant" onClick={() => navigate("/cart")}>
-          <img src="images/basket.png" alt="سبد خرید" />
-          {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
-        </button>
+      <img src="Logo.png" alt="logo" className="restaurant-logocenter" />
+      <div className="restaurant-name-avatar">
         <img
           src={restaurantLogo || "images/profile.png"}
-          alt="پروفایل"
+          alt="Profile"
           className="restaurant-useravatar"
         />
         <span className="restaurant-username">{restaurantName}</span>
       </div>
+      <div className="restaurant-userinfo d-flex flex-column align-items-center">
+        <button className="cart-icon-restaurant" onClick={() => navigate("/cart")}>
+          <img src="arrow-right-solid.svg" alt="Back" />
+          {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
+        </button>
+      </div>
+      
     </header>
   );
 };

@@ -3,7 +3,7 @@ body {
   padding: 0;
   font-family: 'Tahoma', sans-serif;
   direction: rtl;
-  background-color: #fff;
+  background-color: #f4f1eb;
 }
 
 .restaurant-page {
@@ -12,35 +12,44 @@ body {
 }
 
 .restaurant-header {
-  height: 80px;
-  background-color: #945436;
+  height: 100px;
+  background: linear-gradient(135deg, rgb(212, 183, 163) 0%, rgb(195, 162, 143) 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
   color: white;
   width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .restaurant-logocenter {
-  height: 50px;
   object-fit: contain;
+  width: 95px;
+  height: auto;
+  position: relative;
+  transform: translateX(250%)
+}
+
+.restaurant-name-avatar {
+  transform: translateX(400px)
 }
 
 .restaurant-useravatar {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .restaurant-username {
-  font-size: 10px;
+  font-size: 16px;
   color: white;
+  padding: 5px;
 }
 
 .restaurant-userinfo {
-  gap: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,9 +64,10 @@ body {
   position: relative; /* Needed for badge positioning */
 }
 .restaurant-userinfo .cart-icon-restaurant img {
-  width: 24px; /* Adjust size as needed */
-  height: 24px;
-  filter: brightness(0) invert(1); /* Make icon white */
+  width: 36px; /* Adjust size as needed */
+  height: 36px;
+  /* filter: brightness(0) invert(1); Make icon white */
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
 }
 .restaurant-userinfo .cart-badge {
   position: absolute;
@@ -80,9 +90,10 @@ body {
 
 /* Style for the back button image */
 .restaurant-menuicon img {
-  width: 24px; /* Adjust size as needed */
-  height: 24px;
-  filter: brightness(0) invert(1); /* Make icon white */
+  width: 36px; /* Adjust size as needed */
+  height: 36px;
+  /* filter: brightness(0) invert(1); Make icon white */
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
 }
 
 .restaurant-banner {
@@ -91,6 +102,7 @@ body {
   padding: 20px;
   width: 100%;
   box-sizing: border-box; /* Include padding in width */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .restaurant-image {
@@ -100,6 +112,7 @@ body {
   object-fit: cover;
   display: block; /* Prevent extra space below image */
   margin: 0 auto; /* Center image if banner is wider */
+  border-radius: 10px;
 }
 
 .restaurant-infosection {
@@ -120,7 +133,7 @@ body {
   color: #000;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .restaurant-infotext {
@@ -129,12 +142,12 @@ body {
 
 /* Added specific styling for name/location */
 .restaurant-infotext .fs-5 {
-   font-size: 1.1rem; /* Adjust as needed */
+   font-size: 1.2rem; /* Adjust as needed */
    font-weight: bold;
    color: #333;
 }
 .restaurant-infotext .fs-6 {
-   font-size: 0.9rem; /* Adjust as needed */
+   font-size: 1rem; /* Adjust as needed */
    color: #555;
    margin-top: 5px;
 }
@@ -171,7 +184,12 @@ body {
 
 /* Container for Menu or Comments */
 .tab-content-container {
-  padding: 20px; /* Add padding around the content */
+  /* padding: 20px; Add padding around the content */
+  padding: 24px;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  margin-bottom: 30px;
 }
 
 @media (max-width: 768px) {

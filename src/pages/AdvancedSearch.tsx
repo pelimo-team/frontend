@@ -13,7 +13,7 @@ const AdvancedSearch: React.FC = () => {
   const searchQuery = queryParams.get("query") || "";
 
   const [searchText, setSearchText] = useState<string>(searchQuery);
-  const [activeTab, setActiveTab] = useState<CategoryType>("همه");
+  const [activeTab, setActiveTab] = useState<CategoryType>("All");
   const [activeFilters, setActiveFilters] = useState<FilterType[]>([]);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -38,11 +38,11 @@ const AdvancedSearch: React.FC = () => {
     try {
       const queryParams = new URLSearchParams();
       if (searchText) queryParams.append("name", searchText);
-      if (activeTab !== "همه") queryParams.append("type", activeTab);
+      if (activeTab !== "All") queryParams.append("type", activeTab);
 
-      if (activeFilters.includes("دارای تخفیف"))
+      if (activeFilters.includes("Discounted"))
         queryParams.append("has_onsale", "true");
-      if (activeFilters.includes("پرفروش‌ترین"))
+      if (activeFilters.includes("Best Seller"))
         queryParams.append("has_bestseller", "true");
 
       const url = `/api/restaurants/search/advanced/?${queryParams.toString()}`;
@@ -101,17 +101,17 @@ const AdvancedSearch: React.FC = () => {
     try {
       const queryParams = new URLSearchParams();
       if (searchText) queryParams.append("name", searchText);
-      if (activeTab !== "همه") queryParams.append("restaurant_type", activeTab);
+      if (activeTab !== "All") queryParams.append("restaurant_type", activeTab);
 
-      if (activeFilters.includes("دارای تخفیف"))
+      if (activeFilters.includes("Discounted"))
         queryParams.append("is_onsale", "true");
-      if (activeFilters.includes("پرفروش‌ترین"))
+      if (activeFilters.includes("Best Seller"))
         queryParams.append("is_bestseller", "true");
-      if (activeFilters.includes("دارای عکس"))
+      if (activeFilters.includes("Has Image"))
         queryParams.append("has_image", "true");
-      if (activeFilters.includes("گران‌ترین"))
+      if (activeFilters.includes("Most Expensive"))
         queryParams.append("ordering", "-price");
-      if (activeFilters.includes("ارزان‌ترین"))
+      if (activeFilters.includes("Cheapest"))
         queryParams.append("ordering", "price");
 
       const url = `/api/items/search/advanced/?${queryParams.toString()}`;

@@ -29,25 +29,25 @@ export interface MenuItem {
 }
 
 export const categories = [
-  "همه",
-  "رستوران",
-  "فست فود",
-  "کافی شاپ",
-  "آبمیوه سنتی",
-  "شیرینی",
-  "میوه",
+  "All",
+  "Restaurant",
+  "Fast Food",
+  "Coffee Shop",
+  "Juice",
+  "pastry",
+  "Fruit",
 ] as const;
 
 export const allFilters = [
-  "طبع سرد",
-  "طبع گرم",
-  "دارای تخفیف",
-  "خوش قیمت‌ترین",
-  "موجود",
-  "پرفروش‌ترین",
-  "گران‌ترین",
-  "ارزان‌ترین",
-  "دارای عکس",
+  "Cold-tempered",
+  "Warm-tempered",
+  "Discounted",
+  "Most affordable",
+  "Available",
+  "Best Seller",
+  "Most Expensive",
+  "Cheapest",
+  "Has Image",
 ] as const;
 
 export type FilterType = (typeof allFilters)[number];
