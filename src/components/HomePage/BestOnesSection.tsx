@@ -10,10 +10,34 @@ interface Restaurant {
 }
 
 const bestOnesData: Restaurant[] = [
-  { id: 1, name: "Restaurant A", location: "City A", rating: 3, image: "Rectangle 754.png" },
-  { id: 2, name: "Restaurant B", location: "City B", rating: 4, image: "Rectangle 754.png" },
-  { id: 3, name: "Restaurant C", location: "City C", rating: 5, image: "Rectangle 754.png" },
-  { id: 4, name: "Restaurant D", location: "City D", rating: 2, image: "Rectangle 754.png" },
+  {
+    id: 1,
+    name: "Restaurant A",
+    location: "City A",
+    rating: 3,
+    image: "Rectangle 754.png",
+  },
+  {
+    id: 2,
+    name: "Restaurant B",
+    location: "City B",
+    rating: 4,
+    image: "Rectangle 754.png",
+  },
+  {
+    id: 3,
+    name: "Restaurant C",
+    location: "City C",
+    rating: 5,
+    image: "Rectangle 754.png",
+  },
+  {
+    id: 4,
+    name: "Restaurant D",
+    location: "City D",
+    rating: 2,
+    image: "Rectangle 754.png",
+  },
 ];
 
 const BestOnesSection = () => {
@@ -32,8 +56,8 @@ const BestOnesSection = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add(styles.visible);
           }
@@ -42,12 +66,12 @@ const BestOnesSection = () => {
       { threshold: 0.2 }
     );
 
-    cardRefs.current.forEach(card => {
+    cardRefs.current.forEach((card) => {
       if (card) observer.observe(card);
     });
 
     return () => {
-      cardRefs.current.forEach(card => {
+      cardRefs.current.forEach((card) => {
         if (card) observer.unobserve(card);
       });
     };
@@ -73,14 +97,18 @@ const BestOnesSection = () => {
             {bestOnesData.map((item, index) => (
               <div
                 key={item.id}
-                ref={el => (cardRefs.current[index] = el)}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
                 className={`${styles["best-ones-item"]} ${styles["fade-in-on-scroll"]}`}
               >
                 <div className={styles["image-box"]}>
                   <img src={item.image} alt={item.name} />
                 </div>
                 <div className={styles.info}>
-                  <p><strong>{item.name}</strong></p>
+                  <p>
+                    <strong>{item.name}</strong>
+                  </p>
                   <p>{item.location}</p>
                   <p>{"★".repeat(item.rating) + "☆".repeat(5 - item.rating)}</p>
                 </div>
