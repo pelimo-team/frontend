@@ -1,0 +1,116 @@
+
+/*Canvas.tsx*/
+.model-title1 {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9CA3AF; 
+
+}
+.model-meal-suggestions {
+    width: 34rem;       
+    padding-left: 1rem; 
+}
+.model-trash-icon {
+    width: 1rem; 
+    height: 1rem;
+}
+.model-trash-button {
+    position: absolute;
+    right: 0.5rem;            
+    top: 50%;                  
+    transform: translateY(-50%); 
+    padding: 0.25rem;          
+    border-radius: 0.25rem;    
+    transition: background-color 0.2s; 
+  }
+  
+  .model-trash-button:hover {
+    background-color: rgba(255, 255, 255, 0.2); 
+  }
+  .model-category-container {
+    
+        padding: 0.75rem;      
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;            
+      
+    }
+  .model-drag-place-ingredients {
+    min-height: 500px;
+    max-height: 600px;
+    background-color: #f9fafb;  /* Tailwind bg-gray-50 */
+    border-radius: 0.5rem;      /* Tailwind rounded-lg = 8px */
+    padding: 1rem;              /* Tailwind p-4 = 1rem = 16px */
+    overflow-y: auto;
+
+    }
+.model-chefHat-icon{
+    width: 1.25rem;  
+    height: 1.25rem; 
+}
+.model-get-suggestions-button-disabled{
+    background-color: #9CA3AF;  
+    cursor: not-allowed;
+}
+.model-get-suggestions-button-available{
+    background-color: #2563EB; 
+    transition: background-color 0.2s;
+}
+.model-get-suggestions-button-available:hover{
+    background-color: #1D4ED8;
+}
+.model-get-suggestions-button-container{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;           
+    padding: 0.5rem 1rem;  
+    border-radius: 0.5rem; 
+    color: #ffffff; 
+}
+
+.model-title2{
+    font-size: 0.875rem;    
+    color: #6B7280; 
+}
+.model-title3{
+    font-weight: 600;     
+    color: #1F2937;  
+}
+.model-get-suggestion-button-position{
+    margin-bottom: 1rem;      
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.model-menu-canvas-container{
+    flex: 1;
+    background-color: #ffffff;  
+    border-radius: 0.5rem;     
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); 
+    padding: 1.5rem;            
+    min-height: 600px;
+}
+.model-canvas-container{
+    display: flex;
+    gap: 2rem;           
+    flex: 1;
+    padding: 1.5rem;      
+}
+.model-ingredient-label{
+    color: #ffffff;                
+    border-radius: 0.5rem;  
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); 
+    position: relative;
+}
+.model-gray-box-style{
+    width: 1.25rem;               
+    height: 1.25rem;                
+    color: rgba(255, 255, 255, 0.7); 
+    cursor: grab;
+}
+.model-drag-drop-palace-highlight{
+    background-color: #eff6ff;     
+  border: 2px dashed #93c5fd; 
+}

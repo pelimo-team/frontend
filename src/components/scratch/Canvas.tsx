@@ -3,6 +3,7 @@ import axios from "axios";
 import { DropZone, Draggable } from "../dnd";
 import { Trash2, GripVertical, ChefHat } from "lucide-react";
 import { MealSuggestions } from "./MealSuggestions";
+import "./Model.css";
 
 interface Block {
   id: string;
@@ -114,34 +115,39 @@ export function Canvas() {
   };
 
   return (
-    <div className="flex gap-8 flex-1 p-6">
-      <div className="flex-1 bg-white rounded-lg shadow-sm p-6 min-h-[600px]">
-        <div className="mb-4 flex justify-between items-center">
+    
+    <div className="model-canvas-container">
+      <div className="model-menu-canvas-container">
+        <div className="model-get-suggestion-button-position">
           <div>
-            <h2 className="font-semibold text-gray-800">Menu Canvas</h2>
-            <p className="text-sm text-gray-500">
+           
+            <h2 className="model-title3">Menu Canvas</h2>
+            <p className="model-title2">
               Drag food items here to build your menu
             </p>
           </div>
+          
           <button
             onClick={handleGetSuggestions}
             disabled={blocks.length === 0}
-            className={`
-              flex items-center gap-2 px-4 py-2 rounded-lg text-white
+            className={`model-get-suggestions-button-container
+             
               ${
+               
                 blocks.length === 0
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-600 hover:bg-blue-700"
+                  ? "model-get-suggestions-button-disabled"
+                  : "model-get-suggestions-button-available"
               }
               transition-colors
             `}
           >
-            <ChefHat className="w-5 h-5" />
+            
+            <ChefHat className="model-chefHat-icon" />
             Get Meal Suggestions
           </button>
         </div>
 
-        <div className="min-h-[500px] bg-gray-50 rounded-lg p-4 overflow-y-auto max-h-[600px]">
+        <div className="model-drag-place-ingredients">
           {blocks.map((block, index) => (
             <div key={block.id} className="relative">
               <DropZone
@@ -156,16 +162,20 @@ export function Canvas() {
                   type="block"
                   data={block}
                   containerId="canvas"
-                  className={`${block.color} text-white rounded-lg shadow-sm group relative`}
+                  className={`${block.color} model-ingredient-label`}
                 >
-                  <div className="p-3 flex items-center gap-2">
-                    <GripVertical className="w-5 h-5 text-white/70 cursor-grab" />
+                  
+                  <div className="model-category-container">
+                    <GripVertical className="model-gray-box-style" />
+                   
                     <span className="font-medium">{block.label}</span>
                     <button
                       onClick={() => handleDelete(block.id)}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-white/20 rounded"
+                      
+                      className="model-trash-button"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      
+                      <Trash2 className="model-trash-icon" />
                     </button>
                   </div>
                 </Draggable>
@@ -180,18 +190,24 @@ export function Canvas() {
             className={`${
               blocks.length === 0 ? "h-full" : "min-h-[100px]"
             } rounded-lg`}
-            highlightClassName="bg-blue-50 border-2 border-dashed border-blue-300"
+            highlightClassName="model-drag-drop-palace-highlight"
+            
           >
+            
+
             {blocks.length === 0 && (
-              <div className="h-full flex items-center justify-center text-gray-400">
+              <div className="model-title1"> 
                 Drag food items here to start building your menu
+                
               </div>
             )}
           </DropZone>
         </div>
       </div>
 
-      <div className="w-[34rem] pl-4">
+      
+
+      <div className="model-meal-suggestions">
         <MealSuggestions meals={meals} isLoading={isLoading} />
       </div>
     </div>
