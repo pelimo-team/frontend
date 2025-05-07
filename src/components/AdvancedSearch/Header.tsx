@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({
           className="cart-icon-advanced-search"
           onClick={() => navigate("/cart")}
         >
-          <img src="basket.png" alt="" />
+          <img src="cart-shopping-solid.svg" alt="" />
         </button>
         <img
           src="/Logo.png"
@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({
           className="back-btn-advanced-search"
           onClick={() => navigate("/")}
         >
-          <img src="back.png" alt="" />
+          <img src="arrow-right-solid.svg" alt="" />
         </button>
       </div>
 
@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({
             type="text"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            placeholder="جستجو..."
+            placeholder="Search..."
           />
           <button className="close-btn-advanced-search">✕</button>
         </div>
@@ -53,13 +53,13 @@ const Header: React.FC<HeaderProps> = ({
             className={`toggle-btn ${searchMode === "restaurants" ? "active" : ""}`}
             onClick={() => setSearchMode("restaurants")}
           >
-            رستوران‌ها
+            Restaurants
           </button>
           <button
             className={`toggle-btn ${searchMode === "items" ? "active" : ""}`}
             onClick={() => setSearchMode("items")}
           >
-            منو غذا
+            Food Menu
           </button>
         </div>
       </div>

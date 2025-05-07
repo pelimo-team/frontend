@@ -10,13 +10,13 @@ const RestaurantTabs = ({ activeTab, onTabChange }: RestaurantTabsProps) => {
         className={`restaurant-tab ${activeTab === "menu" ? "active" : ""}`}
         onClick={() => onTabChange("menu")}
       >
-        منو
+        Menu
       </div>
       <div
         className={`restaurant-tab ${activeTab === "comments" ? "active" : ""}`}
         onClick={() => onTabChange("comments")}
       >
-        نظرات
+        Comments
       </div>
     </div>
   );

@@ -33,14 +33,14 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
       <div className="section-header-advanced-search">
         <h3>
           {visibleItems.length}{" "}
-          {searchMode === "restaurants" ? "فروشگاه" : "غذا"}
+          {searchMode === "restaurants" ? "Store" : "Food"}
         </h3>
         {visibleItems.length > 6 && (
           <a
             onClick={() => setShowAllItems(!showAllItems)}
             style={{ cursor: "pointer" }}
           >
-            {showAllItems ? "بستن >" : "مشاهده همه <"}
+            {showAllItems ? "Close >" : "Show All <"}
           </a>
         )}
       </div>
@@ -76,13 +76,13 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                 <div className="shop-rating-advanced-search">
                   ⭐{" "}
                   {restaurant.rating ? restaurant.rating.toFixed(1) : "N/A"}{" "}
-                  | {restaurant.reviews_count || 0} نظر
+                  | {restaurant.reviews_count || 0} Comment
                 </div>
                 <div className="delivery-cost-advanced-search">
-                  🛵 هزینه پیک:{" "}
+                  🛵 Delivery Cost :{" "}
                   {restaurant.delivery_cost === 0
-                    ? "رایگان"
-                    : `${restaurant.delivery_cost} تومان`}
+                    ? "Free"
+                    : `${restaurant.delivery_cost} T`}
                 </div>
               </div>
             ))
@@ -107,7 +107,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                     <div className="item-image-placeholder">No Image</div>
                   )}
                   {item.bestseller && (
-                    <div className="bestseller-badge">پرفروش</div>
+                    <div className="bestseller-badge">Best Seller</div>
                   )}
                 </div>
                 <div className="item-details">
@@ -127,14 +127,14 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                     {item.onsale ? (
                       <>
                         <span className="original-price">
-                          {item.price} تومان
+                          {item.price} T
                         </span>
                         <span className="sale-price">
-                          {item.sale_price} تومان
+                          {item.sale_price} T
                         </span>
                       </>
                     ) : (
-                      <span>{item.price} تومان</span>
+                      <span>{item.price} T</span>
                     )}
                   </div>
                 </div>

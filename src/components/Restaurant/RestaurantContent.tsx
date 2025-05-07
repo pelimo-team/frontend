@@ -43,7 +43,7 @@ const RestaurantContent = ({
         />
       );
     }
-    return <div className="menu-empty">منو در دسترس نیست</div>;
+    return <div className="menu-empty">Menu is not available</div>;
   }
 
   return <CommentsSection restaurantId={restaurantId} />;
