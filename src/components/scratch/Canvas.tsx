@@ -83,22 +83,33 @@ export function Canvas() {
 
       const response = await axios.post(API_URL, {
         ingredient_names: ingredientNames,
+        parameters: {
+          temperature: 0.7,
+          max_new_tokens: 2000,
+          return_full_text: false,
+        },
       });
 
-      // The backend now returns only the meal name (ideally), but filter just in case
-      let mealName = response.data.suggestions.trim();
-      // Only take the first line or first sentence
-      mealName = mealName
-        .split("\n")[0]
-        .split(".")[0]
-        .replace(/^Answer:/i, "")
-        .trim();
+      // Show the entire suggestion from the backend
+      const suggestion = response.data.suggestions.trim();
+
+      let mealName = "AI Suggestion";
+      let description = suggestion;
+
+      // Try to extract meal name and description if the format matches
+      const mealNameMatch = suggestion.match(/Meal Name:\s*(.*)/i);
+      const descriptionMatch = suggestion.match(/Description:\s*([\s\S]*)/i);
+
+      if (mealNameMatch && descriptionMatch) {
+        mealName = mealNameMatch[1].trim();
+        description = descriptionMatch[1].trim();
+      }
 
       setMeals([
         {
           id: "huggingface",
           name: mealName,
-          description: "",
+          description: description,
           ingredients: ingredientNames,
         },
       ]);
@@ -115,25 +126,22 @@ export function Canvas() {
   };
 
   return (
-    
     <div className="model-canvas-container">
       <div className="model-menu-canvas-container">
         <div className="model-get-suggestion-button-position">
           <div>
-           
             <h2 className="model-title3">Menu Canvas</h2>
             <p className="model-title2">
               Drag food items here to build your menu
             </p>
           </div>
-          
+
           <button
             onClick={handleGetSuggestions}
             disabled={blocks.length === 0}
             className={`model-get-suggestions-button-container
              
               ${
-               
                 blocks.length === 0
                   ? "model-get-suggestions-button-disabled"
                   : "model-get-suggestions-button-available"
@@ -141,7 +149,6 @@ export function Canvas() {
               transition-colors
             `}
           >
-            
             <ChefHat className="model-chefHat-icon" />
             Get Meal Suggestions
           </button>
@@ -164,17 +171,14 @@ export function Canvas() {
                   containerId="canvas"
                   className={`${block.color} model-ingredient-label`}
                 >
-                  
                   <div className="model-category-container">
                     <GripVertical className="model-gray-box-style" />
-                   
+
                     <span className="font-medium">{block.label}</span>
                     <button
                       onClick={() => handleDelete(block.id)}
-                      
                       className="model-trash-button"
                     >
-                      
                       <Trash2 className="model-trash-icon" />
                     </button>
                   </div>
@@ -191,21 +195,15 @@ export function Canvas() {
               blocks.length === 0 ? "h-full" : "min-h-[100px]"
             } rounded-lg`}
             highlightClassName="model-drag-drop-palace-highlight"
-            
           >
-            
-
             {blocks.length === 0 && (
-              <div className="model-title1"> 
+              <div className="model-title1">
                 Drag food items here to start building your menu
-                
               </div>
             )}
           </DropZone>
         </div>
       </div>
-
-      
 
       <div className="model-meal-suggestions">
         <MealSuggestions meals={meals} isLoading={isLoading} />
