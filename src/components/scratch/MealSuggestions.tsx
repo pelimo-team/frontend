@@ -1,6 +1,5 @@
 import { ChefHat } from "lucide-react";
 
-
 interface Meal {
   id: string;
   name: string;
@@ -12,14 +11,14 @@ interface MealSuggestionsProps {
   meals: Meal[];
   isLoading: boolean;
 }
-
+//w-5 h-5 text-gray-600
 export function MealSuggestions({ meals, isLoading }: MealSuggestionsProps) {
   if (isLoading) {
     return (
       <div className="bg-white rounded-lg shadow-sm h-full">
         <div className="p-4 border-b border-gray-200">
           <h2 className="font-semibold text-gray-800 flex items-center gap-2">
-            <ChefHat className="w-5 h-5 text-gray-600" />
+            <ChefHat className="model-loading-text" />
             Loading Suggestions...
           </h2>
         </div>

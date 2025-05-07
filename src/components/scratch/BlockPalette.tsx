@@ -27,15 +27,16 @@ const blocks: Block[] = [
     type: "food",
     category: "Meat",
     label: "Steak",
-    icon: <Beef className="w-5 h-5" />,
+    icon: <Beef className="ingredient-siza" />,
     color: "bg-red-600",
   },
+
   {
     id: "meat-chicken",
     type: "food",
     category: "Meat",
     label: "Chicken",
-    icon: <Beef className="w-5 h-5" />,
+    icon: <Beef className="ingredient-siza" />,
     color: "bg-red-600",
   },
   {
@@ -43,7 +44,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Meat",
     label: "Fish",
-    icon: <Beef className="w-5 h-5" />,
+    icon: <Beef className="ingredient-siza" />,
     color: "bg-red-600",
   },
 
@@ -53,7 +54,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Vegetables",
     label: "Carrot",
-    icon: <Carrot className="w-5 h-5" />,
+    icon: <Carrot className="ingredient-siza" />,
     color: "bg-green-600",
   },
   {
@@ -61,7 +62,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Vegetables",
     label: "Broccoli",
-    icon: <Carrot className="w-5 h-5" />,
+    icon: <Carrot className="ingredient-siza" />,
     color: "bg-green-600",
   },
   {
@@ -69,7 +70,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Vegetables",
     label: "Tomato",
-    icon: <Carrot className="w-5 h-5" />,
+    icon: <Carrot className="ingredient-siza" />,
     color: "bg-green-600",
   },
 
@@ -79,7 +80,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Fruit",
     label: "Apple",
-    icon: <Apple className="w-5 h-5" />,
+    icon: <Apple className="ingredient-siza" />,
     color: "bg-orange-500",
   },
   {
@@ -87,7 +88,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Fruit",
     label: "Banana",
-    icon: <Apple className="w-5 h-5" />,
+    icon: <Apple className="ingredient-siza" />,
     color: "bg-orange-500",
   },
   {
@@ -95,7 +96,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Fruit",
     label: "Orange",
-    icon: <Apple className="w-5 h-5" />,
+    icon: <Apple className="ingredient-siza" />,
     color: "bg-orange-500",
   },
 
@@ -105,7 +106,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Bread",
     label: "White Bread",
-    icon: <Cookie className="w-5 h-5" />,
+    icon: <Cookie className="ingredient-siza" />,
     color: "bg-yellow-600",
   },
   {
@@ -113,7 +114,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Bread",
     label: "Wheat Bread",
-    icon: <Cookie className="w-5 h-5" />,
+    icon: <Cookie className="ingredient-siza" />,
     color: "bg-yellow-600",
   },
   {
@@ -121,7 +122,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Bread",
     label: "Baguette",
-    icon: <Cookie className="w-5 h-5" />,
+    icon: <Cookie className="ingredient-siza" />,
     color: "bg-yellow-600",
   },
 
@@ -131,7 +132,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Dairy",
     label: "Milk",
-    icon: <Milk className="w-5 h-5" />,
+    icon: <Milk className="ingredient-siza" />,
     color: "bg-blue-500",
   },
   {
@@ -139,7 +140,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Dairy",
     label: "Cheese",
-    icon: <Milk className="w-5 h-5" />,
+    icon: <Milk className="ingredient-siza" />,
     color: "bg-blue-500",
   },
   {
@@ -147,7 +148,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Dairy",
     label: "Yogurt",
-    icon: <Milk className="w-5 h-5" />,
+    icon: <Milk className="ingredient-siza" />,
     color: "bg-blue-500",
   },
 
@@ -157,7 +158,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Beverages",
     label: "Coffee",
-    icon: <Coffee className="w-5 h-5" />,
+    icon: <Coffee className="ingredient-siza" />,
     color: "bg-yellow-500",
   },
   {
@@ -165,7 +166,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Beverages",
     label: "Tea",
-    icon: <Coffee className="w-5 h-5" />,
+    icon: <Coffee className="ingredient-siza" />,
     color: "bg-yellow-500",
   },
   {
@@ -173,7 +174,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Beverages",
     label: "Juice",
-    icon: <Coffee className="w-5 h-5" />,
+    icon: <Coffee className="ingredient-siza" />,
     color: "bg-yellow-500",
   },
 
@@ -183,7 +184,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Desserts",
     label: "Ice Cream",
-    icon: <IceCream className="w-5 h-5" />,
+    icon: <IceCream className="ingredient-siza" />,
     color: "bg-pink-500",
   },
   {
@@ -191,7 +192,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Desserts",
     label: "Cake",
-    icon: <IceCream className="w-5 h-5" />,
+    icon: <IceCream className="ingredient-siza" />,
     color: "bg-pink-500",
   },
   {
@@ -199,7 +200,7 @@ const blocks: Block[] = [
     type: "food",
     category: "Desserts",
     label: "Pudding",
-    icon: <IceCream className="w-5 h-5" />,
+    icon: <IceCream className="ingredient-siza" />,
     color: "bg-pink-500",
   },
 ];
@@ -230,14 +231,14 @@ export function BlockPalette() {
       return newSet;
     });
   };
-
+  //text-white rounded-lg shadow-sm p-3 flex items-center gap-2
   return (
-    <div className="w-[36rem] bg-white rounded-lg shadow-sm overflow-hidden flex-shrink-0 flex flex-col h-[calc(100vh-8rem)]">
-      <div className="p-4 border-b border-gray-200 flex-shrink-0">
-        <h2 className="font-semibold text-gray-800">Food Items</h2>
+    <div className="model-food-item-container">
+      <div className="model-food-item-header">
+        <h2 className="model-item-food-header-text">Food Items</h2>
       </div>
 
-      <div className="divide-y divide-gray-200 overflow-y-auto flex-1">
+      <div className="model-food-item-scroll">
         {categories.map((category) => {
           const isExpanded = expandedCategories.has(category);
           const categoryBlocks = blocks.filter(
@@ -245,21 +246,21 @@ export function BlockPalette() {
           );
 
           return (
-            <div key={category} className="p-4">
+            <div key={category} className="model-category-padding">
               <button
                 onClick={() => toggleCategory(category)}
-                className="w-full flex items-center justify-between text-left"
+                className="model-category-drop-down"
               >
                 <span className="font-medium text-gray-900">{category}</span>
                 <ChevronDown
-                  className={`w-5 h-5 text-gray-500 transition-transform ${
-                    isExpanded ? "rotate-180" : ""
+                  className={`model-food-item-dropdown-arrow ${
+                    isExpanded ? "model-rotate-arrow" : ""
                   }`}
                 />
               </button>
 
               {isExpanded && (
-                <div className="mt-2 space-y-2">
+                <div className="model-space-top-ingredients   model-space-y-ingredients">
                   {categoryBlocks.map((block) => (
                     <Draggable
                       key={block.id}
@@ -267,7 +268,7 @@ export function BlockPalette() {
                       type="block"
                       data={block}
                       containerId="palette"
-                      className={`${block.color} text-white rounded-lg shadow-sm p-3 flex items-center gap-2`}
+                      className={`${block.color} model-ingredient-style`}
                     >
                       {block.icon}
                       <span className="font-medium">{block.label}</span>
