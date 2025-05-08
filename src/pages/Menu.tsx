@@ -24,11 +24,7 @@ interface MenuProps {
   isAuthenticated: boolean;
 }
 
-const Menu: React.FC<MenuProps> = ({
-  categories,
-  cart,
-  updateCart,
-}) => {
+const Menu: React.FC<MenuProps> = ({ categories, cart, updateCart }) => {
   const navigate = useNavigate();
   console.log("Menu component received categories:", categories);
   console.log("Menu component received cart:", cart);
@@ -49,7 +45,7 @@ const Menu: React.FC<MenuProps> = ({
     }
     if (itemId) {
       console.log("Navigating to food item:", itemId);
-      navigate(`/food/${itemId}`);
+      navigate(`/foodpage/${itemId}`);
     } else {
       console.error("No item ID provided for navigation");
     }

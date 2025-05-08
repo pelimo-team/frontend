@@ -8,6 +8,22 @@ import ErrorState from "../components/FoodPage/ErrorState";
 import FoodContent from "../components/FoodPage/FoodContent";
 import { MenuItem as MenuItemType } from "../components/AdvancedSearch/types";
 
+const mockMenuItem = {
+  id: 1,
+  name: "name",
+  image: null,
+  bestseller: true,
+  restaurant: {
+    id: 1,
+    name: "name2",
+  },
+  category_name: "name3",
+  rate: 3,
+  onsale: true,
+  price: 1200000,
+  sale_price: 120,
+};
+
 const FoodPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [menuItem, setMenuItem] = useState<MenuItemType | null>(null);
@@ -15,25 +31,8 @@ const FoodPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchMenuItem = async () => {
-      try {
-        setLoading(true);
-        const response = await api.get(`/api/menu-items/${id}/`);
-        setMenuItem(response);
-      } catch (err) {
-        console.error("Error fetching menu item:", err);
-        setError(
-          err instanceof Error ? err.message : "Failed to load menu item"
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (id) {
-      fetchMenuItem();
-    }
-  }, [id]);
+    setMenuItem(mockMenuItem);
+  }, []);
 
   if (loading) {
     return <LoadingState />;
@@ -46,6 +45,7 @@ const FoodPage: React.FC = () => {
   return (
     <>
       <FoodContent menuItem={menuItem} />
+      {/* <MenuItem cartQuantity={} item={} onItemClick={} onQuantityChange={}/> */}
     </>
   );
 };

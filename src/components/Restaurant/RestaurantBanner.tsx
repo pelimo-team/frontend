@@ -9,6 +9,7 @@ const RestaurantBanner = ({ image, name }: RestaurantBannerProps) => {
       {image && (
         <img src={image} alt={name} className="restaurant-image" />
       )}
+      
     </div>
   );
 };
