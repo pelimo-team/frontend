@@ -10,7 +10,7 @@ import {
   IceCream,
 } from "lucide-react";
 import { Draggable } from "../dnd";
-
+import "../../styles/Model.css"
 interface Block {
   id: string;
   type: string;
@@ -28,7 +28,7 @@ const blocks: Block[] = [
     category: "Meat",
     label: "Steak",
     icon: <Beef className="ingredient-siza" />,
-    color: "bg-red-600",
+    color: "meat-color",
   },
 
   {
@@ -37,7 +37,7 @@ const blocks: Block[] = [
     category: "Meat",
     label: "Chicken",
     icon: <Beef className="ingredient-siza" />,
-    color: "bg-red-600",
+    color: "meat-color",
   },
   {
     id: "meat-fish",
@@ -45,7 +45,7 @@ const blocks: Block[] = [
     category: "Meat",
     label: "Fish",
     icon: <Beef className="ingredient-siza" />,
-    color: "bg-red-600",
+    color: "meat-color",
   },
 
   // Vegetables Category
@@ -55,7 +55,7 @@ const blocks: Block[] = [
     category: "Vegetables",
     label: "Carrot",
     icon: <Carrot className="ingredient-siza" />,
-    color: "bg-green-600",
+    color: "vegetable-color",
   },
   {
     id: "veg-broccoli",
@@ -63,7 +63,7 @@ const blocks: Block[] = [
     category: "Vegetables",
     label: "Broccoli",
     icon: <Carrot className="ingredient-siza" />,
-    color: "bg-green-600",
+    color: "vegetable-color",
   },
   {
     id: "veg-tomato",
@@ -71,7 +71,7 @@ const blocks: Block[] = [
     category: "Vegetables",
     label: "Tomato",
     icon: <Carrot className="ingredient-siza" />,
-    color: "bg-green-600",
+    color: "vegetable-color",
   },
 
   // Fruit Category
@@ -81,7 +81,7 @@ const blocks: Block[] = [
     category: "Fruit",
     label: "Apple",
     icon: <Apple className="ingredient-siza" />,
-    color: "bg-orange-500",
+    color: "fruit-color",
   },
   {
     id: "fruit-banana",
@@ -89,7 +89,7 @@ const blocks: Block[] = [
     category: "Fruit",
     label: "Banana",
     icon: <Apple className="ingredient-siza" />,
-    color: "bg-orange-500",
+    color: "fruit-color",
   },
   {
     id: "fruit-orange",
@@ -97,7 +97,7 @@ const blocks: Block[] = [
     category: "Fruit",
     label: "Orange",
     icon: <Apple className="ingredient-siza" />,
-    color: "bg-orange-500",
+    color: "fruit-color",
   },
 
   // Bread Category
@@ -107,7 +107,7 @@ const blocks: Block[] = [
     category: "Bread",
     label: "White Bread",
     icon: <Cookie className="ingredient-siza" />,
-    color: "bg-yellow-600",
+    color: "bread-color",
   },
   {
     id: "bread-wheat",
@@ -115,7 +115,7 @@ const blocks: Block[] = [
     category: "Bread",
     label: "Wheat Bread",
     icon: <Cookie className="ingredient-siza" />,
-    color: "bg-yellow-600",
+    color: "bread-color",
   },
   {
     id: "bread-baguette",
@@ -123,7 +123,7 @@ const blocks: Block[] = [
     category: "Bread",
     label: "Baguette",
     icon: <Cookie className="ingredient-siza" />,
-    color: "bg-yellow-600",
+    color: "bread-color",
   },
 
   // Dairy Category
@@ -133,7 +133,7 @@ const blocks: Block[] = [
     category: "Dairy",
     label: "Milk",
     icon: <Milk className="ingredient-siza" />,
-    color: "bg-blue-500",
+    color: "dairy-color",
   },
   {
     id: "dairy-cheese",
@@ -141,7 +141,7 @@ const blocks: Block[] = [
     category: "Dairy",
     label: "Cheese",
     icon: <Milk className="ingredient-siza" />,
-    color: "bg-blue-500",
+    color: "dairy-color",
   },
   {
     id: "dairy-yogurt",
@@ -149,7 +149,7 @@ const blocks: Block[] = [
     category: "Dairy",
     label: "Yogurt",
     icon: <Milk className="ingredient-siza" />,
-    color: "bg-blue-500",
+    color: "dairy-color",
   },
 
   // Beverages Category
@@ -159,7 +159,7 @@ const blocks: Block[] = [
     category: "Beverages",
     label: "Coffee",
     icon: <Coffee className="ingredient-siza" />,
-    color: "bg-yellow-500",
+    color: "beverage-color",
   },
   {
     id: "beverage-tea",
@@ -167,7 +167,7 @@ const blocks: Block[] = [
     category: "Beverages",
     label: "Tea",
     icon: <Coffee className="ingredient-siza" />,
-    color: "bg-yellow-500",
+    color: "beverage-color",
   },
   {
     id: "beverage-juice",
@@ -175,7 +175,7 @@ const blocks: Block[] = [
     category: "Beverages",
     label: "Juice",
     icon: <Coffee className="ingredient-siza" />,
-    color: "bg-yellow-500",
+    color: "beverage-color",
   },
 
   // Desserts Category
@@ -185,7 +185,7 @@ const blocks: Block[] = [
     category: "Desserts",
     label: "Ice Cream",
     icon: <IceCream className="ingredient-siza" />,
-    color: "bg-pink-500",
+    color: "dessert-color",
   },
   {
     id: "dessert-cake",
@@ -193,7 +193,7 @@ const blocks: Block[] = [
     category: "Desserts",
     label: "Cake",
     icon: <IceCream className="ingredient-siza" />,
-    color: "bg-pink-500",
+    color: "dessert-color",
   },
   {
     id: "dessert-pudding",
@@ -201,7 +201,7 @@ const blocks: Block[] = [
     category: "Desserts",
     label: "Pudding",
     icon: <IceCream className="ingredient-siza" />,
-    color: "bg-pink-500",
+    color: "dessert-color",
   },
 ];
 
@@ -251,7 +251,7 @@ export function BlockPalette() {
                 onClick={() => toggleCategory(category)}
                 className="model-category-drop-down"
               >
-                <span className="font-medium text-gray-900">{category}</span>
+                <span className="model-category-title">{category}</span>
                 <ChevronDown
                   className={`model-food-item-dropdown-arrow ${
                     isExpanded ? "model-rotate-arrow" : ""

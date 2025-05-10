@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { PlusCircle, GripVertical } from "lucide-react";
 import { DragDropProvider, Draggable, DropZone, DragPreview } from "../dnd";
 import axios from "axios";
+import "../../styles/Model.css"
 
 // Define task interface
 interface Task {
@@ -48,11 +49,7 @@ const initialColumns: Column[] = [
 ];
 
 // Priority colors
-const priorityColors = {
-  low: "bg-green-100 text-green-800",
-  medium: "bg-blue-100 text-blue-800",
-  high: "bg-red-100 text-red-800",
-};
+
 
 export function KanbanBoard() {
   const [columns, setColumns] = useState<Column[]>(initialColumns);
@@ -152,29 +149,29 @@ export function KanbanBoard() {
     setNewTaskTitle("");
     setAddingTaskToColumn(null);
   };
-
+//mb-4 text-gray-600
   return (
     <DragDropProvider>
-      <div className="flex flex-row h-full gap-4">
-        <div className="flex flex-col h-full">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
+      <div className="  Kanban-container">
+        <div className="kanban-column-container">
+          <h2 className="Kanban-text1">
             Kanban Board Example
           </h2>
-          <p className="mb-4 text-gray-600">
+          <p className="Kanban-text2">
             Drag and drop tasks between columns
           </p>
 
-          <div className="flex flex-col md:flex-row gap-4 overflow-x-auto pb-4">
+          <div className="kanban-columns">
             {columns.map((column) => (
               <div
                 key={column.id}
-                className="flex-shrink-0 w-full md:w-80 bg-gray-50 rounded-lg shadow-sm overflow-hidden"
+                className="kanban-column"
               >
-                <div className="p-4 bg-white border-b border-gray-200">
-                  <h3 className="font-semibold text-gray-700">
+                <div className="kanban-column-header ">
+                  <h3>
                     {column.title}
                   </h3>
-                  <p className="text-sm text-gray-500">
+                  <p>
                     {column.tasks.length} tasks
                   </p>
                 </div>
@@ -185,8 +182,8 @@ export function KanbanBoard() {
                   onDrop={(item, sourceColumnId) =>
                     handleTaskDrop(item, sourceColumnId, column.id)
                   }
-                  className="p-2 min-h-[200px] flex flex-col gap-2"
-                  highlightClassName="bg-blue-50 border-2 border-dashed border-blue-300"
+                  className="dropzone"
+                  highlightClassName="dropzone-highlight"
                 >
                   {column.tasks.map((task) => (
                     <Draggable
@@ -195,23 +192,21 @@ export function KanbanBoard() {
                       type="task"
                       data={task}
                       containerId={column.id}
-                      className="bg-white rounded-md shadow-sm p-3 border border-gray-200 hover:shadow-md transition-shadow duration-200"
+                      className="task-card"
                     >
-                      <div className="flex items-start gap-2">
-                        <GripVertical className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1" />
-                        <div className="flex-1">
-                          <h4 className="font-medium text-gray-800 mb-1">
+                      <div className="task-card-content">
+                        <GripVertical className="task-card-icon" />
+                        <div className="task-cart-flex-1">
+                          <h4 className="task-card-title">
                             {task.title}
                           </h4>
                           {task.description && (
-                            <p className="text-sm text-gray-600 mb-2">
+                            <p className="task-card-description">
                               {task.description}
                             </p>
                           )}
                           <span
-                            className={`text-xs px-2 py-1 rounded-full ${
-                              priorityColors[task.priority]
-                            }`}
+                            className={`task-priority priority-${task.priority}`}
                           >
                             {task.priority.charAt(0).toUpperCase() +
                               task.priority.slice(1)}
@@ -222,13 +217,13 @@ export function KanbanBoard() {
                   ))}
 
                   {addingTaskToColumn === column.id ? (
-                    <div className="mt-2 p-3 bg-white rounded-md border border-gray-200 shadow-sm">
+                    <div className="task-add-form">
                       <input
                         type="text"
                         value={newTaskTitle}
                         onChange={(e) => setNewTaskTitle(e.target.value)}
                         placeholder="Task title"
-                        className="w-full mb-2 p-2 border border-gray-300 rounded-md"
+                        className="task-add-input"
                         autoFocus
                         onKeyDown={(e) => {
                           if (e.key === "Enter") handleAddTask(column.id);
@@ -238,10 +233,10 @@ export function KanbanBoard() {
                           }
                         }}
                       />
-                      <div className="flex gap-2">
+                      <div className="task-add-actions">
                         <button
                           onClick={() => handleAddTask(column.id)}
-                          className="px-3 py-1 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700"
+                          className="task-add-button"
                         >
                           Add
                         </button>
@@ -250,7 +245,7 @@ export function KanbanBoard() {
                             setNewTaskTitle("");
                             setAddingTaskToColumn(null);
                           }}
-                          className="px-3 py-1 bg-gray-200 text-gray-700 rounded-md text-sm hover:bg-gray-300"
+                          className="task-cancel-button"
                         >
                           Cancel
                         </button>
@@ -259,9 +254,9 @@ export function KanbanBoard() {
                   ) : (
                     <button
                       onClick={() => setAddingTaskToColumn(column.id)}
-                      className="mt-2 flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 p-2 rounded-md hover:bg-gray-100"
+                      className="add-task-prompt"
                     >
-                      <PlusCircle className="w-4 h-4" />
+                      <PlusCircle className="add-task-size" />
                       Add a task
                     </button>
                   )}
@@ -272,15 +267,15 @@ export function KanbanBoard() {
         </div>
 
         {/* Meal Suggestions Box */}
-        <div className="w-80 bg-white rounded-lg shadow-sm p-4 h-full">
-          <h3 className="font-semibold text-gray-700 mb-4">Meal Suggestions</h3>
-          <div className="bg-gray-50 rounded-md p-4 h-[calc(100%-3rem)] overflow-y-auto">
+        <div className="kanban-meal-suggestions">
+          <h3>Meal Suggestions</h3>
+          <div className={suggestions ? "kanban-suggestions-box" : "kanban-suggestions-box kanban-suggestions-box-empty"}>
             {suggestions ? (
-              <div className="whitespace-pre-wrap text-gray-700">
+              <div className="suggestions">
                 {suggestions}
               </div>
             ) : (
-              <p className="text-gray-500">
+              <p>
                 Drag ingredients to the "Done" column to get meal suggestions
               </p>
             )}
@@ -290,14 +285,10 @@ export function KanbanBoard() {
 
       <DragPreview
         render={(item) => (
-          <div className="bg-white rounded-md shadow-lg p-3 border border-gray-300 w-64">
-            <h4 className="font-medium text-gray-800">{item.data.title}</h4>
+          <div className="drag-preview">
+            <h4>{item.data.title}</h4>
             <span
-              className={`mt-1 inline-block text-xs px-2 py-1 rounded-full ${
-                priorityColors[
-                  item.data.priority as keyof typeof priorityColors
-                ]
-              }`}
+              className={`task-priority priority-${item.data.priority}`}
             >
               {item.data.priority}
             </span>

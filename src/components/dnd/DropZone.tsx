@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, ReactNode } from 'react';
 import { useDragDrop } from './DragDropContext';
+import "../../styles/Model.css"
 
 interface DropZoneProps {
   id: string;
@@ -17,7 +18,7 @@ export function DropZone({
   children,
   className = '',
   disabled = false,
-  highlightClassName = 'border-2 border-dashed border-blue-500 bg-blue-50',
+ 
 }: DropZoneProps) {
   const { state, endDrag } = useDragDrop();
   const [isOver, setIsOver] = useState(false);
@@ -135,12 +136,9 @@ export function DropZone({
   return (
     <div
       ref={dropZoneRef}
-      className={`
-        ${className}
-        ${isOver && isValidItem && !disabled ? highlightClassName : ''}
-        ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
-        transition-all duration-200
-      `}
+      className={`drop-zone ${className} 
+        ${isOver && isValidItem && !disabled ? 'drop-zone-highlight' : ''} 
+        ${disabled ? 'drop-zone-disabled' : ''}`}
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}

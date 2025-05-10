@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDragDrop } from './DragDropContext';
+import "../../styles/Model.css"
 
 interface DragPreviewProps {
   render: (item: any) => React.ReactNode;
@@ -60,7 +61,7 @@ export function DragPreview({ render }: DragPreviewProps) {
         pointerEvents: 'none',
         zIndex: 9999,
       }}
-      className="opacity-80 shadow-lg"
+      className="drag-preview"
     >
       {render(state.currentItem)}
     </div>,

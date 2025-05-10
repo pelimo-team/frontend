@@ -1,5 +1,6 @@
 import React, { useRef, useState, ReactNode } from 'react';
 import { useDragDrop, DragItem } from './DragDropContext';
+import "../../styles/Model.css"
 
 interface DraggableProps {
   id: string;
@@ -126,12 +127,7 @@ export function Draggable({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      className={`
-        ${className}
-        ${isDragging ? 'opacity-50' : 'opacity-100'}
-        ${disabled ? 'cursor-not-allowed' : 'cursor-grab'}
-        transition-opacity duration-200 touch-manipulation
-      `}
+      className={`draggable ${className} ${isDragging ? 'dragging' : ''} ${disabled ? 'disabled' : ''}`}
       aria-roledescription="draggable"
       aria-grabbed={isDragging}
       tabIndex={disabled ? -1 : 0}

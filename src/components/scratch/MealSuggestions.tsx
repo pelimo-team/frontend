@@ -67,7 +67,7 @@ export function MealSuggestions({ meals, isLoading }: MealSuggestionsProps) {
           Suggested Meals
         </h2>
       </div>
-      //px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full
+      
       <div className="model-resault-box">
         {meals.map((meal) => (
           <div key={meal.id} className="model-resault-box-padding">

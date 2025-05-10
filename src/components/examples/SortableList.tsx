@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GripVertical } from "lucide-react";
 import { DragDropProvider, Draggable, DropZone, DragPreview } from "../dnd";
+import "../../styles/Model.css"
 
 interface Item {
   id: string;
@@ -9,11 +10,11 @@ interface Item {
 }
 
 const initialItems: Item[] = [
-  { id: "item-1", content: "Item 1", color: "bg-red-100" },
-  { id: "item-2", content: "Item 2", color: "bg-blue-100" },
-  { id: "item-3", content: "Item 3", color: "bg-green-100" },
-  { id: "item-4", content: "Item 4", color: "bg-yellow-100" },
-  { id: "item-5", content: "Item 5", color: "bg-purple-100" },
+  { id: "item-1", content: "Item 1", color: "SortL-bg-red-100" },
+  { id: "item-2", content: "Item 2", color: "SortL-bg-blue-100" },
+  { id: "item-3", content: "Item 3", color: "SortL-bg-green-100" },
+  { id: "item-4", content: "Item 4", color: "SortL-bg-yellow-100" },
+  { id: "item-5", content: "Item 5", color: "SortL-bg-purple-100" },
 ];
 
 export function SortableList() {
@@ -42,72 +43,67 @@ export function SortableList() {
   };
 
   return (
-    <DragDropProvider>
-      <div className="w-full max-w-md mx-auto">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
-          Sortable List Example
-        </h2>
-        <p className="mb-4 text-gray-600">Drag items to reorder the list</p>
-
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-4 border-b border-gray-200">
-            <h3 className="font-semibold text-gray-700">Sortable Items</h3>
-          </div>
-
-          <ul className="divide-y divide-gray-200">
-            {items.map((item, index) => (
-              <li key={item.id} className="relative">
-                <DropZone
-                  id={`dropzone-${index}`}
-                  accept={["list-item"]}
-                  onDrop={(droppedItem, sourceId) =>
-                    handleDrop(droppedItem, sourceId, index)
-                  }
-                  className="py-1 px-2"
-                  highlightClassName="bg-gray-50 before:content-[''] before:h-0.5 before:bg-blue-500 before:absolute before:left-0 before:right-0 before:top-0"
-                >
-                  <Draggable
-                    id={item.id}
-                    type="list-item"
-                    data={item}
-                    containerId="sortable-list"
-                    className={`flex items-center gap-3 p-3 ${item.color} rounded-md`}
+    
+      <DragDropProvider>
+        <div className="SortL-container">
+          <h2 className="SortL-heading">Sortable List Example</h2>
+          <p className="SortL-subheading">Drag items to reorder the list</p>
+  
+          <div className="SortL-list-container">
+            <div className="SortL-list-header">
+              <h3 className="SortL-list-title">Sortable Items</h3>
+            </div>
+  
+            <ul className="SortL-item-list">
+              {items.map((item, index) => (
+                <li key={item.id} className="SortL-list-item-wrapper">
+                  <DropZone
+                    id={`dropzone-${index}`}
+                    accept={["SortL-list-item"]}
+                    onDrop={(droppedItem, sourceId) =>
+                      handleDrop(droppedItem, sourceId, index)
+                    }
+                    className="SortL-drop-zone"
+                    highlightClassName="SortL-drop-zone-highlight"
                   >
-                    <GripVertical className="w-5 h-5 text-gray-500 flex-shrink-0 cursor-grab" />
-                    <span className="font-medium">{item.content}</span>
-                  </Draggable>
+                    <Draggable
+                      id={item.id}
+                      type="SortL-list-item"
+                      data={item}
+                      containerId="SortL-sortable-list"
+                      className={`SortL-draggable-item ${item.color}`}
+                    >
+                      <GripVertical className="SortL-drag-icon" />
+                      <span className="SortL-item-text">{item.content}</span>
+                    </Draggable>
+                  </DropZone>
+                </li>
+              ))}
+              <li>
+                <DropZone
+                  id={`dropzone-${items.length}`}
+                  accept={["SortL-list-item"]}
+                  onDrop={(droppedItem, sourceId) =>
+                    handleDrop(droppedItem, sourceId, items.length)
+                  }
+                  className="SortL-drop-zone-end"
+                  highlightClassName="SortL-drop-zone-highlight"
+                >
+                  <div className="SortL-empty-space"></div>
                 </DropZone>
               </li>
-            ))}
-
-            {/* Empty drop zone at the end */}
-            <li>
-              <DropZone
-                id={`dropzone-${items.length}`}
-                accept={["list-item"]}
-                onDrop={(droppedItem, sourceId) =>
-                  handleDrop(droppedItem, sourceId, items.length)
-                }
-                className="py-3 px-2"
-                highlightClassName="bg-gray-50 before:content-[''] before:h-0.5 before:bg-blue-500 before:absolute before:left-0 before:right-0 before:top-0"
-              >
-                <div className="h-2"></div>
-              </DropZone>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <DragPreview
-        render={(item) => (
-          <div
-            className={`flex items-center gap-3 p-3 ${item.data.color} rounded-md shadow-lg border border-gray-300`}
-          >
-            <GripVertical className="w-5 h-5 text-gray-500 flex-shrink-0" />
-            <span className="font-medium">{item.data.content}</span>
+            </ul>
           </div>
-        )}
-      />
-    </DragDropProvider>
-  );
+        </div>
+  
+        <DragPreview
+          render={(item) => (
+            <div className={`SortL-drag-preview ${item.data.color}`}>
+              <GripVertical className="SortL-drag-icon" />
+              <span className="SortL-item-text">{item.data.content}</span>
+            </div>
+          )}
+        />
+      </DragDropProvider>
+    );
 }

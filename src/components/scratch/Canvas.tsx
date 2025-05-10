@@ -3,7 +3,7 @@ import axios from "axios";
 import { DropZone, Draggable } from "../dnd";
 import { Trash2, GripVertical, ChefHat } from "lucide-react";
 import { MealSuggestions } from "./MealSuggestions";
-import "./Model.css";
+import "../../styles/Model.css";
 
 interface Block {
   id: string;
@@ -162,7 +162,7 @@ export function Canvas() {
                 accept={["block"]}
                 onDrop={(item, sourceId) => handleDrop(item, sourceId, index)}
                 className="py-1"
-                highlightClassName="before:content-[''] before:h-0.5 before:bg-blue-500 before:absolute before:left-4 before:right-4 before:-top-1"
+                highlightClassName="Hl-element"
               >
                 <Draggable
                   id={block.id}
@@ -191,9 +191,7 @@ export function Canvas() {
             id="dropzone-final"
             accept={["block"]}
             onDrop={(item, sourceId) => handleDrop(item, sourceId)}
-            className={`${
-              blocks.length === 0 ? "h-full" : "min-h-[100px]"
-            } rounded-lg`}
+            className={`DZ-element ${blocks.length === 0 ? "full-height" : "min-height"}`}
             highlightClassName="model-drag-drop-palace-highlight"
           >
             {blocks.length === 0 && (
