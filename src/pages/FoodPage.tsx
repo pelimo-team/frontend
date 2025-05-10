@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+
 import "../styles/FoodPage.css";
-import { api } from "../utils/api";
+
 
 import LoadingState from "../components/FoodPage/LoadingState";
 import ErrorState from "../components/FoodPage/ErrorState";
@@ -25,10 +25,10 @@ const mockMenuItem = {
 };
 
 const FoodPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  
   const [menuItem, setMenuItem] = useState<MenuItemType | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loading] = useState<boolean>(true);
+  const [error] = useState<string | null>(null);
 
   useEffect(() => {
     setMenuItem(mockMenuItem);
