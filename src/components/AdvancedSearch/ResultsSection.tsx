@@ -23,6 +23,9 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
   selectedShopIndex,
   setSelectedShopIndex,
 }) => {
+  // debugger;
+  console.log("visibleItems:");
+  console.log(visibleItems);
   const navigate = useNavigate();
 
   if (loading) return <div>Loading...</div>;
@@ -60,9 +63,10 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                 }}
               >
                 <div className="shop-image-container">
-                  {restaurant.image ? (
+                 
+                  {restaurant.cover_image ? (
                     <img
-                      src={`http://127.0.0.1:8000${restaurant.image}`}
+                     src= {restaurant.cover_image}
                       alt={restaurant.name}
                       className="shop-image"
                     />
@@ -75,7 +79,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                 </h4>
                 <div className="shop-rating-advanced-search">
                   ⭐{" "}
-                  {restaurant.rating ? restaurant.rating.toFixed(1) : "N/A"}{" "}
+                  {restaurant.average_rating ? restaurant.average_rating.toFixed(1) : "N/A"}{" "}
                   | {restaurant.reviews_count || 0} Comment
                 </div>
                 <div className="delivery-cost-advanced-search">
@@ -106,6 +110,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                   ) : (
                     <div className="item-image-placeholder">No Image</div>
                   )}
+                 
                   {item.bestseller && (
                     <div className="bestseller-badge">Best Seller</div>
                   )}

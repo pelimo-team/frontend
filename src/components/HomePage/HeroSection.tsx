@@ -1,36 +1,43 @@
-import { useState } from "react";
+
+
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/HomePage.module.css";
 
 interface Slide {
-  title1?: string;
-  title2?: string;
-  title3?: string;
-  title4?: string;
+  text?:string;
   description: string;
   image: string;
   buttonText: string;
   link: string;
+  position: string;
+  bg: string;
+
 }
 
 const slides: Slide[] = [
   {
-    title1: 'Use "DIY" Create your Own Food',
+    position: "1", 
+    bg: "linear-gradient(to right, #ff7e5f, #feb47b)", 
+    text: 'Use "DIY" Create your Own Food',
     description:
       'With "DIY" you can design your food with existed elements and find the most relative food and restaurant to your designed.',
     image: "/Transparent PNGs_ Delicious Pizza Variety.png",
     buttonText: "Go to DIY",
-    link: "/",
+    link: "/model",
   },
   {
-    title2: "Play Games, Earn Discounts, Charge your Wallet",
+    position: "2", 
+    bg: "linear-gradient(to right, #6a11cb, #2575fc)",
+    text: "Play Games, Earn Discounts, Charge your Wallet",
     description: "Earn money with playing!",
     image: "/game console.png",
     buttonText: "Go to Games",
     link: "/games",
   },
   {
-    title3: "Stayed up late and feeling hungry?",
+    position:"3", 
+    bg: "linear-gradient(to right, #00c6ff, #0072ff)",
+    text: "Stayed up late and feeling hungry?",
     description:
       "Don't worry — these restaurants stayed open late just for you!🍔✨ Get ready for a delicious midnight bite!",
     image: "/shabgard-cat.png",
@@ -38,7 +45,9 @@ const slides: Slide[] = [
     link: "/night-walker",
   },
   {
-    title4: "Not in the mood to choose?",
+    position:"4",
+     bg: "linear-gradient(to right, #ff512f, #dd2476)",
+    text: "Not in the mood to choose?",
     description:
       "Let's play a game! Leave it to luck and pick today's meal at random!🍱💡 A new flavor every time, a new excitement every time!",
     image: "/accidental-Homepage2.png",
@@ -47,63 +56,58 @@ const slides: Slide[] = [
   },
 ];
 
+ 
+
 const HeroSection = () => {
   const navigate = useNavigate();
-  const [currentSlide, setCurrentSlide] = useState(0);
+  
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  };
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
 
   return (
     <section className={styles["hero-section"]}>
-      <button className={styles["arrow-left"]} onClick={prevSlide}>
-        &lt;
-      </button>
+        <div>
+     <div className={styles["wave"]}></div>
+     <div className={styles["wave"]}></div>
+     <div className={styles["wave"]}></div>
+  </div>
 
-      <div className={styles["slides-viewport"]}>
-        <div
-          className={styles["slides-wrapper"]}
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-        >
-          {slides.map((slide, idx) => (
-            <div className={styles.slide} key={idx}>
-              <div className={styles["hero-content"]}>
-                {slide.title1 && (
-                  <h1 className={styles.title1}>{slide.title1}</h1>
-                )}
-                {slide.title2 && (
-                  <h1 className={styles.title2}>{slide.title2}</h1>
-                )}
-                {slide.title3 && (
-                  <h1 className={styles.title3}>{slide.title3}</h1>
-                )}
-                {slide.title4 && (
-                  <h1 className={styles.title4}>{slide.title4}</h1>
-                )}
-                <p className={styles.description}>{slide.description}</p>
-                <button
+
+ <div
+      className={styles["slider"]}
+      style={{
+        // CSS Variables need to be cast to CSSProperties using '--' syntax as string keys
+        ["--width" as any]: "26rem",
+        ["--height" as any]: "30rem",
+        ["--quantity" as any]: "4",
+      }}
+    >
+      <div className={styles["list"]}>
+        {slides.map((slide) => (
+          <div
+            key={slide.position}
+            className={styles["item"]}
+            style={{ ["--position" as any]: `${slide.position}` }}
+          >
+            <div className={styles["card"]} style={{ background: slide.bg }}>
+              <img src={slide.image}alt="card" />
+              <p className={styles["card-text"]}>{slide.text}</p>
+              <p className={styles["card-description"]}>{slide.description}</p>
+              <button
                   className={styles["hero-button"]}
+                  
                   onClick={() => navigate(slide.link)}
                 >
-                  {slide.buttonText}
+                  <p className={styles["card-button-text"]}>{slide.buttonText}</p>
                 </button>
-              </div>
-              <div className={styles["hero-image"]}>
-                <img src={slide.image} alt={`Slide ${idx + 1}`} />
-              </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
+    </div>
 
-      <button className={styles["arrow-right"]} onClick={nextSlide}>
-        &gt;
-      </button>
+
+
     </section>
   );
 };

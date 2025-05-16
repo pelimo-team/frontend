@@ -20,6 +20,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   onQuantityChange,
   onItemClick,
 }) => {
+  console.log(item);
   return (
     <div
       className="menu-item"

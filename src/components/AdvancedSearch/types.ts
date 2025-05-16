@@ -1,8 +1,8 @@
 export interface Restaurant {
   id: number;
   name: string;
-  image: string | null;
-  rating: number | null;
+  cover_image: string | null;
+  average_rating: number | null;
   reviews_count: number;
   delivery_cost: number;
 }
