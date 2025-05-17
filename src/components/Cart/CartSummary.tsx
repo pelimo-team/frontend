@@ -29,19 +29,19 @@ const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost }) => {
       <div className="d-flex justify-content-between mb-2">
         <span>جمع سفارش:</span>
         <span className="cart-food-price">
-          {itemsTotal.toLocaleString()} تومان
+        {(itemsTotal || 0).toLocaleString()} تومان        
         </span>
       </div>
       <div className="d-flex justify-content-between mb-3">
         <span>هزینه ارسال:</span>
         <span className="cart-food-price">
-          {deliveryCost.toLocaleString()} تومان
+          {(deliveryCost || 0).toLocaleString()} تومان
         </span>
       </div>
       <div className="d-flex justify-content-between fw-bold">
         <span>مجموع:</span>
         <span className="cart-food-price">
-          {overallTotal.toLocaleString()} تومان
+          {(overallTotal || 0).toLocaleString()} تومان
         </span>
       </div>
 

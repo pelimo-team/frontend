@@ -92,6 +92,7 @@ body {
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(8px);
+  background: none;
 }
 
 .cart-icon-advanced-search:hover,

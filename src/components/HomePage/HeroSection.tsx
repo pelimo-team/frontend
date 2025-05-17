@@ -17,7 +17,7 @@ interface Slide {
 const slides: Slide[] = [
   {
     position: "1", 
-    bg: "linear-gradient(to right, #ff7e5f, #feb47b)", 
+    bg: "linear-gradient(135deg, #D4B7A3, #945436)", 
     text: 'Use "DIY" Create your Own Food',
     description:
       'With "DIY" you can design your food with existed elements and find the most relative food and restaurant to your designed.',
@@ -27,7 +27,7 @@ const slides: Slide[] = [
   },
   {
     position: "2", 
-    bg: "linear-gradient(to right, #6a11cb, #2575fc)",
+    bg: "linear-gradient(135deg, #D4B7A3, #945436)", 
     text: "Play Games, Earn Discounts, Charge your Wallet",
     description: "Earn money with playing!",
     image: "/game console.png",
@@ -36,7 +36,7 @@ const slides: Slide[] = [
   },
   {
     position:"3", 
-    bg: "linear-gradient(to right, #00c6ff, #0072ff)",
+    bg: "linear-gradient(135deg, #D4B7A3, #945436)", 
     text: "Stayed up late and feeling hungry?",
     description:
       "Don't worry — these restaurants stayed open late just for you!🍔✨ Get ready for a delicious midnight bite!",
@@ -46,7 +46,7 @@ const slides: Slide[] = [
   },
   {
     position:"4",
-     bg: "linear-gradient(to right, #ff512f, #dd2476)",
+     bg: "linear-gradient(135deg, #D4B7A3, #945436)", 
     text: "Not in the mood to choose?",
     description:
       "Let's play a game! Leave it to luck and pick today's meal at random!🍱💡 A new flavor every time, a new excitement every time!",

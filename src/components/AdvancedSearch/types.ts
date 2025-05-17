@@ -5,6 +5,8 @@ export interface Restaurant {
   average_rating: number | null;
   reviews_count: number;
   delivery_cost: number;
+  discription:string;
+  city: number
 }
 
 export interface MenuItem {
@@ -33,9 +35,9 @@ export const categories = [
   "Restaurant",
   "Fast Food",
   "Coffee Shop",
-  "Juice",
-  "pastry",
-  "Fruit",
+  "Juice and Ice cream",
+  "Confectionary",
+  "Fruits",
 ] as const;
 
 export const allFilters = [
@@ -47,7 +49,7 @@ export const allFilters = [
   "Best Seller",
   "Most Expensive",
   "Cheapest",
-  "Has Image",
+  
 ] as const;
 
 export type FilterType = (typeof allFilters)[number];
