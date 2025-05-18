@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Tahoma', sans-serif;
+  font-family: "Tahoma", sans-serif;
   direction: rtl;
   background-color: #f4f1eb;
 }
@@ -11,10 +11,15 @@ body {
   margin: 0;
 }
 
-.restaurant-header {
+.restaurantpage-header {
   height: 100px;
-  background: linear-gradient(135deg, rgb(212, 183, 163) 0%, rgb(195, 162, 143) 100%);
-  display: flex;
+  background: linear-gradient(
+    135deg,
+    rgb(212, 183, 163) 0%,
+    rgb(195, 162, 143) 100%
+  );
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25% 25%;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
@@ -28,14 +33,14 @@ body {
   width: 95px;
   height: auto;
   position: relative;
-  transform: translateX(250%)
+  transform: translateX(250%);
 }
 
-.restaurant-name-avatar {
-  transform: translateX(400px)
+.restaurantpage-name-avatar {
+  transform: translateX(400px);
 }
 
-.restaurant-useravatar {
+.restaurantpage-useravatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -43,13 +48,13 @@ body {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
-.restaurant-username {
+.restaurantpage-username {
   font-size: 16px;
   color: white;
   padding: 5px;
 }
 
-.restaurant-userinfo {
+.restaurantpage-userinfo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -142,14 +147,14 @@ body {
 
 /* Added specific styling for name/location */
 .restaurant-infotext .fs-5 {
-   font-size: 1.2rem; /* Adjust as needed */
-   font-weight: bold;
-   color: #333;
+  font-size: 1.2rem; /* Adjust as needed */
+  font-weight: bold;
+  color: #333;
 }
 .restaurant-infotext .fs-6 {
-   font-size: 1rem; /* Adjust as needed */
-   color: #555;
-   margin-top: 5px;
+  font-size: 1rem; /* Adjust as needed */
+  color: #555;
+  margin-top: 5px;
 }
 
 .restaurant-tabs {
@@ -195,22 +200,22 @@ body {
 @media (max-width: 768px) {
   .restaurant-header {
     /* Keep flex-direction row, but allow wrapping if needed */
-    flex-direction: row; 
+    flex-direction: row;
     height: auto;
     padding: 10px;
     gap: 10px; /* Add gap between items */
   }
   .restaurant-logocenter {
-     order: 1; /* Center logo */
-     margin: 0 auto; /* Help centering */
+    order: 1; /* Center logo */
+    margin: 0 auto; /* Help centering */
   }
   .restaurant-menuicon {
-     order: 0; /* Back button first */
+    order: 0; /* Back button first */
   }
-   .restaurant-userinfo {
-     order: 2; /* User info last */
-     flex-direction: row; /* Align items horizontally */
-     gap: 8px;
+  .restaurant-userinfo {
+    order: 2; /* User info last */
+    flex-direction: row; /* Align items horizontally */
+    gap: 8px;
   }
   .restaurant-useravatar {
     width: 32px;
@@ -223,7 +228,7 @@ body {
     width: 20px;
     height: 20px;
   }
-   .restaurant-userinfo .cart-icon-restaurant img {
+  .restaurant-userinfo .cart-icon-restaurant img {
     width: 20px;
     height: 20px;
   }
@@ -234,13 +239,13 @@ body {
 
   .restaurant-infosection {
     /* Stack vertically on small screens */
-    flex-direction: column-reverse; 
+    flex-direction: column-reverse;
     align-items: flex-end; /* Align text to right */
     padding: 15px;
     gap: 10px;
   }
-   .restaurant-rating {
-     align-self: flex-end; /* Keep rating aligned right */
+  .restaurant-rating {
+    align-self: flex-end; /* Keep rating aligned right */
   }
 
   .restaurant-tabs .restaurant-tab {
@@ -251,5 +256,4 @@ body {
   .tab-content-container {
     padding: 15px; /* Reduce padding on small screens */
   }
-  
 }

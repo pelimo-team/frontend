@@ -22,21 +22,92 @@ body {
   
 /* Logo and icons */
 .nightwalker-hero-header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 43% 18% 38.25%;
     align-items: center;
-    padding: 20px 40px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+}
+.night-header-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .night-header-logo img {
+    height: auto;
+    width: 10rem;
+    justify-content: center;
+  }
+.night-header-left {
+    display: flex;
+    gap: 15px;
+  }
+  .night-profile-dropdown-content {
+    margin-left: 4rem;
+    display: none;
+    font-size: 13px;
     position: absolute;
-    top: 0;
-    width: calc(100% - 80px);
-    z-index: 2;
-    font-size: 22px;
-}
+    z-index: 1;
+    min-width: 200px;
+    background-color: white;
+    border: 2px solid #abb7c2;
+    border-radius: 0px 15px 15px 15px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  }
   
-.nightwalker-logo {
-    font-size: 24px;
-    font-weight: bold;
-}
+  .night-profile-dropdown-content a {
+    color: #abb7c2;
+    padding: 8px 10px;
+    text-decoration: none;
+    display: block;
+    transition: 0.1s;
+  }
+  
+  .night-profile-dropdown-content a:hover {
+    background-color: #abb7c2;
+    color: black;
+  }
+  
+  .night-profile-dropdown-content a:focus {
+    background-color: white;
+    color: #abb7c2;
+  }
+  
+  .night-first-line:hover {
+    border-radius: 0px 13px 0px 0px;
+  }
+  
+  .night-secend-line:hover {
+    border-radius: 0px 0px 13px 13px;
+  }
+  
+  .night-profile-button:hover .profile-dropdown-content {
+    display: block;
+  }
+  
+  .night-profile-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+  .night-home-profile {
+    margin-left: 3rem;
+    height: 3rem;
+    width: 3rem;
+    background: white;
+    border: none;
+    border-radius: 30rem;
+    color: #fff;
+  
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .night-home-profile:hover {
+    background-color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+
   
 /* Search box */
 .nightwalker-centered-content {

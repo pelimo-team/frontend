@@ -18,7 +18,7 @@ const AdvancedSearch: React.FC = () => {
   const searchQuery = queryParams.get("query") || "";
 
   const [searchText, setSearchText] = useState<string>(searchQuery);
-  const [activeTab, setActiveTab] = useState<CategoryType>("All");
+  const [activeTab] = useState<CategoryType>("All");
   const [activeFilters, setActiveFilters] = useState<FilterType[]>([]);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -197,7 +197,7 @@ const AdvancedSearch: React.FC = () => {
         searchMode={searchMode}
         setSearchMode={setSearchMode}
       />
-      <CategoryTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      <CategoryTabs />
       <Filters activeFilters={activeFilters} toggleFilter={toggleFilter} />
       <ResultsSection
         searchMode={searchMode}

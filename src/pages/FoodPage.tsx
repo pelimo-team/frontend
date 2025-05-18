@@ -1,53 +1,27 @@
-import React, { useEffect, useState } from "react";
-
+import FoodDetail from "../components/FoodPage/FoodDetail";
+import { foodItem } from "../components/FoodPage/data";
 import "../styles/FoodPage.css";
 
-
-import LoadingState from "../components/FoodPage/LoadingState";
-import ErrorState from "../components/FoodPage/ErrorState";
-import FoodContent from "../components/FoodPage/FoodContent";
-import { MenuItem as MenuItemType } from "../components/AdvancedSearch/types";
-
-const mockMenuItem = {
-  id: 1,
-  name: "name",
-  image: null,
-  bestseller: true,
-  restaurant: {
-    id: 1,
-    name: "name2",
-  },
-  category_name: "name3",
-  rate: 3,
-  onsale: true,
-  price: 1200000,
-  sale_price: 120,
-};
-
-const FoodPage: React.FC = () => {
-  
-  const [menuItem, setMenuItem] = useState<MenuItemType | null>(null);
-  const [loading] = useState<boolean>(true);
-  const [error] = useState<string | null>(null);
-
-  useEffect(() => {
-    setMenuItem(mockMenuItem);
-  }, []);
-
-  if (loading) {
-    return <LoadingState />;
-  }
-
-  if (error || !menuItem || !menuItem.restaurant) {
-    return <ErrorState error={error} />;
-  }
-
+function FoodPage() {
   return (
-    <>
-      <FoodContent menuItem={menuItem} />
-      {/* <MenuItem cartQuantity={} item={} onItemClick={} onQuantityChange={}/> */}
-    </>
+    <div className="app">
+      <header className="header">
+        <div className="header-content">
+          <h1 className="logo">GourmetEats</h1>
+        </div>
+      </header>
+
+      <main className="main-content">
+        <FoodDetail food={foodItem} />
+      </main>
+
+      <footer className="footer">
+        <div className="footer-content">
+          <p>&copy; 2025 GourmetEats. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
   );
-};
+}
 
 export default FoodPage;

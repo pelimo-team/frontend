@@ -17,6 +17,7 @@ import MenuBuilder from "./Model";
 import Cart from "./Cart";
 import AddCommentPage from "./AddCommentPage";
 
+
 export const ProjectRoutes = () => {
   return (
     <Router>
@@ -66,6 +67,9 @@ export const ProjectRoutes = () => {
 
         <Route path="/cart" element={<Cart />} />
         <Route path="/model" element={<MenuBuilder />} />
+        {/* <Route path="/games" element={<GamesSection />} /> */}
+        
+
       </Routes>
     </Router>
   );
