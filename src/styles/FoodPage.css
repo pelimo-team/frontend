@@ -5,7 +5,8 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f9f9f9;
@@ -20,26 +21,54 @@ body {
 }
 
 .header {
-  background-color: #ffffff;
+  background-color: #c3a28f;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  position: sticky;
+
   top: 0;
   z-index: 100;
+  padding: 0.5rem;
 }
 
 .header-content {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+}
+.food-basket-btn {
+  background: none;
+  border: none;
+  width: 1rem;
+  height: auto;
+  backdrop-filter: blur(8px);
+}
+.food-back-btn {
+  background: none;
+  border: none;
+  width: 1rem;
+  height: auto;
+  backdrop-filter: blur(8px);
 }
 
+.food-basket-btn img {
+  width: 2.5rem;
+  height: auto;
+  transform: translate(2rem, 0rem);
+}
+
+.food-back-btn img {
+  width: 2.5rem;
+  height: auto;
+  transform: translate(27rem, 0rem);
+}
+.food-back-btn:hover,
+.food-basket-btn:hover {
+  transform: translateY(-2px);
+}
 .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ff6b35;
+  width: 8rem;
+  height: auto;
+  transform: translate(150%, 0%);
 }
 
 .nav {
@@ -56,21 +85,21 @@ body {
 }
 
 .nav-link:hover {
-  color: #ff6b35;
+  color: #945436;
 }
 
 .nav-link.active {
-  color: #ff6b35;
+  color: #945436;
 }
 
 .nav-link.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -5px;
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #ff6b35;
+  background-color: #945436;
   border-radius: 2px;
 }
 
@@ -103,12 +132,12 @@ body {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .nav {
     width: 100%;
     justify-content: space-around;
   }
-  
+
   .main-content {
     margin: 1rem auto;
   }
@@ -140,13 +169,15 @@ body {
   opacity: 0.6;
 }
 
-.rating-field, .comment-field {
+.rating-field,
+.comment-field {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.rating-field label, .comment-field label {
+.rating-field label,
+.comment-field label {
   font-size: 0.9375rem;
   font-weight: 500;
   color: #555;
@@ -167,7 +198,7 @@ body {
 
 .comment-field textarea:focus {
   outline: none;
-  border-color: #ff6b35;
+  border-color: #945436;
 }
 
 .error-message {
@@ -182,20 +213,20 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background-color: #ff6b35;
+  background-color: #945436;
   color: white;
   border: none;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 2px 8px #945436;
 }
 
 .submit-review-btn:hover {
-  background-color: #ff5a1f;
+  background-color: #945436;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 4px 12px #945436;
 }
 
 .submit-review-btn:active {
@@ -275,21 +306,21 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background-color: #ff6b35;
+  background: linear-gradient(135deg, #d4b7a3, #945436);
   color: white;
   border: none;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 2px 8px #945436;
   animation: slideIn 0.3s ease;
 }
 
 .add-btn:hover {
-  background-color: #ff5a1f;
+  background-color: #945436;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 4px 12px #945436;
 }
 
 .add-btn:active {
@@ -297,7 +328,7 @@ body {
 }
 
 .add-btn.added {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   animation: pulse 0.5s ease-out;
 }
 
@@ -331,7 +362,7 @@ body {
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .add-btn {
     width: 100%;
     justify-content: center;
@@ -407,7 +438,7 @@ body {
   .food-detail {
     grid-template-columns: 1fr;
   }
-  
+
   .food-image-container {
     height: 400px;
   }
@@ -417,11 +448,11 @@ body {
   .food-image-container {
     height: 300px;
   }
-  
+
   .food-name {
     font-size: 1.75rem;
   }
-  
+
   .food-info {
     padding: 1.5rem;
   }
@@ -507,18 +538,18 @@ body {
 }
 
 .like-btn:hover {
-  color: #4CAF50;
-  border-color: #4CAF50;
+  color: #4caf50;
+  border-color: #4caf50;
 }
 
 .dislike-btn:hover {
-  color: #f44336;
-  border-color: #f44336;
+  color: #945436;
+  border-color: #945436;
 }
 
 .reply-btn:hover {
-  color: #2196F3;
-  border-color: #2196F3;
+  color: #2196f3;
+  border-color: #2196f3;
 }
 
 .action-count {
@@ -584,7 +615,7 @@ body {
 
 .reply-form textarea:focus {
   outline: none;
-  border-color: #2196F3;
+  border-color: #2196f3;
 }
 
 .send-reply-btn {
@@ -593,7 +624,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: white;
   border: none;
   border-radius: 6px;
@@ -603,7 +634,7 @@ body {
 }
 
 .send-reply-btn:hover {
-  background-color: #1976D2;
+  background-color: #1976d2;
 }
 
 /* Responsive design */
@@ -612,11 +643,11 @@ body {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   .review-actions {
     flex-wrap: wrap;
   }
-  
+
   .replies-section {
     margin-left: 0.5rem;
     padding-left: 0.5rem;
@@ -660,7 +691,7 @@ body {
 .rating-number {
   font-size: 2rem;
   font-weight: 700;
-  color: #ff6b35;
+  color: #945436;
 }
 
 .rating-max {
@@ -687,11 +718,11 @@ body {
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .review-stats {
     align-items: flex-start;
   }
-  
+
   .review-section {
     padding: 1.5rem;
   }
@@ -721,7 +752,7 @@ body {
 }
 
 .star.filled {
-  color: #FFD700;
+  color: #ffd700;
 }
 
 .star.half-filled {
@@ -730,7 +761,7 @@ body {
 
 .star.half-filled::after {
   content: "★";
-  color: #FFD700;
+  color: #ffd700;
   position: absolute;
   left: 0;
   top: 0;

@@ -1,13 +1,25 @@
 import FoodDetail from "../components/FoodPage/FoodDetail";
 import { foodItem } from "../components/FoodPage/data";
 import "../styles/FoodPage.css";
+import { useNavigate } from "react-router-dom";
 
 function FoodPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="app">
       <header className="header">
         <div className="header-content">
-          <h1 className="logo">GourmetEats</h1>
+          <button className="food-basket-btn" onClick={() => navigate("/cart")}>
+            <img src="./cart-shopping-solid.svg" alt="" />
+          </button>
+          <img className="logo" src="./Logo.png" alt="" />
+          <button
+            className="food-back-btn"
+            onClick={() => navigate(`/foodpage/`)}
+          >
+            <img src="./arrow-right-solid.svg" alt="" />
+          </button>
         </div>
       </header>
 
@@ -15,11 +27,11 @@ function FoodPage() {
         <FoodDetail food={foodItem} />
       </main>
 
-      <footer className="footer">
+      {/* <footer className="footer">
         <div className="footer-content">
           <p>&copy; 2025 GourmetEats. All rights reserved.</p>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 }
