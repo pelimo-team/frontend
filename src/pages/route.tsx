@@ -16,11 +16,15 @@ import AdvanceTasadofi from "./AdvanceTasadofi";
 import MenuBuilder from "./Model";
 import Cart from "./Cart";
 import AddCommentPage from "./AddCommentPage";
+import FoodAdminPanel from "./FoodAdminPanel";
 
 export const ProjectRoutes = () => {
   return (
     <Router>
       <Routes>
+        {/* صفحه مدیریت غذا */}
+        <Route path="/admin" element={<FoodAdminPanel />} />
+
         {/* صفحه اصلی */}
         <Route path="/" element={<HomePage />} />
 
