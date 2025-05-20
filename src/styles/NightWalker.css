@@ -1,396 +1,721 @@
+/* 
+ * Nightwalker - Modern CSS (2025)
+ * A professionally redesigned stylesheet with preserved color codes
+ */
+
+:root {
+  /* Color system - preserved from original */
+  --color-primary: #0f3c82;
+  --color-primary-light: #1452a6;
+  --color-primary-dark: #123865;
+  --color-secondary: #1a4c8f;
+  --color-secondary-light: #2b66c7;
+  --color-accent-bg: #fdf4ef;
+  --color-text-primary: #2e3a59;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-text-light: #9ca3af;
+  --color-text-dark: #1f2937;
+  --color-text-white: #fff;
+  --color-bg-main: #f9fafc;
+  --color-bg-light: #fff;
+  --color-bg-input: #f9fbff;
+  --color-bg-hover: #e3efff;
+  --color-bg-scroll: #e0e7ff;
+  
+  /* Typography */
+  --font-family-primary: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 12px 30px rgba(18, 56, 101, 0.4);
+  --shadow-xl: 0 20px 45px rgba(0, 0, 0, 0.2);
+  --shadow-button: 0 8px 20px rgba(26, 76, 143, 0.6);
+  --shadow-button-hover: 0 12px 30px rgba(43, 102, 199, 0.7);
+  
+  /* Border radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 30px;
+  
+  /* Animation */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Spacing system (8px increments) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  
+  /* Container widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+}
+
 /* Base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f2f4f8;
+  margin: 0;
+  font-family: var(--font-family-primary);
+  background-color: var(--color-bg-main);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  min-height: 100vh;
 }
-  
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Container */
 .nightwalker-container {
-    width: 100%;
-    overflow-x: hidden;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
-  
+
 /* Hero section */
 .nightwalker-hero-section {
-    background-image: url('/shabgard-cat.png');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    position: relative;
-    color: white;
+  background-image: url('/shabgard-cat.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: relative;
+  color: var(--color-text-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.6);
 }
-  
-/* Logo and icons */
+
+.nightwalker-hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, 
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.2) 40%,
+    rgba(0, 0, 0, 0.3) 100%);
+  z-index: 1;
+}
+
+/* Logo and header */
 .nightwalker-hero-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    position: absolute;
-    top: 0;
-    width: calc(100% - 80px);
-    z-index: 2;
-    font-size: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-6) var(--space-12);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  transition: all var(--transition-normal);
 }
-  
+
 .nightwalker-logo {
-    font-size: 24px;
-    font-weight: bold;
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-black);
+  letter-spacing: 2px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  position: relative;
+  transition: transform var(--transition-normal);
 }
-  
-/* Search box */
+
+.nightwalker-logo:hover {
+  transform: translateY(-2px);
+}
+
+.nightwalker-logo::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-text-white);
+  transition: width var(--transition-normal);
+}
+
+.nightwalker-logo:hover::after {
+  width: 100%;
+}
+
+/* Search box and centered content */
 .nightwalker-centered-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 2;
-    width: 100%;
-    max-width: 600px;
-    padding: 0 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 20;
+  width: 100%;
+  max-width: 650px;
+  padding: 0 var(--space-6);
 }
-  
+
 .nightwalker-search-box {
-    margin-bottom: 15px;
-    width: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  margin-bottom: var(--space-5);
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
 }
-  
+
 .nightwalker-search-input {
-    flex: 1;
-    padding: 15px 45px;
-    font-size: 16px;
-    border-radius: 25px;
-    border: none;
-    outline: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+  flex: 1;
+  padding: var(--space-5) 50px var(--space-5) 55px;
+  font-size: 1.125rem;
+  border-radius: var(--radius-xl);
+  border: none;
+  outline: none;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-dark);
+  background-color: var(--color-bg-light);
+}
+
+.nightwalker-search-input::placeholder {
+  color: var(--color-text-light);
+  font-weight: var(--font-weight-normal);
+}
+
+.nightwalker-search-input:focus {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
 }
 
 .nightwalker-search-icon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0.6;
+  position: absolute;
+  left: var(--space-5);
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+  transition: opacity var(--transition-fast);
 }
-  
+
+.nightwalker-search-input:focus + .nightwalker-search-icon {
+  opacity: 1;
+}
+
+/* Button */
 .nightwalker-search-button {
-    padding: 15px 30px;
-    font-size: 16px;
-    border-radius: 25px;
-    border: none;
-    background-color: #123865;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: var(--space-4) var(--space-10);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-xl);
+  border: none;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: var(--color-text-white);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-button);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
 }
-  
+
+.nightwalker-search-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-secondary-light) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
 .nightwalker-search-button:hover {
-    background-color: #1a4c8f;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-button-hover);
 }
-  
+
+.nightwalker-search-button:hover::before {
+  opacity: 1;
+}
+
 .nightwalker-search-button:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+  box-shadow: var(--shadow-button);
 }
-  
+
+.nightwalker-search-button span {
+  position: relative;
+  z-index: 1;
+}
+
 /* Categories */
 .nightwalker-category-bar-wrapper {
-    padding: 30px 20px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: var(--space-10);
+  background-color: var(--color-bg-light);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  margin: var(--space-10) auto;
+  max-width: var(--container-xl);
+  width: calc(100% - var(--space-10));
 }
-  
+
 .nightwalker-category-bar {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-6);
 }
-  
+
 .nightwalker-category-button {
-    width: 100px;
-    height: 100px;
-    font-size: 14px;
-    background-color: #f1f4fc;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px;
+  width: 110px;
+  height: 110px;
+  font-size: 0.9375rem;
+  background-color: var(--color-bg-input);
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 22px rgba(18, 56, 101, 0.1);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  position: relative;
+  overflow: hidden;
 }
-  
+
+.nightwalker-category-button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  transform: scaleX(0);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 .nightwalker-category-button.active {
-    background-color: #123865;
-    color: white;
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-secondary));
+  color: var(--color-text-white);
+  transform: translateY(-6px);
+  box-shadow: 0 14px 35px rgba(18, 56, 101, 0.3);
 }
-  
+
 .nightwalker-category-button:hover {
-    background-color: #d8e7ff;
-    transform: translateY(-5px);
+  background-color: var(--color-bg-hover);
+  transform: translateY(-6px);
 }
-  
+
+.nightwalker-category-button:hover::after {
+  transform: scaleX(1);
+}
+
+.nightwalker-category-button.active::after {
+  display: none;
+}
+
 .nightwalker-category-button.active:hover {
-    background-color: #1a4c8f;
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-light));
 }
-  
+
+/* Icon size */
 .category-icon {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+  transition: transform var(--transition-normal);
 }
-  
+
+.nightwalker-category-button:hover .category-icon {
+  transform: scale(1.1);
+}
+
+.nightwalker-category-button.active .category-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
 /* Sliders and Cards */
 .nightwalker-slider-section {
-    padding: 40px 30px;
-    background-color: #f8faff;
-    min-height: 200px;
+  padding: var(--space-12) var(--space-10);
+  background-color: var(--color-accent-bg);
+  min-height: 220px;
+  position: relative;
 }
-  
+
+.nightwalker-slider-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary-light) 100%);
+  opacity: 0.6;
+}
+
 .nightwalker-slider-section h2 {
-    color: #123865;
-    margin-bottom: 15px;
-    text-align: center;
+  color: var(--color-primary);
+  margin-bottom: var(--space-6);
+  font-weight: var(--font-weight-bold);
+  font-size: 1.8rem;
+  text-align: center;
+  letter-spacing: 1.2px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
 }
-  
+
+.nightwalker-slider-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, transparent 100%);
+  border-radius: 3px;
+}
+
 .nightwalker-slider {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: calc(33.333% - 20px);
-    overflow-x: auto;
-    gap: 20px;
-    padding: 20px 0;
-    scroll-snap-type: x mandatory;
-    max-width: 1200px;
-    margin: 0 auto;
-    scrollbar-width: thin;
-    scrollbar-color: #123865 #f0f0f0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(280px, calc(33.333% - var(--space-6)));
+  overflow-x: auto;
+  gap: var(--space-6);
+  padding: var(--space-6) 0;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-dark) var(--color-bg-scroll);
+  border-radius: var(--radius-lg);
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
-  
+
 .nightwalker-slider::-webkit-scrollbar {
-    height: 8px;
+  height: 8px;
+  border-radius: var(--radius-sm);
 }
-  
+
 .nightwalker-slider::-webkit-scrollbar-track {
-    background: #f0f0f0;
-    border-radius: 4px;
+  background: var(--color-bg-scroll);
+  border-radius: var(--radius-sm);
+  margin: 0 var(--space-4);
 }
-  
+
 .nightwalker-slider::-webkit-scrollbar-thumb {
-    background-color: #123865;
-    border-radius: 4px;
+  background-color: var(--color-primary-dark);
+  border-radius: var(--radius-sm);
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
 }
-  
+
 .nightwalker-card {
-    scroll-snap-align: start;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    min-width: 280px;
-    cursor: pointer;
-    position: relative;
+  scroll-snap-align: start;
+  background-color: var(--color-bg-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  min-width: 280px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
-  
+
 .nightwalker-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
 }
-  
+
 .nightwalker-card:active {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
-  
+
 .nightwalker-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.1);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
 }
-  
+
 .nightwalker-card:hover::after {
-    opacity: 1;
+  opacity: 1;
 }
-  
+
 .nightwalker-card .nightwalker-image {
-    height: 150px;
-    background: #f0f0f0;
-    overflow: hidden;
+  height: 180px;
+  background: #f7f9fc;
+  overflow: hidden;
+  object-fit: cover;
+  display: block;
+  width: 100%;
+  user-select: none;
+  transition: transform var(--transition-slow);
 }
-  
+
+.nightwalker-card:hover .nightwalker-image {
+  transform: scale(1.05);
+}
+
 .nightwalker-info {
-    padding: 15px;
-    background: white;
-    position: relative;
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-bg-light);
+  position: relative;
+  font-weight: var(--font-weight-medium);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
-  
+
 .nightwalker-info p {
-    margin: 8px 0;
-    color: #333;
+  margin: var(--space-2) 0;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  font-size: 0.95rem;
 }
-  
+
 .nightwalker-info p:first-child {
-    font-size: 1.1em;
-    color: #123865;
+  font-size: 1.15rem;
+  color: var(--color-primary-dark);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.7px;
+  margin-top: 0;
+  position: relative;
+  padding-bottom: var(--space-2);
 }
-  
+
+.nightwalker-info p:first-child::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: var(--color-primary);
+  transition: width var(--transition-normal);
+}
+
+.nightwalker-card:hover .nightwalker-info p:first-child::after {
+  width: 60px;
+}
+
 .nightwalker-info p:nth-child(2) {
-    color: #666;
-    font-size: 0.9em;
-    line-height: 1.4;
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-normal);
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-bottom: var(--space-3);
 }
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .nightwalker-slider {
+    grid-auto-columns: minmax(280px, calc(50% - var(--space-5)));
+  }
+}
+
+@media (max-width: 992px) {
+  .nightwalker-category-bar {
+    gap: var(--space-4);
+  }
   
-.nightwalker-info p:nth-child(3) {
-    color: #2d3748;
-    font-weight: 500;
-}
-  
-.nightwalker-stars {
-    color: gold;
-    font-size: 14px;
-    margin-top: 10px;
-}
-  
-/* Footer */
-.nightwalker-footer {
-    padding: 30px;
-    background-color: #113f87;
-    color: white;
-    text-align: center;
-    font-size: 14px;
+  .nightwalker-category-button {
+    width: 100px;
+    height: 100px;
+  }
 }
 
-/* Loading indicator */
-.loading-indicator {
-    text-align: center;
-    padding: 40px;
-    color: #123865;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-height: 200px;
-}
-
-.loading-indicator::after {
-    content: "";
-    width: 24px;
-    height: 24px;
-    border: 3px solid #123865;
-    border-top: 3px solid transparent;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Responsive design */
 @media (max-width: 768px) {
-    .nightwalker-slider {
-        grid-auto-columns: calc(100% - 40px);
-    }
-    
-    .nightwalker-search-box {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .nightwalker-search-button {
-        width: 100%;
-    }
-    
-    .nightwalker-category-bar {
-        gap: 10px;
-    }
-    
-    .nightwalker-category-button {
-        width: 80px;
-        height: 80px;
-        font-size: 12px;
-    }
-
-    .category-icon {
-        width: 24px;
-        height: 24px;
-    }
-
-    .error-message,
-    .no-results {
-        margin: 20px;
-        width: auto;
-    }
-}
-
-/* Add these new styles at the end of the file */
-
-.error-message {
-    text-align: center;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 600px;
-    background-color: #fee2e2;
-    color: #dc2626;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-.no-results {
-    text-align: center;
-    padding: 40px;
-    color: #6b7280;
-    font-size: 16px;
-    background-color: #f9fafb;
-    border-radius: 8px;
-    margin: 20px auto;
-    max-width: 600px;
-}
-
-/* Add error boundary styles */
-.error-boundary {
-    padding: 2rem;
-    margin: 2rem auto;
-    max-width: 600px;
-    text-align: center;
-    background-color: #fee2e2;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.error-boundary h2 {
-    color: #dc2626;
-    margin-bottom: 1rem;
-}
-
-.error-boundary p {
-    color: #7f1d1d;
-}
+  :root {
+    --space-10: 32px;
+    --space-12: 40px;
+  }
   
+  .nightwalker-hero-header {
+    padding: var(--space-4) var(--space-5);
+    font-size: 1.25rem;
+  }
+  
+  .nightwalker-logo {
+    font-size: 1.5rem;
+  }
+  
+  .nightwalker-search-box {
+    flex-direction: column;
+  }
+  
+  .nightwalker-search-input,
+  .nightwalker-search-button {
+    width: 100%;
+  }
+  
+  .nightwalker-search-button {
+    padding: var(--space-3) var(--space-6);
+    font-size: 1rem;
+  }
+  
+  .nightwalker-category-bar-wrapper {
+    padding: var(--space-5) var(--space-4);
+    margin: var(--space-5) auto;
+  }
+  
+  .nightwalker-category-button {
+    width: 90px;
+    height: 90px;
+    font-size: 0.8125rem;
+    padding: var(--space-3);
+  }
+  
+  .nightwalker-slider-section {
+    padding: var(--space-8) var(--space-5);
+  }
+  
+  .nightwalker-slider-section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .nightwalker-slider {
+    grid-auto-columns: 85%;
+    gap: var(--space-4);
+  }
+  
+  .category-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nightwalker-hero-header {
+    padding: var(--space-3) var(--space-4);
+  }
+  
+  .nightwalker-logo {
+    font-size: 1.25rem;
+  }
+  
+  .nightwalker-category-button {
+    width: 80px;
+    height: 80px;
+    font-size: 0.75rem;
+  }
+  
+  .nightwalker-slider {
+    grid-auto-columns: 90%;
+  }
+  
+  .category-icon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .nightwalker-card .nightwalker-image {
+    height: 160px;
+  }
+  
+  .nightwalker-info p:first-child {
+    font-size: 1rem;
+  }
+}
+
+/* Accessibility and user experience improvements */
+.nightwalker-search-button:focus-visible,
+.nightwalker-search-input:focus-visible,
+.nightwalker-category-button:focus-visible {
+  outline: 3px solid var(--color-secondary-light);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .nightwalker-hero-section,
+  .nightwalker-search-box,
+  .nightwalker-category-bar-wrapper {
+    display: none;
+  }
+  
+  .nightwalker-slider-section {
+    background: none;
+    padding: 0;
+  }
+  
+  .nightwalker-slider {
+    display: block;
+    overflow: visible;
+  }
+  
+  .nightwalker-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 2cm;
+    box-shadow: none;
+    border: 1px solid #eee;
+  }
+}

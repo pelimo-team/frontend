@@ -4,6 +4,8 @@
   max-width: 1024px;
   margin: 0 auto;
   padding: 16px;
+  background-color: #fff;
+  color: #333;
 }
 
 .food-header {
@@ -11,7 +13,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
   padding-bottom: 16px;
 }
 
@@ -21,6 +23,11 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  transition: opacity 0.3s;
+}
+
+.back-button:hover {
+  opacity: 0.7;
 }
 
 .back-button img {
@@ -43,10 +50,12 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .food-username {
   font-weight: bold;
+  font-size: 14px;
 }
 
 .food-banner {
@@ -58,6 +67,7 @@
   height: 240px;
   object-fit: cover;
   border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .food-details {
@@ -65,14 +75,15 @@
 }
 
 .food-name {
-  font-size: 24px;
+  font-size: 26px;
   margin-bottom: 12px;
+  font-weight: 700;
 }
 
 .food-description {
-  color: #666;
+  color: #555;
   margin-bottom: 16px;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 .food-price-section {
@@ -84,11 +95,11 @@
 
 .original-price {
   text-decoration: line-through;
-  color: #999;
+  color: #bbb;
 }
 
 .sale-price {
-  color: #e53935;
+  color: #d32f2f;
   font-weight: bold;
 }
 
@@ -97,15 +108,17 @@
 }
 
 .restaurant-section {
-  background-color: #f9f9f9;
+  background-color: #fafafa;
   padding: 16px;
   border-radius: 8px;
   margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .restaurant-header {
   display: flex;
   justify-content: space-between;
+  border-radius: 8px;
   align-items: center;
   margin-bottom: 12px;
 }
@@ -113,6 +126,7 @@
 .restaurant-header h2 {
   font-size: 18px;
   margin: 0;
+  font-weight: 600;
 }
 
 .restaurant-rating {
@@ -122,15 +136,17 @@
 }
 
 .stars {
-  color: #ffd700;
+  color: #ffc107;
   letter-spacing: -2px;
+  font-size: 16px;
 }
 
 .restaurant-location {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #666;
+  color: #777;
+  font-size: 14px;
   margin: 0;
 }
 
@@ -141,6 +157,7 @@
 .reviews-section h3 {
   font-size: 18px;
   margin-bottom: 16px;
+  font-weight: 600;
 }
 
 .reviews-list {
@@ -150,9 +167,10 @@
 }
 
 .review-card {
-  background-color: #f9f9f9;
+  background-color: #fefefe;
   padding: 16px;
   border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
 }
 
 .review-header {
@@ -163,16 +181,19 @@
 
 .reviewer-name {
   font-weight: bold;
+  font-size: 14px;
 }
 
 .review-rating {
-  color: #ffd700;
+  color: #ffc107;
   letter-spacing: -2px;
+  font-size: 14px;
 }
 
 .review-text {
-  line-height: 1.6;
+  line-height: 1.8;
   margin-bottom: 8px;
+  color: #444;
 }
 
 .review-date {
@@ -186,7 +207,7 @@
   align-items: center;
   height: 200px;
   font-size: 18px;
-  color: #666;
+  color: #888;
 }
 
 .error-message {
@@ -195,8 +216,9 @@
   justify-content: center;
   align-items: center;
   height: 200px;
-  color: #e53935;
+  color: #d32f2f;
   text-align: center;
+  font-weight: 500;
 }
 
 .custom-continue-btn {
@@ -204,9 +226,15 @@
   background-color: #4caf50;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 6px;
   cursor: pointer;
   font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.3s;
 }
-  
+
+.custom-continue-btn:hover {
+  background-color: #43a047;
+}
