@@ -4,9 +4,9 @@
 
 :root {
   /* Color Variables */
-  --color-primary: #945436;
-  --color-primary-light: #d4b7a3;
-  --color-primary-dark: #9f6549;
+  #945436: #945436;
+  #945436-light: #d4b7a3;
+  #945436-dark: #9f6549;
   --color-accent: #905708;
   --color-background: #f5ebe0;
   --color-card: #f0d7c3;
@@ -111,7 +111,7 @@ a {
   grid-template-columns: repeat(5, 1fr);
   align-items: center;
   padding: var(--space-sm) var(--space-md);
-  background: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
+  background: linear-gradient(to right, #d4b7a3, #9f6549);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -259,7 +259,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
+  background: linear-gradient(to right, #d4b7a3, #9f6549);
   color: var(--color-white);
   padding: var(--space-xxl) var(--space-xl);
   min-height: 80vh;
@@ -325,7 +325,7 @@ a {
 }
 
 .hero-button {
-  background: var(--color-primary);
+  background: #945436;
   border: none;
   border-radius: var(--border-radius-md);
   color: var(--color-white);
@@ -338,7 +338,7 @@ a {
 }
 
 .hero-button:hover {
-  background-color: var(--color-primary);
+  background-color: #945436;
   transform: scale(1.05);
   box-shadow: var(--shadow-lg);
 }
@@ -403,7 +403,7 @@ a {
 .category-title {
   grid-column: 1 / -1;
   text-align: right;
-  color: var(--color-primary);
+  color: #945436;
   font-size: var(--font-size-xxl);
   font-weight: bold;
   margin-bottom: var(--space-lg);
@@ -440,7 +440,7 @@ a {
 .category-item p {
   margin-top: auto;
   font-weight: bold;
-  color: var(--color-primary);
+  color: #945436;
   font-size: var(--font-size-lg);
   text-align: center;
 }
@@ -453,7 +453,7 @@ a {
 
 .best-ones-title {
   text-align: left;
-  color: var(--color-primary);
+  color: var(#945436);
   font-size: var(--font-size-xxl);
   margin-bottom: var(--space-lg);
   font-weight: bold;
@@ -526,7 +526,7 @@ a {
 
 .best-ones-item .info h3 {
   font-size: var(--font-size-lg);
-  color: var(--color-primary);
+  color: var(#945436);
   margin-bottom: var(--space-xs);
 }
 
@@ -543,7 +543,7 @@ a {
 
 .games-title {
   text-align: center;
-  color: var(--color-primary);
+  color: var(#945436);
   font-size: var(--font-size-xl);
   margin-bottom: var(--space-xl);
   font-weight: bold;
@@ -622,7 +622,7 @@ a {
 }
 
 .card_1_item h1 {
-  color: var(--color-primary);
+  color: var(#945436);
   margin-bottom: var(--space-sm);
   font-size: var(--font-size-xl);
 }
@@ -640,7 +640,7 @@ a {
 }
 
 .about-section h2 {
-  color: var(--color-primary);
+  color: var(#945436);
   margin-bottom: var(--space-md);
   font-size: var(--font-size-xxl);
 }
@@ -671,7 +671,7 @@ a {
 }
 
 .work-procedure h2 {
-  color: var(--color-primary);
+  color: var(#945436);
   margin-bottom: var(--space-xl);
   font-size: var(--font-size-xxl);
 }
@@ -699,7 +699,7 @@ a {
 }
 
 .step-box h3 {
-  color: var(--color-primary);
+  color: var(#945436);
   margin-bottom: var(--space-sm);
   font-size: var(--font-size-lg);
 }
@@ -716,13 +716,13 @@ a {
 }
 
 .portfolio-section h2 {
-  color: var(--color-primary);
+  color: var(#945436);
   margin-bottom: var(--space-xl);
   font-size: var(--font-size-xxl);
 }
 
 .portfolio-btn {
-  background: var(--color-primary);
+  background: var(#945436);
   color: var(--color-white);
   border: none;
   padding: var(--space-sm) var(--space-lg);
@@ -746,7 +746,7 @@ a {
 }
 
 .video-section h2 {
-  color: var(--color-primary);
+  color: var(#945436);
   margin-bottom: var(--space-xl);
   font-size: var(--font-size-xxl);
 }
@@ -779,7 +779,7 @@ a {
 }
 
 .testimonial-section h2 {
-  color: var(--color-primary);
+  color: var(#945436);
   margin-bottom: var(--space-xl);
   font-size: var(--font-size-xxl);
 }
@@ -799,7 +799,7 @@ a {
 .testimonial-section blockquote::after {
   content: '"';
   font-size: 4rem;
-  color: var(--color-primary-light);
+  color: #d4b7a3;
   position: absolute;
   opacity: 0.4;
 }
@@ -817,7 +817,7 @@ a {
 .testimonial-author {
   font-weight: bold;
   margin-top: var(--space-md);
-  color: var(--color-primary);
+  color: var(#945436);
 }
 
 /* Footer */
@@ -828,14 +828,14 @@ a {
 }
 
 .home-footer h2 {
-  color: var(--color-primary);
+  color: var(#945436);
   margin-bottom: var(--space-lg);
   font-size: var(--font-size-xl);
   text-align: center;
 }
 
 .contact-btn {
-  background: var(--color-primary);
+  background: var(#945436);
   color: var(--color-white);
   border: none;
   padding: var(--space-sm) var(--space-lg);
@@ -864,7 +864,7 @@ a {
 .footer-info div h3 {
   margin-bottom: var(--space-sm);
   font-size: var(--font-size-lg);
-  color: var(--color-primary);
+  color: var(#945436);
 }
 
 .footer-info div ul {
@@ -887,7 +887,7 @@ a {
 }
 
 .footer-info div ul li a:hover {
-  color: var(--color-primary);
+  color: var(#945436);
 }
 
 .footer-legal {
