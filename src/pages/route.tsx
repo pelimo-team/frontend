@@ -16,6 +16,7 @@ import AdvanceTasadofi from "./AdvanceTasadofi";
 import MenuBuilder from "./Model";
 import Cart from "./Cart";
 import AddCommentPage from "./AddCommentPage";
+import GuessTheDishGame from "./GuessTheDishGame";
 
 export const ProjectRoutes = () => {
   return (
@@ -63,6 +64,9 @@ export const ProjectRoutes = () => {
 
         {/* صفحه جستجوی تصادفی */}
         <Route path="/advance-tasadofi" element={<AdvanceTasadofi />} />
+
+        {/* بازی حدس غذا */}
+        <Route path="/games/guess-the-dish" element={<GuessTheDishGame />} />
 
         <Route path="/cart" element={<Cart />} />
         <Route path="/model" element={<MenuBuilder />} />

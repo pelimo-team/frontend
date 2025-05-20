@@ -1,30 +1,61 @@
 import styles from "../../styles/HomePage.module.css";
+import { useNavigate } from "react-router-dom";
 
-const GamesSection = () => {
+interface GameItem {
+  title: string;
+  image: string;
+  route: string;
+}
+
+const games: GameItem[] = [
+  {
+    title: "حدس غذای مخفی",
+    image: "/images/guess-the-dish.jpg",
+    route: "/games/guess-the-dish",
+  },
+  {
+    title: "سریع‌ترین سفارش",
+    image: "/images/fast-order.jpg",
+    route: "/games/fast-order",
+  },
+  {
+    title: "پازل منوی غذا",
+    image: "/images/menu-puzzle.jpg",
+    route: "/games/menu-puzzle",
+  },
+  {
+    title: "چی می‌خوای بخوری؟",
+    image: "/images/what-to-eat.jpg",
+    route: "/games/what-to-eat",
+  },
+];
+
+const GamesSection: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (route: string) => {
+    navigate(route);
+  };
+
   return (
     <section className={styles["games-section"]}>
-      <h2 className={styles["games-title"]}>The Games</h2>
+      <h2 className={styles["games-title"]}>🎮 بازی‌های خوشمزه</h2>
       <div className={styles["games-container"]}>
-        <div className={styles["games-item"]}>
-          <div className={styles["image-box"]}>
-            <img src="Rectangle 754.png" alt="restaurant image" />
+        {games.map((game, index) => (
+          <div
+            key={index}
+            className={styles["game-card"]}
+            onClick={() => handleCardClick(game.route)}
+            role="button"
+          >
+            <div className={styles["image-box"]}>
+              <img src={game.image} alt={game.title} />
+            </div>
+            <div className={styles["info"]}>
+              <p>{game.title}</p>
+            </div>
           </div>
-          <div className={styles.info}>
-            <p>name</p>
-            <p>location</p>
-            <p>★★★★★</p>
-          </div>
-        </div>
-        <div className={styles["games-item"]}>
-          <div className={styles["image-box"]}>
-            <img src="Rectangle 754.png" alt="restaurant image" />
-          </div>
-          <div className={styles.info}>
-            <p>name</p>
-            <p>location</p>
-            <p>★★★★★</p>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );
