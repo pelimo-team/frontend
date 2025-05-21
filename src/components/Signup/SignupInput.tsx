@@ -45,8 +45,6 @@ const SignupInput = ({
         )}
       </div>
       {error && <small className="signup-error">{error}</small>}
-   
-      
     </>
   );
 };

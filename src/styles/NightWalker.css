@@ -1,591 +1,467 @@
 /* Base styles */
 body {
-  margin: 0;
-  font-family: "Arial", sans-serif;
-  background: none;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f2f4f8;
 }
-
+  
 .nightwalker-container {
-  position: relative; /* برای قرار دادن محتوا داخل */
-  width: 100%;
-  height: 100vh; /* ارتفاع 100% صفحه */
-  overflow: auto; /* امکان اسکرول */
-  z-index: 1;
+    width: 100%;
+    overflow-x: hidden;
 }
-.background-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* قرار دادن پس‌زمینه زیر محتوا */
-}
-.background-container img {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 200px; /* اندازه دلخواه برای تصویر ماه */
-  width: auto;
-}
-
-@keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
-}
-@-webkit-keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
-}
-
-@-moz-keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
-}
-
-@-webkit-keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
-}
-
-.stars,
-.twinkling,
-.clouds {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* اطمینان از اینکه این‌ها پایین‌تر از محتوا قرار بگیرند */
-}
-.stars {
-  background: black
-    url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: block;
-  z-index: 0;
-}
-
-.twinkling {
-  width: 10000px;
-  height: 100%;
-  background: transparent
-    url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png")
-    repeat;
-  background-size: 1000px 1000px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 2;
-
-  -moz-animation: move-background 70s linear infinite;
-  -ms-animation: move-background 70s linear infinite;
-  -o-animation: move-background 70s linear infinite;
-  -webkit-animation: move-background 70s linear infinite;
-  animation: move-background 70s linear infinite;
-}
-
-.clouds {
-  width: 10000px;
-  height: 100%;
-  background: transparent
-    url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/clouds_repeat.png")
-    repeat;
-  background-size: 1000px 1000px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 3;
-
-  -moz-animation: move-background 150s linear infinite;
-  -ms-animation: move-background 150s linear infinite;
-  -o-animation: move-background 150s linear infinite;
-  -webkit-animation: move-background 150s linear infinite;
-  animation: move-background 150s linear infinite;
-}
-.nightwalker-container img {
-  height: 70vh;
-  width: 70vh;
-  position: absolute;
-  z-index: 3;
-  right: 20px;
-}
-
+  
 /* Hero section */
 .nightwalker-hero-section {
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  position: relative;
-  color: white;
+    background-image: url('/shabgard-cat.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+    color: white;
 }
-
+  
 /* Logo and icons */
 .nightwalker-hero-header {
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: 43% 18% 38.25%;
-  align-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow: auto;
+    display: grid;
+    grid-template-columns: 43% 18% 38.25%;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
 }
 .night-header-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.night-header-logo img {
-  height: auto;
-  width: 10rem;
-  justify-content: center;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .night-header-logo img {
+    height: auto;
+    width: 10rem;
+    justify-content: center;
+  }
 .night-header-left {
-  display: flex;
-  gap: 15px;
-}
-.night-profile-dropdown-content {
-  margin-left: 4rem;
-  display: none;
-  font-size: 13px;
-  position: absolute;
-  z-index: 1;
-  min-width: 200px;
-  background-color: white;
-  border: 2px solid #abb7c2;
-  border-radius: 0px 15px 15px 15px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
+    display: flex;
+    gap: 15px;
+  }
+  .night-profile-dropdown-content {
+    margin-left: 4rem;
+    display: none;
+    font-size: 13px;
+    position: absolute;
+    z-index: 1;
+    min-width: 200px;
+    background-color: white;
+    border: 2px solid #abb7c2;
+    border-radius: 0px 15px 15px 15px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  }
+  
+  .night-profile-dropdown-content a {
+    color: #abb7c2;
+    padding: 8px 10px;
+    text-decoration: none;
+    display: block;
+    transition: 0.1s;
+  }
+  
+  .night-profile-dropdown-content a:hover {
+    background-color: #abb7c2;
+    color: black;
+  }
+  
+  .night-profile-dropdown-content a:focus {
+    background-color: white;
+    color: #abb7c2;
+  }
+  
+  .night-first-line:hover {
+    border-radius: 0px 13px 0px 0px;
+  }
+  
+  .night-secend-line:hover {
+    border-radius: 0px 0px 13px 13px;
+  }
+  
+  .night-profile-button:hover .profile-dropdown-content {
+    display: block;
+  }
+  
+  .night-profile-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+  .night-home-profile {
+    margin-left: 3rem;
+    height: 3rem;
+    width: 3rem;
+    background: white;
+    border: none;
+    border-radius: 30rem;
+    color: #fff;
+  
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .night-home-profile:hover {
+    background-color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
 
-.night-profile-dropdown-content a {
-  color: #abb7c2;
-  padding: 8px 10px;
-  text-decoration: none;
-  display: block;
-  transition: 0.1s;
-}
-
-.night-profile-dropdown-content a:hover {
-  background-color: #abb7c2;
-  color: black;
-}
-
-.night-profile-dropdown-content a:focus {
-  background-color: white;
-  color: #abb7c2;
-}
-
-.night-first-line:hover {
-  border-radius: 0px 13px 0px 0px;
-}
-
-.night-secend-line:hover {
-  border-radius: 0px 0px 13px 13px;
-}
-
-.night-profile-button:hover .profile-dropdown-content {
-  display: block;
-}
-
-.night-home-profile {
-  margin-left: 3rem;
-  height: 3rem;
-  width: 3rem;
-
-  border: none;
-  border-radius: 30rem;
-  color: #fff;
-  background-image: url("./profile-white.png");
-
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background-repeat: no-repeat; /* جلوگیری از تکرار */
-  background-position: center; /* قرار دادن تصویر در وسط */
-  background-size: contain;
-}
-.night-home-profile:hover {
-  background-color: white;
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
+  
 /* Search box */
 .nightwalker-centered-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 2;
-  width: 100%;
-  max-width: 600px;
-  padding: 0 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 20px;
 }
-
+  
 .nightwalker-search-box {
-  margin-bottom: 15px;
-  width: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-
+  
 .nightwalker-search-input {
-  flex: 1;
-  padding: 15px 45px;
-  font-size: 16px;
-  border-radius: 25px;
-  border: none;
-  outline: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+    flex: 1;
+    padding: 15px 45px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
 }
 
 .nightwalker-search-icon {
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.6;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.6;
 }
-
+  
 .nightwalker-search-button {
-  padding: 15px 30px;
-  font-size: 16px;
-  border-radius: 25px;
-  border: none;
-  background-color: #123865;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 15px 30px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    background-color: #123865;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
-
+  
 .nightwalker-search-button:hover {
-  background-color: #1a4c8f;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    background-color: #1a4c8f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
-
+  
 .nightwalker-search-button:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
-
+  
 /* Categories */
 .nightwalker-category-bar-wrapper {
-  padding: 30px 20px;
-  background: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 30px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
-
+  
 .nightwalker-category-bar {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
-
+  
 .nightwalker-category-button {
-  width: 100px;
-  height: 100px;
-  font-size: 14px;
-  background-color: #f1f4fc;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px;
+    width: 100px;
+    height: 100px;
+    font-size: 14px;
+    background-color: #f1f4fc;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
 }
-
+  
 .nightwalker-category-button.active {
-  background-color: #123865;
-  color: white;
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: #123865;
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
-
+  
 .nightwalker-category-button:hover {
-  background-color: #d8e7ff;
-  transform: translateY(-5px);
+    background-color: #d8e7ff;
+    transform: translateY(-5px);
 }
-
+  
 .nightwalker-category-button.active:hover {
-  background-color: #1a4c8f;
+    background-color: #1a4c8f;
 }
-
+  
 .category-icon {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
 }
-
+  
 /* Sliders and Cards */
 .nightwalker-slider-section {
-  padding: 40px 30px;
-  background-color: rgba(255, 255, 255, 0.1);
-  min-height: 200px;
+    padding: 40px 30px;
+    background-color: #f8faff;
+    min-height: 200px;
 }
-
+  
 .nightwalker-slider-section h2 {
-  color: #123865;
-  margin-bottom: 15px;
-  text-align: center;
+    color: #123865;
+    margin-bottom: 15px;
+    text-align: center;
 }
-
+  
 .nightwalker-slider {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: calc(33.333% - 20px);
-  overflow-x: auto;
-  gap: 20px;
-  padding: 20px 0;
-  scroll-snap-type: x mandatory;
-  max-width: 1200px;
-  margin: 0 auto;
-  scrollbar-width: thin;
-  scrollbar-color: #123865 #f0f0f0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(33.333% - 20px);
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px 0;
+    scroll-snap-type: x mandatory;
+    max-width: 1200px;
+    margin: 0 auto;
+    scrollbar-width: thin;
+    scrollbar-color: #123865 #f0f0f0;
 }
-
+  
 .nightwalker-slider::-webkit-scrollbar {
-  height: 8px;
+    height: 8px;
 }
-
+  
 .nightwalker-slider::-webkit-scrollbar-track {
-  background: #f0f0f0;
-  border-radius: 4px;
+    background: #f0f0f0;
+    border-radius: 4px;
 }
-
+  
 .nightwalker-slider::-webkit-scrollbar-thumb {
-  background-color: #123865;
-  border-radius: 4px;
+    background-color: #123865;
+    border-radius: 4px;
 }
-
+  
 .nightwalker-card {
-  scroll-snap-align: start;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-width: 280px;
-  cursor: pointer;
-  position: relative;
+    scroll-snap-align: start;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-width: 280px;
+    cursor: pointer;
+    position: relative;
 }
-
+  
 .nightwalker-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
-
+  
 .nightwalker-card:active {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
-
+  
 .nightwalker-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.1);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
-
+  
 .nightwalker-card:hover::after {
-  opacity: 1;
+    opacity: 1;
 }
-
+  
 .nightwalker-card .nightwalker-image {
-  height: 150px;
-  background: #f0f0f0;
-  overflow: hidden;
+    height: 150px;
+    background: #f0f0f0;
+    overflow: hidden;
 }
-
+  
 .nightwalker-info {
-  padding: 15px;
-  background: white;
-  position: relative;
+    padding: 15px;
+    background: white;
+    position: relative;
 }
-
+  
 .nightwalker-info p {
-  margin: 8px 0;
-  color: #333;
+    margin: 8px 0;
+    color: #333;
 }
-
+  
 .nightwalker-info p:first-child {
-  font-size: 1.1em;
-  color: #123865;
+    font-size: 1.1em;
+    color: #123865;
 }
-
+  
 .nightwalker-info p:nth-child(2) {
-  color: #666;
-  font-size: 0.9em;
-  line-height: 1.4;
+    color: #666;
+    font-size: 0.9em;
+    line-height: 1.4;
 }
-
+  
 .nightwalker-info p:nth-child(3) {
-  color: #2d3748;
-  font-weight: 500;
+    color: #2d3748;
+    font-weight: 500;
 }
-
+  
 .nightwalker-stars {
-  color: gold;
-  font-size: 14px;
-  margin-top: 10px;
+    color: gold;
+    font-size: 14px;
+    margin-top: 10px;
 }
-
+  
 /* Footer */
 .nightwalker-footer {
-  padding: 30px;
-  background-color: #113f87;
-  color: white;
-  text-align: center;
-  font-size: 14px;
+    padding: 30px;
+    background-color: #113f87;
+    color: white;
+    text-align: center;
+    font-size: 14px;
 }
 
 /* Loading indicator */
 .loading-indicator {
-  text-align: center;
-  padding: 40px;
-  color: #123865;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 200px;
+    text-align: center;
+    padding: 40px;
+    color: #123865;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 200px;
 }
 
 .loading-indicator::after {
-  content: "";
-  width: 24px;
-  height: 24px;
-  border: 3px solid #123865;
-  border-top: 3px solid transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+    content: "";
+    width: 24px;
+    height: 24px;
+    border: 3px solid #123865;
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .nightwalker-slider {
-    grid-auto-columns: calc(100% - 40px);
-  }
+    .nightwalker-slider {
+        grid-auto-columns: calc(100% - 40px);
+    }
+    
+    .nightwalker-search-box {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nightwalker-search-button {
+        width: 100%;
+    }
+    
+    .nightwalker-category-bar {
+        gap: 10px;
+    }
+    
+    .nightwalker-category-button {
+        width: 80px;
+        height: 80px;
+        font-size: 12px;
+    }
 
-  .nightwalker-search-box {
-    flex-direction: column;
-    gap: 15px;
-  }
+    .category-icon {
+        width: 24px;
+        height: 24px;
+    }
 
-  .nightwalker-search-button {
-    width: 100%;
-  }
-
-  .nightwalker-category-bar {
-    gap: 10px;
-  }
-
-  .nightwalker-category-button {
-    width: 80px;
-    height: 80px;
-    font-size: 12px;
-  }
-
-  .category-icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .error-message,
-  .no-results {
-    margin: 20px;
-    width: auto;
-  }
+    .error-message,
+    .no-results {
+        margin: 20px;
+        width: auto;
+    }
 }
 
 /* Add these new styles at the end of the file */
 
 .error-message {
-  text-align: center;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 600px;
-  background-color: #fee2e2;
-  color: #dc2626;
-  border-radius: 8px;
-  font-size: 16px;
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #fee2e2;
+    color: #dc2626;
+    border-radius: 8px;
+    font-size: 16px;
 }
 
 .no-results {
-  text-align: center;
-  padding: 40px;
-  color: #6b7280;
-  font-size: 16px;
-  background-color: #f9fafb;
-  border-radius: 8px;
-  margin: 20px auto;
-  max-width: 600px;
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+    font-size: 16px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 600px;
 }
 
 /* Add error boundary styles */
 .error-boundary {
-  padding: 2rem;
-  margin: 2rem auto;
-  max-width: 600px;
-  text-align: center;
-  background-color: #fee2e2;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    text-align: center;
+    background-color: #fee2e2;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .error-boundary h2 {
-  color: #dc2626;
-  margin-bottom: 1rem;
+    color: #dc2626;
+    margin-bottom: 1rem;
 }
 
 .error-boundary p {
-  color: #7f1d1d;
+    color: #7f1d1d;
 }
+  

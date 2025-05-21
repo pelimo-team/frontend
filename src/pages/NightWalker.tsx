@@ -32,9 +32,7 @@ const NightWalker: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [restaurantTypes, setRestaurantTypes] = useState<RestaurantType[]>([]);
   const [selectedType, setSelectedType] = useState<string>("");
-  const [nightwalkerRestaurants, setNightwalkerRestaurants] = useState<
-    Restaurant[]
-  >([]);
+  const [nightwalkerRestaurants, setNightwalkerRestaurants] = useState<Restaurant[]>([]);
 
   // Fetch restaurant types and initial restaurants
   useEffect(() => {
@@ -44,9 +42,7 @@ const NightWalker: React.FC = () => {
         setError(null);
 
         // Fetch restaurant types
-        const typesResponse = await axios.get<RestaurantType[]>(
-          "/api/restaurant-types/"
-        );
+        const typesResponse = await axios.get<RestaurantType[]>("/api/restaurant-types/");
         setRestaurantTypes(typesResponse.data || []);
 
         // Fetch initial restaurants
@@ -56,9 +52,7 @@ const NightWalker: React.FC = () => {
         setNightwalkerRestaurants(restaurantsResponse.data?.results || []);
       } catch (err) {
         console.error("Error fetching initial data:", err);
-        setError(
-          err instanceof Error ? err.message : "Failed to load initial data"
-        );
+        setError(err instanceof Error ? err.message : "Failed to load initial data");
       } finally {
         setLoading(false);
       }
@@ -113,13 +107,6 @@ const NightWalker: React.FC = () => {
 
   return (
     <div className="nightwalker-container">
-      <div className="background-container">
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="moon" />
-        <div className="stars"></div>
-        <div className="twinkling"></div>
-       
-      </div>
-
       <HeroSection
         searchQuery={searchQuery}
         onSearchQueryChange={setSearchQuery}
@@ -144,7 +131,6 @@ const NightWalker: React.FC = () => {
       </main>
 
       <Footer />
-
     </div>
   );
 };

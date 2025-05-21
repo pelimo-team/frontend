@@ -1,7 +1,6 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import SignupInput from "./SignupInput";
-import ToggleButton from "./SignUpToggle";
 
 interface FormData {
   username: string;
@@ -121,11 +120,6 @@ const SignupForm = () => {
     }
   };
 
-  const [role, setRole] = useState<"manager" | "user" | "">("");
-
-  const handleToggleChange = (selectedRole: "manager" | "user") => {
-    setRole(selectedRole);
-  };
   return (
     <div className="signup-form-box">
       <h1 className="signup-title">Sign Up</h1>
@@ -177,12 +171,6 @@ const SignupForm = () => {
 
         {errorMessage && <div className="signup-error">{errorMessage}</div>}
 
-        <div>
-          <ToggleButton onToggle={handleToggleChange} />
-          {role === "manager" && <h1></h1>}
-          {role === "user" && <h1></h1>}
-        </div>
-
         <button
           type="submit"
           className={`signup-btn ${
@@ -201,4 +189,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default SignupForm; 

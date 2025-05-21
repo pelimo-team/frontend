@@ -5,7 +5,6 @@ import { api } from "../utils/api";
 import CommentList from "../components/CommentsSection/CommentList";
 import CommentForm from "../components/CommentsSection/CommentForm";
 
-
 interface Comment {
   id: number;
   user_details?: {
@@ -17,7 +16,6 @@ interface Comment {
   comment: string;
   likes: number;
   dislikes: number;
-  replies?: Comment[]; 
 }
 
 interface CommentsSectionProps {
@@ -81,6 +79,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ restaurantId }) => {
       return;
     }
 
+    
     const endpoint = `/api/restaurants/${restaurantId}/reviews/${commentId}/${reactionType}/`;
 
     const previousReactions = { ...reactions };
@@ -91,6 +90,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ restaurantId }) => {
 
     try {
       const data = await api.post(endpoint, {});
+
       setComments((prevComments) =>
         prevComments.map((comment) =>
           comment.id === commentId
@@ -131,24 +131,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ restaurantId }) => {
     }
   };
 
-  // ✅ تابع ریپلای
-  const handleReplySubmit = async (parentCommentId: number, replyText: string) => {
-    if (!isAuthenticated) {
-      navigate("/login");
-      return;
-    }
-
-    try {
-      await api.post(`/api/restaurants/${restaurantId}/reviews/${parentCommentId}/reply/`, {
-        comment: replyText,
-      });
-
-      await fetchComments();
-    } catch (err) {
-      console.error("Error submitting reply:", err);
-    }
-  };
-
   if (loading) {
     return <div className="comments-loading">در حال بارگذاری نظرات...</div>;
   }
@@ -173,7 +155,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ restaurantId }) => {
         isAuthenticated={isAuthenticated}
         reactions={reactions}
         onReaction={handleReaction}
-        onReplySubmit={handleReplySubmit} 
       />
 
       <CommentForm
@@ -183,7 +164,6 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ restaurantId }) => {
         isSubmitting={isSubmitting}
         submitError={submitError}
       />
-       
     </div>
   );
 };

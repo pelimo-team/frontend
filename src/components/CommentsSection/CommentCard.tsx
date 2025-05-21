@@ -1,5 +1,5 @@
-import React from "react";
-import StarRating from "./StarRating";
+import React from 'react';
+import StarRating from './StarRating';
 
 interface Comment {
   id: number;
@@ -17,10 +17,8 @@ interface Comment {
 interface CommentCardProps {
   comment: Comment;
   isAuthenticated: boolean;
-  reaction: "like" | "dislike" | null;
-  onReaction: (commentId: number, reactionType: "like" | "dislike") => void;
-  isReply?: boolean; // 🔹 آیا این یک ریپلای است؟
-  onReplyClick?: () => void; // 🔹 عملکرد دکمه پاسخ
+  reaction: 'like' | 'dislike' | null;
+  onReaction: (commentId: number, reactionType: 'like' | 'dislike') => void;
 }
 
 const CommentCard: React.FC<CommentCardProps> = ({
@@ -28,11 +26,9 @@ const CommentCard: React.FC<CommentCardProps> = ({
   isAuthenticated,
   reaction,
   onReaction,
-  isReply = false,
-  onReplyClick,
 }) => {
   return (
-    <div className={`card-add-comment ${isReply ? "reply-card-add-comment" : ""}`}>
+    <div className="card-add-comment">
       <div className="comment-header-add-comment">
         <strong>{comment.user_details?.username || comment.user || "User"}</strong>
         <span className="date-add-comment">
@@ -41,13 +37,10 @@ const CommentCard: React.FC<CommentCardProps> = ({
             : ""}
         </span>
       </div>
-
       <div className="comment-stars-add-comment">
         <StarRating count={comment.rating} />
       </div>
-
       <div className="comment-text-add-comment">{comment.comment}</div>
-
       <div className="comment-footer-add-comment">
         <button
           onClick={() => onReaction(comment.id, "like")}
@@ -58,7 +51,6 @@ const CommentCard: React.FC<CommentCardProps> = ({
         >
           👍 {comment.likes ?? 0}
         </button>
-
         <button
           onClick={() => onReaction(comment.id, "dislike")}
           disabled={!isAuthenticated}
@@ -68,20 +60,9 @@ const CommentCard: React.FC<CommentCardProps> = ({
         >
           👎 {comment.dislikes ?? 0}
         </button>
-
-        {/* دکمه پاسخ فقط برای کامنت‌های اصلی نمایش داده شود */}
-        {!isReply && onReplyClick && (
-          <button
-            className="reply-button-add-comment"
-            onClick={onReplyClick}
-            disabled={!isAuthenticated}
-          >
-            پاسخ دادن
-          </button>
-        )}
       </div>
     </div>
   );
 };
 
-export default CommentCard;
+export default CommentCard; 

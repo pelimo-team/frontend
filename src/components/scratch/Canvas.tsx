@@ -1,9 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { DropZone, Draggable } from "../dnd";
 import { Trash2, GripVertical, ChefHat } from "lucide-react";
-
+import { MealSuggestions } from "./MealSuggestions";
 import "../../styles/Model.css";
 
 interface Block {
@@ -24,7 +23,7 @@ interface Recipe {
 }
 
 // API URLs
-
+const SUGGEST_MEALS_URL = "http://localhost:8000/api/suggest-meals/";
 const SEARCH_RECIPES_URL = "http://localhost:8000/api/recipes/search/";
 
 export function Canvas() {
@@ -74,11 +73,7 @@ export function Canvas() {
 
   const handleSuggest = async () => {
     if (blocks.length === 0) return;
-    setShowHamsterLoader(true); 
-    const MIN_LOADING_TIME = 3000; // ⏱ Minimum time to show loader (in ms)
-    const startTime = Date.now();
-    
-    
+    setIsLoading(true);
     try {
       const ingredientNames = blocks.map((block) => block.label);
       const response = await axios.post(SEARCH_RECIPES_URL, {
@@ -93,18 +88,9 @@ export function Canvas() {
       alert(errorMessage);
       setRecipes([]);
     } finally {
-      const elapsedTime = Date.now() - startTime;
-      const delay = Math.max(0, MIN_LOADING_TIME - elapsedTime);
-  
-      setTimeout(() => {
-        setShowHamsterLoader(false); // hide after enforced delay
-      },delay)
+      setIsLoading(false);
     }
   };
-
-  const navigate = useNavigate();
-  const [showHamsterLoader, setShowHamsterLoader] = useState(false);
-
 
   return (
     <div className="model-canvas-container">
@@ -117,18 +103,6 @@ export function Canvas() {
             </p>
           </div>
         </div>
-        <button
-          className={`model-get-suggestions-button-container ${
-            blocks.length === 0
-              ? "model-get-suggestions-button-disabled"
-              : "model-get-suggestions-button-available"
-          }`}
-          onClick={handleSuggest}
-          disabled={blocks.length === 0 || isLoading}
-        >
-          <ChefHat className="model-chefHat-icon" />
-          Suggest
-        </button>
 
         <div className="model-drag-place-ingredients">
           {blocks.map((block, index) => (
@@ -166,9 +140,7 @@ export function Canvas() {
             id="dropzone-final"
             accept={["block"]}
             onDrop={(item, sourceId) => handleDrop(item, sourceId)}
-            className={`DZ-element ${
-              blocks.length === 0 ? "full-height" : "min-height"
-            }`}
+            className={`DZ-element ${blocks.length === 0 ? "full-height" : "min-height"}`}
             highlightClassName="model-drag-drop-palace-highlight"
           >
             {blocks.length === 0 && (
@@ -180,61 +152,31 @@ export function Canvas() {
         </div>
         {/* Suggest Button */}
         <div style={{ marginTop: "1rem", textAlign: "center" }}>
-          {/* <button
-            className={`model-get-suggestions-button-container ${
-              blocks.length === 0
-                ? "model-get-suggestions-button-disabled"
-                : "model-get-suggestions-button-available"
-            }`}
+          <button
+            className={`model-get-suggestions-button-container ${blocks.length === 0 ? "model-get-suggestions-button-disabled" : "model-get-suggestions-button-available"}`}
             onClick={handleSuggest}
             disabled={blocks.length === 0 || isLoading}
           >
             <ChefHat className="model-chefHat-icon" />
             Suggest
-          </button> */}
+          </button>
         </div>
       </div>
 
       {/* Recipe Results */}
-      {showHamsterLoader ? (
-        <div style={{ textAlign: "center", padding: "2rem" }}>
-        <div aria-label="Orange and tan hamster running in a metal wheel" role="img" className="wheel-and-hamster">
-	<div className="wheel"></div>
-	<div className="hamster">
-		<div className="hamster__body">
-			<div className="hamster__head">
-				<div className="hamster__ear"></div>
-				<div className="hamster__eye"></div>
-				<div className="hamster__nose"></div>
-			</div>
-			<div className="hamster__limb hamster__limb--fr"></div>
-			<div className="hamster__limb hamster__limb--fl"></div>
-			<div className="hamster__limb hamster__limb--br"></div>
-			<div className="hamster__limb hamster__limb--bl"></div>
-			<div className="hamster__tail"></div>
-		</div>
-	</div>
-	<div className="spoke"></div>
-</div>
-</div>
+      {isLoading ? (
+        <div className="model-loading">Loading recipes...</div>
       ) : recipes.length > 0 ? (
         <div className="model-recipes-container">
           <h2 className="model-title3">Matching Recipes</h2>
           <div className="model-recipes-grid">
             {recipes.map((recipe) => (
-              <div
-                key={recipe.id}
-                className="model-recipe-card"
-                onClick={() =>
-                  navigate(`/recipe/${recipe.id}`, { state: recipe })
-                }
-                style={{ cursor: "pointer" }}
-              >
-                <img
-                  src={recipe.image_url}
+              <div key={recipe.id} className="model-recipe-card">
+                <img 
+                  src={recipe.image_url} 
                   alt={recipe.title}
                   className="model-recipe-image"
-                  onError={(e) => (e.currentTarget.style.display = "none")}
+                  onError={e => (e.currentTarget.style.display = 'none')}
                 />
                 <div className="model-recipe-content">
                   <h3 className="model-recipe-title">{recipe.title}</h3>
@@ -245,8 +187,18 @@ export function Canvas() {
                         <li key={i}>{ing}</li>
                       ))}
                     </ul>
-
-                    <></>
+                    {recipe.additional_ingredients.length > 0 && (
+                      <>
+                        <h4>Additional Ingredients Needed:</h4>
+                        <ul>
+                          {recipe.additional_ingredients.map((ing, i) => (
+                            <li key={i}>{ing}</li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                    <h4>Instructions:</h4>
+                    <p className="model-recipe-instructions">{recipe.instructions}</p>
                   </div>
                 </div>
               </div>
