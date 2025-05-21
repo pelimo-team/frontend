@@ -1,53 +1,37 @@
-import React, { useEffect, useState } from "react";
 
+import FoodDetail from "../components/FoodPage/FoodDetail";
+import { foodItem } from "../components/FoodPage/data";
 import "../styles/FoodPage.css";
+import { useNavigate } from "react-router-dom";
 
 
-import LoadingState from "../components/FoodPage/LoadingState";
-import ErrorState from "../components/FoodPage/ErrorState";
-import FoodContent from "../components/FoodPage/FoodContent";
-import { MenuItem as MenuItemType } from "../components/AdvancedSearch/types";
-
-const mockMenuItem = {
-  id: 1,
-  name: "name",
-  image: null,
-  bestseller: true,
-  restaurant: {
-    id: 1,
-    name: "name2",
-  },
-  category_name: "name3",
-  rate: 3,
-  onsale: true,
-  price: 1200000,
-  sale_price: 120,
-};
-
-const FoodPage: React.FC = () => {
-  
-  const [menuItem, setMenuItem] = useState<MenuItemType | null>(null);
-  const [loading] = useState<boolean>(true);
-  const [error] = useState<string | null>(null);
-
-  useEffect(() => {
-    setMenuItem(mockMenuItem);
-  }, []);
-
-  if (loading) {
-    return <LoadingState />;
-  }
-
-  if (error || !menuItem || !menuItem.restaurant) {
-    return <ErrorState error={error} />;
-  }
+function FoodPage() {
+  const navigate = useNavigate();
 
   return (
-    <>
-      <FoodContent menuItem={menuItem} />
-      {/* <MenuItem cartQuantity={} item={} onItemClick={} onQuantityChange={}/> */}
-    </>
+    <div className="app">
+      <header className="header">
+        <div className="header-content">
+          <button className="food-basket-btn" onClick={() => navigate("/cart")}>
+            <img src="./cart-shopping-solid.svg" alt="" />
+          </button>
+          <img className="logo" src="./Logo.png" alt="" />
+          <button
+            className="food-back-btn"
+            onClick={() => navigate(`/foodpage/`)}
+          >
+            <img src="./arrow-right-solid.svg" alt="" />
+          </button>
+        </div>
+      </header>
+
+      <main className="main-content">
+        <FoodDetail food={foodItem} />
+      </main>
+
+ 
+    </div>
   );
-};
+}
 
 export default FoodPage;

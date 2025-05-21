@@ -62,11 +62,13 @@ const GamesSection: React.FC = () => {
   const totalScore = dishScore + puzzle2048Score + tetrisScore + minesScore;
 
   return (
+
     <section className={styles["games-section"]}>
       <div className={styles["games-header"]}>
         <h2 className={styles["games-title"]}>🎮 Explore Fun Games</h2>
         <p className={styles["score"]}>Total Score: {totalScore}</p>
       </div>
+
       <div className={styles["games-container"]}>
         {games.map((game, index) => {
           let titleColor = "orange";

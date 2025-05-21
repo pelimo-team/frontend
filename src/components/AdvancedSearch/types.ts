@@ -1,10 +1,12 @@
 export interface Restaurant {
-  id: number;
+  id: string;
   name: string;
-  image: string | null;
-  rating: number | null;
+  cover_image: string | null;
+  average_rating: number | null;
   reviews_count: number;
   delivery_cost: number;
+  discription:string;
+  city: number
 }
 
 export interface MenuItem {
@@ -33,21 +35,20 @@ export const categories = [
   "Restaurant",
   "Fast Food",
   "Coffee Shop",
-  "Juice",
-  "pastry",
-  "Fruit",
+  "Juice and Ice cream",
+  "Confectionary",
+  "Fruits",
 ] as const;
 
 export const allFilters = [
-  "Cold-tempered",
-  "Warm-tempered",
+  
   "Discounted",
   "Most affordable",
   "Available",
   "Best Seller",
   "Most Expensive",
   "Cheapest",
-  "Has Image",
+  
 ] as const;
 
 export type FilterType = (typeof allFilters)[number];
