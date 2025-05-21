@@ -1,134 +1,179 @@
 .guess-game {
-  font-family: "Vazirmatn", sans-serif;
+  max-width: 1200px;
+  margin: 20px auto;
   padding: 20px;
-  max-width: 100%;
-  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-  font-size: 26px;
-  margin-bottom: 10px;
-  color: #ff6f00;
-  text-align: center;
-}
-
-.main-layout {
+.game-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 30px;
+  margin-bottom: 30px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  direction: rtl;
 }
 
-.main-image {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  border-radius: 20px;
-  transition: filter 0.5s ease, transform 0.4s ease;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.blurred {
-  filter: blur(12px);
-}
-
-.reveal {
-  filter: blur(0);
-  transform: scale(1.05);
-}
-
-.hidden {
-  display: none;
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .score-timer {
   display: flex;
-  justify-content: space-between;
-  max-width: 300px;
-  margin: 0 auto 10px;
-  font-size: 18px;
-  color: #444;
+  gap: 15px;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.exit-button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.exit-button:hover {
+  background: #c0392b;
+}
+
+.game-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #f0f0f0;
+}
+
+.main-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transition: filter 0.3s;
+}
+
+.main-image.blurred {
+  filter: blur(20px);
+}
+
+.main-image.reveal {
+  filter: blur(0);
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .question {
   font-size: 20px;
-  margin: 10px 0;
-  text-align: center;
+  color: #2c3e50;
+  margin: 0;
 }
 
-.options {
-  display: flex;
-  flex-direction: column;
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 12px;
-  width: 100%;
-  max-width: 300px;
 }
 
-.options button {
-  padding: 10px 16px;
-  font-size: 18px;
-  border-radius: 10px;
+.option-button {
+  padding: 15px;
   border: none;
+  border-radius: 8px;
+  background: #3498db;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
-  background: #ffecb3;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s;
 }
 
-.options button:hover {
-  background: #ffe082;
+.option-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.options button:active {
-  transform: scale(0.98);
+.option-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
-.options .correct {
-  background: #aed581 !important;
+.option-button.correct {
+  background: #2ecc71;
+}
+
+.option-button.incorrect {
+  background: #e74c3c;
 }
 
 .result {
   margin-top: 20px;
-  font-size: 18px;
-  color: #444;
+  padding: 15px;
+  background: #ecf0f1;
+  border-radius: 8px;
   text-align: center;
 }
 
-.result button {
-  padding: 10px 16px;
+.next-button {
+  background: #2ecc71;
+  color: white;
   border: none;
-  border-radius: 10px;
-  background: #ffb74d;
-  font-size: 16px;
-  color: #fff;
+  padding: 10px 25px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
-.result button:hover {
-  background: #ffa726;
+.exit-screen {
+  text-align: center;
+  padding: 40px;
 }
 
-/* Desktop layout: image right, options left */
-@media screen and (min-width: 768px) {
-  .main-layout {
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
+.restart-button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+}
 
-  .options-container {
-    max-width: 300px;
-    margin-right: 40px;
-    text-align: right;
+@media (max-width: 768px) {
+  .game-content {
+    grid-template-columns: 1fr;
   }
 
   .main-image {
-    margin-left: 50px;
+    height: 300px;
   }
 
-  .question {
-    text-align: left;
+  .game-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 769px) {
+  .options-container {
+    order: -1;
   }
 }

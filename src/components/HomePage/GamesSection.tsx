@@ -59,7 +59,6 @@ const GamesSection: React.FC = () => {
   }
 };
 
-
   const totalScore = dishScore + puzzle2048Score + tetrisScore + minesScore;
 
   return (
