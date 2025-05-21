@@ -1,4 +1,8 @@
-import React from "react";
+
+import { AuthContext } from "../../pages/AuthContext";
+import React, { useRef, useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 interface HeroSectionProps {
   searchQuery: string;
@@ -11,30 +15,75 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   onSearchQueryChange,
   onSearch,
 }) => {
+  const navigate = useNavigate();
+  const { isLoggedIn, logout } = useContext(AuthContext); //
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   return (
     <section className="nightwalker-hero-section">
+      
       <header className="nightwalker-hero-header">
-        <div className="nightwalker-profile-icon">
-          <img
-            src="/profile.png"
-            alt="profile"
-            style={{ width: "50px", marginBottom: "30px" }}
-          />
-        </div>
-        <div className="nightwalker-logo">
-          <img
-            src="/white-logo.png"
-            alt="logo"
-            style={{ width: "4cm", marginLeft: "20px" }}
-          />
-        </div>
-        <div className="nightwalker-menu-icon">
-          <img
-            src="/menubar.png"
-            alt="menu"
-            style={{ width: "50px", marginBottom: "30px" }}
-          />
-        </div>
+      <div className="night-header-left">
+        {isLoggedIn ? (
+          <>
+            <div className="night-profile-button" ref={dropdownRef}>
+              <button
+                className="night-home-profile"
+                onClick={() => setShowDropdown((prev) => !prev)}
+              >
+  
+              </button>
+              {showDropdown && (
+                <div
+                  className="night-profile-dropdown-content"
+                  style={{ display: showDropdown ? "block" : "none" }}
+                >
+                  <a
+                    className="night-first-line"
+                    onClick={() => navigate("/userprofile")}
+                  >
+                    profile
+                  </a>
+                  <a
+                    className="night-secend-line"
+                    onClick={() => {
+                      logout();
+                      navigate("/login");
+                    }}
+                  >
+                    logout
+                  </a>
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <a href="/login" className="night-login-link">
+              Login
+            </a>
+            <span> | </span>
+            <a href="/signup" className="night-signup-link">
+              Sign up
+            </a>
+          </>
+        )}
+      </div>
+      <div className="night-header-logo">
+        <img src="Logo_white.png" alt="PELIMO" />
+      </div>
       </header>
 
       <div className="nightwalker-centered-content">

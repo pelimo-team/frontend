@@ -23,11 +23,19 @@ body {
 /* هدر */
 .home-header {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 2% 50% 1.75% 42.25%;
   align-items: center;
-  padding: 10px 20px;
-  background: linear-gradient(to right, #d4b7a3, #9f6549);
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: auto;
+  background:linear-gradient(135deg, #7A442B, #97644D);
+  animation: gradient 15s ease infinite;
+  background-size: 400% 400%;
+  background-attachment: fixed;
+   
+
 }
+/*slider*/
+/* From Uiverse.io by ashwin_5681 */
 
 /* ستون 1: Login | Sign up */
 .header-left {
@@ -56,19 +64,7 @@ body {
 }
 
 /* ستون 2: فیلد Address */
-.address-search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-.address-search input {
-  width: 370px;
-  padding: 15px 40px;
-  border: none;
-  border-radius: 20px;
-  outline: none;
-}
+
 .magnify-icon1 {
   position: absolute;
   left: 10px;
@@ -89,24 +85,53 @@ body {
   align-items: center;
 }
 .header-logo img {
-  width: 120px;
   height: auto;
+  width: 10rem;
 }
 
-/* ستون 4: فیلد Search */
-.search-box {
+.search-container {
+  max-width: 20rem;
+  margin-left: auto;
+  background: #fff;
+  height: 3rem;
+  border-radius: 30px;
+  padding: 10px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  cursor: pointer;
+  transition: 0.8s;
+  /*box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+  inset -7px -7px 10px 0px rgba(0,0,0,.1),
+ 7px 7px 20px 0px rgba(0,0,0,.1),
+ 4px 4px 5px 0px rgba(0,0,0,.1);
+ text-shadow:  0px 0px 6px rgba(255,255,255,.3),
+            -4px -4px 6px rgba(116, 125, 136, .2);
+text-shadow: 2px 2px 3px rgba(255,255,255,0.5);*/
+  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3),
+    -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
+    inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
 }
-.search-box input {
-  width: 350px;
-  padding: 15px 40px;
+
+.search-container:hover > .search-input {
+  width: 20rem;
+}
+
+.search-container .search-input {
+  background: transparent;
   border: none;
-  border-radius: 20px;
   outline: none;
+  width: 0px;
+  font-weight: 500;
+  font-size: 16px;
+  transition: 0.8s;
 }
+
+.search-container .search-btn .fas {
+  color: #5cbdbb;
+}
+
 .magnify-icon2 {
   position: absolute;
   left: 10px;
@@ -129,86 +154,264 @@ body {
   margin-top: 5px;
 } */
 
-.search-popup {
+.profile-dropdown-content {
+  margin-left: 4rem;
+  display: none;
+  font-size: 13px;
   position: absolute;
-  top: 100%;
-  left: 0;
-  width: 350px;
-  z-index: 999;
+  z-index: 1;
+  min-width: 200px;
   background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  padding: 4px;
-  margin-top: 10px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  border: 2px solid #abb7c2;
+  border-radius: 0px 15px 15px 15px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
-/* ستون 5: منوی همبرگر */
-.menu-icon {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+.profile-dropdown-content a {
+  color: #abb7c2;
+  padding: 8px 10px;
+  text-decoration: none;
+  display: block;
+  transition: 0.1s;
 }
-.menu-icon img {
-  width: 70px;
+
+.profile-dropdown-content a:hover {
+  background-color: #abb7c2;
+  color: black;
+}
+
+.profile-dropdown-content a:focus {
+  background-color: white;
+  color: #abb7c2;
+}
+
+.first-line:hover {
+  border-radius: 0px 13px 0px 0px;
+}
+
+.secend-line:hover {
+  border-radius: 0px 0px 13px 13px;
+}
+
+.profile-button:hover .profile-dropdown-content {
+  display: block;
+}
+
+.profile-icon {
+  width: 2rem;
+  height: 2rem;
+}
+.home-profile {
+  margin-left: 3rem;
+  height: 3rem;
+  width: 3rem;
+  background: white;
+  border: none;
+  border-radius: 30rem;
+  color: #fff;
+
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+.home-profile:hover {
+  background-color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* بخش Hero */
 .hero-section {
   position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, #d4b7a3, #9f6549);
   color: #fff;
   padding: 40px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: auto;
+  background-color: #F2DBCB;
+;
+
+  animation: gradient 15s ease infinite;
+  background-size: 400% 400%;
+  background-attachment: fixed;
+
+
 }
-.slides-viewport {
-  overflow: hidden;
+@keyframes gradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
-.slides-wrapper {
-  display: flex;
-  transition: transform 0.6s ease-in-out;
+.wave {
+  background: rgb(255 255 255 / 25%);
+  border-radius: 1000% 1000% 0 0;
+  position: fixed;
+  width: 200%;
+  height: 12em;
+  animation: wave 10s -3s linear infinite;
+  transform: translate3d(0, 0, 0);
+  opacity: 0.8;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
 }
-.slide {
-  display: flex;
-  align-items: center;
-  min-width: 100%;
-  padding: 2rem;
+
+.wave:nth-of-type(2) {
+  bottom: -1.25em;
+  animation: wave 18s linear reverse infinite;
+  opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+  bottom: -2.5em;
+  animation: wave 20s -1s reverse infinite;
+  opacity: 0.9;
+}
+
+@keyframes wave {
+  2% {
+    transform: translateX(1);
+  }
+
+  25% {
+    transform: translateX(-25%);
+  }
+
+  50% {
+    transform: translateX(-50%);
+  }
+
+  75% {
+    transform: translateX(-25%);
+  }
+
+  100% {
+    transform: translateX(1);
+  }
 }
 
 .hero-content {
   flex: 1;
   padding: 1rem;
 }
-
-.title1 { font-size: 700%; margin-bottom: 15px; }
-.title2,
-.title3,
-.title4 {
-  font-size: 650%;
-  margin-bottom: 15px;
+.card {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 
+  10px 10px 30px rgba(0, 0, 0, 0.2),  /* سایه تیره در پایین و راست */
+  -10px -10px 30px rgba(0, 0, 0, 0.2); /* سایه روشن بالا و چپ */
+  color: white;
+  text-align: center;
 }
+.card:hover{
+  box-shadow: 
+    15px 15px 40px rgba(0, 0, 0, 0.3), 
+    -15px -15px 40px rgba(255, 255, 255, 0.8);
+    transform: translateY(-5px); /* کمی بالا بیاید */
+}
+
+.card-text {
+  font-size: 1.5rem;
+  color: white;
+}
+.card-description {
+  font-size: 0.7rem;
+  color: white;
+}
+.card img {
+  width: 10rem;
+  height: 15rem;
+}
+.card-button-text {
+  color: black;
+  font-size: 1rem;
+}
+
+.slider {
+  width: 100%;
+  height: var(--height);
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
+}
+.slider .list {
+  display: flex;
+  width: 100%;
+  min-width: calc(var(--width) * var(--quantity));
+  position: relative;
+  gap: 0;
+}
+.slider .list .item {
+  width: var(--width);
+  height: var(--height);
+  position: absolute;
+  left: 100%;
+  animation: autoRun 40s linear infinite;
+  transition: filter 0.5s;
+  animation-delay: calc(
+    (40s / var(--quantity)) * (var(--position) - 1) - 40s
+  ) !important;
+}
+.slider .list .item img {
+  width: 100%;
+}
+@keyframes autoRun {
+  from {
+    left: calc(var(--width) * -1);
+  }
+  to {
+    left: 100%;
+  }
+}
+.slider:hover .item {
+  animation-play-state: paused !important;
+  filter: grayscale(1);
+}
+.slider .item:hover {
+  filter: grayscale(0);
+}
+.slider[reverse="true"] .item {
+  animation: reversePlay 1s linear infinite;
+}
+@keyframes reversePlay {
+  from {
+    left: 100%;
+    /*calc(var(--width) * -1)*/
+  }
+  to {
+    left: 0%;
+  }
+}
+
 .hero-content p {
   margin-bottom: 15px;
   font-size: 20px;
 }
 
 .hero-button {
-  background: #945436;
+  background: white;
   border: none;
   border-radius: 10px;
   color: #fff;
   padding: 10px 20px;
   cursor: pointer;
   transition: all 0.3s ease;
+  height: 2.5rem;
+  width: auto;
 }
 
 .hero-button:hover {
-  background-color: #945436;
+  background-color: white;
   transform: scale(1.05);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -240,42 +443,76 @@ body {
 }
 
 .arrow-left {
-  left: 1rem;
+  right: 1rem;
+  border: none;
+  background: none;
 }
 .arrow-right {
   right: 1rem;
+  border: none;
+  background: none;
 }
 /* سکشن دسته‌بندی‌ها (Categories) */
 .categories-section {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  display: grid;
+  grid-template-columns: 16.66% 16.66% 16.66% ;
   grid-gap: 100px;
   padding: 20px;
-  background-color: #f5ebe0;
+  
   direction: rtl;
+  background:linear-gradient(135deg, #7A442B, #97644D);
   
 }
 .category-item {
+  border: none;
+  position: relative;
+  width: 190px;
+  height: 254px;
+  background-color: #000;
   display: flex;
   flex-direction: column;
-background-color: #f0d7c3;
-border-radius: 15px;
-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-text-align: center;
-padding: 20px;
+  justify-content: end;
+  padding: 12px;
+  gap: 12px;
+  border-radius: 8px;
+  cursor: pointer;
 
-transition: transform 0.2s;
+  transition: transform 0.2s;
 }
-.category-item:hover{
-  transform: translateY(-15px);
-}
-.category-item img {
-  width: 100%;
-  height: auto;
+.category-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: -5px;
+  margin: auto;
+  width: 200px;
+  height: 264px;
   border-radius: 10px;
-  margin-bottom: 15px;
+  background: linear-gradient(-45deg, #D4B7A3 0%, #e09a79 100%);
+  z-index: -10;
+  pointer-events: none;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.category-item::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(-45deg, #D4B7A3 0%, #e09a79 100%);
+  transform: translate3d(0, 0, 0) scale(0.95);
+  filter: blur(20px);
+}
+.category-item::after {
+  filter: blur(30px);
+}
+.category-item:hover::before {
+  transform: rotate(-90deg) scaleX(1.34) scaleY(0.77);
+}
+.cat-item-image{
+  width: 10rem;
+  height: 20rem;
+  border-radius: 10px;
   align-content: center;
-  
 }
 .category-item p {
   font-family: sans-serif;
@@ -293,23 +530,21 @@ transition: transform 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
-  
 }
 .best-ones-section {
   background: #f5ebe0;
   padding: 40px;
 }
 .best-ones-title {
-  text-align:left;
+  text-align: left;
   color: #945436;
   font-size: 4rem;
   margin-bottom: 20px;
 }
 .category-title {
-  text-align:right;
+  text-align: right;
   color: #945436;
   font-size: 4rem;
-  
 }
 .best-ones-container {
   display: flex;
@@ -324,7 +559,7 @@ transition: transform 0.2s;
   border-radius: 10px;
   text-align: center;
   padding: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .best-ones-item .image-box {
@@ -385,7 +620,7 @@ transition: transform 0.2s;
   margin: 0 0.5rem;
   background: white;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .best-ones-item .image-box {
@@ -640,12 +875,24 @@ transition: transform 0.2s;
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
-.delay-6 { animation-delay: 0.6s; }
+.delay-1 {
+  animation-delay: 0.1s;
+}
+.delay-2 {
+  animation-delay: 0.2s;
+}
+.delay-3 {
+  animation-delay: 0.3s;
+}
+.delay-4 {
+  animation-delay: 0.4s;
+}
+.delay-5 {
+  animation-delay: 0.5s;
+}
+.delay-6 {
+  animation-delay: 0.6s;
+}
 /* فقط یک انیمیشن ساده هنگام سوییچ کارت‌ها روی container */
 .slide-animation {
   animation: slideFade 0.4s ease;
@@ -688,7 +935,7 @@ transition: transform 0.2s;
   margin: 0 0.5rem;
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
   box-sizing: border-box;
   transition: transform 0.3s ease;

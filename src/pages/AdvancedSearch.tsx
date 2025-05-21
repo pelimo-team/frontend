@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../styles/AdvancedSearch.css";
 import { useLocation } from "react-router-dom";
-import { CategoryType, FilterType, Restaurant, MenuItem } from "../components/AdvancedSearch/types";
+import {
+  CategoryType,
+  FilterType,
+  Restaurant,
+  MenuItem,
+} from "../components/AdvancedSearch/types";
 import Header from "../components/AdvancedSearch/Header";
 import CategoryTabs from "../components/AdvancedSearch/CategoryTabs";
 import Filters from "../components/AdvancedSearch/Filters";
@@ -13,14 +18,18 @@ const AdvancedSearch: React.FC = () => {
   const searchQuery = queryParams.get("query") || "";
 
   const [searchText, setSearchText] = useState<string>(searchQuery);
-  const [activeTab, setActiveTab] = useState<CategoryType>("All");
+  const [activeTab] = useState<CategoryType>("All");
   const [activeFilters, setActiveFilters] = useState<FilterType[]>([]);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [searchMode, setSearchMode] = useState<"restaurants" | "items">("restaurants");
-  const [selectedShopIndex, setSelectedShopIndex] = useState<number | null>(null);
+  const [searchMode, setSearchMode] = useState<"restaurants" | "items">(
+    "restaurants"
+  );
+  const [selectedShopIndex, setSelectedShopIndex] = useState<number | null>(
+    null
+  );
   const [showAllItems, setShowAllItems] = useState<boolean>(false);
 
   useEffect(() => {
@@ -107,8 +116,7 @@ const AdvancedSearch: React.FC = () => {
         queryParams.append("is_onsale", "true");
       if (activeFilters.includes("Best Seller"))
         queryParams.append("is_bestseller", "true");
-      if (activeFilters.includes("Has Image"))
-        queryParams.append("has_image", "true");
+
       if (activeFilters.includes("Most Expensive"))
         queryParams.append("ordering", "-price");
       if (activeFilters.includes("Cheapest"))
@@ -172,9 +180,14 @@ const AdvancedSearch: React.FC = () => {
     }
   };
 
-  const visibleItems = searchMode === "restaurants"
-    ? showAllItems ? restaurants : restaurants.slice(0, 6)
-    : showAllItems ? menuItems : menuItems.slice(0, 6);
+  const visibleItems =
+    searchMode === "restaurants"
+      ? showAllItems
+        ? restaurants
+        : restaurants.slice(0, 6)
+      : showAllItems
+      ? menuItems
+      : menuItems.slice(0, 6);
 
   return (
     <div className="advanced-search">
@@ -184,14 +197,8 @@ const AdvancedSearch: React.FC = () => {
         searchMode={searchMode}
         setSearchMode={setSearchMode}
       />
-      <CategoryTabs
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
-      <Filters
-        activeFilters={activeFilters}
-        toggleFilter={toggleFilter}
-      />
+      <CategoryTabs />
+      <Filters activeFilters={activeFilters} toggleFilter={toggleFilter} />
       <ResultsSection
         searchMode={searchMode}
         visibleItems={visibleItems}

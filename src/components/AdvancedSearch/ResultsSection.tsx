@@ -1,9 +1,12 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Restaurant, MenuItem } from './types';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Restaurant, MenuItem } from "./types";
+
+
+
 
 interface ResultsSectionProps {
-  searchMode: 'restaurants' | 'items';
+  searchMode: "restaurants" | "items";
   visibleItems: (Restaurant | MenuItem)[];
   loading: boolean;
   error: string | null;
@@ -23,10 +26,18 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
   selectedShopIndex,
   setSelectedShopIndex,
 }) => {
+  // debugger;
+  console.log("visibleItems:");
+  console.log(visibleItems);
   const navigate = useNavigate();
+ 
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
+
+  // if (isFoodOpen) {
+  //   return <FoodPage menuItem={showFoodItem} />;
+  // }
 
   return (
     <section className="results-section-advanced-search">
@@ -60,9 +71,9 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                 }}
               >
                 <div className="shop-image-container">
-                  {restaurant.image ? (
+                  {restaurant.cover_image ? (
                     <img
-                      src={`http://127.0.0.1:8000${restaurant.image}`}
+                      src={restaurant.cover_image}
                       alt={restaurant.name}
                       className="shop-image"
                     />
@@ -70,12 +81,12 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                     <div className="shop-image-placeholder">No Image</div>
                   )}
                 </div>
-                <h4 className="shop-name-advanced-search">
-                  {restaurant.name}
-                </h4>
+                <h4 className="shop-name-advanced-search">{restaurant.name}</h4>
                 <div className="shop-rating-advanced-search">
                   ⭐{" "}
-                  {restaurant.rating ? restaurant.rating.toFixed(1) : "N/A"}{" "}
+                  {restaurant.average_rating
+                    ? restaurant.average_rating.toFixed(1)
+                    : "N/A"}{" "}
                   | {restaurant.reviews_count || 0} Comment
                 </div>
                 <div className="delivery-cost-advanced-search">
@@ -90,11 +101,12 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
               <div
                 key={item.id}
                 className="menu-item-card-advanced-search"
-                onClick={() =>
-                  navigate(`/restaurant/${item.restaurant?.id}`, {
+                onClick={() => {
+
+                  navigate(`/foodpage/${item.restaurant?.id}`, {
                     state: { scrollToItem: item.id },
-                  })
-                }
+                  });
+                }}
               >
                 <div className="item-image-container">
                   {item.image ? (
@@ -106,6 +118,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                   ) : (
                     <div className="item-image-placeholder">No Image</div>
                   )}
+
                   {item.bestseller && (
                     <div className="bestseller-badge">Best Seller</div>
                   )}
@@ -113,9 +126,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                 <div className="item-details">
                   <h4 className="item-name">{item.name}</h4>
                   {item.restaurant && (
-                    <p className="item-restaurant">
-                      {item.restaurant.name}
-                    </p>
+                    <p className="item-restaurant">{item.restaurant.name}</p>
                   )}
                   {item.category_name && (
                     <p className="item-category">{item.category_name}</p>
@@ -126,12 +137,8 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                   <div className="item-price">
                     {item.onsale ? (
                       <>
-                        <span className="original-price">
-                          {item.price} T
-                        </span>
-                        <span className="sale-price">
-                          {item.sale_price} T
-                        </span>
+                        <span className="original-price">{item.price} T</span>
+                        <span className="sale-price">{item.sale_price} T</span>
                       </>
                     ) : (
                       <span>{item.price} T</span>
@@ -145,4 +152,4 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
   );
 };
 
-export default ResultsSection; 
+export default ResultsSection;

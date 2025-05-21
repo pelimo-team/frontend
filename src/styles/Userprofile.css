@@ -104,7 +104,7 @@
     font-weight: bold;
   }
   
-  input,
+  .userprofile-input,
   select {
     padding: 10px;
     border: 1px solid #ddd;
@@ -114,7 +114,7 @@
     width: 100%;
   }
   
-  input:focus,
+  .userprofile-input:focus,
   select:focus {
     outline: none;
     border-color: #4f46e5;
