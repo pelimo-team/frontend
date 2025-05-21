@@ -39,7 +39,7 @@ function RestaurantPage() {
           description: "سوپ خوشمزه با جو و سبزیجات تازه",
           price: 25000,
           image:
-            "https://images.pexels.com/photos/539451/pexels-photo-539451.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "/Restaurant Mock/1.jpeg",
         },
         {
           id: "102",
@@ -47,7 +47,7 @@ function RestaurantPage() {
           description: "سالادی تازه و رنگارنگ",
           price: 20000,
           image:
-            "https://images.pexels.com/photos/1546896/pexels-photo-1546896.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "/Restaurant Mock/2.webp",
         },
       ],
     },
@@ -61,7 +61,7 @@ function RestaurantPage() {
           description: "چلوکباب با گوشت تازه و زعفران",
           price: 70000,
           image:
-            "https://images.pexels.com/photos/7353380/pexels-photo-7353380.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "/Restaurant Mock/3.jpeg",
         },
         {
           id: "202",
@@ -69,7 +69,7 @@ function RestaurantPage() {
           description: "خورشت قرمه سبزی با طعم اصیل ایرانی",
           price: 60000,
           image:
-            "https://images.pexels.com/photos/6210747/pexels-photo-6210747.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "/Restaurant Mock/4.jpeg",
         },
         {
           id: "203",
@@ -77,7 +77,7 @@ function RestaurantPage() {
           description: "غذای خوشمزه شمالی با بادمجان کبابی و تخم مرغ",
           price: 55000,
           image:
-            "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "/Restaurant Mock/5.jpeg",
         },
       ],
     },
@@ -91,7 +91,7 @@ function RestaurantPage() {
           description: "بستنی زعفرانی سنتی با مغز پسته",
           price: 35000,
           image:
-            "https://images.pexels.com/photos/5060484/pexels-photo-5060484.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "/Restaurant Mock/6.webp",
         },
         {
           id: "302",
@@ -99,7 +99,7 @@ function RestaurantPage() {
           description: "باقلوای تازه با عسل و پسته",
           price: 40000,
           image:
-            "https://images.pexels.com/photos/13203692/pexels-photo-13203692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "/Restaurant Mock/7.jpg",
         },
       ],
     },
