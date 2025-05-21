@@ -2,9 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Restaurant, MenuItem } from "./types";
 
-
-
-
 interface ResultsSectionProps {
   searchMode: "restaurants" | "items";
   visibleItems: (Restaurant | MenuItem)[];
@@ -30,7 +27,6 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
   console.log("visibleItems:");
   console.log(visibleItems);
   const navigate = useNavigate();
- 
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -46,7 +42,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
           {visibleItems.length}{" "}
           {searchMode === "restaurants" ? "Store" : "Food"}
         </h3>
-        {visibleItems.length > 6 && (
+        {visibleItems.length > 0 && (
           <a
             onClick={() => setShowAllItems(!showAllItems)}
             style={{ cursor: "pointer" }}
@@ -102,7 +98,6 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                 key={item.id}
                 className="menu-item-card-advanced-search"
                 onClick={() => {
-
                   navigate(`/foodpage/${item.restaurant?.id}`, {
                     state: { scrollToItem: item.id },
                   });

@@ -31,14 +31,8 @@ interface AuthContextType {
   minesScore: number;
   setMinesScore: React.Dispatch<React.SetStateAction<number>>;
 }
-const ScoreContext = createContext<AuthContextType | undefined>(undefined);
-export const useScore = () => {
-  const context = useContext(ScoreContext);
-  if (!context) {
-    throw new Error("useScore must be used within a ScoreProvider");
-  }
-  return context;
-};
+
+
 export const AuthContext = createContext<AuthContextType>({
   isLoggedIn: false,
   login: () => {},
@@ -47,6 +41,14 @@ export const AuthContext = createContext<AuthContextType>({
   role: "",
   setRole: () => {},
   setActiveTab: () => {},
+  dishScore: 0,
+  setDishScore: () => {},
+  puzzle2048Score: 0,
+  setPuzzle2048Score: () => {},
+  tetrisScore: 0,
+  setTetrisScore: () => {},
+  minesScore: 0,
+  setMinesScore: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
