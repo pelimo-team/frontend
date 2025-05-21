@@ -1,0 +1,653 @@
+/* Restaurant Page CSS */
+:root {
+  --primary-color: #945436;
+  --primary-light: #c27443;
+  --background-color: #f4f1eb;
+  --card-background: #f9f3ef;
+  --header-gradient-start: rgb(212, 183, 163);
+  --header-gradient-end: rgb(195, 162, 143);
+  --text-color: #333;
+  --light-text: #777;
+  --white: #fff;
+  --border-color: #ddd;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Tahoma", sans-serif;
+  direction: rtl;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(-10deg); }
+  50% { transform: rotate(0); }
+  75% { transform: rotate(10deg); }
+  100% { transform: rotate(0); }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.animated-section {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+  opacity: 1;
+  height: auto;
+  overflow: visible;
+}
+
+.fade-out {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+.active {
+  display: block;
+}
+
+.cart-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.cart-badge-pop {
+  animation: pop 0.4s ease-in-out;
+}
+
+.pulse-on-hover:hover {
+  animation: pulse 0.5s infinite;
+}
+
+/* Header Styles */
+.restaurant-header {
+  background: linear-gradient(135deg, var(--header-gradient-start) 0%, var(--header-gradient-end) 100%);
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.restaurant-header.compact {
+  padding: 8px 0;
+}
+
+.restaurant-header.compact .restaurant-logo {
+  max-height: 40px;
+}
+
+.restaurant-logo {
+  max-height: 50px;
+  transition: all 0.3s ease;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.btn-icon:hover {
+  transform: scale(1.1);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+/* Banner Styles */
+.restaurant-banner {
+  position: relative;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.banner-image {
+  max-height: 450px;
+  object-fit: cover;
+  filter: brightness(0.95);
+  transition: all 0.5s ease;
+}
+
+.banner-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+}
+
+/* Restaurant Info Styles */
+.restaurant-info {
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--white);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  margin: -20px 10px 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.restaurant-name {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  position: relative;
+  display: inline-block;
+}
+
+.restaurant-name::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  right: 0;
+  width: 40px;
+  height: 3px;
+  background-color: var(--primary-light);
+}
+
+.location-text {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.rating-box {
+  background-color: rgba(148, 84, 54, 0.1);
+  padding: 7px 12px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.rating-box:hover {
+  background-color: rgba(148, 84, 54, 0.15);
+  transform: translateY(-2px);
+}
+
+.rating-star {
+  margin-right: 2px;
+  transition: all 0.3s ease;
+}
+
+.rating-star.filled {
+  color: var(--primary-color);
+}
+
+.rating-star.unfilled {
+  color: #ccc;
+}
+
+.rating-value {
+  font-weight: bold;
+  margin-right: 5px;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+/* Tabs Styles */
+.restaurant-tabs .nav-tabs {
+  border-bottom: 1px solid var(--border-color);
+  justify-content: center;
+  gap: 20px;
+}
+
+.restaurant-tabs .nav-link {
+  border: none;
+  color: var(--light-text);
+  font-weight: bold;
+  padding: 15px 40px;
+  transition: all 0.3s ease;
+  position: relative;
+  font-size: 1.1rem;
+}
+
+.restaurant-tabs .nav-link:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--primary-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.restaurant-tabs .nav-link:hover {
+  color: var(--primary-color);
+}
+
+.restaurant-tabs .nav-link:hover:after {
+  transform: scaleX(0.5);
+}
+
+.restaurant-tabs .nav-link.active {
+  color: var(--primary-color);
+  background-color: transparent;
+  font-weight: 700;
+}
+
+.restaurant-tabs .nav-link.active:after {
+  transform: scaleX(1);
+}
+
+/* Menu Styles */
+.category-title {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--primary-light);
+  margin-bottom: 25px;
+  display: inline-block;
+  position: relative;
+}
+
+.category-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  width: 40%;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+.menu-item-card {
+  background-color: var(--card-background);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.menu-item-card.visible {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.menu-item-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item-image {
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.menu-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.menu-item-card:hover .menu-item-image img {
+  transform: scale(1.08);
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  color: var(--primary-color);
+}
+
+.menu-item-card:hover .favorite-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.favorite-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.menu-item-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px !important;
+}
+
+.menu-item-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.menu-item-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 2px;
+  background-color: var(--primary-light);
+}
+
+.menu-item-description {
+  color: var(--light-text);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  line-height: 1.6;
+}
+
+.menu-item-price {
+  font-weight: bold;
+  color: var(--primary-color);
+  font-size: 1.05rem;
+}
+
+.btn-add-to-cart {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-add-to-cart:hover {
+  background-color: var(--primary-light);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Comments Styles */
+.add-comment-card {
+  background-color: var(--card-background);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  border: 1px solid rgba(148, 84, 54, 0.1);
+  transition: all 0.3s ease;
+}
+
+.add-comment-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+}
+
+.section-title {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: bold;
+  position: relative;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 2px;
+  background-color: var(--primary-light);
+}
+
+.star-icon {
+  cursor: pointer;
+  margin-left: 5px;
+  transition: all 0.3s ease;
+}
+
+.star-icon:hover,
+.star-icon.active {
+  transform: scale(1.1);
+}
+
+.btn-submit {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-submit:hover {
+  background-color: var(--primary-light);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.comment-card {
+  background-color: var(--white);
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border-right: 3px solid var(--primary-color);
+}
+
+.comment-card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+}
+
+.comment-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.comment-user {
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: var(--primary-color);
+}
+
+.comment-date {
+  font-size: 0.85rem;
+  position: relative;
+  padding-right: 15px;
+}
+
+.comment-date::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+}
+
+.comment-text {
+  line-height: 1.7;
+  margin-top: 10px;
+  color: var(--text-color);
+}
+
+/* Footer Styles */
+.restaurant-footer {
+  background: linear-gradient(135deg, var(--header-gradient-end) 0%, var(--header-gradient-start) 100%);
+  color: var(--white);
+  margin-top: 60px;
+  position: relative;
+}
+
+.restaurant-footer::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 0;
+  right: 0;
+  height: 15px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.05));
+}
+
+.footer-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.footer-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 2px;
+  background-color: var(--white);
+}
+
+.footer-text {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
+}
+
+.copyright {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .restaurant-name {
+    font-size: 1.8rem;
+  }
+  
+  .menu-item-image {
+    height: 200px;
+  }
+  
+  .section-title, 
+  .category-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .restaurant-name {
+    font-size: 1.6rem;
+  }
+  
+  .restaurant-tabs .nav-link {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+  
+  .banner-image {
+    max-height: 250px;
+  }
+  
+  .menu-item-image {
+    height: 180px;
+  }
+  
+  .footer-title {
+    margin-top: 15px;
+    font-size: 1.2rem;
+  }
+  
+  .add-comment-card,
+  .comment-card {
+    padding: 15px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .restaurant-logo {
+    max-height: 40px;
+  }
+  
+  .restaurant-name {
+    font-size: 1.4rem;
+  }
+  
+  .category-title {
+    font-size: 1.3rem;
+  }
+  
+  .menu-item-title {
+    font-size: 1.1rem;
+  }
+  
+  .rating-box {
+    font-size: 0.9rem;
+  }
+  
+  .restaurant-tabs .nav-link {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .section-title {
+    font-size: 1.3rem;
+  }
+}

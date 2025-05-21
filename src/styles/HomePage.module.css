@@ -1,0 +1,963 @@
+/* ریست اولیه */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  direction: ltr;
+}
+
+body {
+  background-color: #fff;
+  font-family: sans-serif;
+  color: #1c1c1c;
+}
+
+.home-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  direction: ltr;
+}
+
+/* هدر */
+.home-header {
+  display: grid;
+  grid-template-columns: 2% 50% 1.75% 42.25%;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: auto;
+  background:linear-gradient(135deg, #7A442B, #97644D);
+  animation: gradient 15s ease infinite;
+  background-size: 400% 400%;
+  background-attachment: fixed;
+   
+
+}
+/*slider*/
+/* From Uiverse.io by ashwin_5681 */
+
+/* ستون 1: Login | Sign up */
+.header-left {
+  display: flex;
+  gap: 15px;
+}
+.login-link {
+  text-decoration: none;
+  color: #905708;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+.signup-link {
+  text-decoration: none;
+  color: #905708;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+.login-link:hover {
+  background: #fff;
+}
+.signup-link:hover {
+  background: #fff;
+}
+
+/* ستون 2: فیلد Address */
+
+.magnify-icon1 {
+  position: absolute;
+  left: 10px;
+  width: 24px;
+  height: 24px;
+}
+.loc-icon {
+  position: absolute;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+/* ستون 3: لوگو */
+.header-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-logo img {
+  height: auto;
+  width: 10rem;
+}
+
+.search-container {
+  max-width: 20rem;
+  margin-left: auto;
+  background: #fff;
+  height: 3rem;
+  border-radius: 30px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.8s;
+  /*box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+  inset -7px -7px 10px 0px rgba(0,0,0,.1),
+ 7px 7px 20px 0px rgba(0,0,0,.1),
+ 4px 4px 5px 0px rgba(0,0,0,.1);
+ text-shadow:  0px 0px 6px rgba(255,255,255,.3),
+            -4px -4px 6px rgba(116, 125, 136, .2);
+text-shadow: 2px 2px 3px rgba(255,255,255,0.5);*/
+  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3),
+    -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
+    inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.search-container:hover > .search-input {
+  width: 20rem;
+}
+
+.search-container .search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 0px;
+  font-weight: 500;
+  font-size: 16px;
+  transition: 0.8s;
+}
+
+.search-container .search-btn .fas {
+  color: #5cbdbb;
+}
+
+.magnify-icon2 {
+  position: absolute;
+  left: 10px;
+  width: 24px;
+  height: 24px;
+}
+.filter-icon {
+  position: absolute;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+/* .search-popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  margin-top: 5px;
+} */
+
+.profile-dropdown-content {
+  margin-left: 4rem;
+  display: none;
+  font-size: 13px;
+  position: absolute;
+  z-index: 1;
+  min-width: 200px;
+  background-color: white;
+  border: 2px solid #abb7c2;
+  border-radius: 0px 15px 15px 15px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.profile-dropdown-content a {
+  color: #abb7c2;
+  padding: 8px 10px;
+  text-decoration: none;
+  display: block;
+  transition: 0.1s;
+}
+
+.profile-dropdown-content a:hover {
+  background-color: #abb7c2;
+  color: black;
+}
+
+.profile-dropdown-content a:focus {
+  background-color: white;
+  color: #abb7c2;
+}
+
+.first-line:hover {
+  border-radius: 0px 13px 0px 0px;
+}
+
+.secend-line:hover {
+  border-radius: 0px 0px 13px 13px;
+}
+
+.profile-button:hover .profile-dropdown-content {
+  display: block;
+}
+
+.profile-icon {
+  width: 2rem;
+  height: 2rem;
+}
+.home-profile {
+  margin-left: 3rem;
+  height: 3rem;
+  width: 3rem;
+  background: white;
+  border: none;
+  border-radius: 30rem;
+  color: #fff;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.home-profile:hover {
+  background-color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* بخش Hero */
+.hero-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 40px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: auto;
+  background-color: #F2DBCB;
+;
+
+  animation: gradient 15s ease infinite;
+  background-size: 400% 400%;
+  background-attachment: fixed;
+
+
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.wave {
+  background: rgb(255 255 255 / 25%);
+  border-radius: 1000% 1000% 0 0;
+  position: fixed;
+  width: 200%;
+  height: 12em;
+  animation: wave 10s -3s linear infinite;
+  transform: translate3d(0, 0, 0);
+  opacity: 0.8;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+  bottom: -1.25em;
+  animation: wave 18s linear reverse infinite;
+  opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+  bottom: -2.5em;
+  animation: wave 20s -1s reverse infinite;
+  opacity: 0.9;
+}
+
+@keyframes wave {
+  2% {
+    transform: translateX(1);
+  }
+
+  25% {
+    transform: translateX(-25%);
+  }
+
+  50% {
+    transform: translateX(-50%);
+  }
+
+  75% {
+    transform: translateX(-25%);
+  }
+
+  100% {
+    transform: translateX(1);
+  }
+}
+
+.hero-content {
+  flex: 1;
+  padding: 1rem;
+}
+.card {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 
+  10px 10px 30px rgba(0, 0, 0, 0.2),  /* سایه تیره در پایین و راست */
+  -10px -10px 30px rgba(0, 0, 0, 0.2); /* سایه روشن بالا و چپ */
+  color: white;
+  text-align: center;
+}
+.card:hover{
+  box-shadow: 
+    15px 15px 40px rgba(0, 0, 0, 0.3), 
+    -15px -15px 40px rgba(255, 255, 255, 0.8);
+    transform: translateY(-5px); /* کمی بالا بیاید */
+}
+
+.card-text {
+  font-size: 1.5rem;
+  color: white;
+}
+.card-description {
+  font-size: 0.7rem;
+  color: white;
+}
+.card img {
+  width: 10rem;
+  height: 15rem;
+}
+.card-button-text {
+  color: black;
+  font-size: 1rem;
+}
+
+.slider {
+  width: 100%;
+  height: var(--height);
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
+}
+.slider .list {
+  display: flex;
+  width: 100%;
+  min-width: calc(var(--width) * var(--quantity));
+  position: relative;
+  gap: 0;
+}
+.slider .list .item {
+  width: var(--width);
+  height: var(--height);
+  position: absolute;
+  left: 100%;
+  animation: autoRun 40s linear infinite;
+  transition: filter 0.5s;
+  animation-delay: calc(
+    (40s / var(--quantity)) * (var(--position) - 1) - 40s
+  ) !important;
+}
+.slider .list .item img {
+  width: 100%;
+}
+@keyframes autoRun {
+  from {
+    left: calc(var(--width) * -1);
+  }
+  to {
+    left: 100%;
+  }
+}
+.slider:hover .item {
+  animation-play-state: paused !important;
+  filter: grayscale(1);
+}
+.slider .item:hover {
+  filter: grayscale(0);
+}
+.slider[reverse="true"] .item {
+  animation: reversePlay 1s linear infinite;
+}
+@keyframes reversePlay {
+  from {
+    left: 100%;
+    /*calc(var(--width) * -1)*/
+  }
+  to {
+    left: 0%;
+  }
+}
+
+.hero-content p {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.hero-button {
+  background: white;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 2.5rem;
+  width: auto;
+}
+
+.hero-button:hover {
+  background-color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-image img {
+  width: 600px;
+  height: auto;
+  border-radius: 50px;
+}
+/* فلش‌های چپ و راست اسلایدر */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(197, 136, 75, 0.8);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+.arrow:hover {
+  background-color: rgba(197, 136, 75, 0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrow-left {
+  right: 1rem;
+  border: none;
+  background: none;
+}
+.arrow-right {
+  right: 1rem;
+  border: none;
+  background: none;
+}
+/* سکشن دسته‌بندی‌ها (Categories) */
+.categories-section {
+  display: grid;
+  grid-template-columns: 16.66% 16.66% 16.66% ;
+  grid-gap: 100px;
+  padding: 20px;
+  
+  direction: rtl;
+  background:linear-gradient(135deg, #7A442B, #97644D);
+  
+}
+.category-item {
+  border: none;
+  position: relative;
+  width: 190px;
+  height: 254px;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 12px;
+  gap: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  transition: transform 0.2s;
+}
+.category-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: -5px;
+  margin: auto;
+  width: 200px;
+  height: 264px;
+  border-radius: 10px;
+  background: linear-gradient(-45deg, #D4B7A3 0%, #e09a79 100%);
+  z-index: -10;
+  pointer-events: none;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.category-item::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(-45deg, #D4B7A3 0%, #e09a79 100%);
+  transform: translate3d(0, 0, 0) scale(0.95);
+  filter: blur(20px);
+}
+.category-item::after {
+  filter: blur(30px);
+}
+.category-item:hover::before {
+  transform: rotate(-90deg) scaleX(1.34) scaleY(0.77);
+}
+.cat-item-image{
+  width: 10rem;
+  height: 20rem;
+  border-radius: 10px;
+  align-content: center;
+}
+.category-item p {
+  font-family: sans-serif;
+  margin-top: auto;
+
+  font-weight: bold;
+  color: #945436;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+/* سکشن The Best Ones */
+.slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.best-ones-section {
+  background: #f5ebe0;
+  padding: 40px;
+}
+.best-ones-title {
+  text-align: left;
+  color: #945436;
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+.category-title {
+  text-align: right;
+  color: #945436;
+  font-size: 4rem;
+}
+.best-ones-container {
+  display: flex;
+  gap: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.best-ones-item {
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.best-ones-item .image-box {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.best-ones-item .image-box {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.best-ones-item .image-box img {
+  width: 100%;
+  height: auto;
+}
+.best-ones-item .info {
+  margin-top: 10px;
+}
+.best-ones-slider-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: 2rem 0;
+}
+.best-ones-slider-wrapper .arrow {
+  background: rgba(188, 136, 80, 0.8);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+}
+.best-ones-slider-wrapper .arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* --- viewport و slider --- */
+.best-ones-viewport {
+  overflow: hidden;
+  flex: 1;
+}
+
+.best-ones-slider {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+/* --- آیتم‌ها --- */
+.best-ones-item {
+  flex: 0 0 calc(50% - 1rem); /* دو آیتم در هر ردیف با فاصله */
+  margin: 0 0.5rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.best-ones-item .image-box {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.best-ones-item .image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.best-ones-item .info {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* سکشن The Games */
+.games-section {
+  background: #f5ebe0;
+  padding: 40px;
+}
+.games-title {
+  text-align: center;
+  color: #945436;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+.games-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.games-item {
+  width: 300px;
+  background: #fff;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+}
+.games-item .image-box {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.games-item .image-box img {
+  width: 100%;
+  height: auto;
+}
+.games-item .info {
+  margin-top: 10px;
+}
+
+/* سه کارت */
+.card_1 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 40px;
+  gap: 20px;
+  background: #fff;
+}
+.card_1_item {
+  background: #f6f6f6;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+.card_1_item h1 {
+  color: #945436;
+  margin-bottom: 10px;
+}
+
+/* about section */
+.about-section {
+  padding: 40px;
+  text-align: center;
+  background: #fafafa;
+}
+.about-section h2 {
+  color: #945436;
+  margin-bottom: 15px;
+}
+.about-section ul {
+  list-style: disc;
+  display: inline-block;
+  text-align: left;
+  margin: 10px;
+}
+
+/* work procedure */
+.work-procedure {
+  background: #f8f8f8;
+  padding: 40px;
+  text-align: center;
+}
+.procedure-steps {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.step-box {
+  background: #fff;
+  border-radius: 10px;
+  width: 200px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* portfolio */
+.portfolio-section {
+  text-align: center;
+  padding: 40px;
+  background: #fcfcfc;
+}
+.portfolio-btn {
+  background: #945436;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* video */
+.video-section {
+  background: #fafafa;
+  padding: 40px;
+  text-align: center;
+}
+.video-box {
+  width: 300px;
+  height: 200px;
+  background: #ccc;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* testimonial */
+.testimonial-section {
+  background: #fcfcfc;
+  padding: 40px;
+  text-align: center;
+}
+.testimonial-section blockquote {
+  max-width: 600px;
+  margin: 20px auto;
+  font-style: italic;
+}
+
+/* footer */
+.home-footer {
+  background: #eee;
+  padding: 40px;
+  text-align: center;
+}
+.home-footer h2 {
+  color: #945436;
+  margin-bottom: 20px;
+}
+.contact-btn {
+  background: #945436;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.footer-info {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.footer-info div ul {
+  list-style: none;
+  padding-left: 0;
+}
+.footer-legal {
+  display: flex;
+  justify-content: space-around;
+  color: #666;
+  margin-top: 20px;
+}
+/* Footer جدید */
+.pelimo-footer {
+  width: 100%;
+  background-color: #fff; /* یا هر رنگ پس‌زمینه */
+  text-align: center;
+}
+.pelimo-footer img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* کوچکتر کردن layout دسته‌بندی */
+.categories-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  padding: 20px;
+  background-color: #f5ebe0;
+  direction: rtl;
+}
+
+.category-item {
+  padding: 16px;
+  border-radius: 12px;
+  background: #f0d7c3;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: transform, opacity;
+  pointer-events: auto; /* اضافه برای احتیاط */
+}
+
+.category-item:hover {
+  transform: translateY(-10px);
+}
+
+.category-item img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.category-item p {
+  font-size: 1.4rem;
+  color: #945436;
+  font-weight: bold;
+}
+
+/* انیمیشن نرم هنگام اسکرول */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.1s;
+}
+.delay-2 {
+  animation-delay: 0.2s;
+}
+.delay-3 {
+  animation-delay: 0.3s;
+}
+.delay-4 {
+  animation-delay: 0.4s;
+}
+.delay-5 {
+  animation-delay: 0.5s;
+}
+.delay-6 {
+  animation-delay: 0.6s;
+}
+/* فقط یک انیمیشن ساده هنگام سوییچ کارت‌ها روی container */
+.slide-animation {
+  animation: slideFade 0.4s ease;
+}
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* fade-in فقط هنگام اسکرول */
+.slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.best-ones-viewport {
+  overflow: hidden;
+  flex: 1;
+  max-width: 100%;
+}
+
+.best-ones-slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.best-ones-item {
+  flex: 0 0 calc(50% - 1rem); /* دوتا آیتم با فاصله منطقی */
+  margin: 0 0.5rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.best-ones-item:hover {
+  transform: translateY(-5px);
+}
+
+.image-box img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* انیمیشن اسکرول */
+.fade-in-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,0 +1,484 @@
+.tasadofi-wrapper {
+    font-family: sans-serif;
+    direction: ltr;
+    padding-bottom: 2rem;
+    background-color: #f9f9f9;
+  }
+  
+  /* Top Navbar */
+  .tasadofi-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  
+  .tasadofi-navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .tasadofi-navbar-icons {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .tasadofi-navbar-icon {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .tasadofi-navbar-icon:hover {
+    color: #ffaa00;
+  }
+  .tasadofi-header{
+    height: 111px;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    color: white;
+    width: 100%;
+  }
+   .tasadofi-header img{ 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4cm;
+
+   }
+  /* Background and Start Button */
+  .tasadofi-background {
+    background-image: url("/tasadofi-background.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 620px;
+    position: relative;
+    display: flex;
+    
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 40px;
+  }
+  
+  .tasadofi-emoji {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    padding-top: 100px;
+  }
+
+  .tasadofi-menu {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    background: none;
+  }
+  .tasadofi-menu img{
+    width: 50px;
+    height: 50px;
+  }
+  .tasadofi-profile {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    background: none;
+  }
+  .tasadofi-profile img{
+    width: 50px;
+    height: 50px;
+  }
+  
+  .tasadofi-start-button {
+    background-color: #ffbb00;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  .tasadofi-start-button:hover {
+    background-color: #ffaa00;
+  }
+  
+  /* Category Selector */
+  .tasadofi-category-selector {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .tasadofi-category-item {
+    background-color: #f2f2f2;
+    border-radius: 16px;
+    padding: 10px;
+    width: 180px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1rem;
+  }
+  
+  .tasadofi-category-item .tasadofi-label {
+    font-family: "Potta One";
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 0.3rem;
+    transition: color 0.3s;
+  }
+  
+  .tasadofi-category-item.fastfood .tasadofi-label {
+    color: #00B89C;
+  }
+  
+  .tasadofi-category-item.restaurant .tasadofi-label {
+    color: #FF78B5;
+  }
+  
+  .tasadofi-category-item.coffee .tasadofi-label {
+    color: #573728;
+  }
+  
+  .tasadofi-category-item.fruit .tasadofi-label {
+    color: #F89718;
+  }
+  
+  .tasadofi-category-item.juice .tasadofi-label {
+    color: #BEDD4B;
+  }
+  
+  .tasadofi-category-item.candy .tasadofi-label {
+    color: #DD172C;
+  }
+  
+  .tasadofi-category-item.selected {
+    background-color: #ffbb00;
+    color: #fff;
+  }
+  
+  .tasadofi-icon-img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .tasadofi-label {
+    font-size: 0.8rem;
+    text-align: center;
+    font-family: Potta One;
+  }
+  
+  /* Sliders */
+  .tasadofi-slider-section {
+    padding: 1rem;
+  }
+  
+  .tasadofi-slider-section h2 {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+  }
+  
+  .tasadofi-slider-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .tasadofi-card {
+    min-width: 25%;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 0.75rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  
+  .tasadofi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tasadofi-card img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  .tasadofi-card .tasadofi-name {
+    font-weight: bold;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .tasadofi-card .tasadofi-location {
+    color: #888;
+    font-size: 0.8rem;
+    margin: 0.25rem 0;
+  }
+  
+  .tasadofi-card .tasadofi-stars {
+    color: #ffc107;
+    font-size: 1rem;
+  }
+  
+  /* Footer */
+  .tasadofi-footer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 2rem 1rem;
+    background-color: #fbe964;
+    color: #128415;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .tasadofi-footer-column {
+    flex: 1;
+    min-width: 180px;
+    margin: 1rem;
+  }
+  
+  .tasadofi-footer-column h4 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #1e7121;
+  }
+  
+  .tasadofi-footer-column ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .tasadofi-footer-column li {
+    margin-bottom: 0.6rem;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+  
+  .tasadofi-footer-column li:hover {
+    color: #0d0a01;
+  }
+  
+.tasadofi-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px;
+}
+
+.tasadofi-header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.pelimo-logo {
+  height: 60px;
+  object-fit: contain;
+}
+
+.tasadofi-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.mood-section {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.mood-section h1 {
+  color: #333;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.mood-section p {
+  color: #666;
+  font-size: 1.2em;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.adventure-button {
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+  border: none;
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 15px 40px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.adventure-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.adventure-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.error-message {
+  color: #ff4444;
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background: rgba(255, 230, 230, 0.9);
+  border-radius: 8px;
+  max-width: 400px;
+}
+
+.random-result {
+  margin-top: 30px;
+}
+
+.random-result h2 {
+  color: #333;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.restaurant-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin: 20px auto;
+  max-width: 400px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.restaurant-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.restaurant-info {
+  padding: 20px;
+}
+
+.restaurant-info h3 {
+  color: #333;
+  font-size: 1.5em;
+  margin: 0 0 10px 0;
+}
+
+.restaurant-location {
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.location-icon {
+  font-size: 1.2em;
+}
+
+.restaurant-rating {
+  color: #ffd700;
+  font-size: 1.2em;
+}
+
+/* Random Restaurant Result */
+.tasadofi-result {
+  margin-top: 30px;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 20px;
+}
+
+.tasadofi-result h2 {
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.tasadofi-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.tasadofi-card:hover {
+  transform: translateY(-5px);
+}
+
+.tasadofi-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.tasadofi-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  margin: 15px 0 10px;
+  padding: 0 15px;
+}
+
+.tasadofi-location {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  padding: 0 15px;
+}
+
+.tasadofi-stars {
+  color: #ffc107;
+  font-size: 1.2rem;
+  padding: 0 15px 15px;
+}
+  
