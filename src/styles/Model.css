@@ -46,7 +46,7 @@
 
 .menu-build-pallate {
   grid-area: menu;
-  max-height: 35rem;
+  max-height: 43rem;
   padding: 10px;
   border-radius: 2rem;
   box-shadow: 0 0 5rem rgba(0, 0, 0, 0.15);
@@ -197,7 +197,7 @@
   min-height: 100px;
 }
 .model-menu-canvas-container {
-  max-height: 35rem;
+  max-height: 40rem;
   border-radius: 8px;
   padding: 16px;
   overflow-y: auto; /* قابلیت اسکرول داخلی */
@@ -206,10 +206,10 @@
 }
 .model-canvas-container {
   display: grid;
-  grid-template-columns: 25rem 2fr; /* سمت چپ ثابت، سمت راست انعطاف‌پذیر */
+  grid-template-columns: 40rem 2fr; /* سمت چپ ثابت، سمت راست انعطاف‌پذیر */
 
   padding: 16px;
-  height: 35rem; /* یا هر مقدار دلخواه برای کنترل ارتفاع */
+  height: 43rem; /* یا هر مقدار دلخواه برای کنترل ارتفاع */
   overflow: hidden;
   gap: 1rem;
 }
@@ -259,6 +259,7 @@
 .model-food-item-scroll {
   flex: 1;
   overflow-y: auto;
+  max-height: 36rem;
 }
 .model-food-item-scroll > *:not(:last-child) {
   border-bottom: 1px solid #8a5a44;
@@ -902,7 +903,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.2s;
-  width: 19rem;
+  width: 22rem;
   margin-bottom: 1rem;
   margin-right: 1rem;
 }
@@ -1035,8 +1036,8 @@
   width: 20rem;
   height: 20rem;
   font-size: 14px;
-  margin-top: 3rem;
-  margin-left: 8rem;
+  margin-top: 6rem;
+  margin-left: 10rem;
 }
 
 .wheel,
@@ -1066,7 +1067,7 @@
 
 .hamster {
   animation: hamster var(--dur) ease-in-out infinite;
-  top: 72%;
+  top: 63%;
   left: calc(50% - 3.5em);
   width: 7rem;
   height: 7rem;
