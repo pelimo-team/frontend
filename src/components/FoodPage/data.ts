@@ -1,7 +1,7 @@
 import { Food } from './Type';
 
 export const foodItem: Food = {
-  id: '1',
+  id: 1,
   name: 'Classic Margherita Pizza',
   description: 'A traditional Italian pizza with fresh mozzarella, tomatoes, basil leaves, and extra virgin olive oil on a thin, crispy crust baked to perfection in a wood-fired oven.',
   price: 14.99,

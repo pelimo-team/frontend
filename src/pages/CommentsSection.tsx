@@ -5,6 +5,7 @@ import { api } from "../utils/api";
 import CommentList from "../components/CommentsSection/CommentList";
 import CommentForm from "../components/CommentsSection/CommentForm";
 
+
 interface Comment {
   id: number;
   user_details?: {
@@ -182,6 +183,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ restaurantId }) => {
         isSubmitting={isSubmitting}
         submitError={submitError}
       />
+       
     </div>
   );
 };

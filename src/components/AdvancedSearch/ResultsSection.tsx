@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Restaurant, MenuItem } from "./types";
 
-import { MenuItem as MenuItemType } from "../AdvancedSearch/types";
+
+
 
 interface ResultsSectionProps {
   searchMode: "restaurants" | "items";
@@ -29,8 +30,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
   console.log("visibleItems:");
   console.log(visibleItems);
   const navigate = useNavigate();
-  const [isFoodOpen, setIsFoodOpen] = useState(false);
-  const [showFoodItem, setShowFoodItem] = useState<MenuItemType>();
+ 
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -102,8 +102,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                 key={item.id}
                 className="menu-item-card-advanced-search"
                 onClick={() => {
-                  setShowFoodItem(item);
-                  setIsFoodOpen(true);
+
                   navigate(`/foodpage/${item.restaurant?.id}`, {
                     state: { scrollToItem: item.id },
                   });

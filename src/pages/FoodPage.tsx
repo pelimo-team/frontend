@@ -1,7 +1,9 @@
+
 import FoodDetail from "../components/FoodPage/FoodDetail";
 import { foodItem } from "../components/FoodPage/data";
 import "../styles/FoodPage.css";
 import { useNavigate } from "react-router-dom";
+
 
 function FoodPage() {
   const navigate = useNavigate();
@@ -27,11 +29,7 @@ function FoodPage() {
         <FoodDetail food={foodItem} />
       </main>
 
-      {/* <footer className="footer">
-        <div className="footer-content">
-          <p>&copy; 2025 GourmetEats. All rights reserved.</p>
-        </div>
-      </footer> */}
+ 
     </div>
   );
 }

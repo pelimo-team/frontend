@@ -1,11 +1,14 @@
 export interface Food {
-  id: string;
+ 
+  id: number;
   name: string;
   description: string;
   price: number;
   rating: number;
   imageUrl: string;
+
   reviews: Review[];
+ 
 }
 
 export interface Review {

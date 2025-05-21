@@ -1,5 +1,5 @@
 export interface Restaurant {
-  id: number;
+  id: string;
   name: string;
   cover_image: string | null;
   average_rating: number | null;
@@ -41,8 +41,7 @@ export const categories = [
 ] as const;
 
 export const allFilters = [
-  "Cold-tempered",
-  "Warm-tempered",
+  
   "Discounted",
   "Most affordable",
   "Available",

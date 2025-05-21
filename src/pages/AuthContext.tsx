@@ -1,5 +1,5 @@
-import{ createContext, useState, useEffect, ReactNode } from "react";
-import { CategoryType } from "../components/AdvancedSearch/types"
+import { createContext, useState, useEffect, ReactNode } from "react";
+import { CategoryType } from "../components/AdvancedSearch/types";
 
 interface AuthContextType {
   isLoggedIn: boolean;
@@ -7,6 +7,8 @@ interface AuthContextType {
   logout: () => void;
   activeTab: CategoryType;
   setActiveTab: (tab: CategoryType) => void;
+  role: "user" | "manager" | "";
+  setRole: (role: "user" | "manager" | "") => void;
 }
 
 export const AuthContext = createContext<AuthContextType>({
@@ -14,12 +16,15 @@ export const AuthContext = createContext<AuthContextType>({
   login: () => {},
   logout: () => {},
   activeTab: "Restaurant", // Default Value
+  role: "",
+  setRole: () => {},
   setActiveTab: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<CategoryType>("Restaurant"); // New State
+  const [role, setRole] = useState<"user" | "manager" | "">(""); // New role state
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -37,7 +42,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, activeTab, setActiveTab }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        login,
+        logout,
+        activeTab,
+        setActiveTab,
+        role,
+        setRole,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
