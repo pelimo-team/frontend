@@ -1,219 +1,187 @@
-import { useEffect, useState } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import "../styles/RestaurantPage.css";
-import { api } from "../utils/api";
+import { Cart, Comment, MenuCategory, Restaurant } from "../components/Restaurant/types";
 import RestaurantHeader from "../components/Restaurant/RestaurantHeader";
 import RestaurantBanner from "../components/Restaurant/RestaurantBanner";
 import RestaurantInfo from "../components/Restaurant/RestaurantInfo";
 import RestaurantTabs from "../components/Restaurant/RestaurantTabs";
-import RestaurantContent from "../components/Restaurant/RestaurantContent";
+import MenuSection from "../components/Restaurant/MenuSection";
+import CommentsSection from "../components/Restaurant/CommentsSection";
+import RestaurantFooter from "../components/Restaurant/RestaurantFooter";
+import { useParams, useNavigate } from "react-router-dom";
+import { api } from "../utils/api"; // فرض بر اینه که axios یا هر ابزاری برای api هست
 
-interface MenuItem {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image?: string;
-}
-
-interface Category {
-  id: string;
-  name: string;
-  items: MenuItem[];
-}
-
-interface Restaurant {
-  id: number;
-  name: string;
-  location: string;
-  rating: number;
-  image?: string;
-  logo?: string;
-}
-
-// interface MenuResponse {
-//   categories?: Category[];
-// }
-
-  const Restaurant = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { restaurant: initialRestaurant } = location.state || {};
+function RestaurantPage() {
   const { id } = useParams<{ id: string }>();
-  const [restaurant, setRestaurant] = useState<Restaurant>(
-    initialRestaurant || ({} as Restaurant)
-  );
-  const [menuCategories, setMenuCategories] = useState<Category[]>([]);
-  const [cart, setCart] = useState<Record<string, number>>({});
+  const navigate = useNavigate();
+
   const [activeTab, setActiveTab] = useState<"menu" | "comments">("menu");
-  const [loading, setLoading] = useState(true);
+  const [cart, setCart] = useState<Cart>({});
+  const [showCartAnimation, setShowCartAnimation] = useState<boolean>(false);
+  const [visibleItems, setVisibleItems] = useState<Set<string>>(new Set());
+  const [isHeaderCompact, setIsHeaderCompact] = useState<boolean>(false);
+
+  // داده‌های اصلی
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+  const [menuCategories, setMenuCategories] = useState<MenuCategory[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
+
+  // وضعیت لودینگ و خطا
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  useEffect(() => {
-    checkAuthStatus();
-    fetchRestaurantData();
-    fetchCart();
-  }, [id]);
-
+  // بررسی وضعیت احراز هویت (اختیاری)
   const checkAuthStatus = async () => {
     try {
       await api.get("/api/accounts/user/");
       setIsAuthenticated(true);
-    } catch (err) {
+    } catch {
       setIsAuthenticated(false);
     }
   };
 
-  const fetchRestaurantData = async () => {
+  // واکشی داده‌ها
+  const fetchData = async () => {
     setLoading(true);
     setError(null);
     try {
-      let restaurantData = initialRestaurant;
-      if (!restaurantData) {
-        const response = await api.get(`/api/restaurants/${id}/`);
-        restaurantData = response;
-      }
-      setRestaurant(restaurantData);
+      // واکشی اطلاعات رستوران
+      const restaurantResp = await api.get(`/api/restaurants/${id}/`);
+      setRestaurant(restaurantResp.data);
 
-      const menuResponse = await api.get(`/api/restaurants/${id}/menu/`);
-      if (menuResponse) {
-        if (
-          "categories" in menuResponse &&
-          Array.isArray(menuResponse.categories)
-        ) {
-          setMenuCategories(menuResponse.categories);
-        } else if (Array.isArray(menuResponse)) {
-          const categoriesMap = menuResponse.reduce((acc, item) => {
-            const categoryId = item.category?.id?.toString() || "0";
-            const categoryName = item.category?.name || "Other";
-            if (!acc[categoryId]) {
-              acc[categoryId] = {
-                id: categoryId,
-                name: categoryName,
-                items: [],
-              };
-            }
-            acc[categoryId].items.push({
-              id: item.id.toString(),
-              name: item.name,
-              description: item.description || "",
-              price: item.price,
-              image: item.image,
-            });
-            return acc;
-          }, {} as Record<string, Category>);
-          setMenuCategories(Object.values(categoriesMap));
-        }
+      // واکشی منو
+      const menuResp = await api.get(`/api/restaurants/${id}/menu/`);
+      let categoriesData: MenuCategory[] = [];
+
+      if (Array.isArray(menuResp.data.categories)) {
+        categoriesData = menuResp.data.categories;
+      } else if (Array.isArray(menuResp.data)) {
+        // اگر ساختار متفاوت بود اینجا تبدیل کن
+        const categoriesMap = menuResp.data.reduce((acc: Record<string, MenuCategory>, item: any) => {
+          const catId = item.category?.id?.toString() || "0";
+          const catName = item.category?.name || "دسته‌بندی دیگر";
+          if (!acc[catId]) {
+            acc[catId] = { id: catId, name: catName, items: [] };
+          }
+          acc[catId].items.push({
+            id: item.id.toString(),
+            name: item.name,
+            description: item.description || "",
+            price: item.price,
+            image: item.image,
+          });
+          return acc;
+        }, {});
+        categoriesData = Object.values(categoriesMap);
       }
-    } catch (err) {
-      console.error("Error fetching data:", err);
-      setError(
-        err instanceof Error ? err.message : "Failed to load restaurant data"
-      );
+      setMenuCategories(categoriesData);
+
+      // واکشی نظرات (اگر API نظرات داری)
+      const commentsResp = await api.get(`/api/restaurants/${id}/comments/`);
+      setComments(commentsResp.data || []);
+
+      // بررسی احراز هویت
+      await checkAuthStatus();
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "خطا در بارگذاری اطلاعات");
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchCart = async () => {
-    try {
-      const cartData = await api.get("/api/cart/");
-      const cartState: Record<string, number> = {};
-      if (cartData && cartData.items) {
-        cartData.items.forEach((item: any) => {
-          cartState[item.menu_item.id.toString()] = item.quantity;
-        });
-      }
-      setCart(cartState);
-    } catch (err) {
-      console.error("Error fetching cart:", err);
+  useEffect(() => {
+    if (id) {
+      fetchData();
     }
-  };
+  }, [id]);
 
-  const updateCart = async (itemId: string, newQuantity: number) => {
-    try {
-      if (!isAuthenticated) {
-        navigate("/login");
-        return;
-      }
-
-      const currentQty = cart[itemId] || 0;
-
-      if (newQuantity === 0) {
-        const cartData = await api.get("/api/cart/");
-        const itemToDelete = cartData.items.find(
-          (item: any) => item.menu_item.id.toString() === itemId
-        );
-        if (itemToDelete) {
-          await api.delete(`/api/cart/item/${itemToDelete.id}/delete/`);
-        }
-      } else if (currentQty === 0) {
-        await api.post("/api/cart/add/", {
-          restaurant_id: id,
-          menu_item_id: itemId,
-          quantity: newQuantity,
+  // افکت اسکرول و مشاهده آیتم‌ها (مثل کد اول)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleItems((prev) => new Set([...prev, entry.target.id]));
+          }
         });
-      } else {
-        const cartData = await api.get("/api/cart/");
-        const itemToUpdate = cartData.items.find(
-          (item: any) => item.menu_item.id.toString() === itemId
-        );
-        if (itemToUpdate) {
-          await api.patch(`/api/cart/item/${itemToUpdate.id}/`, {
-            quantity: newQuantity,
-          });
-        }
-      }
+      },
+      { threshold: 0.1 }
+    );
 
-      setCart((prev) => ({
-        ...prev,
-        [itemId]: newQuantity,
-      }));
+    document.querySelectorAll(".menu-item-card").forEach((item) => observer.observe(item));
 
-      await fetchCart();
-    } catch (err) {
-      console.error("Error updating cart:", err);
-      if (err instanceof Error && err.message === "Authentication required") {
-        navigate("/login");
-      }
-    }
+    const handleScroll = () => {
+      setIsHeaderCompact(window.scrollY > 100);
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [activeTab, menuCategories]);
+
+  // تعداد کل آیتم‌های سبد خرید
+  const getCartItemCount = (): number => Object.values(cart).reduce((a, b) => a + b, 0);
+
+  // افزودن به سبد خرید
+  const handleAddToCart = (itemId: string): void => {
+    const currentQuantity = cart[itemId] || 0;
+    setCart((prev) => ({
+      ...prev,
+      [itemId]: currentQuantity + 1,
+    }));
+
+    setShowCartAnimation(true);
+    setTimeout(() => setShowCartAnimation(false), 800);
   };
 
   if (loading) {
-    return <div className="loading-spinner">Loading...</div>;
+    return <div className="loading-spinner">در حال بارگذاری...</div>;
   }
 
   if (error) {
-    return <div className="error-message">Error: {error}</div>;
+    return <div className="error-message">خطا: {error}</div>;
   }
 
-  const cartItemCount = Object.values(cart).reduce((a: number, b: number) => a + b, 0);
+  if (!restaurant) {
+    return <div>رستوران پیدا نشد</div>;
+  }
 
   return (
-    <div className="restaurant-page restaurant-container-fluid p-0">
+    <div className="restaurant-page" dir="rtl">
       <RestaurantHeader
+        logo={restaurant.logo}
         restaurantName={restaurant.name}
-        restaurantLogo={restaurant.logo}
-        cartItemCount={cartItemCount}
+        cartItemCount={getCartItemCount()}
+        showCartAnimation={showCartAnimation}
+        isCompact={isHeaderCompact}
       />
+
       <RestaurantBanner image={restaurant.image} name={restaurant.name} />
-      <RestaurantInfo
-        name={restaurant.name}
-        location={restaurant.location}
-        rating={restaurant.rating}
-      />
+
+      <RestaurantInfo name={restaurant.name} location={restaurant.location} rating={restaurant.rating} />
+
       <RestaurantTabs activeTab={activeTab} onTabChange={setActiveTab} />
-      <RestaurantContent
-        activeTab={activeTab}
-        menuCategories={menuCategories}
-        cart={cart}
-        updateCart={updateCart}
-        isAuthenticated={isAuthenticated}
-        restaurantId={Number(id)}
-      />
+
+      <section className="tab-content py-5">
+        <div className="container">
+          <MenuSection
+            categories={menuCategories}
+            visibleItems={visibleItems}
+            onAddToCart={handleAddToCart}
+            isActive={activeTab === "menu"}
+          />
+
+          <CommentsSection comments={comments} isActive={activeTab === "comments"} />
+        </div>
+      </section>
+
+      <RestaurantFooter />
     </div>
   );
-};
+}
 
-export default Restaurant;
+export default RestaurantPage;
