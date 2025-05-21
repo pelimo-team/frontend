@@ -1,38 +1,24 @@
-import React from 'react';
-
 interface RestaurantTabsProps {
-  activeTab: 'menu' | 'comments';
-  onTabChange: (tab: 'menu' | 'comments') => void;
+  activeTab: "menu" | "comments";
+  onTabChange: (tab: "menu" | "comments") => void;
 }
 
-const RestaurantTabs: React.FC<RestaurantTabsProps> = ({ activeTab, onTabChange }) => {
+const RestaurantTabs = ({ activeTab, onTabChange }: RestaurantTabsProps) => {
   return (
-    <section className="restaurant-tabs">
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <ul className="nav nav-tabs justify-content-center">
-              <li className="nav-item">
-                <button
-                  className={`nav-link ${activeTab === "menu" ? "active" : ""}`}
-                  onClick={() => onTabChange("menu")}
-                >
-                  منو
-                </button>
-              </li>
-              <li className="nav-item">
-                <button
-                  className={`nav-link ${activeTab === "comments" ? "active" : ""}`}
-                  onClick={() => onTabChange("comments")}
-                >
-                  نظرات
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
+    <div className="restaurant-tabs">
+      <div
+        className={`restaurant-tab ${activeTab === "menu" ? "active" : ""}`}
+        onClick={() => onTabChange("menu")}
+      >
+        Menu
       </div>
-    </section>
+      <div
+        className={`restaurant-tab ${activeTab === "comments" ? "active" : ""}`}
+        onClick={() => onTabChange("comments")}
+      >
+        Comments
+      </div>
+    </div>
   );
 };
 
