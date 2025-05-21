@@ -1,0 +1,151 @@
+.games-section {
+  padding: 2.5rem 1rem;
+  background: linear-gradient(to bottom, #fff, #f0f4f8);
+  border-radius: 16px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.games-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.games-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.score {
+  font-size: 1rem;
+  color: #4a5568;
+}
+
+.games-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.game-card {
+  width: 220px;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.image-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.game-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.games-section {
+  padding: 2rem;
+  background-color: #fdfaf6;
+}
+
+.games-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.games-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.score {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.games-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.game-card {
+  cursor: pointer;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  position: relative;
+}
+
+.game-card:hover {
+  transform: scale(1.03);
+}
+
+.image-box {
+  position: relative;
+  width: 100%;
+  height: 220px;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.game-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 8px;
+}
