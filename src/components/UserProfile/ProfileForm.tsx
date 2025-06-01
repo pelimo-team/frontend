@@ -33,7 +33,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ formData, onChange }) => {
         <div>
           <label htmlFor="national_code">National Code</label>
           <br />
-          <input
+          <input className="userprofile-input"
             type="text"
             id="national_code"
             value={formData.national_code}

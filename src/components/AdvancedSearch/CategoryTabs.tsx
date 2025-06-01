@@ -1,16 +1,21 @@
-import React, { useRef, useEffect } from 'react';
-import { CategoryType, categories } from './types';
+import React, { useContext, useRef, useEffect, useState} from 'react';
+import { AuthContext } from "../../pages/AuthContext";
+import {  categories } from './types';
 
-interface CategoryTabsProps {
-  activeTab: CategoryType;
-  setActiveTab: (tab: CategoryType) => void;
-}
+// interface CategoryTabsProps {
+//   activeTab: CategoryType;
+//   setActiveTab: (tab: CategoryType) => void;
+// }
 
-const CategoryTabs: React.FC<CategoryTabsProps> = ({ activeTab, setActiveTab }) => {
-  const [underlineStyle, setUnderlineStyle] = React.useState<{
-    width: string;
-    left: string;
-  }>({ width: "0px", left: "0px" });
+
+const CategoryTabs: React.FC = () => {
+  const { activeTab, setActiveTab } = useContext(AuthContext); // ✅ Read directly from context
+  const [underlineStyle, setUnderlineStyle] = useState<{ width: string; left: string }>({
+    width: "0px",
+    left: "0px",
+  });
+
+
   
   const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
 

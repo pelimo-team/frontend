@@ -1,96 +1,112 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/HomePage.module.css";
-import Search from "../../pages/Search";
+
+import { AuthContext } from "../../pages/AuthContext";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { isLoggedIn, logout } = useContext(AuthContext); // ✅ Correct usage of Context
   const [searchText, setSearchText] = useState<string>("");
-  const [showSearch, setShowSearch] = useState<boolean>(false);
-  const searchBoxRef = useRef<HTMLDivElement>(null);
-  const popupRef = useRef<HTMLDivElement>(null);
-
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        searchBoxRef.current &&
-        !searchBoxRef.current.contains(event.target as Node) &&
-        popupRef.current &&
-        !popupRef.current.contains(event.target as Node)
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
       ) {
-        setShowSearch(false);
+        setShowDropdown(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
     <header className={styles["home-header"]}>
+      <div>
+        <div className={styles["wave"]}></div>
+        <div className={styles["wave"]}></div>
+        <div className={styles["wave"]}></div>
+      </div>
       <div className={styles["header-left"]}>
-        <a href="/login" className={styles["login-link"]}>
-          Login
-        </a>
-        <span> | </span>
-        <a href="/signup" className={styles["signup-link"]}>
-          Sign up
-        </a>
-      </div>
-
-      <div className={styles["address-search"]}>
-        <img
-          src="search1.png"
-          alt="search"
-          className={styles["magnify-icon1"]}
-        />
-        <input type="text" placeholder="Address ..." />
-        <img
-          src="mdi_location.png"
-          alt="location"
-          className={styles["loc-icon"]}
-        />
-      </div>
-
-      <div className={styles["header-logo"]}>
-        <img src="Logo.png" alt="PELIMO" />
-      </div>
-
-      <div className={styles["search-box"]} ref={searchBoxRef}>
-        <img
-          src="search1.png"
-          alt="search"
-          className={styles["magnify-icon2"]}
-        />
-        <input
-          type="text"
-          placeholder="Search ..."
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          onFocus={() => setShowSearch(true)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              navigate(`/advanced-search?query=${encodeURIComponent(searchText)}`);
-            }
-          }}
-        />
-        <img src="Icon1.png" alt="filter" className={styles["filter-icon"]} />
-
-        {showSearch && (
-          <div className={styles["search-popup"]} ref={popupRef}>
-            <Search />
-          </div>
+        {isLoggedIn ? (
+          <>
+            <div className={styles["profile-button"]} ref={dropdownRef}>
+              <button
+                className={styles["home-profile"]}
+                onClick={() => setShowDropdown((prev) => !prev)}
+              >
+                <img
+                  className={styles["profile-icon"]}
+                  src="./profile-white.png"
+                  alt="profile"
+                />
+              </button>
+              {showDropdown && (
+                <div
+                  className={styles["profile-dropdown-content"]}
+                  style={{ display: showDropdown ? "block" : "none" }}
+                >
+                  <a
+                    className={styles["first-line"]}
+                    onClick={() => navigate("/userprofile")}
+                  >
+                    profile
+                  </a>
+                  <a
+                    className={styles["secend-line"]}
+                    onClick={() => {
+                      logout();
+                      navigate("/login");
+                    }}
+                  >
+                    logout
+                  </a>
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <a href="/login" className={styles["login-link"]}>
+              Login
+            </a>
+            <span> | </span>
+            <a href="/signup" className={styles["signup-link"]}>
+              Sign up
+            </a>
+          </>
         )}
       </div>
 
-      <div className={styles["menu-icon"]}>
-        <img src="Offcanvas Menu.png" alt="Menu" />
+      <div className={styles["header-logo"]}>
+        <img src="Logo_white.png" alt="PELIMO" />
+      </div>
+      <div className={styles["search-container"]}>
+        <input
+          type="text"
+          name="search"
+          placeholder="Search..."
+          className={styles["search-input"]}
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              navigate(
+                `/advanced-search?query=${encodeURIComponent(searchText)}`
+              );
+            }
+          }}
+        />
+        <a href="#" className={styles["search-btn"]}>
+          <img src="./search.png" alt="magnify" />
+        </a>
       </div>
     </header>
   );
 };
 
-export default Header; 
+export default Header;
