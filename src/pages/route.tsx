@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "../components/MainAdminContext/MainAuthContexts";
+import MainLogin from "../components/Main-Admin/MainLogin";
+import Dashboard from "../components/Main-Admin/DashBoard";
+import AddRestaurant from "../components/Main-Admin/AddRestaurant";
+import EditRestaurant from "../components/Main-Admin/EditRestaurant";
+import NotFound from "../components/Main-Admin/NotFound";
 import HomePage from "./HomePage";
 import Login from "./Login";
 import Signup from "./Signup";
@@ -22,6 +28,16 @@ import GuessTheDishGame from "./GuessTheDishGame";
 
 import { RecipePage } from "../components/scratch/RecipePage";
 
+
+const AdminProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated } = useAuth();
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/main-admin/login" replace />;
+  }
+  
+  return <>{children}</>;
+};
 
 export const ProjectRoutes = () => {
   return (
@@ -79,6 +95,34 @@ export const ProjectRoutes = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/model" element={<MenuBuilder />} />
         <Route path="/recipe/:id" element={<RecipePage />} />
+        <Route path="/main-admin/login" element={<MainLogin />} />
+              <Route 
+        path="/main-admin" 
+        element={
+          <AdminProtectedRoute>
+            <Dashboard />
+          </AdminProtectedRoute>
+        } 
+      />
+            <Route 
+        path="/main-admin/add-restaurant" 
+        element={
+          <AdminProtectedRoute>
+            <AddRestaurant />
+          </AdminProtectedRoute>
+        } 
+      />
+            <Route 
+        path="/main-admin/edit-restaurant/:id" 
+        element={
+          <AdminProtectedRoute>
+            <EditRestaurant />
+          </AdminProtectedRoute>
+        } 
+      />
+      
+      {/* Catch-all route */}
+      <Route path="*" element={<NotFound />} />
         {/* <Route path="/games" element={<GamesSection />} /> */}
       </Routes>
     </Router>
