@@ -216,4 +216,66 @@
     color: #cc0000;
     border: 1px solid #ff0000;
   }
+
+  /* Responsive styles for mobile */
+@media (max-width: 768px) {
+  .container-userprofile {
+    padding: 20px 15px;
+    margin: 20px 10px;
+  }
+
+  .profile-userprofile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .form-grid-userprofile {
+    grid-template-columns: 1fr; /* تک‌ستونی */
+    gap: 16px;
+  }
+
+  .actions-userprofile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .btn-save-userprofile,
+  .btn-cancel-userprofile {
+    width: 100% !important;
+    margin-right: 0;
+  }
+
+  .email-box-userprofile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    height: auto;
+    padding: 12px;
+  }
+
+  .avatar-userprofile {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-info-userprofile h2 {
+    font-size: 18px;
+  }
+
+  .userprofile-input,
+  select {
+    font-size: 16px;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+}
+
   

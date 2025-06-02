@@ -481,4 +481,136 @@
   font-size: 1.2rem;
   padding: 0 15px 15px;
 }
+
+/* ----------------------------- Responsive Design ----------------------------- */
+
+@media (max-width: 768px) {
+
+  .tasadofi-header {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1rem;
+    height: auto;
+  }
+
+  .tasadofi-header img {
+    width: 80px;
+  }
+
+  .tasadofi-menu img,
+  .tasadofi-profile img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .tasadofi-background {
+    min-height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .tasadofi-emoji {
+    font-size: 2.2rem;
+    padding-top: 60px;
+  }
+
+  .tasadofi-start-button {
+    font-size: 0.95rem;
+    padding: 10px 20px;
+  }
+
+  .tasadofi-card {
+    min-width: 90%;
+    padding: 1rem;
+  }
+
+  .tasadofi-card img {
+    height: 160px;
+  }
+
+  .tasadofi-name {
+    font-size: 1rem;
+  }
+
+  .tasadofi-location {
+    font-size: 0.85rem;
+  }
+
+  .tasadofi-stars {
+    font-size: 1rem;
+  }
+
+  .tasadofi-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  .tasadofi-footer-column {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .tasadofi-category-selector {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tasadofi-category-item {
+    width: 90%;
+    height: auto;
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .tasadofi-icon-img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .tasadofi-label {
+    font-size: 0.9rem;
+  }
+
+  .tasadofi-slider-section {
+    padding: 1rem 0.5rem;
+  }
+
+  .tasadofi-slider-container {
+    gap: 0.75rem;
+  }
+
+  .error-message {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+    max-width: 90%;
+  }
+
+  .random-result h2 {
+    font-size: 1.5em;
+  }
+
+  .restaurant-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .restaurant-image {
+    height: 180px;
+  }
+
+  .restaurant-info h3 {
+    font-size: 1.3em;
+  }
+
+  .restaurant-location {
+    font-size: 0.9em;
+  }
+
+  .adventure-button {
+    font-size: 1rem;
+    padding: 12px 30px;
+  }
+}
+
   
