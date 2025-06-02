@@ -17,6 +17,8 @@ import MenuBuilder from "./Model";
 import Cart from "./Cart";
 import AddCommentPage from "./AddCommentPage";
 import Admin from "./FoodAdminPanel"
+import GuessTheDishGame from "./GuessTheDishGame";
+
 
 export const ProjectRoutes = () => {
   return (
@@ -70,7 +72,7 @@ export const ProjectRoutes = () => {
 
         <Route path="/cart" element={<Cart />} />
         <Route path="/model" element={<MenuBuilder />} />
-        {/* <Route path="/games" element={<GamesSection />} /> */}
+        <Route path="/games/guess-the-dish" element={< GuessTheDishGame />} />
         
 
       </Routes>

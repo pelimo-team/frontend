@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import "../styles/RestaurantPage.css";
 import { Cart, Comment, MenuCategory, Restaurant } from "../components/Restaurant/types";
 import RestaurantHeader from "../components/Restaurant/RestaurantHeader";
