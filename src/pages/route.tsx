@@ -17,7 +17,10 @@ import MenuBuilder from "./Model";
 import Cart from "./Cart";
 import AddCommentPage from "./AddCommentPage";
 import Admin from "./FoodAdminPanel"
+
 import GuessTheDishGame from "./GuessTheDishGame";
+
+import { RecipePage } from "../components/scratch/RecipePage";
 
 
 export const ProjectRoutes = () => {
@@ -70,11 +73,13 @@ export const ProjectRoutes = () => {
         {/* صفحه جستجوی تصادفی */}
         <Route path="/advance-tasadofi" element={<AdvanceTasadofi />} />
 
+        {/* بازی حدس غذا */}
+        <Route path="/games/guess-the-dish" element={<GuessTheDishGame />} />
+
         <Route path="/cart" element={<Cart />} />
         <Route path="/model" element={<MenuBuilder />} />
+        <Route path="/recipe/:id" element={<RecipePage />} />
         <Route path="/games/guess-the-dish" element={< GuessTheDishGame />} />
-        
-
       </Routes>
     </Router>
   );
