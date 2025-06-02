@@ -18,7 +18,7 @@ function FoodPage() {
           <img className="logo" src="./Logo.png" alt="" />
           <button
             className="food-back-btn"
-            onClick={() => navigate(`/foodpage/`)}
+            onClick={() => navigate(-1)}
           >
             <img src="./arrow-right-solid.svg" alt="" />
           </button>
