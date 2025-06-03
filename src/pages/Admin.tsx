@@ -61,7 +61,7 @@ const Admin: React.FC = () => {
       }, {});
       setCsrfToken(cookies["csrftoken"] || "");
     } catch {
-      setError("خطا در دریافت CSRF token");
+      setError("Error fetching CSRF token");
     }
   };
 
@@ -73,7 +73,7 @@ const Admin: React.FC = () => {
         });
         setUsername(response.data.username);
       } catch {
-        setError("خطا در دریافت اطلاعات کاربر");
+        setError("Error fetching user info");
       }
     };
     fetchUsername();
@@ -103,7 +103,7 @@ const Admin: React.FC = () => {
       });
       setMenuItems(response.data.results || []);
     } catch {
-      setError("خطا در دریافت منو");
+      setError("Error fetching menu");
     } finally {
       setLoading(false);
     }
@@ -113,9 +113,9 @@ const Admin: React.FC = () => {
     setLoadingOrders(true);
     setErrorOrders(null);
     try {
-      setOrders([]); // فقط mock است، قابل توسعه
+      setOrders([]); // Just mock for now, can be extended
     } catch {
-      setErrorOrders("خطا در دریافت سفارشات");
+      setErrorOrders("Error fetching orders");
     } finally {
       setLoadingOrders(false);
     }
@@ -185,7 +185,7 @@ const Admin: React.FC = () => {
         quantity: null,
       });
     } catch {
-      setError("خطا در ذخیره اطلاعات غذا.");
+      setError("Error saving food item.");
     }
   };
 
@@ -204,12 +204,12 @@ const Admin: React.FC = () => {
       });
       setMenuItems(prev => prev.filter(item => item.id !== id));
     } catch {
-      setError("خطا در حذف غذا.");
+      setError("Error deleting food item.");
     }
   };
 
   const formatShamsiDate = (date: Date) => {
-    return new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+    return new Intl.DateTimeFormat("en-US", {
       day: "numeric",
       month: "numeric",
       year: "numeric",
@@ -222,21 +222,21 @@ const Admin: React.FC = () => {
         <section className="stats-cards">
           <div className="stats-card">
             <div>{loading ? <Spinner animation="border" /> : menuItems.length}</div>
-            <div>تعداد غذاهای موجود</div>
+            <div>Available Foods Count</div>
             <div className="icon">🍽️</div>
           </div>
           <div className="stats-card">
             <div>{loadingOrders ? <Spinner animation="border" /> : orders.length}</div>
-            <div>تعداد سفارشات ثبت شده</div>
+            <div>Orders Count</div>
             <div className="icon">🛒</div>
           </div>
         </section>
 
         <Tab.Container activeKey={activeTab} onSelect={k => setActiveTab(k as any)}>
           <Nav variant="tabs" className="mb-3">
-            <Nav.Item><Nav.Link eventKey="menu">مدیریت منو</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link eventKey="orders">تاریخچه سفارشات</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link eventKey="stock">موجودی</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link eventKey="menu">Menu Management</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link eventKey="orders">Orders History</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link eventKey="stock">Stock</Nav.Link></Nav.Item>
           </Nav>
 
           <Tab.Content>
@@ -244,51 +244,116 @@ const Admin: React.FC = () => {
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit} className="food-form">
                 <Form.Group className="mb-3">
-                  <Form.Label>نام غذا</Form.Label>
-                  <Form.Control name="name" value={formData.name} onChange={handleChange} required />
+                  <Form.Label>Food Name</Form.Label>
+                  <Form.Control
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Enter food name"
+                    required
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label>قیمت</Form.Label>
-                  <Form.Control type="number" name="price" min="0" value={formData.price ?? ""} onChange={handleChange} />
+                  <Form.Label>Price</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="price"
+                    min="0"
+                    value={formData.price ?? ""}
+                    onChange={handleChange}
+                    placeholder="Enter price"
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label>آپلود عکس</Form.Label>
-                  <Form.Control type="file" name="image" onChange={handleChange} accept="image/*" />
+                  <Form.Label>Upload Image</Form.Label>
+                  <Form.Control
+                    type="file"
+                    name="image"
+                    onChange={handleChange}
+                    accept="image/*"
+                  />
                   {formData.image && (
                     typeof formData.image === "string" ? (
-                      <img src={formData.image} alt="preview" className="food-preview" style={{ maxWidth: "150px", marginTop: "8px" }} />
+                      <img
+                        src={formData.image}
+                        alt="preview"
+                        className="food-preview"
+                        style={{ maxWidth: "150px", marginTop: "8px" }}
+                      />
                     ) : (
-                      <img src={URL.createObjectURL(formData.image)} alt="preview" className="food-preview" style={{ maxWidth: "150px", marginTop: "8px" }} />
+                      <img
+                        src={URL.createObjectURL(formData.image)}
+                        alt="preview"
+                        className="food-preview"
+                        style={{ maxWidth: "150px", marginTop: "8px" }}
+                      />
                     )
                   )}
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label>امتیاز</Form.Label>
-                  <Form.Control type="number" name="rate" min="0" step="0.1" max={5} value={formData.rate ?? ""} onChange={handleChange} />
+                  <Form.Label>Rating</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="rate"
+                    min="0"
+                    max={5}
+                    step="0.1"
+                    value={formData.rate ?? ""}
+                    onChange={handleChange}
+                    placeholder="Enter rating (0-5)"
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label>موجودی</Form.Label>
-                  <Form.Control type="number" name="quantity" min="0" value={formData.quantity ?? ""} onChange={handleChange} />
+                  <Form.Label>Quantity</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="quantity"
+                    min="0"
+                    value={formData.quantity ?? ""}
+                    onChange={handleChange}
+                    placeholder="Enter quantity"
+                  />
                 </Form.Group>
-                <Form.Check className="mb-2" type="checkbox" label="موجود" name="availability" checked={formData.availability} onChange={handleChange} />
-                <Form.Check className="mb-2" type="checkbox" label="پرفروش" name="bestseller" checked={formData.bestseller} onChange={handleChange} />
-                <Form.Check className="mb-2" type="checkbox" label="در تخفیف" name="onsale" checked={formData.onsale} onChange={handleChange} />
-                <Button type="submit">{editId !== null ? "ذخیره تغییرات" : "افزودن غذا"}</Button>
+                <Form.Check
+                  className="mb-2"
+                  type="checkbox"
+                  label="Available"
+                  name="availability"
+                  checked={formData.availability}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  className="mb-2"
+                  type="checkbox"
+                  label="Bestseller"
+                  name="bestseller"
+                  checked={formData.bestseller}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  className="mb-2"
+                  type="checkbox"
+                  label="On Sale"
+                  name="onsale"
+                  checked={formData.onsale}
+                  onChange={handleChange}
+                />
+                <Button type="submit">{editId !== null ? "Save Changes" : "Add Food"}</Button>
               </Form>
 
               <hr />
-              {/* جدول منو */}
+              {/* Menu Table */}
               <Table striped hover responsive>
                 <thead>
                   <tr>
-                    <th>نام</th>
-                    <th>قیمت</th>
-                    <th>موجودی</th>
-                    <th>امتیاز</th>
-                    <th>موجود</th>
-                    <th>پرفروش</th>
-                    <th>در تخفیف</th>
-                    <th>عملیات</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Rating</th>
+                    <th>Available</th>
+                    <th>Bestseller</th>
+                    <th>On Sale</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -302,8 +367,8 @@ const Admin: React.FC = () => {
                       <td>{item.bestseller ? "✅" : "❌"}</td>
                       <td>{item.onsale ? "✅" : "❌"}</td>
                       <td>
-                        <Button size="sm" variant="warning" onClick={() => handleEdit(item)}>ویرایش</Button>{" "}
-                        <Button size="sm" variant="danger" onClick={() => item.id && handleDelete(item.id)}>حذف</Button>
+                        <Button size="sm" variant="warning" onClick={() => handleEdit(item)}>Edit</Button>{" "}
+                        <Button size="sm" variant="danger" onClick={() => item.id && handleDelete(item.id)}>Delete</Button>
                       </td>
                     </tr>
                   ))}
@@ -314,14 +379,14 @@ const Admin: React.FC = () => {
             <Tab.Pane eventKey="orders">
               {errorOrders && <Alert variant="danger">{errorOrders}</Alert>}
               {loadingOrders ? <Spinner animation="border" /> : (
-                orders.length === 0 ? <p className="text-center">سفارشی ثبت نشده است.</p> : (
+                orders.length === 0 ? <p className="text-center">No orders found.</p> : (
                   <Table striped hover responsive>
                     <thead>
                       <tr>
-                        <th>نام غذا</th>
-                        <th>تعداد</th>
-                        <th>تاریخ</th>
-                        <th>وضعیت</th>
+                        <th>Food Name</th>
+                        <th>Quantity</th>
+                        <th>Date</th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -329,7 +394,7 @@ const Admin: React.FC = () => {
                         <tr key={order.id}>
                           <td>{order.foodName}</td>
                           <td>{order.quantity}</td>
-                          <td>{new Date(order.orderDate).toLocaleString("fa-IR")}</td>
+                          <td>{new Date(order.orderDate).toLocaleString("en-US")}</td>
                           <td>{order.status}</td>
                         </tr>
                       ))}
@@ -341,10 +406,10 @@ const Admin: React.FC = () => {
 
             <Tab.Pane eventKey="stock">
               {loading ? <Spinner animation="border" /> : (
-                menuItems.length === 0 ? <p className="text-center">غذایی موجود نیست.</p> : (
+                menuItems.length === 0 ? <p className="text-center">No food available.</p> : (
                   <Table striped hover responsive>
                     <thead>
-                      <tr><th>نام غذا</th><th>موجودی</th></tr>
+                      <tr><th>Food Name</th><th>Quantity</th></tr>
                     </thead>
                     <tbody>
                       {menuItems.map(item => (
@@ -363,16 +428,16 @@ const Admin: React.FC = () => {
         <div className="username">
           <h2>{username}</h2>
           <div className="time">
-            {currentTime.toLocaleTimeString("fa-IR", { hour12: false })}
+            {currentTime.toLocaleTimeString("en-US", { hour12: false })}
             <br />
             {formatShamsiDate(currentTime)}
           </div>
         </div>
 
         <ul>
-          <li onClick={() => setActiveTab("menu")} className={activeTab === "menu" ? "active" : ""}><FiCoffee /><span>مدیریت منو</span></li>
-          <li onClick={() => setActiveTab("orders")} className={activeTab === "orders" ? "active" : ""}><FiShoppingCart /><span>تاریخچه سفارشات</span></li>
-          <li onClick={() => setActiveTab("stock")} className={activeTab === "stock" ? "active" : ""}><FiPackage /><span>موجودی</span></li>
+          <li onClick={() => setActiveTab("menu")} className={activeTab === "menu" ? "active" : ""}><FiCoffee /><span>Menu Management</span></li>
+          <li onClick={() => setActiveTab("orders")} className={activeTab === "orders" ? "active" : ""}><FiShoppingCart /><span>Orders History</span></li>
+          <li onClick={() => setActiveTab("stock")} className={activeTab === "stock" ? "active" : ""}><FiPackage /><span>Stock</span></li>
         </ul>
       </aside>
     </div>
