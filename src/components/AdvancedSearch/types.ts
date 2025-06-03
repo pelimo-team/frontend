@@ -5,8 +5,8 @@ export interface Restaurant {
   average_rating: number | null;
   reviews_count: number;
   delivery_cost: number;
-  discription:string;
-  city: number
+  discription: string;
+  city: number;
 }
 
 export interface MenuItem {
@@ -41,16 +41,23 @@ export const categories = [
 ] as const;
 
 export const allFilters = [
-  "Cold-tempered",
-  "Warm-tempered",
   "Discounted",
   "Most affordable",
   "Available",
   "Best Seller",
   "Most Expensive",
   "Cheapest",
-  
 ] as const;
 
+export const categoryMap: Record<CategoryType, string> = {
+  All: "All",
+  Restaurant: "رستوران",
+  "Fast Food": "فست‌فود",
+  "Coffee Shop": "کافیشاپ",
+  "Juice and Ice cream": "آبمیوه سنتی",
+  Confectionary: "شیرینی",
+  Fruits: "میوه",
+};
+
 export type FilterType = (typeof allFilters)[number];
-export type CategoryType = (typeof categories)[number]; 
+export type CategoryType = (typeof categories)[number];

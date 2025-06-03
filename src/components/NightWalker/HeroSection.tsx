@@ -33,6 +33,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   }, []);
   return (
     <section className="nightwalker-hero-section">
+      
       <header className="nightwalker-hero-header">
       <div className="night-header-left">
         {isLoggedIn ? (
@@ -42,11 +43,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 className="night-home-profile"
                 onClick={() => setShowDropdown((prev) => !prev)}
               >
-                <img
-                  className="night-profile-icon"
-                  src="./profile-white.png"
-                  alt="profile"
-                />
+  
               </button>
               {showDropdown && (
                 <div

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../styles/AdvancedSearch.css";
 import { useLocation } from "react-router-dom";
 import {
@@ -11,14 +11,15 @@ import Header from "../components/AdvancedSearch/Header";
 import CategoryTabs from "../components/AdvancedSearch/CategoryTabs";
 import Filters from "../components/AdvancedSearch/Filters";
 import ResultsSection from "../components/AdvancedSearch/ResultsSection";
-
+import { AuthContext } from "../pages/AuthContext";
+import { categoryMap } from "../components/AdvancedSearch/types";
 const AdvancedSearch: React.FC = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get("query") || "";
 
   const [searchText, setSearchText] = useState<string>(searchQuery);
-  const [activeTab] = useState<CategoryType>("All");
+  const { activeTab, setActiveTab } = useContext(AuthContext);
   const [activeFilters, setActiveFilters] = useState<FilterType[]>([]);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -47,7 +48,9 @@ const AdvancedSearch: React.FC = () => {
     try {
       const queryParams = new URLSearchParams();
       if (searchText) queryParams.append("name", searchText);
-      if (activeTab !== "All") queryParams.append("type", activeTab);
+      console.log("Fetching for category:", categoryMap[activeTab]);
+      if (activeTab !== "All")
+        queryParams.append("type", categoryMap[activeTab]);
 
       if (activeFilters.includes("Discounted"))
         queryParams.append("has_onsale", "true");
@@ -110,7 +113,9 @@ const AdvancedSearch: React.FC = () => {
     try {
       const queryParams = new URLSearchParams();
       if (searchText) queryParams.append("name", searchText);
-      if (activeTab !== "All") queryParams.append("restaurant_type", activeTab);
+      console.log("Fetching for category:", categoryMap[activeTab]);
+      if (activeTab !== "All")
+        queryParams.append("restaurant_type", categoryMap[activeTab]);
 
       if (activeFilters.includes("Discounted"))
         queryParams.append("is_onsale", "true");

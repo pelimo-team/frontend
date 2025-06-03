@@ -4,6 +4,9 @@ import { Restaurant, MenuItem } from "./types";
 
 import { MenuItem as MenuItemType } from "../AdvancedSearch/types";
 
+import { useContext } from "react";
+import { AuthContext } from "../../pages/AuthContext";
+
 interface ResultsSectionProps {
   searchMode: "restaurants" | "items";
   visibleItems: (Restaurant | MenuItem)[];
@@ -26,6 +29,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
   setSelectedShopIndex,
 }) => {
   // debugger;
+  const { activeTab } = useContext(AuthContext);
   console.log("visibleItems:");
   console.log(visibleItems);
   const navigate = useNavigate();
@@ -42,11 +46,14 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
   return (
     <section className="results-section-advanced-search">
       <div className="section-header-advanced-search">
-        <h3>
-          {visibleItems.length}{" "}
-          {searchMode === "restaurants" ? "Store" : "Food"}
-        </h3>
-        {visibleItems.length > 6 && (
+        {/* نمایش دسته‌بندی انتخاب شده */}
+        {activeTab && (
+          <p className="selected-category-label">
+            <strong>{activeTab}</strong>
+          </p>
+        )}
+
+        {visibleItems.length > 5 && (
           <a
             onClick={() => setShowAllItems(!showAllItems)}
             style={{ cursor: "pointer" }}
@@ -55,6 +62,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
           </a>
         )}
       </div>
+
       <div className="items-grid-advanced-search">
         {searchMode === "restaurants"
           ? (visibleItems as Restaurant[]).map((restaurant, i) => (

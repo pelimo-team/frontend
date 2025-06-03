@@ -1,3 +1,4 @@
+// App.tsx
 import { ProjectRoutes } from "./pages/route";
 
 function App() {
