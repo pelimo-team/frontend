@@ -27,6 +27,10 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({
   const coverImageInputRef = useRef<HTMLInputElement>(null);
   const logoInputRef = useRef<HTMLInputElement>(null);
 
+  // const SubmitData = () => {
+  //   // send data to back
+  // }
+
   // Initialize form with initial data if provided
   useEffect(() => {
     if (initialData) {
@@ -288,6 +292,7 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({
       
       <div className="form-actions">
         <button 
+          //onClick={SubmitData}
           type="submit" 
           className="btn btn-primary" 
           disabled={isLoading}
