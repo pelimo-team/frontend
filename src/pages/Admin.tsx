@@ -26,6 +26,7 @@ type OrderItem = {
 };
 
 const BASE_URL = "http://localhost:8000/api/manager/menu-items/";
+const ORDERS_API = "http://localhost:8000/api/cart/manager/orders/";
 
 const Admin: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"menu" | "orders" | "stock">("menu");
@@ -113,7 +114,14 @@ const Admin: React.FC = () => {
     setLoadingOrders(true);
     setErrorOrders(null);
     try {
-      setOrders([]); // Just mock for now, can be extended
+      const response = await axios.get(ORDERS_API, {
+        withCredentials: true,
+        headers: { "X-CSRFToken": csrfToken },
+      });
+      // فرض بر این که response.data شکل زیر است:
+      // { count, next, previous, results: [] }
+      // هر order در results با این فیلدها: id, foodName, quantity, orderDate, status
+      setOrders(response.data.results || []);
     } catch {
       setErrorOrders("Error fetching orders");
     } finally {
@@ -243,6 +251,8 @@ const Admin: React.FC = () => {
             <Tab.Pane eventKey="menu">
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit} className="food-form">
+                {/* فرم مدیریت منو (همانند کد اولیه) */}
+                {/* ... (کد فرم مانند قبل) */}
                 <Form.Group className="mb-3">
                   <Form.Label>Food Name</Form.Label>
                   <Form.Control
@@ -378,46 +388,56 @@ const Admin: React.FC = () => {
 
             <Tab.Pane eventKey="orders">
               {errorOrders && <Alert variant="danger">{errorOrders}</Alert>}
-              {loadingOrders ? <Spinner animation="border" /> : (
-                orders.length === 0 ? <p className="text-center">No orders found.</p> : (
-                  <Table striped hover responsive>
-                    <thead>
-                      <tr>
-                        <th>Food Name</th>
-                        <th>Quantity</th>
-                        <th>Date</th>
-                        <th>Status</th>
+              {loadingOrders ? (
+                <Spinner animation="border" />
+              ) : orders.length === 0 ? (
+                <p className="text-center">No orders found.</p>
+              ) : (
+                <Table striped hover responsive>
+                  <thead>
+                    <tr>
+                      <th>Food Name</th>
+                      <th>Quantity</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map(order => (
+                      <tr key={order.id}>
+                        <td>{order.foodName}</td>
+                        <td>{order.quantity}</td>
+                        <td>{new Date(order.orderDate).toLocaleString("en-US")}</td>
+                        <td>{order.status}</td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {orders.map(order => (
-                        <tr key={order.id}>
-                          <td>{order.foodName}</td>
-                          <td>{order.quantity}</td>
-                          <td>{new Date(order.orderDate).toLocaleString("en-US")}</td>
-                          <td>{order.status}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                )
+                    ))}
+                  </tbody>
+                </Table>
               )}
             </Tab.Pane>
 
             <Tab.Pane eventKey="stock">
-              {loading ? <Spinner animation="border" /> : (
-                menuItems.length === 0 ? <p className="text-center">No food available.</p> : (
-                  <Table striped hover responsive>
-                    <thead>
-                      <tr><th>Food Name</th><th>Quantity</th></tr>
-                    </thead>
-                    <tbody>
-                      {menuItems.map(item => (
-                        <tr key={item.id}><td>{item.name}</td><td>{item.quantity}</td></tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                )
+              {loading ? (
+                <Spinner animation="border" />
+              ) : menuItems.length === 0 ? (
+                <p className="text-center">No food available.</p>
+              ) : (
+                <Table striped hover responsive>
+                  <thead>
+                    <tr>
+                      <th>Food Name</th>
+                      <th>Quantity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {menuItems.map(item => (
+                      <tr key={item.id}>
+                        <td>{item.name}</td>
+                        <td>{item.quantity}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
               )}
             </Tab.Pane>
           </Tab.Content>
@@ -435,9 +455,27 @@ const Admin: React.FC = () => {
         </div>
 
         <ul>
-          <li onClick={() => setActiveTab("menu")} className={activeTab === "menu" ? "active" : ""}><FiCoffee /><span>Menu Management</span></li>
-          <li onClick={() => setActiveTab("orders")} className={activeTab === "orders" ? "active" : ""}><FiShoppingCart /><span>Orders History</span></li>
-          <li onClick={() => setActiveTab("stock")} className={activeTab === "stock" ? "active" : ""}><FiPackage /><span>Stock</span></li>
+          <li
+            onClick={() => setActiveTab("menu")}
+            className={activeTab === "menu" ? "active" : ""}
+          >
+            <FiCoffee />
+            <span>Menu Management</span>
+          </li>
+          <li
+            onClick={() => setActiveTab("orders")}
+            className={activeTab === "orders" ? "active" : ""}
+          >
+            <FiShoppingCart />
+            <span>Orders History</span>
+          </li>
+          <li
+            onClick={() => setActiveTab("stock")}
+            className={activeTab === "stock" ? "active" : ""}
+          >
+            <FiPackage />
+            <span>Stock</span>
+          </li>
         </ul>
       </aside>
     </div>
