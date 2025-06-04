@@ -1,8 +1,23 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { Form, Button, Table, Spinner, Alert, Nav, Tab } from "react-bootstrap";
 import axios from "axios";
-import "../styles/Admin.css";
 import { FiPackage, FiShoppingCart, FiCoffee, FiInfo } from "react-icons/fi";
+import "../styles/Admin.css";
+
+const token = localStorage.getItem("token");
+const csrfToken = document.cookie
+  .split("; ")
+  .find(row => row.startsWith("csrftoken="))
+  ?.split("=")[1] || "";
+
+const api = axios.create({
+  baseURL: "http://localhost:8000/api/",
+  withCredentials: true,
+  headers: {
+    Authorization: token ? `Token ${token}` : "",
+    "X-CSRFToken": csrfToken,
+  },
+});
 
 type MenuItem = {
   id?: number;
@@ -37,14 +52,22 @@ type RestaurantInfo = {
   isPublished: boolean;
 };
 
-const BASE_URL = "http://localhost:8000/api/manager/menu-items/";
-const ORDERS_API = "http://localhost:8000/api/cart/manager/orders/";
-
 const Admin: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"menu" | "orders" | "stock"| "restaurant information">("menu");
+  const [activeTab, setActiveTab] = useState<"menu" | "orders" | "stock" | "restaurant information">("menu");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [editId, setEditId] = useState<number | null>(null);
+  const [orders, setOrders] = useState<OrderItem[]>([]);
+  const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>({
+    name: "",
+    description: "",
+    city: "",
+    coverImage: null,
+    logo: null,
+    type: "",
+    deliveryCost: null,
+    isNightwalker: false,
+    isPublished: false,
+  });
+
   const [formData, setFormData] = useState<MenuItem>({
     name: "",
     price: null,
@@ -56,24 +79,15 @@ const Admin: React.FC = () => {
     tab: "",
     quantity: null,
   });
-  const [error, setError] = useState<string | null>(null);
-  const [orders, setOrders] = useState<OrderItem[]>([]);
-  const [loadingOrders, setLoadingOrders] = useState(false);
-  const [errorOrders, setErrorOrders] = useState<string | null>(null);
-  const [csrfToken, setCsrfToken] = useState<string>("");
+
+  const [editId, setEditId] = useState<number | null>(null);
   const [username, setUsername] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>({
-    name: "",
-    description: "",
-    city: "",
-    coverImage: null,
-    logo: null,
-    type: "",
-    deliveryCost: null,
-    isNightwalker: false,
-    isPublished: false
-  });
+
+  const [loading, setLoading] = useState(false);
+  const [loadingOrders, setLoadingOrders] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [errorOrders, setErrorOrders] = useState<string | null>(null);
 
   const restaurantTypes = [
     "restaurant",
@@ -81,72 +95,13 @@ const Admin: React.FC = () => {
     "juice and ice cream",
     "fruits",
     "confectionary",
-    "coffee shop"
+    "coffee shop",
   ];
-
-  const handleRestaurantInfoChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, type, value, files } = e.target as HTMLInputElement;
-    
-    if (type === "file" && files && files.length > 0) {
-      setRestaurantInfo(prev => ({ ...prev, [name]: files[0] }));
-    } else if (type === "checkbox") {
-      const checked = (e.target as HTMLInputElement).checked;
-      setRestaurantInfo(prev => ({ ...prev, [name]: checked }));
-    } else if (name === "deliveryCost") {
-      setRestaurantInfo(prev => ({ ...prev, [name]: value ? Number(value) : null }));
-    } else {
-      setRestaurantInfo(prev => ({ ...prev, [name]: value }));
-    }
-  };
-
-  const handleRestaurantInfoSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError(null);
-
-    const formData = new FormData();
-    Object.entries(restaurantInfo).forEach(([key, value]) => {
-      if (value !== null) {
-        if (value instanceof File) {
-          formData.append(key, value);
-        } else {
-          formData.append(key, String(value));
-        }
-      }
-    });
-
-    try {
-      await axios.post("/api/restaurant-info", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "X-CSRFToken": csrfToken
-        }
-      });
-      // Handle success
-    } catch (err) {
-      setError("Error saving restaurant information");
-    }
-  };
-
-  const fetchCsrfToken = async () => {
-    try {
-      await axios.get("http://localhost:8000/api/accounts/csrf/", { withCredentials: true });
-      const cookies = document.cookie.split("; ").reduce((acc: any, current) => {
-        const [name, value] = current.split("=");
-        acc[name] = value;
-        return acc;
-      }, {});
-      setCsrfToken(cookies["csrftoken"] || "");
-    } catch {
-      setError("Error fetching CSRF token");
-    }
-  };
 
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/accounts/user/", {
-          withCredentials: true,
-        });
+        const response = await api.get("accounts/user/");
         setUsername(response.data.username);
       } catch {
         setError("Error fetching user info");
@@ -161,22 +116,15 @@ const Admin: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    fetchCsrfToken();
-  }, []);
-
-  useEffect(() => {
-    if (activeTab === "menu" && csrfToken) fetchMenuItems();
-    if (activeTab === "orders" && csrfToken) fetchOrders();
-  }, [activeTab, csrfToken]);
+    if (activeTab === "menu") fetchMenuItems();
+    if (activeTab === "orders") fetchOrders();
+  }, [activeTab]);
 
   const fetchMenuItems = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(BASE_URL, {
-        withCredentials: true,
-        headers: { "X-CSRFToken": csrfToken },
-      });
+      const response = await api.get("manager/menu-items/");
       setMenuItems(response.data.results || []);
     } catch {
       setError("Error fetching menu");
@@ -189,13 +137,7 @@ const Admin: React.FC = () => {
     setLoadingOrders(true);
     setErrorOrders(null);
     try {
-      const response = await axios.get(ORDERS_API, {
-        withCredentials: true,
-        headers: { "X-CSRFToken": csrfToken },
-      });
-      // فرض بر این که response.data شکل زیر است:
-      // { count, next, previous, results: [] }
-      // هر order در results با این فیلدها: id, foodName, quantity, orderDate, status
+      const response = await api.get("cart/manager/orders/");
       setOrders(response.data.results || []);
     } catch {
       setErrorOrders("Error fetching orders");
@@ -222,40 +164,25 @@ const Admin: React.FC = () => {
     setError(null);
 
     const formPayload = new FormData();
-    formPayload.append("name", formData.name);
-    if (formData.price !== null) formPayload.append("price", String(formData.price));
-    if (formData.rate !== null) formPayload.append("rate", String(formData.rate));
-    if (formData.quantity !== null) formPayload.append("quantity", String(formData.quantity));
-    formPayload.append("availability", String(formData.availability));
-    formPayload.append("bestseller", String(formData.bestseller));
-    formPayload.append("onsale", String(formData.onsale));
-    formPayload.append("tab", formData.tab);
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value !== null) formPayload.append(key, String(value));
+    });
     if (formData.image instanceof File) {
-      formPayload.append("image", formData.image);
+      formPayload.set("image", formData.image);
     }
 
     try {
       if (editId !== null) {
-        await axios.put(`${BASE_URL}${editId}/`, formPayload, {
-          withCredentials: true,
-          headers: {
-            "X-CSRFToken": csrfToken,
-            "Content-Type": "multipart/form-data",
-          },
+        await api.put(`manager/menu-items/${editId}/`, formPayload, {
+          headers: { "Content-Type": "multipart/form-data" },
         });
-        fetchMenuItems();
         setEditId(null);
       } else {
-        await axios.post(BASE_URL, formPayload, {
-          withCredentials: true,
-          headers: {
-            "X-CSRFToken": csrfToken,
-            "Content-Type": "multipart/form-data",
-          },
+        await api.post("manager/menu-items/", formPayload, {
+          headers: { "Content-Type": "multipart/form-data" },
         });
-        fetchMenuItems();
       }
-
+      fetchMenuItems();
       setFormData({
         name: "",
         price: null,
@@ -281,13 +208,45 @@ const Admin: React.FC = () => {
   const handleDelete = async (id: number) => {
     setError(null);
     try {
-      await axios.delete(`${BASE_URL}${id}/`, {
-        withCredentials: true,
-        headers: { "X-CSRFToken": csrfToken },
-      });
+      await api.delete(`manager/menu-items/${id}/`);
       setMenuItems(prev => prev.filter(item => item.id !== id));
     } catch {
       setError("Error deleting food item.");
+    }
+  };
+
+  const handleRestaurantInfoChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, type, value, files } = e.target as HTMLInputElement;
+    if (type === "file" && files && files.length > 0) {
+      setRestaurantInfo(prev => ({ ...prev, [name]: files[0] }));
+    } else if (type === "checkbox") {
+      const checked = (e.target as HTMLInputElement).checked;
+      setRestaurantInfo(prev => ({ ...prev, [name]: checked }));
+    } else if (name === "deliveryCost") {
+      setRestaurantInfo(prev => ({ ...prev, [name]: value ? Number(value) : null }));
+    } else {
+      setRestaurantInfo(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleRestaurantInfoSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    const infoPayload = new FormData();
+    Object.entries(restaurantInfo).forEach(([key, value]) => {
+      if (value !== null) {
+        if (value instanceof File) infoPayload.append(key, value);
+        else infoPayload.append(key, String(value));
+      }
+    });
+
+    try {
+      await api.post("restaurant-info/", infoPayload, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    } catch {
+      setError("Error saving restaurant information");
     }
   };
 
