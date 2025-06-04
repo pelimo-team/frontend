@@ -44,13 +44,17 @@ type MenuItem = {
   quantity: number | null;
 };
 
-type OrderItem = {
-  id: number;
+interface OrderItem {
   foodName: string;
   quantity: number;
+}
+
+interface Order {
+  id: number;
+  items: OrderItem[];
   orderDate: string;
   status: string;
-};
+}
 
 type RestaurantInfo = {
   name: string;
@@ -64,213 +68,211 @@ type RestaurantInfo = {
   isPublished: boolean;
 };
 
-const mockOrders: OrderItem[] = [
+const mockOrders: Order[] = [
   {
     id: 1,
-    foodName: "Pizza",
-    quantity: 2,
     orderDate: "2024-06-01T12:34:00Z",
     status: "Delivered",
+    items: [
+      { foodName: "Pizza", quantity: 2 },
+      { foodName: "Fries", quantity: 1 },
+    ],
   },
   {
     id: 2,
-    foodName: "Burger",
-    quantity: 1,
     orderDate: "2024-06-02T15:20:00Z",
     status: "Pending",
+    items: [{ foodName: "Burger", quantity: 1 }],
   },
   {
     id: 3,
-    foodName: "Pasta",
-    quantity: 3,
     orderDate: "2024-06-03T09:15:00Z",
     status: "Canceled",
+    items: [
+      { foodName: "Pasta", quantity: 3 },
+      { foodName: "Salad", quantity: 2 },
+    ],
   },
-  // سفارش‌های اضافه شده
   {
     id: 4,
-    foodName: "Salad",
-    quantity: 1,
-    orderDate: "2024-06-04T11:00:00Z",
+    orderDate: "2024-06-03T17:10:00Z",
     status: "Delivered",
+    items: [{ foodName: "Sandwich", quantity: 2 }],
   },
   {
     id: 5,
-    foodName: "Sushi",
-    quantity: 2,
-    orderDate: "2024-06-04T18:30:00Z",
-    status: "Delivered",
+    orderDate: "2024-06-04T11:45:00Z",
+    status: "Pending",
+    items: [
+      { foodName: "Tacos", quantity: 3 },
+      { foodName: "Nachos", quantity: 1 },
+    ],
   },
   {
     id: 6,
-    foodName: "Steak",
-    quantity: 1,
-    orderDate: "2024-06-05T20:00:00Z",
-    status: "Pending",
+    orderDate: "2024-06-04T19:30:00Z",
+    status: "Canceled",
+    items: [{ foodName: "Pizza", quantity: 1 }],
   },
   {
     id: 7,
-    foodName: "Soup",
-    quantity: 3,
-    orderDate: "2024-06-06T13:45:00Z",
+    orderDate: "2024-06-05T08:25:00Z",
     status: "Delivered",
+    items: [{ foodName: "Hot Dog", quantity: 2 }],
   },
   {
     id: 8,
-    foodName: "Taco",
-    quantity: 2,
-    orderDate: "2024-06-07T12:10:00Z",
-    status: "Canceled",
+    orderDate: "2024-06-05T13:00:00Z",
+    status: "Pending",
+    items: [
+      { foodName: "Salad", quantity: 1 },
+      { foodName: "Juice", quantity: 2 },
+    ],
   },
   {
     id: 9,
-    foodName: "Sandwich",
-    quantity: 1,
-    orderDate: "2024-06-08T14:00:00Z",
+    orderDate: "2024-06-06T10:10:00Z",
     status: "Delivered",
+    items: [{ foodName: "Burger", quantity: 3 }],
   },
   {
     id: 10,
-    foodName: "Fried Rice",
-    quantity: 2,
-    orderDate: "2024-06-09T16:25:00Z",
-    status: "Pending",
+    orderDate: "2024-06-06T15:45:00Z",
+    status: "Canceled",
+    items: [{ foodName: "Steak", quantity: 1 }],
   },
   {
     id: 11,
-    foodName: "Noodles",
-    quantity: 3,
-    orderDate: "2024-06-10T10:15:00Z",
+    orderDate: "2024-05-30T14:20:00Z",
     status: "Delivered",
+    items: [{ foodName: "Rice Bowl", quantity: 2 }],
   },
   {
     id: 12,
-    foodName: "Chicken Wings",
-    quantity: 4,
-    orderDate: "2024-06-11T19:50:00Z",
-    status: "Delivered",
+    orderDate: "2024-05-31T16:10:00Z",
+    status: "Pending",
+    items: [{ foodName: "Curry", quantity: 1 }],
   },
   {
     id: 13,
-    foodName: "Ice Cream",
-    quantity: 1,
-    orderDate: "2024-06-12T21:00:00Z",
-    status: "Canceled",
+    orderDate: "2024-06-01T09:00:00Z",
+    status: "Delivered",
+    items: [
+      { foodName: "Fries", quantity: 2 },
+      { foodName: "Milkshake", quantity: 1 },
+    ],
   },
   {
     id: 14,
-    foodName: "Fries",
-    quantity: 2,
-    orderDate: "2024-06-13T17:30:00Z",
-    status: "Delivered",
+    orderDate: "2024-06-02T18:00:00Z",
+    status: "Canceled",
+    items: [{ foodName: "Sushi", quantity: 4 }],
   },
   {
     id: 15,
-    foodName: "Pancakes",
-    quantity: 3,
-    orderDate: "2024-06-14T08:45:00Z",
+    orderDate: "2024-06-03T20:10:00Z",
     status: "Pending",
+    items: [
+      { foodName: "Pizza", quantity: 1 },
+      { foodName: "Cola", quantity: 1 },
+    ],
   },
   {
     id: 16,
-    foodName: "Omelette",
-    quantity: 1,
-    orderDate: "2024-06-15T07:20:00Z",
+    orderDate: "2024-06-04T12:00:00Z",
     status: "Delivered",
+    items: [{ foodName: "Wrap", quantity: 3 }],
   },
   {
     id: 17,
-    foodName: "Lasagna",
-    quantity: 2,
-    orderDate: "2024-06-16T18:00:00Z",
+    orderDate: "2024-06-05T14:30:00Z",
     status: "Delivered",
+    items: [{ foodName: "Falafel", quantity: 2 }],
   },
   {
     id: 18,
-    foodName: "Curry",
-    quantity: 3,
-    orderDate: "2024-06-17T13:30:00Z",
+    orderDate: "2024-06-05T19:00:00Z",
     status: "Canceled",
+    items: [{ foodName: "Soup", quantity: 1 }],
   },
   {
     id: 19,
-    foodName: "Dumplings",
-    quantity: 4,
-    orderDate: "2024-06-18T20:10:00Z",
-    status: "Delivered",
+    orderDate: "2024-06-06T08:45:00Z",
+    status: "Pending",
+    items: [{ foodName: "Burger", quantity: 2 }],
   },
   {
     id: 20,
-    foodName: "BBQ Ribs",
-    quantity: 2,
-    orderDate: "2024-06-19T15:45:00Z",
-    status: "Pending",
+    orderDate: "2024-06-06T11:50:00Z",
+    status: "Delivered",
+    items: [
+      { foodName: "Chicken Wings", quantity: 6 },
+      { foodName: "Cola", quantity: 2 },
+    ],
   },
   {
     id: 21,
-    foodName: "Fish & Chips",
-    quantity: 1,
-    orderDate: "2024-06-20T14:30:00Z",
-    status: "Delivered",
+    orderDate: "2024-06-07T13:25:00Z",
+    status: "Pending",
+    items: [{ foodName: "Salmon", quantity: 1 }],
   },
   {
     id: 22,
-    foodName: "Mac & Cheese",
-    quantity: 3,
-    orderDate: "2024-06-21T12:00:00Z",
-    status: "Delivered",
+    orderDate: "2024-06-07T18:30:00Z",
+    status: "Canceled",
+    items: [{ foodName: "Shrimp", quantity: 3 }],
   },
   {
     id: 23,
-    foodName: "Hot Dog",
-    quantity: 2,
-    orderDate: "2024-06-22T11:10:00Z",
-    status: "Canceled",
+    orderDate: "2024-06-07T20:00:00Z",
+    status: "Delivered",
+    items: [
+      { foodName: "Fries", quantity: 2 },
+      { foodName: "Soda", quantity: 2 },
+    ],
   },
   {
     id: 24,
-    foodName: "Veggie Burger",
-    quantity: 1,
-    orderDate: "2024-06-23T17:55:00Z",
-    status: "Delivered",
+    orderDate: "2024-06-08T10:00:00Z",
+    status: "Pending",
+    items: [{ foodName: "Eggs", quantity: 5 }],
   },
   {
     id: 25,
-    foodName: "Chocolate Cake",
-    quantity: 3,
-    orderDate: "2024-06-24T19:25:00Z",
+    orderDate: "2024-06-08T13:45:00Z",
     status: "Delivered",
+    items: [{ foodName: "Toast", quantity: 2 }],
   },
   {
     id: 26,
-    foodName: "Miso Soup",
-    quantity: 2,
-    orderDate: "2024-06-25T08:15:00Z",
-    status: "Pending",
+    orderDate: "2024-06-08T17:20:00Z",
+    status: "Canceled",
+    items: [
+      { foodName: "Pizza", quantity: 1 },
+      { foodName: "Fries", quantity: 1 },
+    ],
   },
   {
     id: 27,
-    foodName: "Gnocchi",
-    quantity: 1,
-    orderDate: "2024-06-26T16:40:00Z",
+    orderDate: "2024-06-08T20:00:00Z",
     status: "Delivered",
+    items: [{ foodName: "Burger", quantity: 2 }],
   },
   {
     id: 28,
-    foodName: "Clam Chowder",
-    quantity: 2,
-    orderDate: "2024-06-27T13:50:00Z",
-    status: "Canceled",
+    orderDate: "2024-06-09T09:30:00Z",
+    status: "Pending",
+    items: [{ foodName: "Croissant", quantity: 3 }],
   },
 ];
-
 
 const Admin: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
     "menu" | "orders" | "stock" | "restaurant information"
   >("menu");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [orders, setOrders] = useState<OrderItem[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [expandedOrderIds, setExpandedOrderIds] = useState<number[]>([]);
   const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>({
     name: "",
     description: "",
@@ -288,10 +290,9 @@ const Admin: React.FC = () => {
 
     orders.forEach((order) => {
       const date = new Date(order.orderDate).toLocaleDateString("en-US");
-      if (!grouped[date]) {
+      if (!grouped[date])
         grouped[date] = { Delivered: 0, Pending: 0, Canceled: 0 };
-      }
-      grouped[date][order.status] += order.quantity;
+      grouped[date][order.status] += 1;
     });
 
     return Object.entries(grouped).map(([date, counts]) => ({
@@ -351,17 +352,21 @@ const Admin: React.FC = () => {
     if (activeTab === "menu") fetchMenuItems();
     if (activeTab === "orders") fetchOrders();
   }, [activeTab]);
+  useEffect(() => {
+    setOrders(mockOrders);
+  }, []);
+  const toggleExpand = (id: number) => {
+    setExpandedOrderIds((prev) =>
+      prev.includes(id) ? prev.filter((oid) => oid !== id) : [...prev, id]
+    );
+  };
   const getChartData = () => {
-    const grouped = orders.reduce<Record<string, number>>((acc, order) => {
+    const grouped: Record<string, number> = {};
+    orders.forEach((order) => {
       const date = new Date(order.orderDate).toLocaleDateString("en-US");
-      acc[date] = (acc[date] || 0) + order.quantity;
-      return acc;
-    }, {});
-
-    return Object.entries(grouped).map(([date, quantity]) => ({
-      date,
-      quantity,
-    }));
+      grouped[date] = (grouped[date] || 0) + 1;
+    });
+    return Object.entries(grouped).map(([date, count]) => ({ date, count }));
   };
 
   const fetchMenuItems = async () => {
@@ -704,28 +709,7 @@ const Admin: React.FC = () => {
                 </tbody>
               </Table>
             </Tab.Pane>
-      {/* Table */}
-      <h5 className="mt-5">Order History Table</h5>
-      <Table striped hover responsive>
-        <thead>
-          <tr>
-            <th>Food Name</th>
-            <th>Quantity</th>
-            <th>Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map(order => (
-            <tr key={order.id}>
-              <td>{order.foodName}</td>
-              <td>{order.quantity}</td>
-              <td>{new Date(order.orderDate).toLocaleString("en-US")}</td>
-              <td>{order.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+
             <Tab.Pane eventKey="orders">
               {errorOrders && <Alert variant="danger">{errorOrders}</Alert>}
 
@@ -735,22 +719,24 @@ const Admin: React.FC = () => {
                 <p className="text-center">No orders found.</p>
               ) : (
                 <>
-                  {/* Bar Chart: Total Orders */}
-                  <h5 className="mb-3">Total Orders per Day (Bar Chart)</h5>
+                  <h4>Orders Bar Chart</h4>
                   <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={getChartData()}>
+                    <BarChart data={getLineChartDataByStatus()}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="date" />
                       <YAxis />
                       <Tooltip />
-                      <Bar dataKey="quantity" fill="#8884d8" />
+                      <Bar
+                        dataKey="Delivered"
+                        fill="#4caf50"
+                        name="Delivered"
+                      />
+                      <Bar dataKey="Pending" fill="#ff9800" name="Pending" />
+                      <Bar dataKey="Canceled" fill="#f44336" name="Canceled" />
                     </BarChart>
                   </ResponsiveContainer>
 
-                  {/* Line Chart: Status Breakdown */}
-                  <h5 className="mt-5 mb-3">
-                    Order Quantity Trend by Status (Line Chart)
-                  </h5>
+                  <h4 className="mt-4">Order Status Line Chart</h4>
                   <ResponsiveContainer width="100%" height={300}>
                     <LineChart data={getLineChartDataByStatus()}>
                       <CartesianGrid strokeDasharray="3 3" />
@@ -761,22 +747,75 @@ const Admin: React.FC = () => {
                         type="monotone"
                         dataKey="Delivered"
                         stroke="#4caf50"
-                        name="Delivered"
                       />
                       <Line
                         type="monotone"
                         dataKey="Pending"
                         stroke="#ff9800"
-                        name="Pending"
                       />
                       <Line
                         type="monotone"
                         dataKey="Canceled"
                         stroke="#f44336"
-                        name="Canceled"
                       />
                     </LineChart>
                   </ResponsiveContainer>
+
+                  <h4 className="mt-4">Orders Table with Dropdown</h4>
+                  <Table striped hover responsive>
+                    <thead>
+                      <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Items Count</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {orders.map((order) => {
+                        return (
+                          <React.Fragment key={order.id}>
+                            <tr
+                              onClick={() => toggleExpand(order.id)}
+                              style={{
+                                cursor: "pointer",
+                                background: "#f7f7f7",
+                              }}
+                            >
+                              <td>{order.id}</td>
+                              <td>
+                                {new Date(order.orderDate).toLocaleString()}
+                              </td>
+                              <td>{order.status}</td>
+                              <td>{order.items.length}</td>
+                            </tr>
+                            {expandedOrderIds.includes(order.id) &&
+                              order.items.map((item, idx) => (
+                                <tr
+                                  key={`${order.id}-${idx}`}
+                                  style={{
+                                    backgroundColor:
+                                      order.status === "Delivered"
+                                        ? "#e6f4ea" // سبز کم‌رنگ
+                                        : order.status === "Pending"
+                                        ? "#fff4e5" // نارنجی کم‌رنگ
+                                        : "#fdecea", // قرمز کم‌رنگ
+                                  }}
+                                >
+                                  <td
+                                    colSpan={2}
+                                    style={{ paddingLeft: "2rem" }}
+                                  >
+                                    {item.foodName}
+                                  </td>
+                                  <td colSpan={2}>Qty: {item.quantity}</td>
+                                </tr>
+                              ))}
+                          </React.Fragment>
+                        );
+                      })}
+                    </tbody>
+                  </Table>
                 </>
               )}
             </Tab.Pane>
