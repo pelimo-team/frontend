@@ -16,8 +16,11 @@ import AdvanceTasadofi from "./AdvanceTasadofi";
 import MenuBuilder from "./Model";
 import Cart from "./Cart";
 import AddCommentPage from "./AddCommentPage";
+
 import Admin from "./FoodAdminPanel"
 import Wallet from "./Wallet";
+import Admin from "./Admin"
+
 import GuessTheDishGame from "./GuessTheDishGame";
 
 import { RecipePage } from "../components/scratch/RecipePage";
