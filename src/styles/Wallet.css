@@ -1,0 +1,310 @@
+/* تنظیمات عمومی برای بدنه صفحه */
+body {
+    font-family: 'Vazirmatn', sans-serif; /* استفاده از فونت فارسی Vazirmatn (فرض بر نصب بودن آن) */
+    direction: rtl; /* تنظیم جهت نوشتار از راست به چپ برای زبان فارسی */
+    margin: 0;
+    padding: 0;
+    background-color: #F4F1EB; /* رنگ پس‌زمینه روشن از پالت */
+    color: #1C1C1C; /* رنگ متن اصلی از پالت */
+}
+
+/* هدر صفحه */
+.wallet-header {
+    display: flex; /* استفاده از فلکس‌باکس برای چیدمان آیتم‌های هدر */
+    justify-content: space-between; /* توزیع فضا بین آیتم‌ها */
+    align-items: center; /* تراز عمودی آیتم‌ها در مرکز */
+    padding: 15px 30px; /* پدینگ داخلی */
+    background-color: #945436; /* رنگ پس‌زمینه هدر از پالت */
+    color: #F4F1EB; /* رنگ متن هدر از پالت */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* سایه ملایم برای هدر */
+}
+
+.wallet-header-button {
+    background: none; /* بدون پس‌زمینه */
+    border: none; /* بدون حاشیه */
+    color: #F4F1EB; /* رنگ آیکون‌ها از پالت */
+    font-size: 1rem; /* اندازه فونت (در صورت وجود متن) */
+    cursor: pointer; /* تغییر شکل نشانگر ماوس */
+    padding: 8px; /* پدینگ برای دکمه */
+    border-radius: 50%; /* گرد کردن دکمه برای آیکون */
+    transition: background-color 0.3s ease; /* انیمیشن نرم هنگام هاور */
+    display: flex; /* برای تراز کردن آیکون */
+    align-items: center; /* تراز عمودی آیکون */
+    justify-content: center; /* تراز افقی آیکون */
+    background-color: rgba(238, 234, 232, 0.5);
+}
+
+.wallet-header-button:hover {
+    background-color: rgba(237, 230, 230, 0.752); /* تغییر رنگ پس‌زمینه هنگام هاور */
+}
+
+.wallet-icon {
+    width: 32px; /* عرض آیکون */
+    height: 32px; /* ارتفاع آیکون */
+    fill: currentColor; /* استفاده از رنگ متن والد برای آیکون */
+}
+
+.wallet-header-logo {
+    font-size: 1.8rem; /* اندازه فونت لوگو */
+    font-weight: 700; /* وزن فونت پررنگ */
+    color: #F4F1EB; /* رنگ لوگو از پالت */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* سایه متن برای لوگو */
+}
+
+/* کانتینر اصلی صفحه کیف پول */
+.wallet-main-container {
+    max-width: 1200px; /* حداکثر عرض کانتینر برای دسکتاپ */
+    max-height: 100%;
+    margin: 30px auto; /* قرارگیری در مرکز صفحه با فاصله از بالا و پایین */
+    padding: 30px; /* فاصله داخلی */
+    background-color: #ffffff; /* رنگ پس‌زمینه سفید برای کانتینر */
+    border-radius: 12px; /* گوشه‌های گرد */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* سایه ملایم برای عمق دادن */
+    text-align: center; /* تراز میانی محتوا */
+}
+
+/* عنوان اصلی صفحه */
+.wallet-title {
+    font-size: 2.5rem; /* اندازه فونت بزرگ */
+    color: #1C1C1C; /* رنگ تیره برای عنوان از پالت */
+    margin-bottom: 40px; /* فاصله از پایین */
+    font-weight: 800; /* وزن فونت پررنگ */
+    text-align: center; /* تراز میانی عنوان */
+}
+
+/* نمایش وضعیت بارگذاری یا خطا */
+.wallet-loading-message, .wallet-error-message {
+    font-size: 1.2rem; /* اندازه فونت */
+    padding: 20px; /* فاصله داخلی */
+    border-radius: 8px; /* گوشه‌های گرد */
+    margin-bottom: 20px; /* فاصله از پایین */
+    text-align: center; /* تراز میانی */
+    font-weight: 600;
+}
+
+.wallet-loading-message {
+    background-color: #D4B7A3; /* رنگ پس‌زمینه از پالت */
+    color: #1C1C1C; /* رنگ متن از پالت */
+}
+
+.wallet-error-message {
+    background-color: #FC5959; /* رنگ پس‌زمینه از پالت */
+    color: #F4F1EB; /* رنگ متن از پالت */
+}
+
+
+/* چیدمان دو ستونه برای دسکتاپ */
+.wallet-content-grid {
+    display: grid; /* استفاده از CSS Grid برای چیدمان */
+    grid-template-columns: 1.1fr 1.5fr; /* دو ستون: چپ (موجودی/دکمه) 1fr، راست (تراکنش‌ها) 1.5fr */
+    gap: 40px; /* فاصله بین ستون‌ها */
+    text-align: left; /* تراز راست برای محتوای داخل گرید */
+}
+
+/* ستون چپ (موجودی و دکمه) */
+.wallet-column-left {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center; /* تراز افقی آیتم‌ها در مرکز این ستون */
+    gap: 40px; /* فاصله بین کارت موجودی و دکمه */
+    padding: 20px;
+    background-color: #F4F1EB; /* رنگ پس‌زمینه از پالت */
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* کارت نمایش موجودی */
+.wallet-balance-card {
+    background-color: #D4B7A3; /* رنگ از پالت */
+    padding: 30px; /* فاصله داخلی */
+    border-radius: 10px; /* گوشه‌های گرد */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* سایه ملایم */
+    width: 100%; /* عرض کامل در ستون خود */
+    box-sizing: border-box; /* پدینگ در محاسبه عرض لحاظ شود */
+    text-align: center; /* تراز میانی محتوای کارت */
+}
+
+.wallet-balance-label {
+    font-size: 1.2rem; /* اندازه فونت برچسب */
+    color: #1C1C1C; /* رنگ از پالت */
+    margin-bottom: 15px; /* فاصله از پایین */
+    font-weight: 600; /* وزن فونت پررنگ */
+}
+
+.wallet-balance-amount {
+    font-size: 3rem; /* اندازه فونت بسیار بزرگ برای مبلغ */
+    color: #945436; /* رنگ از پالت */
+    font-weight: 900; /* وزن فونت خیلی پررنگ */
+    direction: ltr; /* اطمینان از نمایش صحیح واحد پول (برای Toman) */
+}
+
+/* دکمه افزایش موجودی */
+.wallet-charge-button {
+    background-color: #30c020c0; /* رنگ از پالت */
+    color: white; /* رنگ متن سفید */
+    padding: 18px 35px; /* فاصله داخلی */
+    border: none; /* بدون حاشیه */
+    border-radius: 10px; /* گوشه‌های گرد */
+    font-size: 1.3rem; /* اندازه فونت */
+    cursor: pointer; /* تغییر شکل نشانگر ماوس */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* انیمیشن نرم */
+    width: 100%; /* عرض کامل */
+    max-width: 350px; /* حداکثر عرض برای دکمه */
+    font-weight: 700; /* وزن فونت پررنگ */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-charge-button:hover {
+    background-color: #29a81bb9; /* تغییر رنگ هنگام هاور */
+    transform: translateY(-3px); /* کمی به بالا حرکت کند */
+}
+
+.wallet-charge-button:active {
+    transform: translateY(0); /* بازگشت به حالت اولیه هنگام کلیک */
+}
+
+/* بخش تاریخچه تراکنش‌ها */
+.wallet-transactions-section {
+    text-align: left; /* تراز راست برای محتوای این بخش */
+    background-color: #F4F1EB; /* رنگ پس‌زمینه از پالت */
+    height: 450px;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.wallet-transactions-title {
+    font-size: 2rem; /* اندازه فونت عنوان */
+    color: #1C1C1C; /* رنگ از پالت */
+    margin-bottom: 5px; /* فاصله از پایین */
+    border-bottom: 2px solid #D4B7A3; /* خط جداکننده از پالت */
+    padding-bottom: 12px; /* فاصله از خط جداکننده */
+    font-weight: 700; /* وزن فونت پررنگ */
+}
+
+.wallet-no-transactions {
+    font-size: 1.1rem; /* اندازه فونت */
+    color: #8E9298; /* رنگ از پالت */
+    margin-top: 30px; /* فاصله از بالا */
+    text-align: center; /* تراز میانی */
+}
+
+.wallet-transaction-list {
+    list-style: none; /* حذف نشانگر لیست */
+    padding: 0; /* حذف پدینگ پیش‌فرض */
+    margin: 0; /* حذف مارجین پیش‌فرض */
+}
+
+.wallet-transaction-item {
+    display: flex; /* استفاده از فلکس‌باکس برای چیدمان */
+    justify-content: space-between; /* توزیع فضا بین آیتم‌ها */
+    align-items: center; /* تراز عمودی آیتم‌ها در مرکز */
+    padding: 18px 0; /* پدینگ داخلی عمودی */
+    border-bottom: 1px dashed #D4B7A3; /* خط جداکننده هر تراکنش از پالت */
+    font-size: 1.05rem; /* اندازه فونت */
+}
+
+.wallet-transaction-item:last-child {
+    border-bottom: none; /* حذف خط جداکننده برای آخرین آیتم */
+}
+
+.wallet-transaction-details {
+    display: flex; /* استفاده از فلکس‌باکس */
+    flex-direction: column; /* چیدمان عمودی */
+    text-align: left; /* تراز راست */
+    flex-grow: 1; /* اجازه رشد به این بخش */
+}
+
+.wallet-transaction-description {
+    font-weight: 500; /* وزن فونت متوسط */
+    color: #1C1C1C; /* رنگ از پالت */
+    margin-bottom: 6px; /* فاصله از پایین */
+}
+
+.wallet-transaction-date {
+    font-size: 0.9rem; /* اندازه فونت کوچک‌تر */
+    color: #8E9298; /* رنگ از پالت */
+}
+
+.wallet-transaction-amount {
+    font-size: 1.2rem; /* اندازه فونت مبلغ */
+    font-weight: 700; /* وزن فونت پررنگ */
+    text-align: left; /* تراز چپ برای نمایش صحیح علامت و عدد */
+    min-width: 130px; /* حداقل عرض برای اطمینان از نمایش کامل مبلغ */
+    direction: ltr; /* اطمینان از نمایش صحیح واحد پول (برای Toman) */
+}
+
+.wallet-transaction-amount.charge {
+    color: #945436; /* رنگ از پالت برای شارژ */
+}
+
+.wallet-transaction-amount.payment {
+    color: #FC5959; /* رنگ از پالت برای پرداخت */
+}
+
+/* استایل‌های واکنش‌گرا برای دستگاه‌های کوچک (موبایل) */
+@media (max-width: 768px) {
+    .wallet-main-container {
+        margin: 20px auto; /* کاهش فاصله از بالا و پایین */
+        padding: 20px; /* کاهش پدینگ */
+    }
+
+    .wallet-header {
+        padding: 10px 20px; /* کاهش پدینگ هدر */
+    }
+
+    .wallet-header-logo {
+        font-size: 1.4rem; /* کاهش اندازه فونت لوگو */
+    }
+
+    .wallet-icon {
+        width: 20px; /* کاهش اندازه آیکون */
+        height: 20px;
+    }
+
+    .wallet-title {
+        font-size: 2rem; /* کاهش اندازه عنوان */
+        margin-bottom: 30px;
+    }
+
+    .wallet-content-grid {
+        grid-template-columns: 1fr; /* چیدمان تک ستونی برای موبایل */
+        gap: 30px; /* فاصله بین بخش‌های روی هم */
+    }
+
+    .wallet-column-left {
+        padding: 15px;
+        gap: 30px;
+    }
+
+    .wallet-balance-amount {
+        font-size: 2.5rem; /* کاهش اندازه مبلغ موجودی */
+    }
+
+    .wallet-charge-button {
+        font-size: 1.1rem; /* کاهش اندازه فونت دکمه */
+        padding: 15px 25px; /* کاهش پدینگ دکمه */
+    }
+
+    .wallet-transactions-section {
+        padding: 20px;
+    }
+
+    .wallet-transactions-title {
+        font-size: 1.7rem; /* کاهش اندازه عنوان تاریخچه */
+    }
+
+    .wallet-transaction-item {
+        flex-direction: column; /* آیتم‌ها زیر هم قرار بگیرند */
+        align-items: flex-start; /* تراز آیتم‌ها به چپ */
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+    .wallet-transaction-amount {
+        margin-top: 8px; /* فاصله از بالا */
+        text-align: right; /* تراز راست برای مبلغ در موبایل */
+        width: 100%; /* استفاده از تمام عرض موجود */
+    }
+}

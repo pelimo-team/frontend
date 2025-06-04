@@ -16,6 +16,9 @@ import AdvanceTasadofi from "./AdvanceTasadofi";
 import MenuBuilder from "./Model";
 import Cart from "./Cart";
 import AddCommentPage from "./AddCommentPage";
+
+import Admin from "./FoodAdminPanel"
+import Wallet from "./Wallet";
 import Admin from "./Admin"
 
 import GuessTheDishGame from "./GuessTheDishGame";
@@ -75,6 +78,9 @@ export const ProjectRoutes = () => {
 
         {/* بازی حدس غذا */}
         <Route path="/games/guess-the-dish" element={<GuessTheDishGame />} />
+
+        {/* کیف پول */}
+        <Route path="/wallet" element={<Wallet />} />
 
         <Route path="/cart" element={<Cart />} />
         <Route path="/model" element={<MenuBuilder />} />
