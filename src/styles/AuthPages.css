@@ -1,484 +1,505 @@
 /* AuthPages.css */
 
-/* ریست پایه */
+/* Base styles and variables */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif; /* استفاده از فونت مدرن‌تر */
+    direction: rtl; /* تنظیم جهت نوشتار از راست به چپ */
+    background-color: var(--bg-color); /* استفاده از رنگ پس‌زمینه از متغیر */
+    color: var(--text-color); /* رنگ متن اصلی */
+    overflow-x: hidden; /* جلوگیری از اسکرول افقی ناخواسته */
+}
 
-  
-  /* =============================
-     صفحه LOGIN
-     فرم چپ - عکس راست
-  ============================= */
-  :root {
-    --bg-color: #F4F1EB;
-    --box-color: #F4F1EB;
-    --input-bg: #f0d6c4;
-    --input-border: #D4B7A3;
-    --button-bg: #945436;
-    --error-color: #FC5959;
-    --text-color: #1C1C1C;
-  }
+:root {
+    --bg-color: #F4F1EB; /* رنگ پس‌زمینه اصلی */
+    --box-color: #ffffff; /* رنگ پس‌زمینه باکس فرم */
+    --input-bg: #f0d6c4; /* رنگ پس‌زمینه ورودی */
+    --input-border: #D4B7A4; /* رنگ حاشیه ورودی (کمی تغییر برای هماهنگی) */
+    --button-bg: #945436; /* رنگ پس‌زمینه دکمه اصلی */
+    --button-hover-bg: #f39120; /* رنگ هاور دکمه */
+    --error-color: #FC5959; /* رنگ خطا */
+    --text-color: #1C1C1C; /* رنگ متن تیره */
+    --link-color: #8b573c; /* رنگ لینک */
+    --title-color: #8B573C; /* رنگ عنوان */
+}
 
-  .login-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background-color: #f4f1eb;
-  }
-  
-  /* ستون چپ: فرم لاگین */
-  .login-left {
-    display: grid;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    height: 100vh;
-  }
-  
-  /* لوگو بالا */
-  .login-logo {
-    width: 8%;
-    height: auto;
-    position: absolute;
+/* =============================
+    صفحات LOGIN و SIGNUP
+    فرم چپ - عکس راست (برای دسکتاپ)
+    تک ستونی (برای موبایل)
+============================= */
+
+.login-container,
+.signup-container {
+    display: grid; /* استفاده از گرید برای چیدمان دو ستونی در دسکتاپ */
+    grid-template-columns: 1fr 1fr; /* دو ستون مساوی */
+    background-color: var(--bg-color); /* استفاده از متغیر رنگی */
+    min-height: 100vh; /* حداقل ارتفاع 100% صفحه */
+    box-sizing: border-box; /* پدینگ در محاسبه عرض و ارتفاع لحاظ شود */
+}
+
+/* ستون چپ: فرم لاگین/ثبت‌نام */
+.login-left,
+.signup-left {
+    display: flex; /* استفاده از فلکس‌باکس برای محتوای داخلی ستون */
+    flex-direction: column; /* آیتم‌ها زیر هم قرار بگیرند */
+    align-items: center; /* محتوا در مرکز افقی */
+    justify-content: center; /* محتوا در مرکز عمودی */
+    grid-column: 1 / 2; /* قرارگیری در ستون اول */
+    grid-row: 1 / 2; /* قرارگیری در ردیف اول */
+    height: 100vh; /* ارتفاع 100% viewport */
+    padding: 20px; /* پدینگ کلی برای جلوگیری از چسبیدن به لبه‌ها */
+    box-sizing: border-box;
+}
+
+/* لوگو بالا */
+.login-logo,
+.signup-logo {
+    position: absolute; /* موقعیت مطلق برای لوگو در گوشه بالا چپ */
     top: 20px;
     left: 20px;
     z-index: 1;
-  }
-  .login-logo img {
-    width: 123px;
+    width: auto; /* عرض خودکار */
     height: auto;
-  }
-  
-  /* باکس فرم وسط صفحه */
-  .login-form-box {
-    margin: auto;
-    width: 60%;
+}
+.login-logo img,
+.signup-logo img {
+    width: 123px; /* اندازه اصلی لوگو */
+    height: auto;
+}
+
+/* باکس فرم وسط صفحه */
+.login-form-box,
+.signup-form-box {
+    width: 100%; /* گرفتن تمام عرض در ستون خود */
+    max-width: 450px; /* حداکثر عرض برای فرم */
+    padding: 40px; /* پدینگ داخلی بیشتر */
+    background-color: var(--box-color); /* پس‌زمینه سفید برای باکس */
+    border-radius: 20px; /* گوشه‌های گردتر */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* سایه عمیق‌تر */
     text-align: center;
-  }
-  
-  /* عنوان و زیرعنوان لاگین */
-  .login-title {
-    color: #8B573C;
-    font-weight: bold;
-    font-size: 30px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    white-space: nowrap;
+    box-sizing: border-box; /* پدینگ در محاسبه عرض لحاظ شود */
+}
+
+/* عنوان و زیرعنوان */
+.login-title,
+.signup-title {
+    color: var(--title-color); /* استفاده از متغیر رنگی */
+    font-weight: 800; /* پررنگ‌تر */
+    font-size: 2.5rem; /* اندازه بزرگتر */
+    font-family: 'Inter', sans-serif; /* استفاده از فونت Inter */
+    white-space: nowrap; /* جلوگیری از شکستن خط */
+    margin-bottom: 10px; /* فاصله از زیرعنوان */
     text-align: center;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-  
-  }
-  .login-subtitle {
-    margin-bottom: 15px;
+}
+.login-subtitle,
+.signup-subtitle {
+    margin-bottom: 30px; /* فاصله بیشتر از ورودی‌ها */
     color: var(--text-color);
-  }
-  
-  /* گروه ورودی */
-  .login-input-group {
+    font-size: 1.1rem; /* اندازه فونت کمی بزرگتر */
+}
+
+/* گروه ورودی */
+.login-input-group,
+.signup-input-group {
     position: relative;
-    margin-bottom: 20px;
-    background: #f0d6c4;
+    margin-bottom: 25px; /* فاصله بیشتر بین ورودی‌ها */
+    background: var(--input-bg); /* پس‌زمینه ورودی */
     border-radius: 15px;
-    padding: 0px 0px 0px 0px;
     display: flex;
     align-items: center;
-   
-  }
-  .input-icon {
+    border: 1px solid var(--input-border); /* حاشیه ورودی */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-input-group:focus-within,
+.signup-input-group:focus-within {
+    border-color: var(--button-bg); /* تغییر رنگ حاشیه هنگام فوکوس */
+    box-shadow: 0 0 0 3px rgba(148, 84, 54, 0.2); /* سایه فوکوس */
+}
+
+.input-icon {
     position: absolute;
-    left : 10px;
+    left: 15px; /* پدینگ بیشتر از چپ */
     top: 50%;
     transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-  }
-  .login-input-group input{
+    width: 22px; /* اندازه آیکون بزرگتر */
+    height: 22px; /* اندازه آیکون بزرگتر */
+    color: var(--link-color); /* رنگ آیکون */
+    opacity: 0.7;
+}
+
+.login-input-group input,
+.signup-input-group input {
     width: 100%;
-    padding: 10px 30px ;
-    background-color: #f0d6c4;
-    border: 1px solid #D4B7A3;
+    padding: 15px 45px 15px 32px; /* پدینگ برای آیکون و متن */
+    background-color: transparent; /* پس‌زمینه شفاف برای ورودی */
+    border: none; /* حذف حاشیه داخلی */
     border-radius: 15px;
-  }
-  .login-eye{
+    font-size: 1.1rem; /* اندازه فونت بزرگتر */
+    color: var(--text-color);
+    outline: none; /* حذف outline پیش‌فرض */
+}
+
+.login-input-group input::placeholder,
+.signup-input-group input::placeholder {
+    color: var(--link-color); /* رنگ placeholder */
+    opacity: 0.6;
+}
+
+/* آیکون چشم (نمایش رمز) */
+.login-eye,
+.signup-eye {
     position: absolute;
-    right: 10px;
+    right: 15px; /* پدینگ بیشتر از راست */
     top: 50%;
     transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
+    width: 22px; /* اندازه آیکون بزرگتر */
+    height: 22px; /* اندازه آیکون بزرگتر */
     cursor: pointer;
-  }
-  
-  /* آیکون چشم (نمایش رمز) */
-  
-  
-  /* پیام خطا */
-  .login-error {
+    color: var(--link-color); /* رنگ آیکون */
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+.login-eye:hover,
+.signup-eye:hover {
+    opacity: 1;
+}
+
+/* پیام خطا */
+.login-error,
+.signup-error {
     display: block;
-    color: red;
-    font-size: 13px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-  }
-  
-  /* دکمه لاگین */
-  .login-btn {
+    color: var(--error-color); /* استفاده از متغیر رنگی */
+    font-size: 0.95rem; /* اندازه فونت کمی بزرگتر */
+    margin-top: -15px; /* فاصله از ورودی بالا */
+    margin-bottom: 20px; /* فاصله از دکمه */
+    text-align: right; /* تراز به راست */
+    padding-right: 5px; /* کمی پدینگ از راست */
+}
+
+/* دکمه لاگین و ثبت‌نام */
+.login-btn,
+.signup-btn {
     display: block;
-    margin: auto;
-    margin-top: 20px;
-    width: 150px;
+    margin: 30px auto; /* فاصله بیشتر از بالا و پایین و وسط چین */
+    width: 200px; /* عرض بیشتر */
     color: #FFF;
-    font-size: 18px;
-    padding: 10px;
+    font-size: 1.2rem; /* اندازه فونت بزرگتر */
+    padding: 15px; /* پدینگ بیشتر */
     border: none;
-    border-radius: 15px;
+    border-radius: 30px; /* گردتر شدن */
     cursor: pointer;
-    filter: drop-shadow(0px 0px 0px #00000000);
-    background: linear-gradient(to right, #fcddbc, #f3a853);
-    transition: background 1s ease-in;
-  }
-  .login-btn:hover {
-    background: #f39120;
-  filter: drop-shadow(0px 10px 15px #0000003b);
-  }
-  .login-btn-disabled {
-    background: gray !important;
+    background: linear-gradient(to right, #D4B7A3, var(--button-bg)); /* گرادیان رنگی */
+    transition: all 0.3s ease; /* انیمیشن نرم */
+    font-weight: 700; /* پررنگ‌تر */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* سایه جذاب‌تر */
+}
+.login-btn:hover,
+.signup-btn:hover {
+    background: linear-gradient(to right, var(--button-bg), #D4B7A3); /* تغییر گرادیان هنگام هاور */
+    transform: translateY(-3px); /* کمی به بالا حرکت کند */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* سایه عمیق‌تر */
+}
+.login-btn:active,
+.signup-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.login-btn-disabled,
+.signup-btn-disabled {
+    background: #cccccc !important; /* رنگ خاکستری برای حالت غیرفعال */
     cursor: not-allowed !important;
-    opacity: 0.6;
-  }
-  
-  /* لینک‌های انتهایی */
-  .login-extra {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #333;
-  }
-  .login-extra a {
-    color: #8b573c;
+    opacity: 0.7;
+    transform: none;
+    box-shadow: none;
+}
+
+/* لینک‌های انتهایی */
+.login-extra,
+.signup-extra {
+    margin-top: 20px;
+    font-size: 1rem; /* اندازه فونت کمی بزرگتر */
+    color: var(--text-color);
+}
+.login-extra a,
+.signup-extra a {
+    color: var(--link-color); /* استفاده از متغیر رنگی */
     text-decoration: none;
     font-weight: bold;
-  }
-  .login-extra a:hover {
+    transition: color 0.2s ease;
+}
+.login-extra a:hover,
+.signup-extra a:hover {
     text-decoration: underline;
-  }
-  
-  /* ستون راست: عکس برگر (لاگین) */
-  .login-right {
-    display: grid;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  height: 100vh;
-  }
-  .login-right img {
+    color: var(--button-bg); /* تغییر رنگ لینک هنگام هاور */
+}
+
+/* ستون راست: عکس (برای دسکتاپ) */
+.login-right,
+.signup-right {
+    display: grid; /* نمایش گرید برای دسکتاپ */
+    grid-column: 2 / 3; /* قرارگیری در ستون دوم */
+    grid-row: 1 / 2; /* قرارگیری در ردیف اول */
+    height: 100vh; /* ارتفاع 100% viewport */
+}
+.login-right img,
+.signup-right img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-  }
-  
-  /* =============================
-     صفحه SIGNUP
-     فرم چپ - عکس راست
-  ============================= */
-  .signup-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background-color: #f4f1eb;
-  }
-  
-  /* ستون چپ: فرم ثبت‌نام */
-  .signup-left {
-    display: grid;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    height: 100vh;
-  }
-  
-  /* لوگو بالا (ثبت‌نام) */
-  .signup-logo {
-    width: 8%;
-    height: auto;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1;
-  }
-  .signup-logo img {
-    width: 123px;
-    height: auto;
-  }
-  
-  /* فرم وسط */
-  .signup-form-box {
-    margin: auto;
-    width: 60%;
-    text-align: center;
-  }
-  
-  /* عنوان و زیرعنوان */
-  .signup-title {
-    color: #8B573C;
-    font-weight: bold;
-    font-size: 30px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    white-space: nowrap;
-    text-align: center;
-    width: 100%;
+    object-fit: cover; /* پوشش کامل ستون */
+}
+
+/* =============================
+    استایل‌های مربوط به TOGGLE (بدون تغییر)
+    این بخش به عنوان یک کامپوننت مستقل در نظر گرفته شده و تغییرات آن
+    باید به صورت جداگانه مدیریت شوند تا عملکرد آن حفظ شود.
+============================= */
+.toggle-container {
+    --knob-size: 1.75em;
     display: flex;
     justify-content: center;
-    margin-bottom: 15px;
-  }
-  .signup-subtitle {
-    margin-bottom: 15px;
-    color: var(--text-color);
-  }
-  
-  /* گروه ورودی */
-  .signup-input-group {
     position: relative;
-    margin-bottom: 20px;
-    background: #f0d6c4;
-    border-radius: 15px;
-    padding: 0px 0px 0px 0px;
-    display: flex;
-    align-items: center;
-  }
-  .input-icon {
-    position: absolute;
-   left : 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-  }
-  .signup-input-group input {
-    width: 100%;
-  padding: 10px 30px ;
-  background-color: #f0d6c4;
-  border: 1px solid #D4B7A3;
-  border-radius: 15px;
-  }
-  
-  /* آیکون چشم */
-  .signup-eye {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-  
-  /* پیام خطا */
-  .signup-error {
-    display: block;
-    color: red;
-    font-size: 13px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-  }
-   
-  /* From Uiverse.io by njesenberger */ 
-.toggle-container {
-  --knob-size: 1.75em;
-  display: flex;
-  justify-content: center;
-  position: relative;
+    margin-bottom: 20px; /* برای اطمینان از فاصله از عناصر دیگر */
 }
 
 .toggle-input {
-  position: absolute;
-  z-index: 2;
-  bottom: 132.5%;
-  border-radius: 50%;
-  transform: rotate(-25deg);
-  transform-origin: 50% 4.75em;
-  width: var(--knob-size);
-  height: var(--knob-size);
-  opacity: 0;
-  /* fix em sizing */
-  font: inherit;
-  transition: transform .24s cubic-bezier(.65, 1.35, .5, 1);
-  cursor: pointer;
+    position: absolute;
+    z-index: 2;
+    bottom: 132.5%;
+    border-radius: 50%;
+    transform: rotate(-25deg);
+    transform-origin: 50% 4.75em;
+    width: var(--knob-size);
+    height: var(--knob-size);
+    opacity: 0;
+    font: inherit;
+    transition: transform .24s cubic-bezier(.65, 1.35, .5, 1);
+    cursor: pointer;
 }
 
 .toggle-input:checked {
-  transform: rotate(25deg);
+    transform: rotate(25deg);
 }
 
 .toggle-handle-wrapper {
-  position: absolute;
-  z-index: 1;
-  bottom: -135%;
-  -webkit-mask-image: linear-gradient(to bottom, #000 62.125%, transparent 50%);
-  mask-image: linear-gradient(to bottom, #000 62.125%, transparent 50%);
-  width: 200%;
-  overflow: hidden;
+    position: absolute;
+    z-index: 1;
+    bottom: -135%;
+    -webkit-mask-image: linear-gradient(to bottom, #000 62.125%, transparent 50%);
+    mask-image: linear-gradient(to bottom, #000 62.125%, transparent 50%);
+    width: 200%;
+    overflow: hidden;
 }
 
 .toggle-handle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: rotate(-25deg);
-  transform-origin: bottom center;
-  transition: transform .24s cubic-bezier(.65, 1.35, .5, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: rotate(-25deg);
+    transform-origin: bottom center;
+    transition: transform .24s cubic-bezier(.65, 1.35, .5, 1);
 }
 
 .toggle-input:checked + .toggle-handle-wrapper > .toggle-handle {
-  transform: rotate(25deg);
+    transform: rotate(25deg);
 }
 
 .toggle-handle-knob {
-  position: relative;
-  z-index: 1;
-  border-radius: 50%;
-  width: var(--knob-size);
-  height: var(--knob-size);
-  background-image: radial-gradient(farthest-corner at 70% 30%, #fedee2 4%, #d63534 12% 24%, #a81a1a 50% 65%, #d63534 75%);
-  transition: transform .24s cubic-bezier(.65, 1.35, .5, 1);
+    position: relative;
+    z-index: 1;
+    border-radius: 50%;
+    width: var(--knob-size);
+    height: var(--knob-size);
+    background-image: radial-gradient(farthest-corner at 70% 30%, #fedee2 4%, #d63534 12% 24%, #a81a1a 50% 65%, #d63534 75%);
+    transition: transform .24s cubic-bezier(.65, 1.35, .5, 1);
 }
 
 .toggle-input:checked + .toggle-handle-wrapper .toggle-handle-knob {
-  transform: rotate(-90deg);
+    transform: rotate(-90deg);
 }
 
 /* toggle handle knob hover inner shadow */
 .toggle-handle-knob::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: inherit;
-  width: 100%;
-  height: 100%;
-  box-shadow: inset 0 0 8px 2px rgb(255 255 255 / .4);
-  opacity: 0;
-  transition: opacity .2s;
-  
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 8px 2px rgb(255 255 255 / .4);
+    opacity: 0;
+    transition: opacity .2s;
 }
 
 @media (hover: hover) {
-  .toggle-input:hover + .toggle-handle-wrapper .toggle-handle-knob::after,
-  .toggle-input:focus-visible + .toggle-handle-wrapper .toggle-handle-knob::after {
-    opacity: 1;
-  }
+    .toggle-input:hover + .toggle-handle-wrapper .toggle-handle-knob::after,
+    .toggle-input:focus-visible + .toggle-handle-wrapper .toggle-handle-knob::after {
+        opacity: 1;
+    }
 }
 
-
 .toggle-handle-bar-wrapper {
-  position: relative;
-  width: .5em;
-  height: 3em;
+    position: relative;
+    width: .5em;
+    height: 3em;
 }
 
 .toggle-handle-bar {
-  position: absolute;
-  top: calc(var(--knob-size) / 2 * -1);
-  left: 0;
-  width: 100%;
-  height: calc(100% + var(--knob-size) / 2);
-  background-image: linear-gradient(to right, #777475, #a4a4a4, #fff 45% 55%, #a4a4a4, #777475);
-  background-position-x: .06125em;
-  transition: background-position-x .24s cubic-bezier(.65, 1.35, .5, 1);
-  box-shadow: inset 0 1em .25em rgb(0 0 0 / .4);
+    position: absolute;
+    top: calc(var(--knob-size) / 2 * -1);
+    left: 0;
+    width: 100%;
+    height: calc(100% + var(--knob-size) / 2);
+    background-image: linear-gradient(to right, #777475, #a4a4a4, #fff 45% 55%, #a4a4a4, #777475);
+    background-position-x: .06125em;
+    transition: background-position-x .24s cubic-bezier(.65, 1.35, .5, 1);
+    box-shadow: inset 0 1em .25em rgb(0 0 0 / .4);
 }
 
 .toggle-input:checked + .toggle-handle-wrapper .toggle-handle-bar {
-  background-position-x: -.06125em;
+    background-position-x: -.06125em;
 }
 
 .toggle-base {
-  position: relative;
-  border-radius: 3.125em;
-  padding: .25em;
-  width: 3.5em;
-  height: 1.125em;
-  background-color: #fff;
-  background-image: linear-gradient(to bottom, #fff, #d7d7d7);
-  box-shadow: 0 -.25em .5em #fff, 0 .25em .5em #d7d7d7;
+    position: relative;
+    border-radius: 3.125em;
+    padding: .25em;
+    width: 3.5em;
+    height: 1.125em;
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #fff, #d7d7d7);
+    box-shadow: 0 -.25em .5em #fff, 0 .25em .5em #d7d7d7;
 }
 
 .toggle-base-inside {
-  position: relative;
-  border-radius: inherit;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(to bottom, #a6a6a6, #7d7d7d);
-  box-shadow: inset 0 .0625em rgb(255 255 255 / .2), inset 0 -.03125em rgb(255 255 255 / 1), inset 0 -.0625em .25em rgb(0 0 0 / .1);
+    position: relative;
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, #a6a6a6, #7d7d7d);
+    box-shadow: inset 0 .0625em rgb(255 255 255 / .2), inset 0 -.03125em rgb(255 255 255 / 1), inset 0 -.0625em .25em rgb(0 0 0 / .1);
 }
 .knob-green {
-  background-image: radial-gradient(farthest-corner at 70% 30%, #d2f8d2 4%, #28a745 12% 24%, #1e7e34 50% 65%, #28a745 75%);
+    background-image: radial-gradient(farthest-corner at 70% 30%, #d2f8d2 4%, #28a745 12% 24%, #1e7e34 50% 65%, #28a745 75%);
 }
 
 .knob-red {
-  background-image: radial-gradient(farthest-corner at 70% 30%, #fedee2 4%, #d63534 12% 24%, #a81a1a 50% 65%, #d63534 75%);
+    background-image: radial-gradient(farthest-corner at 70% 30%, #fedee2 4%, #d63534 12% 24%, #a81a1a 50% 65%, #d63534 75%);
 }
-/* toggle base inside active */
-/* .toggle-base-inside::after {
-  content: '';
-  position: absolute;
-  border-radius: inherit;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(to bottom, #5ab054, #438c3c);
-  box-shadow: inherit;
-  opacity: 0;
-  transition: opacity .24s cubic-bezier(.65, 1.35, .5, 1);
-} */
 
-.toggle-input:checked ~ .toggle-base .toggle-base-inside::after {
-  opacity: 1;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .login-container,
+    .signup-container {
+        grid-template-columns: 1fr; /* تغییر به تک ستونی برای موبایل */
+        justify-content: flex-start; /* محتوا از بالا شروع شود */
+        padding: 15px; /* پدینگ کمتر برای موبایل */
+    }
+
+    .login-left,
+    .signup-left {
+        grid-column: 1 / -1; /* گرفتن تمام عرض در موبایل */
+        height: auto; /* ارتفاع خودکار */
+        min-height: 100vh; /* حداقل ارتفاع 100% برای فرم در موبایل */
+        justify-content: center; /* فرم در مرکز عمودی */
+    }
+
+    .login-right,
+    .signup-right {
+        display: none; /* حذف ستون عکس برای موبایل */
+    }
+
+    .login-logo,
+    .signup-logo {
+        position: relative; /* بازنشانی موقعیت به relative */
+        margin-bottom: 40px; /* کاهش فاصله لوگو در موبایل */
+        top: auto;
+        left: auto;
+    }
+    .login-logo img,
+    .signup-logo img {
+        width: 100px; /* کاهش اندازه لوگو در موبایل */
+    }
+
+    .login-form-box,
+    .signup-form-box {
+        padding: 30px 20px; /* کاهش پدینگ داخلی در موبایل */
+        border-radius: 15px; /* کمی کمتر گرد */
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* سایه کمتر */
+    }
+
+    .login-title,
+    .signup-title {
+        font-size: 2rem; /* کاهش اندازه عنوان در موبایل */
+        margin-bottom: 5px;
+    }
+    .login-subtitle,
+    .signup-subtitle {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    .login-input-group,
+    .signup-input-group {
+        margin-bottom: 20px; /* کاهش فاصله بین ورودی‌ها */
+    }
+    .input-icon {
+        width: 18px;
+        height: 18px;
+        left: 10px;
+    }
+    .login-input-group input,
+    .signup-input-group input {
+        padding: 12px 40px 12px 32px; /* تنظیم پدینگ ورودی برای موبایل */
+        font-size: 1rem;
+    }
+    .login-eye,
+    .signup-eye {
+        width: 18px;
+        height: 18px;
+        right: 10px;
+    }
+
+    .login-error,
+    .signup-error {
+        font-size: 0.85rem;
+        margin-top: -10px;
+        margin-bottom: 15px;
+    }
+
+    .login-btn,
+    .signup-btn {
+        width: 180px; /* کاهش عرض دکمه در موبایل */
+        font-size: 1.1rem;
+        padding: 12px;
+        margin: 25px auto;
+    }
+
+    .login-extra,
+    .signup-extra {
+        font-size: 0.9rem;
+        margin-top: 15px;
+    }
 }
-  /* دکمه Register */
-  .signup-btn {
-    display: block;
-    margin: auto;
-    margin-top: 20px;
-    width: 150px;
-    color: #FFF;
-    font-size: 18px;
-    padding: 10px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    filter: drop-shadow(0px 0px 0px #00000000);
-    background: linear-gradient(to right, #fcddbc, #f3a853);
-    transition: background 1s ease-in;
-  }
-  .signup-btn:hover {
-    background: #f39120;
-    filter: drop-shadow(0px 10px 15px #0000003b);
-  }
-  .signup-btn-disabled {
-    background: gray !important;
-    cursor: not-allowed !important;
-    opacity: 0.6;
-  }
-  
-  /* لینک پایینی */
-  .signup-extra {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #333;
-  }
-  .signup-extra a {
-    color: #8b573c;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  .signup-extra a:hover {
-    text-decoration: underline;
-  }
-  
-  /* ستون راست: برگر (ثبت‌نام) */
-  .signup-right {
-    display: grid;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  height: 100vh;
-  }
-  .signup-right img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
+
+@media (max-width: 480px) {
+    .login-form-box,
+    .signup-form-box {
+        padding: 25px 15px; /* پدینگ کمتر برای دستگاه‌های خیلی کوچک */
+    }
+    .login-title,
+    .signup-title {
+        font-size: 1.8rem;
+    }
+    .login-input-group input,
+    .signup-input-group input {
+        padding: 10px 35px 10px 10px;
+    }
+    .login-btn,
+    .signup-btn {
+        width: 160px;
+        font-size: 1rem;
+    }
+}
