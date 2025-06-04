@@ -1,6 +1,7 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
 import { MenuItem } from './types';
+import { useNavigate } from 'react-router-dom';
 
 interface MenuItemCardProps {
   item: MenuItem;
@@ -9,9 +10,20 @@ interface MenuItemCardProps {
 }
 
 const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onAddToCart, isVisible }) => {
+  const navigate = useNavigate();
+
+  const handleImageClick = () => {
+    navigate('/foodpage', {
+      state: {
+        scrollToItem: item.id,
+        item,
+      },
+    });
+  };
+
   return (
     <div className={`menu-item-card h-100 ${isVisible ? 'visible' : ''}`}>
-      <div className="menu-item-image">
+      <div className="menu-item-image" onClick={handleImageClick} style={{ cursor: 'pointer' }}>
         <img
           src={item.image}
           alt={item.name}
