@@ -15,28 +15,28 @@ const bestOnesData: Restaurant[] = [
     name: "Restaurant A",
     location: "City A",
     rating: 3,
-    image: "Rectangle 754.png",
+    image: "gettyimages-1273516682.jpg",
   },
   {
     id: 2,
     name: "Restaurant B",
     location: "City B",
     rating: 4,
-    image: "Rectangle 754.png",
+    image: "gettyimages-1273516682.jpg",
   },
   {
     id: 3,
     name: "Restaurant C",
     location: "City C",
     rating: 5,
-    image: "Rectangle 754.png",
+    image: "gettyimages-1273516682.jpg",
   },
   {
     id: 4,
     name: "Restaurant D",
     location: "City D",
     rating: 2,
-    image: "Rectangle 754.png",
+    image: "gettyimages-1273516682.jpg",
   },
 ];
 
