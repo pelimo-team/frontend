@@ -1,15 +1,14 @@
 export interface MenuItem {
-  id: string;
+  id: number | string; // بهتره عدد باشه، ولی string هم پشتیبانی میشه
   name: string;
-  description: string;
+  description?: string;
   price: number;
-  image: string;
-}
-
-export interface MenuCategory {
-  id: string;
-  name: string;
-  items: MenuItem[];
+  image?: string;
+  rate?: number;
+  availability?: boolean;
+  bestseller?: boolean;
+  onsale?: boolean;
+  quantity?: number;
 }
 
 export interface Comment {
@@ -31,4 +30,4 @@ export interface Restaurant {
   rating: number;
   image: string;
   logo: string;
-} 
+}

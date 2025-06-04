@@ -16,7 +16,7 @@ import AdvanceTasadofi from "./AdvanceTasadofi";
 import MenuBuilder from "./Model";
 import Cart from "./Cart";
 import AddCommentPage from "./AddCommentPage";
-import Admin from "./Admin"
+
 
 import GuessTheDishGame from "./GuessTheDishGame";
 
@@ -29,9 +29,6 @@ export const ProjectRoutes = () => {
       <Routes>
         {/* صفحه اصلی */}
         <Route path="/" element={<HomePage />} />
-
-        {/* صفحه ادمین */}
-        <Route path="/admin" element={<Admin />} />
 
         {/* صفحه لاگین */}
         <Route path="/login" element={<Login />} />

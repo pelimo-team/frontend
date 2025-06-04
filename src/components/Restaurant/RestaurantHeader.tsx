@@ -1,5 +1,6 @@
 import React from 'react';
 import { AlignRight, ShoppingCart } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface RestaurantHeaderProps {
   logo: string;
@@ -16,12 +17,18 @@ const RestaurantHeader: React.FC<RestaurantHeaderProps> = ({
   showCartAnimation,
   isCompact,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <header className={`restaurant-header sticky-top ${isCompact ? 'compact' : ''}`}>
       <div className="container-fluid">
         <div className="row align-items-center py-3">
           <div className="col-2 d-flex align-items-center">
-            <button className="btn-icon" aria-label="منو">
+            <button
+              className="btn-icon"
+              aria-label="Go to Home"
+              onClick={() => navigate('/')}
+            >
               <AlignRight size={24} color="white" />
             </button>
           </div>
@@ -33,14 +40,18 @@ const RestaurantHeader: React.FC<RestaurantHeaderProps> = ({
             />
           </div>
           <div className="col-2 d-flex justify-content-end">
-            <button className="btn-icon position-relative" aria-label="سبد خرید">
-              <ShoppingCart 
-                size={24} 
-                color="white" 
-                className={showCartAnimation ? "cart-shake" : ""}
+            <button
+              className="btn-icon position-relative"
+              aria-label="Go to Cart"
+              onClick={() => navigate('/cart')}
+            >
+              <ShoppingCart
+                size={24}
+                color="white"
+                className={showCartAnimation ? 'cart-shake' : ''}
               />
               {cartItemCount > 0 && (
-                <span className={`cart-badge ${showCartAnimation ? "cart-badge-pop" : ""}`}>
+                <span className={`cart-badge ${showCartAnimation ? 'cart-badge-pop' : ''}`}>
                   {cartItemCount}
                 </span>
               )}
@@ -52,4 +63,4 @@ const RestaurantHeader: React.FC<RestaurantHeaderProps> = ({
   );
 };
 
-export default RestaurantHeader; 
+export default RestaurantHeader;

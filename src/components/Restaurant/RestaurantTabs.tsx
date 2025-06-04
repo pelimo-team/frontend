@@ -17,7 +17,7 @@ const RestaurantTabs: React.FC<RestaurantTabsProps> = ({ activeTab, onTabChange 
                   className={`nav-link ${activeTab === "menu" ? "active" : ""}`}
                   onClick={() => onTabChange("menu")}
                 >
-                  منو
+                  Menu
                 </button>
               </li>
               <li className="nav-item">
@@ -25,7 +25,7 @@ const RestaurantTabs: React.FC<RestaurantTabsProps> = ({ activeTab, onTabChange 
                   className={`nav-link ${activeTab === "comments" ? "active" : ""}`}
                   onClick={() => onTabChange("comments")}
                 >
-                  نظرات
+                  Reviews
                 </button>
               </li>
             </ul>
@@ -36,4 +36,4 @@ const RestaurantTabs: React.FC<RestaurantTabsProps> = ({ activeTab, onTabChange 
   );
 };
 
-export default RestaurantTabs; 
+export default RestaurantTabs;
