@@ -44,14 +44,14 @@ body {
 }
 .login-link {
   text-decoration: none;
-  color: #905708;
+  color: #e3ded6;
   padding: 5px 10px;
   border-radius: 20px;
   font-weight: bold;
 }
 .signup-link {
   text-decoration: none;
-  color: #905708;
+  color: #e3ded6;
   padding: 5px 10px;
   border-radius: 20px;
   font-weight: bold;
@@ -971,4 +971,318 @@ text-shadow: 2px 2px 3px rgba(255,255,255,0.5);*/
 .fade-in-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 768px) {
+  /* General adjustments */
+  body {
+    font-size: 14px;
+  }
+
+  .home-container {
+    padding: 0 10px; /* Add some horizontal padding */
+  }
+
+  /* Header adjustments */
+  .home-header {
+    grid-template-columns: 1fr; /* Stack elements vertically */
+    padding: 10px;
+    justify-items: center; /* Center items in the grid */
+  }
+
+  .header-left {
+    margin-bottom: 10px; /* Space out login/signup */
+    gap: 10px;
+  }
+
+  .header-logo {
+    order: -1; /* Move logo to the top */
+    margin-bottom: 15px;
+  }
+
+  .header-logo img {
+    width: 7rem; /* Smaller logo for mobile */
+  }
+
+  .search-container {
+    width: 90%; /* Make search bar take more width */
+    max-width: 90%; /* Ensure it doesn't get too wide */
+    margin: 10px auto; /* Center the search bar */
+    height: 2.5rem; /* Slightly smaller search bar */
+  }
+
+  .search-container:hover > .search-input {
+    width: calc(100% - 60px); /* Adjust input width on hover */
+  }
+
+  .search-container .search-input {
+    font-size: 14px;
+  }
+
+  .home-profile {
+    margin-left: 0; /* Remove left margin */
+    margin-top: 10px; /* Add space above profile button */
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  .profile-dropdown-content {
+    margin-left: 0;
+    min-width: 150px;
+    left: 50%; /* Center dropdown */
+    transform: translateX(-50%); /* Adjust for centering */
+    border-radius: 15px;
+  }
+
+  /* Hero section adjustments */
+  .hero-section {
+    flex-direction: column; /* Stack hero content and image */
+    padding: 20px;
+    text-align: center;
+  }
+
+  .hero-content {
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem; /* Smaller heading */
+  }
+
+  .hero-content p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .hero-button {
+    width: 100%; /* Full width button */
+    padding: 12px 0;
+  }
+
+  .hero-image img {
+    width: 100%; /* Make hero image responsive */
+    height: auto;
+    border-radius: 20px;
+  }
+
+  .card {
+    padding: 10px;
+    height: 28rem; /* Allow height to adjust */
+  }
+
+  .card-text {
+    font-size: 1.5rem;
+  }
+
+  .card-description {
+    font-size: 0.85rem;
+  }
+
+  .card img {
+    width: 8rem;
+    height: 15rem; /* Reduced card image height */
+  }
+
+  /* Slider adjustments (if present and visible) */
+  .slider {
+    mask-image: none; /* Remove mask for better visibility on small screens */
+  }
+
+  .slider .list .item {
+    animation-play-state: running !important; /* Ensure animation plays on mobile */
+  }
+
+  /* Categories section adjustments */
+  .categories-section {
+    grid-template-columns: repeat(3, 1fr); /* Two columns for categories */
+    gap: 20px; /* Reduced gap */
+    padding: 20px;
+    justify-items: center; /* Center individual category items */
+  }
+
+  .category-item {
+    width: 100%; /* Full width within its column */
+    max-width: 130px; /* Limit max width for better appearance */
+    height: 150px; /* Allow height to adjust */
+    padding-top: 20px;
+  }
+
+  .category-item::before {
+    width: calc(100% + 10px); /* Adjust pseudo-element size */
+    height: calc(100% + 10px);
+  }
+
+  .category-item::after {
+    width: calc(100% - 10px);
+    height: calc(100);
+  }
+
+  .cat-item-image {
+    width: 100%; /* Make image responsive within item */
+    height: 7rem; /* Reduced category image height */
+    object-fit: cover; /* Ensure image covers the area */
+  }
+
+  .category-item p {
+    font-size: 0.9rem; /* Adjust category text size */
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* Best Ones section adjustments */
+  .best-ones-title, .category-title {
+    font-size: 2rem; /* Smaller titles */
+    text-align: center;
+  }
+
+  .best-ones-slider-wrapper {
+    flex-direction: column; /* Stack arrows and slider */
+    gap: 15px;
+  }
+
+  .best-ones-slider-wrapper .arrow {
+    position: static; /* Remove absolute positioning */
+    transform: none;
+    margin: 0 auto; /* Center arrows */
+  }
+
+  .best-ones-viewport {
+    width: 100%;
+  }
+
+  .best-ones-slider {
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: center; /* Center items when wrapped */
+  }
+
+  .best-ones-item {
+    flex: 0 0 calc(50% - 1rem); /* Two items per row with some padding */
+    margin: 0.5rem 0.5rem; /* Adjust margin for two columns */
+    max-width: unset; /* Remove max-width to let flex control it */
+    height: 250px; /* Allow height to adjust */
+  }
+
+  .best-ones-item .image-box {
+    height: 100px; /* Reduced image box height */
+  }
+
+  /* Games section adjustments */
+  .games-section {
+    padding: 20px;
+  }
+
+  .games-title {
+    font-size: 1.8rem;
+  }
+
+  .games-container {
+    display: grid; /* Use grid for two columns */
+    grid-template-columns: repeat(2, 1fr); /* Two columns for game cards */
+    gap: 15px; /* Reduced gap */
+    padding: 0 10px; /* Add padding for grid */
+  }
+
+  .game-card {
+    width: 100%; /* Full width within its grid column */
+    height: auto; /* Allow height to adjust */
+    max-width: unset; /* Remove max-width */
+  }
+
+  .game-card .image-box img {
+    height: 9rem; /* Reduced image height */
+  }
+
+  /* Three cards section */
+  .card_1 {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for card_1 items */
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .card_1_item {
+    padding: 15px;
+    height: auto; /* Allow height to adjust */
+  }
+
+  /* About, Work Procedure, Portfolio, Video, Testimonial sections */
+  .about-section,
+  .work-procedure,
+  .portfolio-section,
+  .video-section,
+  .testimonial-section {
+    padding: 20px;
+  }
+
+  .procedure-steps {
+    flex-direction: column; /* Keep as column for now, can be 2 cols for wider mobile */
+    gap: 20px;
+    align-items: center;
+  }
+
+  .step-box {
+    width: 90%; /* Make step boxes wider */
+    max-width: 250px; /* Limit max width */
+    height: auto; /* Allow height to adjust */
+  }
+
+  .video-box {
+    width: 90%; /* Make video box wider */
+    height: 180px;
+  }
+
+  /* Footer adjustments */
+  .home-footer {
+    padding: 20px;
+  }
+
+  .footer-info {
+    flex-direction: column; /* Stack footer info sections */
+    gap: 20px;
+    text-align: center; /* Center text */
+  }
+
+  .footer-info div ul {
+    padding-left: 20px; /* Add some padding for bullet points */
+    text-align: center;
+  }
+
+  .footer-legal {
+    flex-direction: column; /* Stack legal info */
+    gap: 10px;
+    text-align: center;
+  }
+}
+
+/* Further adjustments for very small screens (e.g., less than 480px) */
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .best-ones-title, .category-title {
+    font-size: 2rem;
+  }
+
+  .games-title {
+    font-size: 1.5rem;
+  }
+
+  .categories-section {
+    grid-template-columns: 1fr; /* Go back to single column for very small screens */
+  }
+
+  .best-ones-item {
+    flex: 0 0 90%; /* Single column for best ones on very small screens */
+    margin: 0.5rem auto;
+  }
+
+  .games-container {
+    grid-template-columns: 1fr; /* Single column for games on very small screens */
+  }
+
+  .card_1 {
+    grid-template-columns: 1fr; /* Single column for card_1 items on very small screens */
+  }
 }
