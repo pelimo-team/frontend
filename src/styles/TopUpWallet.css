@@ -1,0 +1,376 @@
+/* تنظیمات عمومی برای بدنه صفحه */
+body {
+    font-family: 'Vazirmatn', sans-serif; 
+    direction: ltr;
+    margin: 0;
+    padding: 0;
+    background-color: #F4F1EB;
+    color: #1C1C1C;
+    line-height: 1.6;
+}
+
+/* هدر صفحه (مشترک با Wallet.css) */
+.wallet-header {
+    display: flex; /* استفاده از فلکس‌باکس برای چیدمان آیتم‌های هدر */
+    justify-content: space-between; /* توزیع فضا بین آیتم‌ها */
+    align-items: center; /* تراز عمودی آیتم‌ها در مرکز */
+    padding: 15px 30px; /* پدینگ داخلی */
+    background-color: #945436; /* رنگ پس‌زمینه هدر از پالت */
+    color: #F4F1EB; /* رنگ متن هدر از پالت */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* سایه عمیق‌تر برای هدر */
+    position: sticky; /* چسبیدن هدر در بالا هنگام اسکرول */
+    top: 0;
+    z-index: 1000; /* اطمینان از قرارگیری هدر روی سایر عناصر */
+}
+
+.wallet-header-button {
+    background: none; /* بدون پس‌زمینه */
+    border: none; /* بدون حاشیه */
+    cursor: pointer; /* تغییر شکل نشانگر ماوس */
+    padding: 5px; /* پدینگ برای دکمه */
+    border-radius: 50%; /* گرد کردن دکمه برای آیکون */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* انیمیشن نرم هنگام هاور */
+    display: flex; /* برای تراز کردن آیکون */
+    align-items: center; /* تراز عمودی آیکون */
+    justify-content: center; /* تراز افقی آیکون */
+    background-color: rgba(231, 227, 224, 0.504);
+}
+
+.wallet-header-button:hover {
+    background-color: rgba(235, 232, 229, 0.711); /* تغییر رنگ پس‌زمینه هنگام هاور */
+    transform: translateY(-2px); /* کمی به بالا حرکت کند */
+}
+
+.wallet-header-button:active {
+    transform: translateY(0); /* بازگشت به حالت اولیه هنگام کلیک */
+}
+
+.wallet-icon {
+    width: 36px; /* عرض آیکون بزرگ‌تر */
+    height: 36px; /* ارتفاع آیکون بزرگ‌تر */
+    /* فیلتر برای تغییر رنگ آیکون img به سفید (اگر آیکون‌های شما تک رنگ و تیره هستند) */
+    /* filter: (100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%); */
+}
+
+.wallet-header-logo {
+    font-size: 2rem; /* اندازه فونت بزرگ‌تر برای لوگو */
+    font-weight: 800; /* وزن فونت پررنگ‌تر */
+    color: #F4F1EB; /* رنگ لوگو از پالت */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2); /* سایه متن برجسته‌تر برای لوگو */
+}
+
+.wallet-header-placeholder {
+    width: invert48px; /* برای تراز کردن لوگو در مرکز، به اندازه دکمه‌ها فضا ایجاد می‌کند */
+    height: 28px;
+}
+
+/* کانتینر اصلی محتوای صفحه افزایش موجودی */
+.wallet-topup-content {
+    max-width: 1200px; /* حداکثر عرض کانتینر */
+    padding: 30px; /* فاصله داخلی بیشتر */
+    text-align: center; /* تراز میانی محتوا */
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* فاصله بین بخش‌ها */
+    justify-items: center;
+}
+
+/* عنوان صفحه */
+.wallet-topup-title {
+    font-size: 2.8rem; /* اندازه فونت بزرگ */
+    color: #1C1C1C; /* رنگ از پالت */
+    margin-bottom: 10px; /* فاصله از پایین */
+    font-weight: 900; /* وزن فونت خیلی پررنگ */
+    letter-spacing: 1px; /* فاصله بین حروف */
+    text-align: center;
+}
+
+/* عنوان بخش‌ها */
+.wallet-section-title {
+    font-size: 1.8rem;
+    color: #1C1C1C;
+    margin-bottom: 20px;
+    font-weight: 700;
+    border-bottom: 2px solid #D4B7A3; /* خط جداکننده از پالت */
+    padding-bottom: 10px;
+    text-align: left; /* تراز راست */
+}
+
+/* بخش انتخاب مبلغ */
+.wallet-amount-selection-section {
+    background-color: #F4F1EB;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    justify-content: center;
+    text-align: center;
+}
+
+.wallet-amount-buttons {
+    display: flex;
+    flex-wrap: wrap; /* در صورت نیاز به خط بعدی برود */
+    justify-content: center; /* تراز میانی دکمه‌ها */
+    gap: 15px; /* فاصله بین دکمه‌ها */
+}
+
+.wallet-amount-button {
+    background-color: #D4B7A3; /* رنگ از پالت */
+    color: #1C1C1C;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    min-width: 120px; /* حداقل عرض برای دکمه‌ها */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.wallet-amount-button:hover {
+    background-color: #c89246; /* تغییر رنگ هنگام هاور */
+    color: #F4F1EB;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.wallet-amount-button-selected {
+    background-color: #c89246; /* رنگ انتخاب شده از پالت */
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border: 2px solid #1C1C1C; /* حاشیه برای تاکید */
+}
+
+.wallet-amount-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* بخش کپچا */
+.wallet-captcha-section {
+    background-color: #F4F1EB;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* تراز میانی محتوا */
+    gap: 20px;
+}
+
+/* کانتینر برای عناصر کپچا (ورودی، نمایش، دکمه رفرش) */
+.wallet-captcha-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* برای وسط قرار گرفتن در دسکتاپ */
+    gap: 20px; /* فاصله بین عناصر */
+    width: 100%; /* برای گرفتن عرض کامل والد */
+    max-width: 600px; /* کنترل عرض کلی در دسکتاپ */
+    box-sizing: border-box;
+    direction: rtl;
+}
+
+/* کانتینر برای کد کپچا و دکمه رفرش */
+.wallet-captcha-display-and-refresh {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* فاصله بین کد کپچا و دکمه رفرش */
+    /* ترتیب برای RTL: آیکون رفرش (سمت چپ) -> کد کپچا (وسط) */
+    order: 2; /* در دسکتاپ، این گروه در وسط قرار می‌گیرد */
+}
+
+.wallet-captcha-display {
+    background-color: #D4B7A3; /* رنگ از پالت */
+    color: #1C1C1C;
+    font-family: 'Courier New', Courier, monospace; /* فونت مونو اسپیس برای کپچا */
+    font-size: 2.2rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 8px;
+    letter-spacing: 5px; /* فاصله بین حروف برای خوانایی بهتر */
+    cursor: pointer; /* نشانگر ماوس برای رفرش */
+    user-select: none; /* جلوگیری از انتخاب متن کپچا */
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #8E9298;
+    order: 2; /* در داخل display-and-refresh، این در سمت راست (RTL) قرار می‌گیرد */
+}
+
+.wallet-captcha-input {
+    width: 100%; /* برای گرفتن عرض کامل در دسکتاپ */
+    max-width: 180px; /* کنترل عرض ورودی در دسکتاپ */
+    height: 4rem;
+    padding: 12px 15px;
+    border: 2px solid #D4B7A3; /* حاشیه از پالت */
+    border-radius: 8px;
+    font-size: 1.1rem;
+    text-align: center;
+    color: #1C1C1C;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    order: 1; /* در دسکتاپ، این در سمت راست (RTL) قرار می‌گیرد */
+}
+
+.wallet-captcha-input:focus {
+    outline: none;
+    border-color: #945436; /* رنگ فوکوس از پالت */
+    box-shadow: 0 0 0 3px rgba(148, 84, 54, 0.2); /* سایه فوکوس */
+}
+
+.wallet-captcha-refresh-button {
+    background: none; /* بدون پس‌زمینه */
+    width: 2.5rem;
+    border: none; /* بدون حاشیه */
+    cursor: pointer; /* تغییر شکل نشانگر ماوس */
+    padding: 5px; /* پدینگ برای آیکون */
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+    display: flex; /* برای تراز کردن آیکون */
+    align-items: center;
+    justify-content: center;
+    order: 1; /* در داخل display-and-refresh، این در سمت چپ (RTL) قرار می‌گیرد */
+}
+
+.wallet-captcha-refresh-button:hover {
+    background-color: rgba(142, 146, 152, 0.2); /* تغییر رنگ هنگام هاور */
+}
+
+.wallet-refresh-icon {
+    width: 30px; /* عرض آیکون */
+    height: 30px; /* ارتفاع آیکون */
+    filter: invert(50%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(50%) contrast(100%); /* رنگ خاکستری */
+}
+
+.wallet-captcha-refresh-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* دکمه اصلی شارژ */
+.wallet-topup-button {
+    background-color: #30c020c0; /* رنگ از پالت */
+    color: white;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px; /* فاصله از بالا */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    margin: 10px auto 0 auto;
+}
+
+.wallet-topup-button:hover {
+    background-color: #29a81bb9; /* تغییر رنگ هنگام هاور */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.wallet-topup-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-topup-button:disabled {
+    background-color: #8E9298; /* رنگ خاکستری برای حالت غیرفعال */
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.7;
+}
+
+/* پیام‌های وضعیت */
+.wallet-message {
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-message-success {
+    background-color: #D4B7A3; /* رنگ موفقیت از پالت */
+    color: #1C1C1C;
+}
+
+.wallet-message-error {
+    background-color: #FC5959; /* رنگ خطا از پالت */
+    color: white;
+}
+
+/* واکنش‌گرا (Responsive) */
+@media (max-width: 768px) {
+    .wallet-header {
+        padding: 10px 20px;
+    }
+
+    .wallet-header-logo {
+        font-size: 1.6rem;
+    }
+
+    .wallet-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .wallet-topup-content { /* نام کلاس تغییر کرده است */
+        margin: 20px auto;
+        padding: 25px;
+        gap: 25px;
+    }
+
+    .wallet-topup-title {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+
+    .wallet-section-title {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+
+    .wallet-amount-buttons {
+        gap: 10px;
+    }
+
+    .wallet-amount-button {
+        padding: 12px 20px;
+        font-size: 1rem;
+        min-width: 100px;
+    }
+
+    .wallet-captcha-display {
+        font-size: 1.8rem;
+        padding: 8px 15px;
+        letter-spacing: 3px;
+    }
+
+    .wallet-captcha-input {
+        width: 90%;
+        padding: 10px 12px;
+        font-size: 1rem;
+    }
+
+    .wallet-captcha-refresh-button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .wallet-topup-button {
+        padding: 15px 30px;
+        font-size: 1.2rem;
+    }
+
+    .wallet-message {
+        font-size: 1rem;
+        padding: 12px;
+    }
+}
