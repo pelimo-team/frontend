@@ -17,7 +17,7 @@ import MenuBuilder from "./Model";
 import Cart from "./Cart";
 import AddCommentPage from "./AddCommentPage";
 
-import Admin from "./FoodAdminPanel"
+
 import Wallet from "./Wallet";
 import Admin from "./Admin"
 

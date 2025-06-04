@@ -55,7 +55,7 @@ export const allFilters = [
 export const categoryMap: Record<CategoryType, string> = {
   All: "All",
   Restaurant: "رستوران",
-  "Fast Food": "فست‌ فود",
+  "Fast Food": "فست فود",
   "Coffee Shop": "کافی شاپ",
   "Juice and Ice cream": "آبمیوه سنتی",
   Confectionary: "شیرینی",
