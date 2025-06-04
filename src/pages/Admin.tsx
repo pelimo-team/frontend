@@ -2,7 +2,7 @@ import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { Form, Button, Table, Spinner, Alert, Nav, Tab } from "react-bootstrap";
 import axios from "axios";
 import "../styles/Admin.css";
-import { FiPackage, FiShoppingCart, FiCoffee } from "react-icons/fi";
+import { FiPackage, FiShoppingCart, FiCoffee, FiInfo } from "react-icons/fi";
 
 type MenuItem = {
   id?: number;
@@ -25,11 +25,23 @@ type OrderItem = {
   status: string;
 };
 
+type RestaurantInfo = {
+  name: string;
+  description: string;
+  city: string;
+  coverImage: File | string | null;
+  logo: File | string | null;
+  type: string;
+  deliveryCost: number | null;
+  isNightwalker: boolean;
+  isPublished: boolean;
+};
+
 const BASE_URL = "http://localhost:8000/api/manager/menu-items/";
 const ORDERS_API = "http://localhost:8000/api/cart/manager/orders/";
 
 const Admin: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"menu" | "orders" | "stock">("menu");
+  const [activeTab, setActiveTab] = useState<"menu" | "orders" | "stock"| "restaurant information">("menu");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [editId, setEditId] = useState<number | null>(null);
@@ -51,6 +63,69 @@ const Admin: React.FC = () => {
   const [csrfToken, setCsrfToken] = useState<string>("");
   const [username, setUsername] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>({
+    name: "",
+    description: "",
+    city: "",
+    coverImage: null,
+    logo: null,
+    type: "",
+    deliveryCost: null,
+    isNightwalker: false,
+    isPublished: false
+  });
+
+  const restaurantTypes = [
+    "restaurant",
+    "fastfood",
+    "juice and ice cream",
+    "fruits",
+    "confectionary",
+    "coffee shop"
+  ];
+
+  const handleRestaurantInfoChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, type, value, files } = e.target as HTMLInputElement;
+    
+    if (type === "file" && files && files.length > 0) {
+      setRestaurantInfo(prev => ({ ...prev, [name]: files[0] }));
+    } else if (type === "checkbox") {
+      const checked = (e.target as HTMLInputElement).checked;
+      setRestaurantInfo(prev => ({ ...prev, [name]: checked }));
+    } else if (name === "deliveryCost") {
+      setRestaurantInfo(prev => ({ ...prev, [name]: value ? Number(value) : null }));
+    } else {
+      setRestaurantInfo(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleRestaurantInfoSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    const formData = new FormData();
+    Object.entries(restaurantInfo).forEach(([key, value]) => {
+      if (value !== null) {
+        if (value instanceof File) {
+          formData.append(key, value);
+        } else {
+          formData.append(key, String(value));
+        }
+      }
+    });
+
+    try {
+      await axios.post("/api/restaurant-info", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "X-CSRFToken": csrfToken
+        }
+      });
+      // Handle success
+    } catch (err) {
+      setError("Error saving restaurant information");
+    }
+  };
 
   const fetchCsrfToken = async () => {
     try {
@@ -245,13 +320,14 @@ const Admin: React.FC = () => {
             <Nav.Item><Nav.Link eventKey="menu">Menu Management</Nav.Link></Nav.Item>
             <Nav.Item><Nav.Link eventKey="orders">Orders History</Nav.Link></Nav.Item>
             <Nav.Item><Nav.Link eventKey="stock">Stock</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link eventKey="restaurant information">Restaurant information</Nav.Link></Nav.Item>
           </Nav>
 
           <Tab.Content>
             <Tab.Pane eventKey="menu">
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit} className="food-form">
-                {/* فرم مدیریت منو (همانند کد اولیه) */}
+                                {/* فرم مدیریت منو (همانند کد اولیه) */}
                 {/* ... (کد فرم مانند قبل) */}
                 <Form.Group className="mb-3">
                   <Form.Label>Food Name</Form.Label>
@@ -352,7 +428,7 @@ const Admin: React.FC = () => {
               </Form>
 
               <hr />
-              {/* Menu Table */}
+                {/* Menu Table */}
               <Table striped hover responsive>
                 <thead>
                   <tr>
@@ -440,6 +516,128 @@ const Admin: React.FC = () => {
                 </Table>
               )}
             </Tab.Pane>
+
+            <Tab.Pane eventKey="restaurant information">
+              <Form onSubmit={handleRestaurantInfoSubmit} className="restaurant-info-form">
+                <Form.Group className="mb-3">
+                  <Form.Label>Restaurant Name</Form.Label>
+                  <Form.Control
+                    name="name"
+                    value={restaurantInfo.name}
+                    onChange={handleRestaurantInfoChange}
+                    placeholder="Enter restaurant name"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    name="description"
+                    value={restaurantInfo.description}
+                    onChange={handleRestaurantInfoChange}
+                    placeholder="Enter restaurant description"
+                    rows={3}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>City</Form.Label>
+                  <Form.Control
+                    name="city"
+                    value={restaurantInfo.city}
+                    onChange={handleRestaurantInfoChange}
+                    placeholder="Enter city"
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>Cover Image</Form.Label>
+                  <Form.Control
+                    type="file"
+                    name="coverImage"
+                    onChange={handleRestaurantInfoChange}
+                    accept="image/*"
+                  />
+                  {restaurantInfo.coverImage instanceof File && (
+                    <img
+                      src={URL.createObjectURL(restaurantInfo.coverImage)}
+                      alt="Cover preview"
+                      className="image-preview cover-preview"
+                    />
+                  )}
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>Logo</Form.Label>
+                  <Form.Control
+                    type="file"
+                    name="logo"
+                    onChange={handleRestaurantInfoChange}
+                    accept="image/*"
+                  />
+                  {restaurantInfo.logo instanceof File && (
+                    <img
+                      src={URL.createObjectURL(restaurantInfo.logo)}
+                      alt="Logo preview"
+                      className="image-preview logo-preview"
+                    />
+                  )}
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>Restaurant Type</Form.Label>
+                  <Form.Select
+                    name="type"
+                    value={restaurantInfo.type}
+                    onChange={handleRestaurantInfoChange}
+                    required
+                  >
+                    <option value="">Select type</option>
+                    {restaurantTypes.map(type => (
+                      <option key={type} value={type}>
+                        {type.charAt(0).toUpperCase() + type.slice(1)}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>Delivery Cost</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="deliveryCost"
+                    value={restaurantInfo.deliveryCost ?? ""}
+                    onChange={handleRestaurantInfoChange}
+                    placeholder="Enter delivery cost"
+                    min="0"
+                  />
+                </Form.Group>
+
+                <Form.Check
+                  type="checkbox"
+                  label="Night Walker"
+                  name="isNightwalker"
+                  checked={restaurantInfo.isNightwalker}
+                  onChange={handleRestaurantInfoChange}
+                  className="mb-2"
+                />
+
+                <Form.Check
+                  type="checkbox"
+                  label="Published"
+                  name="isPublished"
+                  checked={restaurantInfo.isPublished}
+                  onChange={handleRestaurantInfoChange}
+                  className="checkbox-info"
+                />
+
+                <Button className="submit-btn-info" type="submit">Save Restaurant Information</Button>
+              </Form>
+            </Tab.Pane>
           </Tab.Content>
         </Tab.Container>
       </main>
@@ -475,6 +673,13 @@ const Admin: React.FC = () => {
           >
             <FiPackage />
             <span>Stock</span>
+          </li>
+          <li
+            onClick={() => setActiveTab("restaurant information")}
+            className={activeTab === "restaurant information" ? "active" : ""}
+          >
+            <FiInfo />
+            <span>Restaurant Information</span>
           </li>
         </ul>
       </aside>

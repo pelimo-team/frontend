@@ -497,6 +497,121 @@
   margin: 40px 0;
 }
 
+/* Restaurant Information Form Styles */
+.restaurant-info-form {
+  background-color: var(--box-color);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 25px 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 10px var(--shadow-light);
+  transition: box-shadow 0.3s ease;
+}
+
+.restaurant-info-form:hover {
+  box-shadow: 0 4px 16px var(--shadow-dark);
+}
+
+.restaurant-info-form textarea {
+  border-radius: 12px;
+  border: 1.5px solid var(--border-color);
+  padding: 12px;
+  width: 100%;
+  font-size: 14px;
+  color: var(--text-color);
+  font-family: var(--font-main);
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.3s ease, box-shadow 0.25s ease;
+}
+
+.restaurant-info-form textarea:focus {
+  border-color: var(--button-bg-hover);
+  outline: none;
+  box-shadow: 0 0 10px 2px rgba(243, 145, 32, 0.4);
+}
+.submit-btn-info[type="submit"]:hover {
+  background-color: var(--button-bg-hover);
+  color: white;
+  box-shadow: 0 6px 18px rgba(243, 145, 32, 0.6);
+  transform: translateY(-2px);
+}
+.submit-btn-info[type="submit"] {
+  background-color: var(--button-bg);
+  border: none;
+  color: #000;
+  font-weight: 700;
+  padding: 12px 30px;
+  border-radius: 18px;
+  cursor: pointer;
+  font-size: 15px;
+  user-select: none;
+  box-shadow: 0 3px 8px rgba(243, 145, 32, 0.35);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+  margin-top: 15px;
+}
+.checkbox-info.form-check-input:checked{
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px var(--accent-color);
+
+} 
+.checkbox-info.form-check-input{
+  width: 18px;
+  height: 18px;
+  margin-top: 0;
+  margin-left: 5px;
+  background-color: white;
+  border: 1.5px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+
+} 
+.restaurant-info-form select {
+  border-radius: 12px;
+  border: 1.5px solid var(--border-color);
+  padding: 10px 12px;
+  width: 100%;
+  font-size: 14px;
+  color: var(--text-color);
+  font-family: var(--font-main);
+  transition: border-color 0.3s ease, box-shadow 0.25s ease;
+  background-color: white;
+  cursor: pointer;
+}
+
+.restaurant-info-form select:focus {
+  border-color: var(--button-bg-hover);
+  outline: none;
+  box-shadow: 0 0 10px 2px rgba(243, 145, 32, 0.4);
+}
+
+.image-preview {
+  display: block;
+  margin-top: 12px;
+  border-radius: 12px;
+  border: 1.2px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.3s ease;
+}
+
+.cover-preview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.logo-preview {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.image-preview:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+}
+
 /* واکنش‌گرایی */
 @media (max-width: 1024px) {
   .food-admin-panel {
@@ -588,6 +703,23 @@
     padding: 12px 0;
     font-size: 15px;
     border-radius: 16px;
+  }
+
+  .restaurant-info-form {
+    padding: 20px;
+  }
+  
+  .restaurant-info-form textarea {
+    min-height: 80px;
+  }
+  
+  .cover-preview {
+    max-height: 150px;
+  }
+  
+  .logo-preview {
+    width: 80px;
+    height: 80px;
   }
 }
 
