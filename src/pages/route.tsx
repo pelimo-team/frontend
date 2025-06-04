@@ -16,7 +16,7 @@ import AdvanceTasadofi from "./AdvanceTasadofi";
 import MenuBuilder from "./Model";
 import Cart from "./Cart";
 import AddCommentPage from "./AddCommentPage";
-import Admin from "./FoodAdminPanel"
+import Admin from "./Admin"
 
 import GuessTheDishGame from "./GuessTheDishGame";
 
