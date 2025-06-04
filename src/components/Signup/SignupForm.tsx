@@ -99,12 +99,13 @@ const SignupForm = () => {
     setErrorMessage("");
 
     if (isFormValid) {
-      const url = "http://127.0.0.1:8000/api/accounts/register/send-code/";
-
+      const url = "http://127.0.0.1:8000/api/accounts/";
+      let endpoint: string;
       let body: BodyInit;
       let headers: HeadersInit = {};
 
       if (role === "manager" && managerImage) {
+        endpoint =url + "register/";
         const formDataToSend = new FormData();
         formDataToSend.append("username", formData.username);
         formDataToSend.append("password", formData.password);
@@ -119,6 +120,7 @@ const SignupForm = () => {
 
         body = formDataToSend;
       } else {
+        endpoint = url + "register/send-code/";
         headers["Content-Type"] = "application/json";
         body = JSON.stringify({
           username: formData.username,
@@ -130,7 +132,7 @@ const SignupForm = () => {
       }
       console.log("Submitting with role:", role);
 
-      fetch(url, {
+      fetch(endpoint, {
         method: "POST",
         headers,
         body,
@@ -139,7 +141,7 @@ const SignupForm = () => {
           res.json().then((data) => ({ status: res.status, data }))
         )
         .then(({ status, data }) => {
-          if (status === 200) {
+          if (status === 200 ) {
             navigate(
               `/enter-code-signup?email=${encodeURIComponent(formData.email)}`
             );
