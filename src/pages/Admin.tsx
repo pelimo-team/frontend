@@ -52,6 +52,12 @@ type RestaurantInfo = {
   isPublished: boolean;
 };
 
+const mockOrders: OrderItem[] = [
+  { id: 1, foodName: "Pizza", quantity: 2, orderDate: "2024-06-01T12:34:00Z", status: "Delivered" },
+  { id: 2, foodName: "Burger", quantity: 1, orderDate: "2024-06-02T15:20:00Z", status: "Pending" },
+  { id: 3, foodName: "Pasta", quantity: 3, orderDate: "2024-06-03T09:15:00Z", status: "Canceled" },
+];
+
 const Admin: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"menu" | "orders" | "stock" | "restaurant information">("menu");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -137,8 +143,8 @@ const Admin: React.FC = () => {
     setLoadingOrders(true);
     setErrorOrders(null);
     try {
-      const response = await api.get("cart/manager/orders/");
-      setOrders(response.data.results || []);
+      await new Promise(resolve => setTimeout(resolve, 500));
+      setOrders(mockOrders);
     } catch {
       setErrorOrders("Error fetching orders");
     } finally {
@@ -165,11 +171,14 @@ const Admin: React.FC = () => {
 
     const formPayload = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      if (value !== null) formPayload.append(key, String(value));
+      if (value !== null) {
+        if (key === "image") {
+          if (value instanceof File) formPayload.append("image", value);
+        } else {
+          formPayload.append(key, String(value));
+        }
+      }
     });
-    if (formData.image instanceof File) {
-      formPayload.set("image", formData.image);
-    }
 
     try {
       if (editId !== null) {
