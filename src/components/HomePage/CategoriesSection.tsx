@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../pages/AuthContext";
 import { CategoryType } from "../../components/AdvancedSearch/types";
+import { Style } from "@mui/icons-material";
 
 const CategoriesSection = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const CategoriesSection = () => {
         { src: "restaurant.png", label: "Restaurant",  },
         { src: "fast food.png", label: "Fast Food" },
         { src: "coffee shop.png", label: "Coffee Shop" },
-        { src: "juice and ice cream.png", label: "Juice and Ice cream" },
+        { src: "juice and ice cream.png", label: "Juice and Ice cream"},
         { src: "confectionary.png", label: "Confectionary" },
         { src: "fruits.png", label: "Fruits" },
       ].map((item, index) => (
