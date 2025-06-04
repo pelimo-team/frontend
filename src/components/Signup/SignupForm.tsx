@@ -25,6 +25,8 @@ const SignupForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [buttonClicked, setButtonClicked] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [managerImage, setManagerImage] = useState<File | null>(null);
+  const [role, setRole] = useState<"manager" | "user" | "">("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -71,6 +73,16 @@ const SignupForm = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setManagerImage(e.target.files[0]);
+    }
+  };
+
+  const handleToggleChange = (selectedRole: "manager" | "user") => {
+    setRole(selectedRole);
+  };
+
   const isFormValid =
     formData.username.trim() !== "" &&
     formData.password.trim() !== "" &&
@@ -86,28 +98,40 @@ const SignupForm = () => {
     setErrorMessage("");
 
     if (isFormValid) {
-      console.log("Form is valid. Sending data to /register/send-code...");
-      fetch("http://127.0.0.1:8000/api/accounts/register/send-code/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const url = "http://127.0.0.1:8000/api/accounts/register/send-code/";
+
+      let body: BodyInit;
+      let headers: HeadersInit = {};
+
+      if (role === "manager" && managerImage) {
+        const formDataToSend = new FormData();
+        formDataToSend.append("username", formData.username);
+        formDataToSend.append("password", formData.password);
+        formDataToSend.append("email", formData.email);
+        formDataToSend.append("phone_number", formData.phone);
+        formDataToSend.append("profile_image", managerImage);
+        body = formDataToSend;
+      } else {
+        headers["Content-Type"] = "application/json";
+        body = JSON.stringify({
           username: formData.username,
           password: formData.password,
           email: formData.email,
           phone_number: formData.phone,
-        }),
+          role: role,
+        });
+      }
+
+      fetch(url, {
+        method: "POST",
+        headers,
+        body,
       })
-        .then((res) =>
-          res.json().then((data) => ({ status: res.status, data }))
-        )
+        .then((res) => res.json().then((data) => ({ status: res.status, data })))
         .then(({ status, data }) => {
           if (status === 200) {
-            console.log("Verification code sent to:", formData.email);
-            navigate(
-              `/enter-code-signup?email=${encodeURIComponent(formData.email)}`
-            );
+            navigate(`/enter-code-signup?email=${encodeURIComponent(formData.email)}`);
           } else {
-            console.error("Register error:", data.error || data);
             setErrorMessage(data.error || "Registration failed.");
           }
         })
@@ -116,16 +140,10 @@ const SignupForm = () => {
           setErrorMessage("Something went wrong. Please try again.");
         });
     } else {
-      console.log("Form is invalid. Not sending data.");
       setErrorMessage("Please fix the errors and fill all fields correctly.");
     }
   };
 
-  const [role, setRole] = useState<"manager" | "user" | "">("");
-
-  const handleToggleChange = (selectedRole: "manager" | "user") => {
-    setRole(selectedRole);
-  };
   return (
     <div className="signup-form-box">
       <h1 className="signup-title">Sign Up</h1>
@@ -174,20 +192,28 @@ const SignupForm = () => {
           icon="phone.png"
           error={phoneError}
         />
+        <h1 className="upload_label">upload your documents</h1>
+        {role === "manager" && (
+          <div className="signup-upload">
+            <input
+              type="file"
+              name="managerImage"
+              id="managerImage"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+          </div>
+        )}
 
         {errorMessage && <div className="signup-error">{errorMessage}</div>}
 
         <div>
           <ToggleButton onToggle={handleToggleChange} />
-          {role === "manager" && <h1></h1>}
-          {role === "user" && <h1></h1>}
         </div>
 
         <button
           type="submit"
-          className={`signup-btn ${
-            buttonClicked && !isFormValid ? "signup-btn-disabled" : ""
-          }`}
+          className={`signup-btn ${buttonClicked && !isFormValid ? "signup-btn-disabled" : ""}`}
           disabled={buttonClicked && !isFormValid}
         >
           Register

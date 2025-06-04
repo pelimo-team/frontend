@@ -22,12 +22,15 @@ export interface MenuItem {
     rating?: number;
     city?: string;
     reviews?: any[];
+    delivery_cost: number;
   };
   category_name?: string;
-  rate: number | null;
+  rate: number;
   onsale: boolean;
   price: number;
   sale_price?: number;
+  reviews: any[];
+  quantity: number;
 }
 
 export const categories = [

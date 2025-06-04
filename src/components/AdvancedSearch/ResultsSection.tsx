@@ -112,8 +112,8 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                 onClick={() => {
                   setShowFoodItem(item);
                   setIsFoodOpen(true);
-                  navigate(`/foodpage/${item.restaurant?.id}`, {
-                    state: { scrollToItem: item.id },
+                  navigate("/foodpage", {
+                    state: { scrollToItem: item.id, item, },
                   });
                 }}
               >

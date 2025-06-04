@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/FoodPage.css';
 
 interface StarRatingProps {
-  rating: number;
+  rating: number ;
   maxRating?: number;
   size?: 'small' | 'medium' | 'large';
   interactive?: boolean;
