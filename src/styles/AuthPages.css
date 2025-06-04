@@ -2,281 +2,298 @@
 
 /* ریست پایه */
 
-  
-  /* =============================
+/* =============================
      صفحه LOGIN
      فرم چپ - عکس راست
   ============================= */
-  :root {
-    --bg-color: #F4F1EB;
-    --box-color: #F4F1EB;
-    --input-bg: #f0d6c4;
-    --input-border: #D4B7A3;
-    --button-bg: #945436;
-    --error-color: #FC5959;
-    --text-color: #1C1C1C;
-  }
+:root {
+  --bg-color: #f4f1eb;
+  --box-color: #f4f1eb;
+  --input-bg: #f0d6c4;
+  --input-border: #d4b7a3;
+  --button-bg: #945436;
+  --error-color: #fc5959;
+  --text-color: #1c1c1c;
+}
 
-  .login-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background-color: #f4f1eb;
-  }
-  
-  /* ستون چپ: فرم لاگین */
-  .login-left {
-    display: grid;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    height: 100vh;
-  }
-  
-  /* لوگو بالا */
-  .login-logo {
-    width: 8%;
-    height: auto;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1;
-  }
-  .login-logo img {
-    width: 123px;
-    height: auto;
-  }
-  
-  /* باکس فرم وسط صفحه */
-  .login-form-box {
-    margin: auto;
-    width: 60%;
-    text-align: center;
-  }
-  
-  /* عنوان و زیرعنوان لاگین */
-  .login-title {
-    color: #8B573C;
-    font-weight: bold;
-    font-size: 30px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    white-space: nowrap;
-    text-align: center;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-  
-  }
-  .login-subtitle {
-    margin-bottom: 15px;
-    color: var(--text-color);
-  }
-  
-  /* گروه ورودی */
-  .login-input-group {
-    position: relative;
-    margin-bottom: 20px;
-    background: #f0d6c4;
-    border-radius: 15px;
-    padding: 0px 0px 0px 0px;
-    display: flex;
-    align-items: center;
-   
-  }
-  .input-icon {
-    position: absolute;
-    left : 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-  }
-  .login-input-group input{
-    width: 100%;
-    padding: 10px 30px ;
-    background-color: #f0d6c4;
-    border: 1px solid #D4B7A3;
-    border-radius: 15px;
-  }
-  .login-eye{
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-  
-  /* آیکون چشم (نمایش رمز) */
-  
-  
-  /* پیام خطا */
-  .login-error {
-    display: block;
-    color: red;
-    font-size: 13px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-  }
-  
-  /* دکمه لاگین */
-  .login-btn {
-    display: block;
-    margin: auto;
-    margin-top: 20px;
-    width: 150px;
-    color: #FFF;
-    font-size: 18px;
-    padding: 10px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    filter: drop-shadow(0px 0px 0px #00000000);
-    background: linear-gradient(to right, #fcddbc, #f3a853);
-    transition: background 1s ease-in;
-  }
-  .login-btn:hover {
-    background: #f39120;
+.login-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #f4f1eb;
+}
+
+/* ستون چپ: فرم لاگین */
+.login-left {
+  display: grid;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  height: 100vh;
+}
+
+/* لوگو بالا */
+.login-logo {
+  width: 8%;
+  height: auto;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+}
+.login-logo img {
+  width: 123px;
+  height: auto;
+}
+
+/* باکس فرم وسط صفحه */
+.login-form-box {
+  margin: auto;
+  width: 60%;
+  text-align: center;
+}
+
+/* عنوان و زیرعنوان لاگین */
+.login-title {
+  color: #8b573c;
+  font-weight: bold;
+  font-size: 30px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.login-subtitle {
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+/* گروه ورودی */
+.login-input-group {
+  position: relative;
+  margin-bottom: 20px;
+  background: #f0d6c4;
+  border-radius: 15px;
+  padding: 0px 0px 0px 0px;
+  display: flex;
+  align-items: center;
+}
+.input-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+}
+.login-input-group input {
+  width: 100%;
+  padding: 10px 30px;
+  background-color: #f0d6c4;
+  border: 1px solid #d4b7a3;
+  border-radius: 15px;
+}
+.login-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* آیکون چشم (نمایش رمز) */
+
+/* پیام خطا */
+.login-error {
+  display: block;
+  color: red;
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* دکمه لاگین */
+.login-btn {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  width: 150px;
+  color: #fff;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 0px #00000000);
+  background: linear-gradient(to right, #fcddbc, #f3a853);
+  transition: background 1s ease-in;
+}
+.login-btn:hover {
+  background: #f39120;
   filter: drop-shadow(0px 10px 15px #0000003b);
-  }
-  .login-btn-disabled {
-    background: gray !important;
-    cursor: not-allowed !important;
-    opacity: 0.6;
-  }
-  
-  /* لینک‌های انتهایی */
-  .login-extra {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #333;
-  }
-  .login-extra a {
-    color: #8b573c;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  .login-extra a:hover {
-    text-decoration: underline;
-  }
-  
-  /* ستون راست: عکس برگر (لاگین) */
-  .login-right {
-    display: grid;
+}
+.login-btn-disabled {
+  background: gray !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
+/* لینک‌های انتهایی */
+.login-extra {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+.login-extra a {
+  color: #8b573c;
+  text-decoration: none;
+  font-weight: bold;
+}
+.login-extra a:hover {
+  text-decoration: underline;
+}
+
+/* ستون راست: عکس برگر (لاگین) */
+.login-right {
+  display: grid;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   height: 100vh;
-  }
-  .login-right img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  /* =============================
+}
+.login-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =============================
      صفحه SIGNUP
      فرم چپ - عکس راست
   ============================= */
-  .signup-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background-color: #f4f1eb;
-  }
-  
-  /* ستون چپ: فرم ثبت‌نام */
-  .signup-left {
-    display: grid;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    height: 100vh;
-  }
-  
-  /* لوگو بالا (ثبت‌نام) */
-  .signup-logo {
-    width: 8%;
-    height: auto;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1;
-  }
-  .signup-logo img {
-    width: 123px;
-    height: auto;
-  }
-  
-  /* فرم وسط */
-  .signup-form-box {
-    margin: auto;
-    width: 60%;
-    text-align: center;
-  }
-  
-  /* عنوان و زیرعنوان */
-  .signup-title {
-    color: #8B573C;
-    font-weight: bold;
-    font-size: 30px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    white-space: nowrap;
-    text-align: center;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-  }
-  .signup-subtitle {
-    margin-bottom: 15px;
-    color: var(--text-color);
-  }
-  
-  /* گروه ورودی */
-  .signup-input-group {
-    position: relative;
-    margin-bottom: 20px;
-    background: #f0d6c4;
-    border-radius: 15px;
-    padding: 0px 0px 0px 0px;
-    display: flex;
-    align-items: center;
-  }
-  .input-icon {
-    position: absolute;
-   left : 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-  }
-  .signup-input-group input {
-    width: 100%;
-  padding: 10px 30px ;
-  background-color: #f0d6c4;
-  border: 1px solid #D4B7A3;
+.signup-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #f4f1eb;
+}
+
+/* ستون چپ: فرم ثبت‌نام */
+.signup-left {
+  display: grid;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  height: 100vh;
+}
+
+/* لوگو بالا (ثبت‌نام) */
+.signup-logo {
+  width: 8%;
+  height: auto;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+}
+.signup-logo img {
+  width: 123px;
+  height: auto;
+}
+
+/* فرم وسط */
+.signup-form-box {
+  margin: auto;
+  width: 60%;
+  text-align: center;
+}
+
+/* عنوان و زیرعنوان */
+.signup-title {
+  color: #8b573c;
+  font-weight: bold;
+  font-size: 30px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.signup-subtitle {
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+/* گروه ورودی */
+.signup-input-group {
+  position: relative;
+  margin-bottom: 20px;
+  background: #f0d6c4;
   border-radius: 15px;
-  }
-  
-  /* آیکون چشم */
-  .signup-eye {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-  
-  /* پیام خطا */
-  .signup-error {
-    display: block;
-    color: red;
-    font-size: 13px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-  }
-   
-  /* From Uiverse.io by njesenberger */ 
+  padding: 0px 0px 0px 0px;
+  display: flex;
+  align-items: center;
+}
+.upload_label {
+  font-size: 0.8rem;
+  margin-right: 25rem;
+}
+.signup-upload {
+  position: relative;
+  margin-bottom: 20px;
+  background: #f0d6c4;
+  border-radius: 15px;
+  padding: 0px 0px 0px 0px;
+  display: flex;
+  align-items: center;
+}
+.signup-upload input {
+  width: 100%;
+  padding: 10px 30px;
+  background-color: #f0d6c4;
+  border: 1px solid #d4b7a3;
+  border-radius: 15px;
+}
+
+.input-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+}
+.signup-input-group input {
+  width: 100%;
+  padding: 10px 30px;
+  background-color: #f0d6c4;
+  border: 1px solid #d4b7a3;
+  border-radius: 15px;
+}
+
+/* آیکون چشم */
+.signup-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* پیام خطا */
+.signup-error {
+  display: block;
+  color: red;
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* From Uiverse.io by njesenberger */
 .toggle-container {
   --knob-size: 1.75em;
   display: flex;
@@ -296,7 +313,7 @@
   opacity: 0;
   /* fix em sizing */
   font: inherit;
-  transition: transform .24s cubic-bezier(.65, 1.35, .5, 1);
+  transition: transform 0.24s cubic-bezier(0.65, 1.35, 0.5, 1);
   cursor: pointer;
 }
 
@@ -320,7 +337,7 @@
   align-items: center;
   transform: rotate(-25deg);
   transform-origin: bottom center;
-  transition: transform .24s cubic-bezier(.65, 1.35, .5, 1);
+  transition: transform 0.24s cubic-bezier(0.65, 1.35, 0.5, 1);
 }
 
 .toggle-input:checked + .toggle-handle-wrapper > .toggle-handle {
@@ -333,8 +350,14 @@
   border-radius: 50%;
   width: var(--knob-size);
   height: var(--knob-size);
-  background-image: radial-gradient(farthest-corner at 70% 30%, #fedee2 4%, #d63534 12% 24%, #a81a1a 50% 65%, #d63534 75%);
-  transition: transform .24s cubic-bezier(.65, 1.35, .5, 1);
+  background-image: radial-gradient(
+    farthest-corner at 70% 30%,
+    #fedee2 4%,
+    #d63534 12% 24%,
+    #a81a1a 50% 65%,
+    #d63534 75%
+  );
+  transition: transform 0.24s cubic-bezier(0.65, 1.35, 0.5, 1);
 }
 
 .toggle-input:checked + .toggle-handle-wrapper .toggle-handle-knob {
@@ -343,30 +366,30 @@
 
 /* toggle handle knob hover inner shadow */
 .toggle-handle-knob::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   border-radius: inherit;
   width: 100%;
   height: 100%;
-  box-shadow: inset 0 0 8px 2px rgb(255 255 255 / .4);
+  box-shadow: inset 0 0 8px 2px rgb(255 255 255 / 0.4);
   opacity: 0;
-  transition: opacity .2s;
-  
+  transition: opacity 0.2s;
 }
 
 @media (hover: hover) {
   .toggle-input:hover + .toggle-handle-wrapper .toggle-handle-knob::after,
-  .toggle-input:focus-visible + .toggle-handle-wrapper .toggle-handle-knob::after {
+  .toggle-input:focus-visible
+    + .toggle-handle-wrapper
+    .toggle-handle-knob::after {
     opacity: 1;
   }
 }
 
-
 .toggle-handle-bar-wrapper {
   position: relative;
-  width: .5em;
+  width: 0.5em;
   height: 3em;
 }
 
@@ -376,25 +399,32 @@
   left: 0;
   width: 100%;
   height: calc(100% + var(--knob-size) / 2);
-  background-image: linear-gradient(to right, #777475, #a4a4a4, #fff 45% 55%, #a4a4a4, #777475);
-  background-position-x: .06125em;
-  transition: background-position-x .24s cubic-bezier(.65, 1.35, .5, 1);
-  box-shadow: inset 0 1em .25em rgb(0 0 0 / .4);
+  background-image: linear-gradient(
+    to right,
+    #777475,
+    #a4a4a4,
+    #fff 45% 55%,
+    #a4a4a4,
+    #777475
+  );
+  background-position-x: 0.06125em;
+  transition: background-position-x 0.24s cubic-bezier(0.65, 1.35, 0.5, 1);
+  box-shadow: inset 0 1em 0.25em rgb(0 0 0 / 0.4);
 }
 
 .toggle-input:checked + .toggle-handle-wrapper .toggle-handle-bar {
-  background-position-x: -.06125em;
+  background-position-x: -0.06125em;
 }
 
 .toggle-base {
   position: relative;
   border-radius: 3.125em;
-  padding: .25em;
+  padding: 0.25em;
   width: 3.5em;
   height: 1.125em;
   background-color: #fff;
   background-image: linear-gradient(to bottom, #fff, #d7d7d7);
-  box-shadow: 0 -.25em .5em #fff, 0 .25em .5em #d7d7d7;
+  box-shadow: 0 -0.25em 0.5em #fff, 0 0.25em 0.5em #d7d7d7;
 }
 
 .toggle-base-inside {
@@ -403,14 +433,28 @@
   width: 100%;
   height: 100%;
   background-image: linear-gradient(to bottom, #a6a6a6, #7d7d7d);
-  box-shadow: inset 0 .0625em rgb(255 255 255 / .2), inset 0 -.03125em rgb(255 255 255 / 1), inset 0 -.0625em .25em rgb(0 0 0 / .1);
+  box-shadow: inset 0 0.0625em rgb(255 255 255 / 0.2),
+    inset 0 -0.03125em rgb(255 255 255 / 1),
+    inset 0 -0.0625em 0.25em rgb(0 0 0 / 0.1);
 }
 .knob-green {
-  background-image: radial-gradient(farthest-corner at 70% 30%, #d2f8d2 4%, #28a745 12% 24%, #1e7e34 50% 65%, #28a745 75%);
+  background-image: radial-gradient(
+    farthest-corner at 70% 30%,
+    #d2f8d2 4%,
+    #28a745 12% 24%,
+    #1e7e34 50% 65%,
+    #28a745 75%
+  );
 }
 
 .knob-red {
-  background-image: radial-gradient(farthest-corner at 70% 30%, #fedee2 4%, #d63534 12% 24%, #a81a1a 50% 65%, #d63534 75%);
+  background-image: radial-gradient(
+    farthest-corner at 70% 30%,
+    #fedee2 4%,
+    #d63534 12% 24%,
+    #a81a1a 50% 65%,
+    #d63534 75%
+  );
 }
 /* toggle base inside active */
 /* .toggle-base-inside::after {
@@ -428,57 +472,56 @@
 .toggle-input:checked ~ .toggle-base .toggle-base-inside::after {
   opacity: 1;
 }
-  /* دکمه Register */
-  .signup-btn {
-    display: block;
-    margin: auto;
-    margin-top: 20px;
-    width: 150px;
-    color: #FFF;
-    font-size: 18px;
-    padding: 10px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    filter: drop-shadow(0px 0px 0px #00000000);
-    background: linear-gradient(to right, #fcddbc, #f3a853);
-    transition: background 1s ease-in;
-  }
-  .signup-btn:hover {
-    background: #f39120;
-    filter: drop-shadow(0px 10px 15px #0000003b);
-  }
-  .signup-btn-disabled {
-    background: gray !important;
-    cursor: not-allowed !important;
-    opacity: 0.6;
-  }
-  
-  /* لینک پایینی */
-  .signup-extra {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #333;
-  }
-  .signup-extra a {
-    color: #8b573c;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  .signup-extra a:hover {
-    text-decoration: underline;
-  }
-  
-  /* ستون راست: برگر (ثبت‌نام) */
-  .signup-right {
-    display: grid;
+/* دکمه Register */
+.signup-btn {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  width: 150px;
+  color: #fff;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 0px #00000000);
+  background: linear-gradient(to right, #fcddbc, #f3a853);
+  transition: background 1s ease-in;
+}
+.signup-btn:hover {
+  background: #f39120;
+  filter: drop-shadow(0px 10px 15px #0000003b);
+}
+.signup-btn-disabled {
+  background: gray !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
+/* لینک پایینی */
+.signup-extra {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #333;
+}
+.signup-extra a {
+  color: #8b573c;
+  text-decoration: none;
+  font-weight: bold;
+}
+.signup-extra a:hover {
+  text-decoration: underline;
+}
+
+/* ستون راست: برگر (ثبت‌نام) */
+.signup-right {
+  display: grid;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   height: 100vh;
-  }
-  .signup-right img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
+}
+.signup-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
 import { MenuItem } from './types';
+import { useNavigate } from 'react-router-dom';
 
 interface MenuItemCardProps {
   item: MenuItem;
@@ -9,10 +10,12 @@ interface MenuItemCardProps {
 }
 
 const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onAddToCart, isVisible }) => {
+  const navigate = useNavigate();
   return (
-    <div 
+    <button 
       id={item.id}
       className={`menu-item-card h-100 ${isVisible ? 'visible' : ''}`}
+      onClick={() => navigate("/foodpage")}
     >
       <div className="menu-item-image">
         <img
@@ -40,7 +43,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onAddToCart, isVisibl
           </button>
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 
