@@ -88,6 +88,7 @@ const SignupForm = () => {
     formData.password.trim() !== "" &&
     formData.phone.trim() !== "" &&
     formData.email.trim() !== "" &&
+    role !== "" &&
     !emailError &&
     !phoneError &&
     !passwordError;
@@ -109,7 +110,13 @@ const SignupForm = () => {
         formDataToSend.append("password", formData.password);
         formDataToSend.append("email", formData.email);
         formDataToSend.append("phone_number", formData.phone);
-        formDataToSend.append("profile_image", managerImage);
+        formDataToSend.append("id_card_image", managerImage);
+        formDataToSend.append("role", "manager");
+        console.log("FormData entries:");
+        for (let pair of formDataToSend.entries()) {
+          console.log(`${pair[0]}: ${pair[1]}`);
+        }
+
         body = formDataToSend;
       } else {
         headers["Content-Type"] = "application/json";
@@ -121,16 +128,21 @@ const SignupForm = () => {
           role: role,
         });
       }
+      console.log("Submitting with role:", role);
 
       fetch(url, {
         method: "POST",
         headers,
         body,
       })
-        .then((res) => res.json().then((data) => ({ status: res.status, data })))
+        .then((res) =>
+          res.json().then((data) => ({ status: res.status, data }))
+        )
         .then(({ status, data }) => {
           if (status === 200) {
-            navigate(`/enter-code-signup?email=${encodeURIComponent(formData.email)}`);
+            navigate(
+              `/enter-code-signup?email=${encodeURIComponent(formData.email)}`
+            );
           } else {
             setErrorMessage(data.error || "Registration failed.");
           }
@@ -213,7 +225,9 @@ const SignupForm = () => {
 
         <button
           type="submit"
-          className={`signup-btn ${buttonClicked && !isFormValid ? "signup-btn-disabled" : ""}`}
+          className={`signup-btn ${
+            buttonClicked && !isFormValid ? "signup-btn-disabled" : ""
+          }`}
           disabled={buttonClicked && !isFormValid}
         >
           Register
