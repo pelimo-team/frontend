@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - dev
+      - fb-cd
 jobs:
   deploy:
     runs-on: ubuntu-latest
