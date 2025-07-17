@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Review } from "./Type";
 import ReviewItem from "./ReviewItem";
 import AddReview from "./AddReview";
 import "../../styles/FoodPage.css";
-import axios from "axios";
 
 interface ReviewSectionProps {
   reviews: Review[];

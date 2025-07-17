@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../pages/AuthContext";
 import { CategoryType } from "../../components/AdvancedSearch/types";
-import { Style } from "@mui/icons-material";
+
 
 const CategoriesSection = () => {
   const navigate = useNavigate();

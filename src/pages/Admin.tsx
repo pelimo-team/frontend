@@ -285,7 +285,7 @@ const Admin: React.FC = () => {
     isPublished: false,
   });
   const getLineChartDataByStatus = () => {
-    const statuses = ["Delivered", "Pending", "Canceled"];
+   
     const grouped: Record<string, Record<string, number>> = {};
 
     orders.forEach((order) => {
@@ -360,14 +360,7 @@ const Admin: React.FC = () => {
       prev.includes(id) ? prev.filter((oid) => oid !== id) : [...prev, id]
     );
   };
-  const getChartData = () => {
-    const grouped: Record<string, number> = {};
-    orders.forEach((order) => {
-      const date = new Date(order.orderDate).toLocaleDateString("en-US");
-      grouped[date] = (grouped[date] || 0) + 1;
-    });
-    return Object.entries(grouped).map(([date, count]) => ({ date, count }));
-  };
+
 
   const fetchMenuItems = async () => {
     setLoading(true);

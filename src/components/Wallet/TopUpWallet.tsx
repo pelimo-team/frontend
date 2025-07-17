@@ -7,7 +7,7 @@ interface TopUpWalletProps {
   onBackButtonClick: () => void; // تابعی برای بازگشت به صفحه WalletShow (این prop در این کامپوننت استفاده نمی‌شود اما برای سازگاری با والد نگه داشته شده)
 }
 
-const TopUpWallet: React.FC<TopUpWalletProps> = ({ onTopUpSuccess, onBackButtonClick }) => {
+const TopUpWallet: React.FC<TopUpWalletProps> = ({ onTopUpSuccess}) => {
   // مبلغ‌های پیشنهادی برای شارژ
   const walletSuggestedAmounts = [
     10000, // 10,000 Toman

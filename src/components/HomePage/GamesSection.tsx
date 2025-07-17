@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styles from "../../styles/HomePage.module.css";
-import { useNavigate } from "react-router-dom";
 
 interface GameItem {
   title: string;
@@ -37,7 +36,7 @@ const GamesSection: React.FC = () => {
   const [tetrisScore, setTetrisScore] = useState<number>(0);
   const [minesScore, setMinesScore] = useState<number>(0);
 
-  const navigate = useNavigate();
+  
 
   const handleCardClick = (gameTitle: string, route: string) => {
   // Update score based on title (same logic)
