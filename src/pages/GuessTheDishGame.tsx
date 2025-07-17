@@ -40,7 +40,7 @@ const GuessTheDishGame: React.FC = () => {
   const [score, setScore] = useState(0);
   const [showImage, setShowImage] = useState(false);
   const [timer, setTimer] = useState(15);
-  const [imageLoaded, setImageLoaded] = useState(false);
+ 
   const [gameExited, setGameExited] = useState(false);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const GuessTheDishGame: React.FC = () => {
     setAnswered(false);
     setIsCorrect(null);
     setShowImage(false);
-    setImageLoaded(false);
+    
     setTimer(15);
   };
 
@@ -123,7 +123,7 @@ const GuessTheDishGame: React.FC = () => {
                   src={correctDish.image}
                   alt="Guess"
                   className={`main-image ${showImage ? "reveal" : "blurred"}`}
-                  onLoad={() => setImageLoaded(true)}
+                 
                 />
               )}
             </div>
