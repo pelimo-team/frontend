@@ -5,7 +5,7 @@ import MenuItemCard from './MenuItemCard';
 interface MenuSectionProps {
   items: MenuItem[];
   visibleItems: Set<string>;
-  onAddToCart: (itemId: string) => void;
+  onAddToCart: (itemId: number | string) => void;
   isActive: boolean;
 }
 

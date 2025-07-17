@@ -125,7 +125,7 @@ function RestaurantPage() {
   const getCartItemCount = (): number =>
     Object.values(cart).reduce((a, b) => a + b, 0);
 
-  const handleAddToCart = async (itemId: string): Promise<void> => {
+  const handleAddToCart = async (itemId: number | string): Promise<void> => {
     try {
       await fetch("/api/cart/add/", {
         method: "POST",
