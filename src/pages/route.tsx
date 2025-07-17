@@ -33,9 +33,6 @@ export const ProjectRoutes = () => {
         {/* صفحه اصلی */}
         <Route path="/" element={<HomePage />} />
 
-        {/* صفحه ادمین */}
-        <Route path="/admin" element={<Admin />} />
-
         {/* صفحه لاگین */}
         <Route path="/login" element={<Login />} />
 
@@ -86,6 +83,7 @@ export const ProjectRoutes = () => {
         <Route path="/model" element={<MenuBuilder />} />
         <Route path="/recipe/:id" element={<RecipePage />} />
         <Route path="/games/guess-the-dish" element={< GuessTheDishGame />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
   );

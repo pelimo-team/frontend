@@ -6,10 +6,16 @@ import StarRating from './StarRating';
 interface RestaurantInfoProps {
   name: string;
   location: string;
+  description: string;
   rating: number;
 }
 
-const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ name, location, rating }) => {
+const RestaurantInfo: React.FC<RestaurantInfoProps> = ({
+  name,
+  location,
+  description,
+  rating,
+}) => {
   return (
     <section className="restaurant-info py-4 px-3 animated-section">
       <div className="container">
@@ -20,6 +26,7 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ name, location, rating 
               <MapPin size={18} className="text-primary me-2" />
               <span className="location-text">{location}</span>
             </div>
+            <p className="restaurant-description text-muted mt-2">{description}</p>
           </div>
           <div className="col-md-4 text-md-end mt-3 mt-md-0">
             <div className="rating-box d-inline-flex align-items-center">
@@ -33,4 +40,4 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ name, location, rating 
   );
 };
 
-export default RestaurantInfo; 
+export default RestaurantInfo;
