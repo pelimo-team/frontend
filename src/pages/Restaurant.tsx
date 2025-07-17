@@ -199,8 +199,9 @@ function RestaurantPage() {
 
           <CommentsSection
             comments={comments}
-            isActive={activeTab === "comments"}
-          />
+            isActive={activeTab === "comments"} setComments={function (): void {
+              throw new Error("Function not implemented.");
+            } }          />
         </div>
       </section>
 

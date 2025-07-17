@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 export interface MenuItem {
-  id: number | string; // بهتره عدد باشه، ولی string هم پشتیبانی میشه
+  id: number; // بهتره عدد باشه، ولی string هم پشتیبانی میشه
   name: string;
   description?: string;
   price: number;
@@ -12,6 +14,8 @@ export interface MenuItem {
 }
 
 export interface Comment {
+  comment: ReactNode;
+  created_at: string | number | Date;
   id: number;
   user: string;
   date: string;
@@ -24,10 +28,13 @@ export interface Cart {
 }
 
 export interface Restaurant {
+  cover_image: string;
+  description: string;
   id: number;
   name: string;
   location: string;
   rating: number;
   image: string;
   logo: string;
+  city: number;
 }

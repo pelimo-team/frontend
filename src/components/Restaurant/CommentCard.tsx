@@ -3,9 +3,13 @@ import { Comment } from './types';
 import StarRating from './StarRating';
 
 interface CommentCardProps {
-  comment: Comment;
+  comment: ExtendedComment;
   index: number;
 }
+interface ExtendedComment extends Comment {
+  formattedDate: string;
+}
+
 
 const CommentCard: React.FC<CommentCardProps> = ({ comment, index }) => {
   const formattedDate = new Date(comment.created_at).toLocaleString('en-US', {

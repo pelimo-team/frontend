@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface MenuItemCardProps {
   item: MenuItem;
-  onAddToCart: (itemId: string) => void;
+  onAddToCart: (itemId: number) => void;
   isVisible: boolean;
 }
 
