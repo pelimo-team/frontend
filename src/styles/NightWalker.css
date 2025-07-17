@@ -1,591 +1,763 @@
-/* Base styles */
+/* Base styles - استایل‌های پایه برای کل صفحه */
 body {
-  margin: 0;
-  font-family: "Arial", sans-serif;
-  background: none;
+    margin: 0;
+    font-family: 'Inter', sans-serif; /* تغییر فونت به Inter برای ظاهری مدرن‌تر */
+    background: none; /* پس‌زمینه اصلی توسط عناصر ستاره و ابر مدیریت می‌شود */
+    overflow-x: hidden; /* جلوگیری از اسکرول افقی ناخواسته */
+    direction: rtl; /* تنظیم جهت نوشتار از راست به چپ */
 }
 
+/* کانتینر اصلی صفحه شبگرد - شامل تمام محتوای قابل اسکرول */
 .nightwalker-container {
-  position: relative; /* برای قرار دادن محتوا داخل */
-  width: 100%;
-  height: 100vh; /* ارتفاع 100% صفحه */
-  overflow: auto; /* امکان اسکرول */
-  z-index: 1;
-}
-.background-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* قرار دادن پس‌زمینه زیر محتوا */
-}
-.background-container img {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 200px; /* اندازه دلخواه برای تصویر ماه */
-  width: auto;
+    position: relative; /* برای قرار دادن محتوا داخل */
+    width: 100%;
+    min-height: 100vh; /* حداقل ارتفاع 100% صفحه برای اطمینان از پوشش کامل */
+    overflow-y: auto; /* امکان اسکرول عمودی برای محتوا */
+    overflow-x: hidden; /* جلوگیری از اسکرول افقی ناخواسته */
+    z-index: 1; /* اطمینان از قرارگیری محتوا روی پس‌زمینه */
+    background-color: transparent; /* اطمینان از شفافیت برای دیدن پس‌زمینه */
+    display: flex; /* استفاده از فلکس‌باکس برای چیدمان عمودی */
+    flex-direction: column; /* آیتم‌ها زیر هم قرار بگیرند */
+    align-items: center; /* محتوا در مرکز افقی قرار گیرد */
 }
 
-@keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
+/* کانتینر پس‌زمینه - برای عناصر ثابت در پس‌زمینه (ماه، ستاره، ابر) */
+.background-container {
+    position: fixed; /* ثابت نگه داشتن پس‌زمینه هنگام اسکرول محتوا */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* قرار دادن پس‌زمینه زیر محتوا */
+    overflow: hidden; /* جلوگیری از سرریز شدن عناصر پس‌زمینه */
+    background-color: #1A202C; /* رنگ پایه تیره برای پس‌زمینه شب */
 }
+
+/* تصویر ماه در پس‌زمینه */
+.background-container img {
+    position: absolute;
+    top: 50%; /* وسط عمودی */
+    right: 3%; /* قرار گرفتن در سمت راست صفحه */
+    transform: translateY(-50%); /* تراز دقیق عمودی */
+    height: 70vh; /* اندازه ماه بر اساس ارتفاع viewport */
+    width: 70vh; /* حفظ نسبت تصویر */
+    object-fit: contain; /* اطمینان از نمایش کامل تصویر */
+    z-index: -1; /* قرار دادن ماه زیر ستاره‌ها و ابرها */
+    opacity: 0.8; /* کمی شفافیت برای ماه */
+    filter: drop-shadow(0 0 20px rgba(183, 148, 244, 0.4)); /* درخشش بنفش ملایم */
+}
+
+/* انیمیشن حرکت پس‌زمینه (برای ستاره‌ها و ابرها) */
+@keyframes move-background {
+    from { transform: translateX(0px); }
+    to { transform: translateX(-100%); } /* حرکت از راست به چپ در RTL و لوپ بی‌درنگ */
+}
+
+/* سازگاری با مرورگرهای مختلف */
 @-webkit-keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
+    from { -webkit-transform: translateX(0px); }
+    to { -webkit-transform: translateX(-100%); }
 }
 
 @-moz-keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
+    from { -moz-transform: translateX(0px); }
+    to { -moz-transform: translateX(-100%); }
 }
 
-@-webkit-keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
+@-ms-keyframes move-background {
+    from { -ms-transform: translateX(0px); }
+    to { -ms-transform: translateX(-100%); }
 }
 
+@-o-keyframes move-background {
+    from { -o-transform: translateX(0px); }
+    to { -o-transform: translateX(-100%); }
+}
+
+
+/* لایه‌های ستاره، درخشش و ابر */
 .stars,
 .twinkling,
 .clouds {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* اطمینان از اینکه این‌ها پایین‌تر از محتوا قرار بگیرند */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* اطمینان از اینکه این‌ها پایین‌تر از محتوا قرار بگیرند */
+    pointer-events: none; /* جلوگیری از تداخل با کلیک روی محتوا */
 }
+
 .stars {
-  background: black
-    url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: block;
-  z-index: 0;
+    background: transparent url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
+    z-index: 0; /* پایین‌ترین لایه پس‌زمینه */
+    opacity: 0.8; /* کاهش شفافیت ستاره‌ها برای محوتر شدن */
+    background-size: 2000px 2000px; /* افزایش اندازه برای پخش‌تر شدن */
 }
 
 .twinkling {
-  width: 10000px;
-  height: 100%;
-  background: transparent
-    url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png")
-    repeat;
-  background-size: 1000px 1000px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 2;
+    width: 10000px; /* عرض زیاد برای تکرار بی‌درنگ انیمیشن */
+    height: 100%;
+    background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png") repeat;
+    background-size: 3000px 2500px; /* افزایش اندازه برای پخش‌تر شدن */
+    z-index: 1; /* بالاتر از ستاره‌ها */
+    opacity: 0.2; /* کاهش شفافیت درخشش برای محوتر شدن */
 
-  -moz-animation: move-background 70s linear infinite;
-  -ms-animation: move-background 70s linear infinite;
-  -o-animation: move-background 70s linear infinite;
-  -webkit-animation: move-background 70s linear infinite;
-  animation: move-background 70s linear infinite;
+    animation: move-background 200s linear infinite; /* کاهش سرعت انیمیشن */
 }
 
 .clouds {
-  width: 10000px;
-  height: 100%;
-  background: transparent
-    url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/clouds_repeat.png")
-    repeat;
-  background-size: 1000px 1000px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 3;
+    width: 10000px; /* عرض زیاد برای تکرار بی‌درنگ انیمیشن */
+    height: 100%;
+    background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/clouds_repeat.png") repeat;
+    background-size: 3000px 3000px; /* افزایش اندازه برای پخش‌تر شدن */
+    z-index: 2; /* بالاتر از درخشش */
+    opacity: 0.25; /* کاهش شفافیت ابرها برای محوتر شدن */
 
-  -moz-animation: move-background 150s linear infinite;
-  -ms-animation: move-background 150s linear infinite;
-  -o-animation: move-background 150s linear infinite;
-  -webkit-animation: move-background 150s linear infinite;
-  animation: move-background 150s linear infinite;
-}
-.nightwalker-container img {
-  height: 70vh;
-  width: 70vh;
-  position: absolute;
-  z-index: 3;
-  right: 20px;
+    animation: move-background 250s linear infinite; /* کاهش سرعت انیمیشن */
 }
 
-/* Hero section */
+/* Hero section - بخش اصلی صفحه (شامل هدر و محتوای مرکزی) */
 .nightwalker-hero-section {
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  position: relative;
-  color: white;
+    background-size: cover; /* پوشش کامل پس‌زمینه */
+    background-position: center; /* مرکز قرار گرفتن پس‌زمینه */
+    height: 100vh; /* ارتفاع 100% صفحه */
+    position: relative; /* برای قرار دادن محتوای داخلی */
+    color: #E2E8F0; /* رنگ متن روشن */
+    width: 100%; /* گرفتن تمام عرض */
+    display: flex; /* استفاده از فلکس‌باکس برای چیدمان عمودی */
+    flex-direction: column;
+    align-items: center; /* محتوا در مرکز افقی */
+    justify-content: flex-start; /* محتوا از بالا شروع شود */
+    padding-bottom: 50px; /* پدینگ از پایین برای جلوگیری از بریده شدن محتوا */
+    box-sizing: border-box; /* پدینگ در محاسبه عرض و ارتفاع لحاظ شود */
 }
 
-/* Logo and icons */
+/* Logo and icons - بخش هدر (لوگو و آیکون‌ها) */
 .nightwalker-hero-header {
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: 43% 18% 38.25%;
-  align-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow: auto;
+    margin-top: 2rem;
+    width: 100%; /* گرفتن تمام عرض */
+    display: grid; /* تغییر به گرید برای کنترل دقیق‌تر ستون‌ها */
+    grid-template-columns: 1fr auto 1fr; /* ستون‌های چپ، لوگو (وسط)، راست */
+    align-items: center;
+    font-family: 'Inter', sans-serif; /* فونت هدر */
+    padding: 0 40px; /* پدینگ از چپ و راست */
+    box-sizing: border-box;
 }
+
 .night-header-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center; /* وسط چین کردن لوگو در ستون خود */
+    align-items: center;
+    grid-column: 2; /* قرار دادن لوگو در ستون وسط */
+    width: 140px;
 }
 .night-header-logo img {
-  height: auto;
-  width: 10rem;
-  justify-content: center;
+    height: auto;
+    width: 10rem;
+    max-width: 100%; /* اطمینان از عدم سرریز شدن در موبایل */
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3)); /* سایه ملایم برای لوگو */
 }
-.night-header-left {
-  display: flex;
-  gap: 15px;
+.night-header-left { /* این بخش شامل دکمه‌های ورود/ثبت‌نام و پروفایل است */
+    display: flex;
+    gap: 10px; /* افزایش فاصله بین آیتم‌ها */
+    align-items: center;
+    justify-content: flex-start; /* تراز به سمت چپ در RTL */
+    grid-column: 1; /* قرار دادن در ستون اول (سمت چپ) */
 }
+/* دکمه‌های ورود/ثبت‌نام */
+.night-auth-button {
+    background-color: #d37f17; /* رنگ دکمه اصلی (نارنجی/طلایی) */
+    color: #1A202C; /* رنگ متن تیره برای کنتراست */
+    padding: 12px 25px; /* افزایش پدینگ */
+    border: 2px solid #F6AD55;
+    border-radius: 30px; /* گردتر شدن */
+    font-size: 1.1rem; /* اندازه فونت بزرگتر */
+    font-weight: 700; /* پررنگ‌تر */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.night-auth-button:hover {
+    background-color: #FFD180; /* رنگ روشن‌تر هنگام هاور */
+    border-color: #FFD180;
+    transform: translateY(-3px); /* کمی به بالا حرکت کند */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.night-auth-button.secondary { /* برای دکمه ثبت‌نام (مثلاً) */
+    background-color: transparent; /* پس‌زمینه شفاف */
+    color: #E2E8F0; /* رنگ متن روشن */
+    border-color: #E2E8F0; /* حاشیه روشن */
+    box-shadow: none; /* حذف سایه برای ظاهر ساده‌تر */
+}
+
+.night-auth-button.secondary:hover {
+    background-color: rgba(226, 232, 240, 0.1); /* پس‌زمینه کمی شفاف هنگام هاور */
+    color: #F6AD55; /* هایلایت با رنگ نارنجی/طلایی */
+    border-color: #F6AD55; /* تغییر رنگ حاشیه */
+    transform: translateY(-2px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
 .night-profile-dropdown-content {
-  margin-left: 4rem;
-  display: none;
-  font-size: 13px;
-  position: absolute;
-  z-index: 1;
-  min-width: 200px;
-  background-color: white;
-  border: 2px solid #abb7c2;
-  border-radius: 0px 15px 15px 15px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    /* margin-left: 4rem; */ /* حذف شد، موقعیت با right تنظیم می‌شود */
+    display: none; /* مخفی بودن پیش‌فرض */
+    font-size: 14px; /* اندازه فونت کمی بزرگتر */
+    position: absolute;
+    z-index: 10; /* اطمینان از قرارگیری روی سایر عناصر */
+    min-width: 220px; /* عرض حداقل بیشتر */
+    background-color: #2D3748; /* رنگ پس‌زمینه تیره از پالت */
+    border: 2px solid #667EEA; /* حاشیه رنگی */
+    border-radius: 10px; /* گوشه‌های گردتر */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4); /* سایه عمیق‌تر */
+    padding: 10px 0; /* پدینگ داخلی */
+    left: 40px; /* قرارگیری در سمت چپ (RTL) */
+    top: calc(2rem + 3.5rem + 10px); /* زیر دکمه پروفایل */
 }
 
 .night-profile-dropdown-content a {
-  color: #abb7c2;
-  padding: 8px 10px;
-  text-decoration: none;
-  display: block;
-  transition: 0.1s;
+    color: #E2E8F0; /* رنگ متن روشن */
+    padding: 10px 15px; /* پدینگ داخلی بیشتر */
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .night-profile-dropdown-content a:hover {
-  background-color: #abb7c2;
-  color: black;
+    background-color: #4A5568; /* رنگ پس‌زمینه هنگام هاور */
+    color: #F6AD55; /* رنگ متن هایلایت */
 }
 
-.night-profile-dropdown-content a:focus {
-  background-color: white;
-  color: #abb7c2;
+.night-profile-dropdown-content a:first-child:hover {
+    border-radius: 8px 8px 0 0; /* گوشه‌های گرد برای اولین آیتم هنگام هاور */
+}
+.night-profile-dropdown-content a:last-child:hover {
+    border-radius: 0 0 8px 8px; /* گوشه‌های گرد برای آخرین آیتم هنگام هاور */
 }
 
-.night-first-line:hover {
-  border-radius: 0px 13px 0px 0px;
+
+.night-profile-button {
+    height: 3.5rem; /* اندازه بزرگتر */
+    width: 3.5rem; /* اندازه بزرگتر */
+    border: 2px solid #E2E8F0; /* حاشیه روشن */
+    border-radius: 50%; /* کاملاً گرد */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent; /* پس‌زمینه شفاف */
+    background-image: url("https://placehold.co/60x60/B794F4/1A202C?text=👤"); /* آیکون پروفایل (مثال) */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%; /* اندازه آیکون داخل دکمه */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* سایه ملایم */
+}
+.night-profile-button:hover {
+    background-color: #667EEA; /* رنگ پس‌زمینه هنگام هاور */
+    transform: scale(1.1); /* بزرگتر شدن هنگام هاور */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); /* سایه عمیق‌تر */
+    border-color: #B794F4; /* تغییر رنگ حاشیه */
+}
+/* نمایش دراپ‌داون هنگام هاور روی دکمه */
+.night-profile-button:hover + .night-profile-dropdown-content,
+.night-profile-dropdown-content:hover {
+    display: block;
 }
 
-.night-secend-line:hover {
-  border-radius: 0px 0px 13px 13px;
-}
 
-.night-profile-button:hover .profile-dropdown-content {
-  display: block;
-}
-
-.night-home-profile {
-  margin-left: 3rem;
-  height: 3rem;
-  width: 3rem;
-
-  border: none;
-  border-radius: 30rem;
-  color: #fff;
-  background-image: url("./profile-white.png");
-
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background-repeat: no-repeat; /* جلوگیری از تکرار */
-  background-position: center; /* قرار دادن تصویر در وسط */
-  background-size: contain;
-}
-.night-home-profile:hover {
-  background-color: white;
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Search box */
+/* Search box - بخش جستجو */
 .nightwalker-centered-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 2;
-  width: 100%;
-  max-width: 600px;
-  padding: 0 20px;
+    position: relative; /* تغییر به relative برای جریان عادی سند */
+    top: auto;
+    left: auto;
+    transform: none; /* حذف transform */
+    text-align: center;
+    z-index: 2;
+    width: 100%;
+    max-width: 700px; /* افزایش حداکثر عرض */
+    padding: 0 20px;
+    margin-top: 80px; /* فاصله از هدر */
+    box-sizing: border-box;
 }
 
 .nightwalker-search-box {
-  margin-bottom: 15px;
-  width: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    margin-bottom: 25px; /* افزایش فاصله */
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* افزایش فاصله */
+    justify-content: center; /* وسط چین کردن محتوا */
 }
 
 .nightwalker-search-input {
-  flex: 1;
-  padding: 15px 45px;
-  font-size: 16px;
-  border-radius: 25px;
-  border: none;
-  outline: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+    flex: 1;
+    padding: 18px 55px; /* افزایش پدینگ */
+    font-size: 18px; /* اندازه فونت بزرگتر */
+    border-radius: 30px; /* گردتر شدن گوشه‌ها */
+    border: none;
+    outline: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* سایه عمیق‌تر */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.95); /* پس‌زمینه کمی شفاف */
+    color: #1A202C; /* رنگ متن تیره */
+    max-width: 500px; /* محدود کردن عرض ورودی */
+}
+
+.nightwalker-search-input::placeholder {
+    color: #667EEA; /* رنگ placeholder */
+    opacity: 0.7;
+}
+
+.nightwalker-search-input:focus {
+    box-shadow: 0 0 0 4px rgba(183, 148, 244, 0.5), 0 6px 20px rgba(0, 0, 0, 0.2); /* درخشش فوکوس */
+    border-color: #B794F4;
 }
 
 .nightwalker-search-icon {
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.6;
+    position: absolute;
+    right: 20px; /* قرار گرفتن در سمت راست (RTL) */
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.7;
+    color: #4A5568; /* رنگ آیکون */
+    font-size: 24px; /* اندازه بزرگتر */
+    pointer-events: none; /* جلوگیری از تداخل با کلیک روی ورودی */
 }
 
 .nightwalker-search-button {
-  padding: 15px 30px;
-  font-size: 16px;
-  border-radius: 25px;
-  border: none;
-  background-color: #123865;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 18px 35px; /* افزایش پدینگ */
+    font-size: 18px; /* اندازه فونت بزرگتر */
+    border-radius: 30px; /* گردتر شدن گوشه‌ها */
+    border: none;
+    background-color: #667EEA; /* رنگ دکمه از پالت */
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* سایه عمیق‌تر */
+    font-weight: 600;
 }
 
 .nightwalker-search-button:hover {
-  background-color: #1a4c8f;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    background-color: #B794F4; /* تغییر رنگ هنگام هاور */
+    transform: translateY(-3px); /* کمی به بالا حرکت کند */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .nightwalker-search-button:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Categories */
+/* Categories - بخش دسته‌بندی‌ها */
 .nightwalker-category-bar-wrapper {
-  padding: 30px 20px;
-  background: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 50px 20px; /* افزایش پدینگ */
+    background: linear-gradient(to bottom, rgba(26, 32, 44, 0.8), rgba(26, 32, 44, 0.95)); /* گرادیان تیره */
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.3); /* سایه داخلی */
+    width: 100%; /* گرفتن تمام عرض */
+    box-sizing: border-box;
 }
 
 .nightwalker-category-bar {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px; /* افزایش فاصله */
+    max-width: 1400px; /* افزایش حداکثر عرض */
+    margin: 0 auto;
 }
 
 .nightwalker-category-button {
-  width: 100px;
-  height: 100px;
-  font-size: 14px;
-  background-color: #f1f4fc;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px;
+    width: 120px; /* اندازه بزرگتر */
+    height: 120px; /* اندازه بزرگتر */
+    font-size: 15px; /* اندازه فونت کمی بزرگتر */
+    background-color: #4A5568; /* رنگ از پالت */
+    color: #E2E8F0; /* رنگ متن روشن */
+    border: none;
+    border-radius: 20px; /* گردتر شدن گوشه‌ها */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* سایه عمیق‌تر */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* افزایش فاصله */
+    padding: 15px;
+    font-weight: 500;
 }
 
 .nightwalker-category-button.active {
-  background-color: #123865;
-  color: white;
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: #667EEA; /* رنگ فعال از پالت */
+    color: white;
+    transform: translateY(-8px); /* بیشتر به بالا حرکت کند */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 2px solid #B794F4; /* حاشیه رنگی برای فعال */
 }
 
 .nightwalker-category-button:hover {
-  background-color: #d8e7ff;
-  transform: translateY(-5px);
+    background-color: #B794F4; /* رنگ هنگام هاور */
+    color: #1A202C; /* تغییر رنگ متن هنگام هاور */
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .nightwalker-category-button.active:hover {
-  background-color: #1a4c8f;
+    background-color: #5A67D8; /* رنگ فعال هنگام هاور */
 }
 
 .category-icon {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
+    width: 40px; /* اندازه بزرگتر */
+    height: 40px; /* اندازه بزرگتر */
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3)); /* سایه ملایم برای آیکون */
 }
 
-/* Sliders and Cards */
+/* Sliders and Cards - بخش اسلایدرها و کارت‌ها */
 .nightwalker-slider-section {
-  padding: 40px 30px;
-  background-color: rgba(255, 255, 255, 0.1);
-  min-height: 200px;
+    padding: 60px 30px; /* افزایش پدینگ */
+    background-color: rgba(26, 32, 44, 0.9); /* پس‌زمینه تیره و کمی شفاف */
+    min-height: 300px; /* حداقل ارتفاع بیشتر */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .nightwalker-slider-section h2 {
-  color: #123865;
-  margin-bottom: 15px;
-  text-align: center;
+    color: #B794F4; /* رنگ عنوان از پالت */
+    margin-bottom: 30px; /* افزایش فاصله */
+    text-align: center;
+    font-size: 2.5rem; /* اندازه عنوان بزرگتر */
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(183, 148, 244, 0.3); /* درخشش ملایم */
 }
 
 .nightwalker-slider {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: calc(33.333% - 20px);
-  overflow-x: auto;
-  gap: 20px;
-  padding: 20px 0;
-  scroll-snap-type: x mandatory;
-  max-width: 1200px;
-  margin: 0 auto;
-  scrollbar-width: thin;
-  scrollbar-color: #123865 #f0f0f0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(33.333% - 20px); /* 3 کارت در هر ردیف با فاصله */
+    overflow-x: auto; /* امکان اسکرول افقی */
+    gap: 30px; /* افزایش فاصله */
+    padding: 20px 0;
+    scroll-snap-type: x mandatory;
+    max-width: 1400px; /* افزایش حداکثر عرض */
+    margin: 0 auto;
+    scrollbar-width: thin;
+    scrollbar-color: #667EEA #2D3748; /* رنگ اسکرول‌بار */
 }
 
 .nightwalker-slider::-webkit-scrollbar {
-  height: 8px;
+    height: 10px; /* ارتفاع بیشتر برای اسکرول‌بار */
 }
 
 .nightwalker-slider::-webkit-scrollbar-track {
-  background: #f0f0f0;
-  border-radius: 4px;
+    background: #2D3748; /* رنگ پس‌زمینه ترک اسکرول‌بار */
+    border-radius: 5px;
 }
 
 .nightwalker-slider::-webkit-scrollbar-thumb {
-  background-color: #123865;
-  border-radius: 4px;
+    background-color: #667EEA; /* رنگ دکمه اسکرول‌بار */
+    border-radius: 5px;
+    border: 2px solid #2D3748; /* حاشیه برای دکمه اسکرول‌بار */
 }
 
 .nightwalker-card {
-  scroll-snap-align: start;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-width: 280px;
-  cursor: pointer;
-  position: relative;
+    scroll-snap-align: start;
+    background-color: #2D3748; /* رنگ کارت از پالت */
+    color: #E2E8F0; /* رنگ متن روشن */
+    border-radius: 20px; /* گردتر شدن گوشه‌ها */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* سایه عمیق‌تر */
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-width: 300px; /* حداقل عرض بیشتر */
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgba(102, 126, 234, 0.2); /* حاشیه نامرئی */
 }
 
 .nightwalker-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px); /* بیشتر به بالا حرکت کند */
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+    border-color: #B794F4; /* تغییر رنگ حاشیه هنگام هاور */
 }
 
 .nightwalker-card:active {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
 .nightwalker-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.1);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(183, 148, 244, 0.1); /* درخشش بنفش ملایم هنگام هاور */
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .nightwalker-card:hover::after {
-  opacity: 1;
+    opacity: 1;
 }
 
 .nightwalker-card .nightwalker-image {
-  height: 150px;
-  background: #f0f0f0;
-  overflow: hidden;
+    height: 180px; /* ارتفاع بیشتر برای تصویر */
+    background: #4A5568; /* رنگ پس‌زمینه تصویر */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem; /* اندازه متن placeholder */
+    color: rgba(255, 255, 255, 0.5);
+}
+/* Placeholder for actual image */
+.nightwalker-card .nightwalker-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* پوشش کامل تصویر */
 }
 
+
 .nightwalker-info {
-  padding: 15px;
-  background: white;
-  position: relative;
+    padding: 20px; /* افزایش پدینگ */
+    background: #2D3748; /* رنگ پس‌زمینه اطلاعات */
+    position: relative;
 }
 
 .nightwalker-info p {
-  margin: 8px 0;
-  color: #333;
+    margin: 10px 0; /* افزایش فاصله */
+    color: #E2E8F0; /* رنگ متن روشن */
 }
 
 .nightwalker-info p:first-child {
-  font-size: 1.1em;
-  color: #123865;
+    font-size: 1.2em; /* اندازه فونت بزرگتر */
+    color: #B794F4; /* رنگ عنوان کارت */
+    font-weight: 700;
 }
 
 .nightwalker-info p:nth-child(2) {
-  color: #666;
-  font-size: 0.9em;
-  line-height: 1.4;
+    color: #A0AEC0; /* رنگ متن توضیحات */
+    font-size: 0.95em;
+    line-height: 1.5;
 }
 
 .nightwalker-info p:nth-child(3) {
-  color: #2d3748;
-  font-weight: 500;
+    color: #F6AD55; /* رنگ قیمت/وضعیت از پالت */
+    font-weight: 600;
+    font-size: 1.1em;
 }
 
 .nightwalker-stars {
-  color: gold;
-  font-size: 14px;
-  margin-top: 10px;
+    color: #F6AD55; /* رنگ ستاره‌ها از پالت */
+    font-size: 16px; /* اندازه بزرگتر */
+    margin-top: 15px;
 }
 
-/* Footer */
+/* Footer - بخش فوتر */
 .nightwalker-footer {
-  padding: 30px;
-  background-color: #113f87;
-  color: white;
-  text-align: center;
-  font-size: 14px;
+    padding: 40px; /* افزایش پدینگ */
+    background-color: #1A202C; /* رنگ تیره از پالت */
+    color: #A0AEC0; /* رنگ متن روشن‌تر */
+    text-align: center;
+    font-size: 15px;
+    border-top: 1px solid rgba(102, 126, 234, 0.2); /* خط جداکننده */
+    width: 100%;
 }
 
-/* Loading indicator */
+/* Loading indicator - نشانگر بارگذاری */
 .loading-indicator {
-  text-align: center;
-  padding: 40px;
-  color: #123865;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 200px;
+    text-align: center;
+    padding: 60px; /* افزایش پدینگ */
+    color: #B794F4; /* رنگ از پالت */
+    font-size: 20px; /* اندازه فونت بزرگتر */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* افزایش فاصله */
+    min-height: 250px;
+    font-weight: 600;
 }
 
 .loading-indicator::after {
-  content: "";
-  width: 24px;
-  height: 24px;
-  border: 3px solid #123865;
-  border-top: 3px solid transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+    content: "";
+    width: 30px; /* اندازه بزرگتر */
+    height: 30px; /* اندازه بزرگتر */
+    border: 4px solid #B794F4; /* رنگ از پالت */
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-/* Responsive design */
+/* Responsive design - طراحی واکنش‌گرا */
+@media (max-width: 1024px) {
+    .nightwalker-slider {
+        grid-auto-columns: calc(50% - 20px); /* 2 کارت در هر ردیف برای تبلت */
+    }
+    .nightwalker-hero-header {
+        padding: 0 20px;
+    }
+    .nightwalker-centered-content {
+        margin-top: 60px;
+    }
+    .nightwalker-category-bar {
+        gap: 20px;
+    }
+    .nightwalker-category-button {
+        width: 100px;
+        height: 100px;
+    }
+    .category-icon {
+        width: 32px;
+        height: 32px;
+    }
+    .nightwalker-slider-section h2 {
+        font-size: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
-  .nightwalker-slider {
-    grid-auto-columns: calc(100% - 40px);
-  }
+    .nightwalker-slider {
+        grid-auto-columns: calc(100% - 40px); /* 1 کارت در هر ردیف برای موبایل */
+        padding: 15px 0;
+    }
 
-  .nightwalker-search-box {
-    flex-direction: column;
-    gap: 15px;
-  }
+    .nightwalker-hero-header {
+        flex-direction: column; /* آیتم‌های هدر زیر هم قرار بگیرند */
+        gap: 15px;
+        margin-top: 1rem;
+        padding: 0 15px;
+    }
+    .night-header-logo {
+        margin-bottom: 10px;
+    }
+    .night-header-left {
+        width: 100%;
+        justify-content: center; /* وسط چین کردن دکمه‌ها */
+    }
+    .night-profile-dropdown-content {
+        left: 15px; /* تنظیم موقعیت دراپ‌داون برای موبایل */
+        min-width: 180px;
+    }
+    .nightwalker-centered-content {
+        margin-top: 40px;
+        padding: 0 15px;
+    }
+    .nightwalker-search-box {
+        flex-direction: column; /* ورودی و دکمه جستجو زیر هم */
+        gap: 15px;
+    }
+    .nightwalker-search-input {
+        width: 100%;
+        max-width: none; /* حذف محدودیت عرض */
+        padding: 15px 45px;
+    }
+    .nightwalker-search-button {
+        width: 100%;
+        padding: 15px 30px;
+    }
+    .nightwalker-search-icon {
+        left: 15px; /* آیکون در سمت چپ (در RTL) */
+        right: auto; /* بازنشانی right */
+    }
 
-  .nightwalker-search-button {
-    width: 100%;
-  }
-
-  .nightwalker-category-bar {
-    gap: 10px;
-  }
-
-  .nightwalker-category-button {
-    width: 80px;
-    height: 80px;
-    font-size: 12px;
-  }
-
-  .category-icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .error-message,
-  .no-results {
-    margin: 20px;
-    width: auto;
-  }
+    .nightwalker-category-bar-wrapper {
+        padding: 30px 15px;
+    }
+    .nightwalker-category-bar {
+        gap: 10px;
+    }
+    .nightwalker-category-button {
+        width: 90px;
+        height: 90px;
+        font-size: 13px;
+    }
+    .category-icon {
+        width: 28px;
+        height: 28px;
+    }
+    .nightwalker-slider-section {
+        padding: 40px 15px;
+    }
+    .nightwalker-slider-section h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    .nightwalker-card {
+        min-width: 250px;
+    }
+    .nightwalker-card .nightwalker-image {
+        height: 160px;
+    }
+    .nightwalker-info {
+        padding: 15px;
+    }
+    .nightwalker-info p:first-child {
+        font-size: 1.1em;
+    }
+    .nightwalker-footer {
+        padding: 25px;
+        font-size: 13px;
+    }
+    .loading-indicator {
+        padding: 40px;
+        font-size: 16px;
+    }
+    .loading-indicator::after {
+        width: 20px;
+        height: 20px;
+        border-width: 3px;
+    }
 }
 
 /* Add these new styles at the end of the file */
 
 .error-message {
-  text-align: center;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 600px;
-  background-color: #fee2e2;
-  color: #dc2626;
-  border-radius: 8px;
-  font-size: 16px;
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #fee2e2;
+    color: #dc2626;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .no-results {
-  text-align: center;
-  padding: 40px;
-  color: #6b7280;
-  font-size: 16px;
-  background-color: #f9fafb;
-  border-radius: 8px;
-  margin: 20px auto;
-  max-width: 600px;
+    text-align: center;
+    padding: 40px;
+    color: #A0AEC0; /* رنگ از پالت جدید */
+    font-size: 16px;
+    background-color: #2D3748; /* رنگ از پالت جدید */
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 600px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Add error boundary styles */
 .error-boundary {
-  padding: 2rem;
-  margin: 2rem auto;
-  max-width: 600px;
-  text-align: center;
-  background-color: #fee2e2;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    text-align: center;
+    background-color: #fee2e2;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .error-boundary h2 {
-  color: #dc2626;
-  margin-bottom: 1rem;
+    color: #dc2626;
+    margin-bottom: 1rem;
 }
 
 .error-boundary p {
-  color: #7f1d1d;
+    color: #7f1d1d;
 }

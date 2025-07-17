@@ -114,7 +114,7 @@ const NightWalker: React.FC = () => {
   return (
     <div className="nightwalker-container">
       <div className="background-container">
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="moon" />
+        <img src="./moon2.png" alt="moon" />
         <div className="stars"></div>
         <div className="twinkling"></div>
        
