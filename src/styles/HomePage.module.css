@@ -190,6 +190,15 @@ text-shadow: 2px 2px 3px rgba(255,255,255,0.5);*/
 }
 
 .secend-line:hover {
+  border-radius: 0px 0px 0px 0px;
+}
+.third-line:hover {
+  border-radius: 0px 0px 0px 0px;
+}
+.fourth-line:hover {
+  border-radius: 0px 0px 0px 0px;
+}
+.fifth-line:hover {
   border-radius: 0px 0px 13px 13px;
 }
 
