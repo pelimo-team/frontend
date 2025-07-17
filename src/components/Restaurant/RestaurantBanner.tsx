@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface RestaurantBannerProps {
-  image: string;
+  image: string | undefined;
   name: string;
 }
 

@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import "../styles/AdvancedSearch.css";
 import { useLocation } from "react-router-dom";
 import {
-  CategoryType,
+  
   FilterType,
   Restaurant,
   MenuItem,
@@ -19,7 +19,7 @@ const AdvancedSearch: React.FC = () => {
   const searchQuery = queryParams.get("query") || "";
 
   const [searchText, setSearchText] = useState<string>(searchQuery);
-  const { activeTab, setActiveTab } = useContext(AuthContext);
+  const { activeTab} = useContext(AuthContext);
   const [activeFilters, setActiveFilters] = useState<FilterType[]>([]);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);

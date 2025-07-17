@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import WalletShow from '../components/Wallet/WalletShow'; // وارد کردن کامپوننت WalletShow
 import TopUpWallet from '../components/Wallet/TopUpWallet'; // وارد کردن کامپوننت TopUpWallet

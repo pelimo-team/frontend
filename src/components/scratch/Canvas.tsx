@@ -30,7 +30,7 @@ const SEARCH_RECIPES_URL = "http://localhost:8000/api/recipes/search/";
 export function Canvas() {
   const [blocks, setBlocks] = useState<Block[]>([]);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   const handleDrop = (
     item: any,
