@@ -3,6 +3,8 @@ import { Form, Button, Table, Spinner, Alert, Nav, Tab } from "react-bootstrap";
 import axios from "axios";
 import { FiPackage, FiShoppingCart, FiCoffee, FiInfo } from "react-icons/fi";
 import "../styles/Admin.css";
+
+
 import {
   LineChart,
   Line,
@@ -78,6 +80,7 @@ const Admin: React.FC = () => {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [expandedOrderIds, setExpandedOrderIds] = useState<number[]>([]);
+
   const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>({
     name: "",
     description: "",
@@ -167,11 +170,7 @@ const Admin: React.FC = () => {
   useEffect(() => {
     fetchOrders(); // بار اول فراخوانی
   
-    const interval = setInterval(() => {
-      fetchOrders(); // بروزرسانی دوره‌ای
-    }, 10000);
-  
-    return () => clearInterval(interval); // پاک‌سازی
+
   }, []);
   
 
