@@ -211,6 +211,21 @@ body {
   background-color: #b16137;
   transform: translateY(-2px);
 }
+.custom-continue-btn:disabled {
+  background-color: #999999 !important; /* خاکستری */
+  color: #666666 !important;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;  /* حذف افکت حرکت */
+  transition: none !important; /* حذف انیمیشن */
+  box-shadow: none !important;
+}
+
+.custom-continue-btn:disabled:hover {
+  background-color: #999999 !important; /* غیر فعال بدون تغییر رنگ */
+  transform: none !important;
+}
+
 
 .back-button {
   border: none;

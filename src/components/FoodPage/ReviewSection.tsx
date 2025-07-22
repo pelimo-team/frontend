@@ -3,25 +3,31 @@ import { useParams } from "react-router-dom";
 import ReviewItem from "./ReviewItem";
 import AddReview from "./AddReview";
 import { Review } from "./Type";
-import { api } from "../../utils/api"; 
-
+import { api } from "../../utils/api";
 
 const ReviewSection: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [error, setError] = useState<string | null>(null);
-  
 
   useEffect(() => {
     if (!id) return;
+
+    // گام 1: گرفتن اطلاعات آیتم برای دستیابی به restaurant.id
     api
-      .get(`/api/items/${id}/reviews/`)
+      .get(`/api/items/${id}/`)
       .then((res) => {
-        // اگه از DRF استفاده می‌کنی، داده‌ها در res.results هستند
+        const restaurantId = res.restaurant.id;
+
+        // گام 2: دریافت ریویوهای مربوط به رستوران آن آیتم
+        return api.get(`/api/restaurants/${restaurantId}/reviews/`);
+      })
+      .then((res) => {
         setReviews(res.results || []);
       })
-      .catch(() => {
-        setError("خطا در دریافت نظرات");
+      .catch((err) => {
+        console.error(err);
+        setError("خطا در دریافت نظرات رستوران");
       });
   }, [id]);
 
@@ -63,13 +69,22 @@ const ReviewSection: React.FC = () => {
     if (!id) return;
 
     try {
-      const newReview = await api.post(`/api/items/${id}/reviews/`, {
-        rating,
-        comment,
-      });
+      // ابتدا رستوران آن آیتم را پیدا کن
+      const item = await api.get(`/api/items/${id}/`);
+      const restaurantId = item.restaurant.id;
+
+      // سپس ریویو جدید را به آن رستوران اضافه کن
+      const newReview = await api.post(
+        `/api/restaurants/${restaurantId}/reviews/`,
+        {
+          rating,
+          comment,
+        }
+      );
+
       setReviews((prev) => [newReview, ...prev]);
     } catch {
-      alert("adding comment faild");
+      alert("خطا در افزودن نظر");
     }
   };
 

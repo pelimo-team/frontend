@@ -7,11 +7,11 @@ interface CartErrorProps {
   onBack: () => void;
 }
 
-const CartError: React.FC<CartErrorProps> = ({onBack }) => {
+const CartError: React.FC<CartErrorProps> = ({onBack, error }) => {
   return (
     <Container className="cart-container">
       <div className="cart-error text-center">
-        empty shopping cart
+        {error}
 
         <div className="d-flex justify-content-center gap-3 mt-3">
           {/* <button className="custom-continue-btn" onClick={onRetry}>

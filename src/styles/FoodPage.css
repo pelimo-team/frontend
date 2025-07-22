@@ -49,6 +49,23 @@ body {
   height: auto;
   backdrop-filter: blur(8px);
 }
+.cart-badge {
+  position: absolute;
+  top: 1rem;
+  left: 4rem;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 5px;
+  background-color: red;
+  color: white;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 16px;
+  border: 2px solid white;
+  pointer-events: none; /* کلیک روی دکمه رو مختل نکنه */
+}
 
 .food-basket-btn img {
   width: 2.5rem;

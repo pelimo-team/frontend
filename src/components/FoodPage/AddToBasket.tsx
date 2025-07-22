@@ -37,18 +37,18 @@ const AddToBasket: React.FC<AddToBasketProps> = ({
       try {
         const response = await api.get("/api/cart/");
         const cart = Array.isArray(response) ? response[0] : response;
-    
+
         const cartRestId = cart?.restaurant?.id || null;
         setCartRestaurantId(cartRestId);
-    
+
         if (cartRestId) {
           localStorage.setItem("cartRestaurantId", cartRestId.toString());
         }
-    
+
         const matchingItem = cart.items.find(
           (item: any) => item.menu_item.id === menuItemId
         );
-    
+
         if (matchingItem) {
           setQuantity(matchingItem.quantity);
           setCartItemId(matchingItem.id); // ✅ اینجا هم id می‌گیریم
@@ -58,35 +58,34 @@ const AddToBasket: React.FC<AddToBasketProps> = ({
         setCartRestaurantId(null);
       }
     };
-    
 
     fetchCart();
   }, [menuItemId]);
 
   const handleAddToBasket = async () => {
     const quantityToAdd = 1;
-  
+
     if (cartRestaurantId !== null && cartRestaurantId !== restaurantId) {
       setModalMessage("you can only add item from one restaurant!");
       setShowModal(true);
       return;
     }
-  
+
     try {
       await api.post("/api/cart/add/", {
         restaurant_id: restaurantId,
         menu_item_id: menuItemId,
         quantity: quantityToAdd,
       });
-  
+
       // ✅ بعد از اضافه کردن، سبد رو بگیر
       const cartRes = await api.get("/api/cart/");
       const cart = Array.isArray(cartRes) ? cartRes[0] : cartRes;
-  
+
       const matchingItem = cart.items.find(
         (item: any) => item.menu_item.id === menuItemId
       );
-  
+
       if (matchingItem) {
         setQuantity(matchingItem.quantity);
         setAdded(true);
@@ -104,14 +103,14 @@ const AddToBasket: React.FC<AddToBasketProps> = ({
       setShowModal(true);
     }
   };
-  
 
   const updateQuantity = async (newQuantity: number) => {
     if (!cartItemId) return;
-
+  
     try {
-      if (newQuantity === 0) {
-        await api.delete(`/api/cart/item/${cartItemId}/`);
+      if (newQuantity < 1) {
+        // حذف آیتم از سبد خرید با DELETE به مسیر صحیح
+        await api.delete(`/api/cart/item/${cartItemId}/delete/`);
         setQuantity(0);
         setAdded(false);
         setCartItemId(null);
@@ -123,12 +122,14 @@ const AddToBasket: React.FC<AddToBasketProps> = ({
         });
         setQuantity(newQuantity);
       }
-
+  
       if (onSuccess) onSuccess();
     } catch (err) {
       showError("خطا در بروزرسانی مقدار سبد خرید.");
     }
   };
+  
+
 
   const totalPrice = (price * (quantity || 1)).toFixed(2);
 
@@ -150,10 +151,11 @@ const AddToBasket: React.FC<AddToBasketProps> = ({
         <div className="quantity-controls">
           <button
             className="quantity-btn"
-            onClick={() => updateQuantity(Math.max(0, quantity - 1))}
+            onClick={() => updateQuantity(quantity - 1)}
           >
             -
           </button>
+
           <span className="quantity">{quantity}</span>
           <button
             className="quantity-btn"

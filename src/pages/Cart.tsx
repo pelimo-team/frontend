@@ -20,8 +20,15 @@ const Cart: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchCarts();
+    fetchCarts(); // بار اول
+  
+    const intervalId = setInterval(() => {
+      fetchCarts();
+    }, 5000); // هر ۵ ثانیه داده‌ها رو تازه می‌کنیم
+  
+    return () => clearInterval(intervalId); // پاک کردن تایمر در unmount
   }, []);
+  
 
   const fetchCarts = async () => {
     try {

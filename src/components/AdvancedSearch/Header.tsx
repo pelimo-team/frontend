@@ -1,11 +1,12 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { api } from "../../utils/api"; // آدرس درست api را اصلاح کن
 
 interface HeaderProps {
   searchText: string;
   setSearchText: (text: string) => void;
-  searchMode: 'restaurants' | 'items';
-  setSearchMode: (mode: 'restaurants' | 'items') => void;
+  searchMode: "restaurants" | "items";
+  setSearchMode: (mode: "restaurants" | "items") => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -15,6 +16,34 @@ const Header: React.FC<HeaderProps> = ({
   setSearchMode,
 }) => {
   const navigate = useNavigate();
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+
+  useEffect(() => {
+    const fetchCartCount = async () => {
+      try {
+        const response = await api.get("/api/cart/");
+        let count = 0;
+        if (Array.isArray(response)) {
+          count = response.reduce(
+            (acc, cart) => acc + (cart.items?.length || 0),
+            0
+          );
+        } else if (response?.items) {
+          count = response.items.length;
+        }
+        setCartItemsCount(count);
+      } catch (err) {
+        console.error("Error fetching cart count:", err);
+      }
+    };
+
+    fetchCartCount();
+
+    // اگر بخواهی هر چند ثانیه آپدیت شود:
+    const intervalId = setInterval(fetchCartCount, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <header className="header-advanced-search">
@@ -23,8 +52,12 @@ const Header: React.FC<HeaderProps> = ({
           className="cart-icon-advanced-search"
           onClick={() => navigate("/cart")}
         >
-          <img src="cart-shopping-solid.svg" alt="" />
+          <img src="cart-shopping-solid.svg" alt="Cart" />
+          {cartItemsCount > 0 && (
+            <span className="cart-badge">{cartItemsCount}</span>
+          )}
         </button>
+
         <img
           src="/Logo.png"
           alt="PELIMO Logo"
@@ -34,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({
           className="back-btn-advanced-search"
           onClick={() => navigate("/")}
         >
-          <img src="arrow-right-solid.svg" alt="" />
+          <img src="arrow-right-solid.svg" alt="Back" />
         </button>
       </div>
 
@@ -50,7 +83,9 @@ const Header: React.FC<HeaderProps> = ({
         </div>
         <div className="search-toggle-advanced-search">
           <button
-            className={`toggle-btn ${searchMode === "restaurants" ? "active" : ""}`}
+            className={`toggle-btn ${
+              searchMode === "restaurants" ? "active" : ""
+            }`}
             onClick={() => setSearchMode("restaurants")}
           >
             Restaurants
@@ -67,4 +102,4 @@ const Header: React.FC<HeaderProps> = ({
   );
 };
 
-export default Header; 
+export default Header;
