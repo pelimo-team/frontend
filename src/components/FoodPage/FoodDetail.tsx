@@ -1,35 +1,41 @@
-import React from "react";
-import { Food } from "./Type";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { MenuItem } from "../../components/AdvancedSearch/types";
 import StarRating from "./StarRating";
 import AddToBasket from "./AddToBasket";
 import ReviewSection from "./ReviewSection";
-import "../../styles/FoodPage.css";
-import { useLocation } from "react-router-dom";
-import { MenuItem } from "../../components/AdvancedSearch/types";
+import { api } from "../../utils/api"; // ← آدرس دقیق نسبت به پروژه‌ات
 
-interface FoodDetailProps {
-  food: Food;
-}
+const FoodDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const [item, setItem] = useState<MenuItem | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-const FoodDetail: React.FC<FoodDetailProps> = ({ food }) => {
-  const handleAddToBasket = (quantity: number) => {
-    console.log(`Added ${quantity} ${item.name} to basket`);
-    // In a real app, this would dispatch to a cart/store
-  };
-  const location = useLocation();
-  const item = location.state?.item as MenuItem;
-  if (!item) {
-    return <div>هیچ آیتمی برای نمایش یافت نشد.</div>;
-  }
+  useEffect(() => {
+    if (id) {
+      api.get(`/api/items/${id}/`)
+        .then((data) => {
+          setItem(data);
+        })
+        .catch((err) => {
+          setError("دریافت اطلاعات غذا با خطا مواجه شد.");
+          console.error(err);
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [id]);
 
-  console.log(item);
+  if (loading) return <div>در حال بارگذاری...</div>;
+  if (error) return <div>{error}</div>;
+  if (!item) return <div>آیتم یافت نشد.</div>;
 
   return (
     <div className="food-detail-container">
       <div className="food-detail">
         <div className="food-image-container">
           <img
-            src={item.image || undefined}
+            src={item.image || "/food-placeholder.png"}
             alt={item.name}
             className="food-image"
           />
@@ -46,11 +52,22 @@ const FoodDetail: React.FC<FoodDetailProps> = ({ food }) => {
 
           <p className="food-description">{item.description}</p>
 
-          <AddToBasket price={item.price} onAddToBasket={handleAddToBasket} />
+          {item.restaurant?.id ? (
+            <AddToBasket
+              price={item.price}
+              restaurantId={item.restaurant.id}
+              menuItemId={item.id}
+              onSuccess={() => console.log("Item added!")}
+            />
+          ) : (
+            <div className="error-message">رستوران این آیتم مشخص نیست.</div>
+          )}
         </div>
       </div>
 
-      <ReviewSection reviews={food.reviews} />
+      <ReviewSection />
+
+
     </div>
   );
 };

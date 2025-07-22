@@ -175,15 +175,7 @@ body {
   display: inline-block;
 }
 
-.restaurant-name::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  right: 0;
-  width: 40px;
-  height: 3px;
-  background-color: var(--primary-light);
-}
+
 
 .location-text {
   color: var(--text-color);
@@ -377,15 +369,7 @@ body {
   padding-bottom: 8px;
 }
 
-.menu-item-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 30px;
-  height: 2px;
-  background-color: var(--primary-light);
-}
+
 
 .menu-item-description {
   color: var(--light-text);

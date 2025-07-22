@@ -66,7 +66,13 @@ const Cart: React.FC = () => {
   }
 
   if (error) {
-    return <CartError error={error} onRetry={fetchCarts} />;
+    return (
+      <CartError
+        error={error}
+       /// onRetry={fetchCarts}
+        onBack={() => navigate(-1)} 
+      />
+    );
   }
 
   if (carts.length === 0) {
@@ -74,8 +80,11 @@ const Cart: React.FC = () => {
   }
 
   return (
+  <>
+  <CartHeader /> 
+  
     <Container className="cart-container mt-4">
-      <CartHeader />
+     
 
       {carts.map((cart) => (
         <div key={cart.id} className="cart-box">
@@ -102,6 +111,7 @@ const Cart: React.FC = () => {
         </div>
       ))}
     </Container>
+    </>
   );
 };
 

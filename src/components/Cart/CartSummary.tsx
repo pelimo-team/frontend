@@ -22,31 +22,31 @@ const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost }) => {
   };
 
   const itemsTotal = calculateTotal(items);
-  const overallTotal = itemsTotal + deliveryCost;
+  const overallTotal = itemsTotal +  (Number(deliveryCost) || 0);
 
   return (
     <div className="cart-summary mt-4">
       <div className="d-flex justify-content-between mb-2">
-        <span>جمع سفارش:</span>
+        <span>Order Cost:</span>
         <span className="cart-food-price">
-        {(itemsTotal || 0).toLocaleString()} تومان        
+        {(itemsTotal || 0).toLocaleString()} Toman        
         </span>
       </div>
       <div className="d-flex justify-content-between mb-3">
-        <span>هزینه ارسال:</span>
+        <span>Delivery Cost:</span>
         <span className="cart-food-price">
-          {(deliveryCost || 0).toLocaleString()} تومان
+          { (Number(deliveryCost) || 0).toLocaleString()} Toman
         </span>
       </div>
       <div className="d-flex justify-content-between fw-bold">
-        <span>مجموع:</span>
+        <span>Total Cost:</span>
         <span className="cart-food-price">
-          {(overallTotal || 0).toLocaleString()} تومان
+          {(overallTotal || 0).toLocaleString()} Toman
         </span>
       </div>
 
       <div className="d-flex justify-content-center gap-3 mt-4">
-        <button className="custom-continue-btn">تکمیل خرید</button>
+        <button className="custom-continue-btn">Payment</button>
       </div>
     </div>
   );

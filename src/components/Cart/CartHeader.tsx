@@ -5,12 +5,16 @@ const CartHeader: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="d-flex align-items-center justify-content-between mb-4">
+    <header className="cart-header">
+
+     
+      <div className='cart-logo'>
+        <img src="/Logo.png" alt="" />
+      </div>
+      <h1 className="cart-title ">Shopping Cart</h1>
       <button className="back-button" onClick={() => navigate(-1)}>
-        <img src="/back.png" alt="بازگشت" />
+        <img src="/arrow-right-solid.svg" alt="بازگشت" />
       </button>
-      <h1 className="cart-title mb-0">سبد خرید</h1>
-      <div style={{ width: "40px" }}></div>
     </header>
   );
 };

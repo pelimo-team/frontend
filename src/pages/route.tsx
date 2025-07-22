@@ -68,7 +68,7 @@ export const ProjectRoutes = () => {
         <Route path="/restaurant/:id" element={<Restaurant />} />
 
         {/* صفحه غذاها */}
-        <Route path="/foodpage" element={<FoodPage />} />
+        <Route path="/foodpage/:id" element={<FoodPage />} />
 
         {/* صفحه جستجوی تصادفی */}
         <Route path="/advance-tasadofi" element={<AdvanceTasadofi />} />

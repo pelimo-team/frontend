@@ -13,12 +13,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onAddToCart, isVisibl
   const navigate = useNavigate();
 
   const handleImageClick = () => {
-    navigate('/foodpage', {
-      state: {
-        scrollToItem: item.id,
-        item,
-      },
-    });
+    navigate(`/foodpage/${item.id}`, { state: { item } });
   };
 
   return (

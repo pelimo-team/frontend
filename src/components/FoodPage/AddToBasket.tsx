@@ -1,33 +1,133 @@
-import React, { useState } from 'react';
-import { ShoppingBasket } from 'lucide-react';
-import '../../styles/FoodPage.css';
+import React, { useState, useEffect } from "react";
+import { ShoppingBasket } from "lucide-react";
+import "../../styles/FoodPage.css";
+import { api } from "../../utils/api";
+import AlertModal from "../Cart/CartAlertModel";
 
 interface AddToBasketProps {
   price: number;
-  onAddToBasket: (quantity: number) => void;
+  restaurantId: number;
+  menuItemId: number;
+  onSuccess?: () => void;
 }
 
-const AddToBasket: React.FC<AddToBasketProps> = ({ price, onAddToBasket }) => {
+const AddToBasket: React.FC<AddToBasketProps> = ({
+  price,
+  restaurantId,
+  menuItemId,
+  onSuccess,
+}) => {
+  const [cartRestaurantId, setCartRestaurantId] = useState<number | null>(null);
   const [quantity, setQuantity] = useState(0);
   const [added, setAdded] = useState(false);
+  const [cartItemId, setCartItemId] = useState<number | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
-  const incrementQuantity = () => {
-    setQuantity(prev => prev + 1);
+  const showError = (message: string) => {
+    setModalMessage(message);
+    setShowModal(true);
   };
 
-  const decrementQuantity = () => {
-    setQuantity(prev => Math.max(0, prev - 1));
-  };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
 
-  const handleAddToBasket = () => {
-    setQuantity(1);
-    onAddToBasket(1);
-    setAdded(true);
+    const fetchCart = async () => {
+      try {
+        const response = await api.get("/api/cart/");
+        const cart = Array.isArray(response) ? response[0] : response;
     
-    // Reset the "Added" state after animation
-    setTimeout(() => {
-      setAdded(false);
-    }, 2000);
+        const cartRestId = cart?.restaurant?.id || null;
+        setCartRestaurantId(cartRestId);
+    
+        if (cartRestId) {
+          localStorage.setItem("cartRestaurantId", cartRestId.toString());
+        }
+    
+        const matchingItem = cart.items.find(
+          (item: any) => item.menu_item.id === menuItemId
+        );
+    
+        if (matchingItem) {
+          setQuantity(matchingItem.quantity);
+          setCartItemId(matchingItem.id); // ✅ اینجا هم id می‌گیریم
+          setAdded(true);
+        }
+      } catch (err) {
+        setCartRestaurantId(null);
+      }
+    };
+    
+
+    fetchCart();
+  }, [menuItemId]);
+
+  const handleAddToBasket = async () => {
+    const quantityToAdd = 1;
+  
+    if (cartRestaurantId !== null && cartRestaurantId !== restaurantId) {
+      setModalMessage("you can only add item from one restaurant!");
+      setShowModal(true);
+      return;
+    }
+  
+    try {
+      await api.post("/api/cart/add/", {
+        restaurant_id: restaurantId,
+        menu_item_id: menuItemId,
+        quantity: quantityToAdd,
+      });
+  
+      // ✅ بعد از اضافه کردن، سبد رو بگیر
+      const cartRes = await api.get("/api/cart/");
+      const cart = Array.isArray(cartRes) ? cartRes[0] : cartRes;
+  
+      const matchingItem = cart.items.find(
+        (item: any) => item.menu_item.id === menuItemId
+      );
+  
+      if (matchingItem) {
+        setQuantity(matchingItem.quantity);
+        setAdded(true);
+        setCartItemId(matchingItem.id); // ✅ حالا id آیتم رو داری
+        setCartRestaurantId(restaurantId);
+        localStorage.setItem("cartRestaurantId", restaurantId.toString());
+        if (onSuccess) onSuccess();
+      } else {
+        throw new Error("Item not found in cart after adding.");
+      }
+    } catch (err: any) {
+      const errorMessage =
+        err.response?.data?.error || "مشکلی در افزودن به سبد خرید رخ داد.";
+      setModalMessage(errorMessage);
+      setShowModal(true);
+    }
+  };
+  
+
+  const updateQuantity = async (newQuantity: number) => {
+    if (!cartItemId) return;
+
+    try {
+      if (newQuantity === 0) {
+        await api.delete(`/api/cart/item/${cartItemId}/`);
+        setQuantity(0);
+        setAdded(false);
+        setCartItemId(null);
+        setCartRestaurantId(null);
+        localStorage.removeItem("cartRestaurantId");
+      } else {
+        await api.patch(`/api/cart/item/${cartItemId}/`, {
+          quantity: newQuantity,
+        });
+        setQuantity(newQuantity);
+      }
+
+      if (onSuccess) onSuccess();
+    } catch (err) {
+      showError("خطا در بروزرسانی مقدار سبد خرید.");
+    }
   };
 
   const totalPrice = (price * (quantity || 1)).toFixed(2);
@@ -37,32 +137,38 @@ const AddToBasket: React.FC<AddToBasketProps> = ({ price, onAddToBasket }) => {
       <div className="price-container">
         <span className="price">${totalPrice}</span>
       </div>
-      
+
       {quantity === 0 ? (
-        <button 
-          className={`add-btn ${added ? 'added' : ''}`}
+        <button
+          className={`add-btn ${added ? "added" : ""}`}
           onClick={handleAddToBasket}
         >
           <ShoppingBasket size={18} />
-          <span>{added ? 'Added!' : 'Add to Basket'}</span>
+          <span>{added ? "Added!" : "Add to Basket"}</span>
         </button>
       ) : (
         <div className="quantity-controls">
-          <button 
-            className="quantity-btn" 
-            onClick={decrementQuantity}
+          <button
+            className="quantity-btn"
+            onClick={() => updateQuantity(Math.max(0, quantity - 1))}
           >
             -
           </button>
           <span className="quantity">{quantity}</span>
-          <button 
-            className="quantity-btn" 
-            onClick={incrementQuantity}
+          <button
+            className="quantity-btn"
+            onClick={() => updateQuantity(quantity + 1)}
           >
             +
           </button>
         </div>
       )}
+
+      <AlertModal
+        show={showModal}
+        message={modalMessage}
+        onClose={() => setShowModal(false)}
+      />
     </div>
   );
 };

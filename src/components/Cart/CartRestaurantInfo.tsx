@@ -17,7 +17,7 @@ const CartRestaurantInfo: React.FC<CartRestaurantInfoProps> = ({ restaurant, cre
           />
         </div>
         <div>
-          <h2 className="cart-title">{restaurant.name}</h2>
+          <h2 className="cart-item-title">{restaurant.name}</h2>
           <div className="cart-date">
             {new Date(createdAt).toLocaleDateString("fa-IR")}
           </div>

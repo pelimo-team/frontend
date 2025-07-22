@@ -1,43 +1,40 @@
-import React, {useState } from "react";
-import { Review } from "./Type";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import ReviewItem from "./ReviewItem";
 import AddReview from "./AddReview";
-import "../../styles/FoodPage.css";
+import { Review } from "./Type";
+import { api } from "../../utils/api"; 
 
-interface ReviewSectionProps {
-  reviews: Review[];
-}
 
-const ReviewSection: React.FC<ReviewSectionProps> = ({
-  reviews: initialReviews,
-}) => {
-  const [reviews, setReviews] = useState<Review[]>(initialReviews);
+const ReviewSection: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  
+
+  useEffect(() => {
+    if (!id) return;
+    api
+      .get(`/api/items/${id}/reviews/`)
+      .then((res) => {
+        // اگه از DRF استفاده می‌کنی، داده‌ها در res.results هستند
+        setReviews(res.results || []);
+      })
+      .catch(() => {
+        setError("خطا در دریافت نظرات");
+      });
+  }, [id]);
 
   const handleLike = (reviewId: string) => {
-    setReviews((prevReviews) =>
-      prevReviews.map((review) =>
-        review.id === reviewId ? { ...review, likes: review.likes + 1 } : review
-      )
+    setReviews((prev) =>
+      prev.map((r) => (r.id === reviewId ? { ...r, likes: r.likes + 1 } : r))
     );
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //    await  axios.get("").then((res: Review[]) => {
-  //       setReviews(res);
-  //       // No need to store ingredients since they're not used
-  //     });
-  //   };
-
-  //   fetchData();
-  // }, []);
-
   const handleDislike = (reviewId: string) => {
-    setReviews((prevReviews) =>
-      prevReviews.map((review) =>
-        review.id === reviewId
-          ? { ...review, dislikes: review.dislikes + 1 }
-          : review
+    setReviews((prev) =>
+      prev.map((r) =>
+        r.id === reviewId ? { ...r, dislikes: r.dislikes + 1 } : r
       )
     );
   };
@@ -52,63 +49,56 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
       date: new Date().toISOString().split("T")[0],
     };
 
-    setReviews((prevReviews) =>
-      prevReviews.map((review) =>
-        review.id === reviewId
-          ? { ...review, replies: [...review.replies, newReply] }
-          : review
+    setReviews((prev) =>
+      prev.map((r) =>
+        r.id === reviewId ? { ...r, replies: [...r.replies, newReply] } : r
       )
     );
   };
 
-  const handleAddReview = (rating: number, comment: string) => {
-    const newReview: Review = {
-      id: `review-${Date.now()}`,
-      userId: "currentUser",
-      userName: "You",
-      userAvatar: "https://randomuser.me/api/portraits/men/1.jpg",
-      rating,
-      comment,
-      date: new Date().toISOString().split("T")[0],
-      likes: 0,
-      dislikes: 0,
-      replies: [],
-    };
+  const handleAddReview = async (
+    rating: number,
+    comment: string
+  ): Promise<void> => {
+    if (!id) return;
 
-    setReviews((prevReviews) => [newReview, ...prevReviews]);
+    try {
+      const newReview = await api.post(`/api/items/${id}/reviews/`, {
+        rating,
+        comment,
+      });
+      setReviews((prev) => [newReview, ...prev]);
+    } catch {
+      alert("adding comment faild");
+    }
   };
 
-  // Calculate average rating
   const averageRating =
-    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
-  const reviewsCount = reviews.length;
+    reviews.length > 0
+      ? reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length
+      : 0;
 
   return (
     <div className="review-section">
       <div className="review-summary">
-        <h2>Customer Reviews</h2>
-        <div className="review-stats">
-          <div className="average-rating">
-            <span className="rating-number">{averageRating.toFixed(1)}</span>
-            <span className="rating-max">/5</span>
-          </div>
-          <div className="reviews-count">
-            Based on {reviewsCount} {reviewsCount === 1 ? "review" : "reviews"}
-          </div>
+        <h2>Reviews</h2>
+        <div>
+          <strong>{averageRating.toFixed(1)} / 5</strong> ({reviews.length}{" "}
+          reviews)
         </div>
       </div>
 
-      <div className="reviews-list">
-        {reviews.map((review) => (
-          <ReviewItem
-            key={review.id}
-            review={review}
-            onLike={handleLike}
-            onDislike={handleDislike}
-            onAddReply={handleAddReply}
-          />
-        ))}
-      </div>
+      {error && <p>{error}</p>}
+
+      {reviews.map((review) => (
+        <ReviewItem
+          key={review.id}
+          review={review}
+          onLike={handleLike}
+          onDislike={handleDislike}
+          onAddReply={handleAddReply}
+        />
+      ))}
 
       <AddReview onAddReview={handleAddReview} />
     </div>

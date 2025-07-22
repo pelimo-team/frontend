@@ -1,15 +1,23 @@
 import { useRef, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/HomePage.module.css";
+import { useCart } from "../Cart/UseCart";
 
 import { AuthContext } from "../../pages/AuthContext";
 
 const Header = () => {
+  const { clearCart } = useCart();
   const navigate = useNavigate();
   const { isLoggedIn, logout } = useContext(AuthContext); // ✅ Correct usage of Context
   const [searchText, setSearchText] = useState<string>("");
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const handleLogout = () => {
+    logout(); // خروج کاربر
+    clearCart(); // پاک کردن سبد خرید
+    navigate("/login"); // هدایت به صفحه ورود
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -55,13 +63,7 @@ const Header = () => {
                   >
                     profile
                   </a>
-                  <a
-                    className={styles["secend-line"]}
-                    onClick={() => {
-                      logout();
-                      navigate("/login");
-                    }}
-                  >
+                  <a className={styles["secend-line"]} onClick={handleLogout}>
                     logout
                   </a>
                 </div>

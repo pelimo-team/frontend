@@ -1,3 +1,5 @@
+import { Review } from "../FoodPage/Type";
+
 export interface Restaurant {
   id: number;
   name: string;
@@ -29,7 +31,7 @@ export interface MenuItem {
   onsale: boolean;
   price: number;
   sale_price?: number;
-  reviews: any[];
+  reviews: Review[];
   quantity: number;
 }
 
