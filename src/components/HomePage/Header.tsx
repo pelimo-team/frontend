@@ -64,6 +64,33 @@ const Header = () => {
                   >
                     logout
                   </a>
+                  <a
+                    className={styles["third-line"]}
+                    onClick={() => {
+                      
+                      navigate("/wallet");
+                    }}
+                  >
+                    wallet
+                  </a>
+                  <a
+                    className={styles["fourth-line"]}
+                    onClick={() => {
+                      
+                      navigate("/cart");
+                    }}
+                  >
+                    shopping cart
+                  </a>
+                  <a
+                    className={styles["fifth-line"]}
+                    onClick={() => {
+                      
+                      navigate("/");
+                    }}
+                  >
+                    order history
+                  </a>
                 </div>
               )}
             </div>
@@ -77,6 +104,7 @@ const Header = () => {
             <a href="/signup" className={styles["signup-link"]}>
               Sign up
             </a>
+            
           </>
         )}
       </div>
