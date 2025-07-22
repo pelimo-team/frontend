@@ -108,13 +108,14 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
               <div
                 key={item.id}
                 className="menu-item-card-advanced-search"
-                // onClick={() => {
-                //   setShowFoodItem(item);
-                //   setIsFoodOpen(true);
-                //   navigate("/foodpage", {
-                //     state: { scrollToItem: item.id, item, },
-                //   });
-                // }}
+                onClick={() => {
+                  // setShowFoodItem(item);
+                  // setIsFoodOpen(true);
+                  navigate(`/foodpage/${item.id}`, {
+                    state: { item }, // اختیاری
+                  });
+                  
+                }}
               >
                 <div className="item-image-container">
                   {item.image ? (

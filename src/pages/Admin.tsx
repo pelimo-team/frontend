@@ -44,17 +44,17 @@ type MenuItem = {
   quantity: number | null;
 };
 
-interface OrderItem {
+type OrderItem = {
   foodName: string;
   quantity: number;
-}
+};
 
-interface Order {
+type Order = {
   id: number;
+  created_at: string; // تاریخ از سرور به صورت ISO string میاد
+  status: "paid" | "done";
   items: OrderItem[];
-  orderDate: string;
-  status: string;
-}
+};
 
 type RestaurantInfo = {
   name: string;
@@ -68,203 +68,8 @@ type RestaurantInfo = {
   isPublished: boolean;
 };
 
-const mockOrders: Order[] = [
-  {
-    id: 1,
-    orderDate: "2024-06-01T12:34:00Z",
-    status: "Delivered",
-    items: [
-      { foodName: "Pizza", quantity: 2 },
-      { foodName: "Fries", quantity: 1 },
-    ],
-  },
-  {
-    id: 2,
-    orderDate: "2024-06-02T15:20:00Z",
-    status: "Pending",
-    items: [{ foodName: "Burger", quantity: 1 }],
-  },
-  {
-    id: 3,
-    orderDate: "2024-06-03T09:15:00Z",
-    status: "Canceled",
-    items: [
-      { foodName: "Pasta", quantity: 3 },
-      { foodName: "Salad", quantity: 2 },
-    ],
-  },
-  {
-    id: 4,
-    orderDate: "2024-06-03T17:10:00Z",
-    status: "Delivered",
-    items: [{ foodName: "Sandwich", quantity: 2 }],
-  },
-  {
-    id: 5,
-    orderDate: "2024-06-04T11:45:00Z",
-    status: "Pending",
-    items: [
-      { foodName: "Tacos", quantity: 3 },
-      { foodName: "Nachos", quantity: 1 },
-    ],
-  },
-  {
-    id: 6,
-    orderDate: "2024-06-04T19:30:00Z",
-    status: "Canceled",
-    items: [{ foodName: "Pizza", quantity: 1 }],
-  },
-  {
-    id: 7,
-    orderDate: "2024-06-05T08:25:00Z",
-    status: "Delivered",
-    items: [{ foodName: "Hot Dog", quantity: 2 }],
-  },
-  {
-    id: 8,
-    orderDate: "2024-06-05T13:00:00Z",
-    status: "Pending",
-    items: [
-      { foodName: "Salad", quantity: 1 },
-      { foodName: "Juice", quantity: 2 },
-    ],
-  },
-  {
-    id: 9,
-    orderDate: "2024-06-06T10:10:00Z",
-    status: "Delivered",
-    items: [{ foodName: "Burger", quantity: 3 }],
-  },
-  {
-    id: 10,
-    orderDate: "2024-06-06T15:45:00Z",
-    status: "Canceled",
-    items: [{ foodName: "Steak", quantity: 1 }],
-  },
-  {
-    id: 11,
-    orderDate: "2024-05-30T14:20:00Z",
-    status: "Delivered",
-    items: [{ foodName: "Rice Bowl", quantity: 2 }],
-  },
-  {
-    id: 12,
-    orderDate: "2024-05-31T16:10:00Z",
-    status: "Pending",
-    items: [{ foodName: "Curry", quantity: 1 }],
-  },
-  {
-    id: 13,
-    orderDate: "2024-06-01T09:00:00Z",
-    status: "Delivered",
-    items: [
-      { foodName: "Fries", quantity: 2 },
-      { foodName: "Milkshake", quantity: 1 },
-    ],
-  },
-  {
-    id: 14,
-    orderDate: "2024-06-02T18:00:00Z",
-    status: "Canceled",
-    items: [{ foodName: "Sushi", quantity: 4 }],
-  },
-  {
-    id: 15,
-    orderDate: "2024-06-03T20:10:00Z",
-    status: "Pending",
-    items: [
-      { foodName: "Pizza", quantity: 1 },
-      { foodName: "Cola", quantity: 1 },
-    ],
-  },
-  {
-    id: 16,
-    orderDate: "2024-06-04T12:00:00Z",
-    status: "Delivered",
-    items: [{ foodName: "Wrap", quantity: 3 }],
-  },
-  {
-    id: 17,
-    orderDate: "2024-06-05T14:30:00Z",
-    status: "Delivered",
-    items: [{ foodName: "Falafel", quantity: 2 }],
-  },
-  {
-    id: 18,
-    orderDate: "2024-06-05T19:00:00Z",
-    status: "Canceled",
-    items: [{ foodName: "Soup", quantity: 1 }],
-  },
-  {
-    id: 19,
-    orderDate: "2024-06-06T08:45:00Z",
-    status: "Pending",
-    items: [{ foodName: "Burger", quantity: 2 }],
-  },
-  {
-    id: 20,
-    orderDate: "2024-06-06T11:50:00Z",
-    status: "Delivered",
-    items: [
-      { foodName: "Chicken Wings", quantity: 6 },
-      { foodName: "Cola", quantity: 2 },
-    ],
-  },
-  {
-    id: 21,
-    orderDate: "2024-06-07T13:25:00Z",
-    status: "Pending",
-    items: [{ foodName: "Salmon", quantity: 1 }],
-  },
-  {
-    id: 22,
-    orderDate: "2024-06-07T18:30:00Z",
-    status: "Canceled",
-    items: [{ foodName: "Shrimp", quantity: 3 }],
-  },
-  {
-    id: 23,
-    orderDate: "2024-06-07T20:00:00Z",
-    status: "Delivered",
-    items: [
-      { foodName: "Fries", quantity: 2 },
-      { foodName: "Soda", quantity: 2 },
-    ],
-  },
-  {
-    id: 24,
-    orderDate: "2024-06-08T10:00:00Z",
-    status: "Pending",
-    items: [{ foodName: "Eggs", quantity: 5 }],
-  },
-  {
-    id: 25,
-    orderDate: "2024-06-08T13:45:00Z",
-    status: "Delivered",
-    items: [{ foodName: "Toast", quantity: 2 }],
-  },
-  {
-    id: 26,
-    orderDate: "2024-06-08T17:20:00Z",
-    status: "Canceled",
-    items: [
-      { foodName: "Pizza", quantity: 1 },
-      { foodName: "Fries", quantity: 1 },
-    ],
-  },
-  {
-    id: 27,
-    orderDate: "2024-06-08T20:00:00Z",
-    status: "Delivered",
-    items: [{ foodName: "Burger", quantity: 2 }],
-  },
-  {
-    id: 28,
-    orderDate: "2024-06-09T09:30:00Z",
-    status: "Pending",
-    items: [{ foodName: "Croissant", quantity: 3 }],
-  },
-];
+
+
 
 const Admin: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
@@ -285,20 +90,27 @@ const Admin: React.FC = () => {
     isPublished: false,
   });
   const getLineChartDataByStatus = () => {
-   
-    const grouped: Record<string, Record<string, number>> = {};
+    const grouped: {
+      [key: string]: {
+        date: string;
+        paid: number;
+        done: number;
+      };
+    } = {};
 
     orders.forEach((order) => {
-      const date = new Date(order.orderDate).toLocaleDateString("en-US");
-      if (!grouped[date])
-        grouped[date] = { Delivered: 0, Pending: 0, Canceled: 0 };
-      grouped[date][order.status] += 1;
+      const date = new Date(order.created_at).toISOString().split("T")[0];
+
+      if (!grouped[date]) {
+        grouped[date] = { date, paid: 0, done: 0 };
+      }
+
+      if (order.status === "paid" || order.status === "done") {
+        grouped[date][order.status] += 1;
+      }
     });
 
-    return Object.entries(grouped).map(([date, counts]) => ({
-      date,
-      ...counts,
-    }));
+    return Object.values(grouped);
   };
 
   const [formData, setFormData] = useState<MenuItem>({
@@ -353,14 +165,21 @@ const Admin: React.FC = () => {
     if (activeTab === "orders") fetchOrders();
   }, [activeTab]);
   useEffect(() => {
-    setOrders(mockOrders);
+    fetchOrders(); // بار اول فراخوانی
+  
+    const interval = setInterval(() => {
+      fetchOrders(); // بروزرسانی دوره‌ای
+    }, 10000);
+  
+    return () => clearInterval(interval); // پاک‌سازی
   }, []);
+  
+
   const toggleExpand = (id: number) => {
     setExpandedOrderIds((prev) =>
       prev.includes(id) ? prev.filter((oid) => oid !== id) : [...prev, id]
     );
   };
-
 
   const fetchMenuItems = async () => {
     setLoading(true);
@@ -375,12 +194,15 @@ const Admin: React.FC = () => {
     }
   };
 
+  // در تابع fetchOrders:
+  
+
   const fetchOrders = async () => {
     setLoadingOrders(true);
     setErrorOrders(null);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setOrders(mockOrders);
+      const response = await api.get("cart/manager/orders/");
+      setOrders(response.data.results || response.data); // بسته به ساختار ریسپانس
     } catch {
       setErrorOrders("Error fetching orders");
     } finally {
@@ -719,13 +541,8 @@ const Admin: React.FC = () => {
                       <XAxis dataKey="date" />
                       <YAxis />
                       <Tooltip />
-                      <Bar
-                        dataKey="Delivered"
-                        fill="#4caf50"
-                        name="Delivered"
-                      />
-                      <Bar dataKey="Pending" fill="#ff9800" name="Pending" />
-                      <Bar dataKey="Canceled" fill="#f44336" name="Canceled" />
+                      <Bar dataKey="paid" fill="#2196f3" name="Paid" />
+                      <Bar dataKey="done" fill="#4caf50" name="Done" />
                     </BarChart>
                   </ResponsiveContainer>
 
@@ -736,21 +553,8 @@ const Admin: React.FC = () => {
                       <XAxis dataKey="date" />
                       <YAxis />
                       <Tooltip />
-                      <Line
-                        type="monotone"
-                        dataKey="Delivered"
-                        stroke="#4caf50"
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="Pending"
-                        stroke="#ff9800"
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="Canceled"
-                        stroke="#f44336"
-                      />
+                      <Line type="monotone" dataKey="paid" stroke="#2196f3" />
+                      <Line type="monotone" dataKey="done" stroke="#4caf50" />
                     </LineChart>
                   </ResponsiveContainer>
 
@@ -777,7 +581,7 @@ const Admin: React.FC = () => {
                             >
                               <td>{order.id}</td>
                               <td>
-                                {new Date(order.orderDate).toLocaleString()}
+                                {new Date(order.created_at).toLocaleString()}
                               </td>
                               <td>{order.status}</td>
                               <td>{order.items.length}</td>
@@ -788,11 +592,11 @@ const Admin: React.FC = () => {
                                   key={`${order.id}-${idx}`}
                                   style={{
                                     backgroundColor:
-                                      order.status === "Delivered"
+                                      order.status === "done"
                                         ? "#e6f4ea" // سبز کم‌رنگ
-                                        : order.status === "Pending"
-                                        ? "#fff4e5" // نارنجی کم‌رنگ
-                                        : "#fdecea", // قرمز کم‌رنگ
+                                        : order.status === "paid"
+                                        ? "#e3f2fd" // آبی کم‌رنگ
+                                        : "#fff", // پیش‌فرض
                                   }}
                                 >
                                   <td

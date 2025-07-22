@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Send } from "lucide-react";
 import StarRating from "./StarRating";
-import '../../styles/FoodPage.css';
+import "../../styles/FoodPage.css";
 
 interface AddReviewProps {
-  onAddReview: (rating: number, comment: string) => void;
+  onAddReview: (rating: number, comment: string) => Promise<void>;
 }
 
 const AddReview: React.FC<AddReviewProps> = ({ onAddReview }) => {
@@ -12,60 +12,74 @@ const AddReview: React.FC<AddReviewProps> = ({ onAddReview }) => {
   const [comment, setComment] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleRatingChange = (newRating: number) => {
     setRating(newRating);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (comment.trim().length < 10) {
-      setError("Please write a comment with at least 10 characters");
+      setError("لطفا نظر خود را حداقل با 10 کاراکتر بنویسید.");
       return;
     }
 
     setError("");
-    onAddReview(rating, comment);
-    setComment("");
-    setRating(5);
-    setSubmitted(true);
+    setLoading(true);
 
-    // Reset submitted state after animation
-    setTimeout(() => {
-      setSubmitted(false);
-    }, 2000);
+    try {
+      await onAddReview(rating, comment);
+      setComment("");
+      setRating(5);
+      setSubmitted(true);
+
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 2000);
+    } catch (err) {
+      setError("خطا در ارسال نظر. لطفا دوباره تلاش کنید.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="add-review">
-      <h3>Add Your Review</h3>
+      <h3> add your comment</h3>
 
       <form onSubmit={handleSubmit} className={submitted ? "submitted" : ""}>
         <div className="rating-field">
-          <label>Your Rating</label>
+          <label>your rate</label>
           <StarRating
             rating={rating}
-            interactive={true}
+            interactive={!loading}
             onRatingChange={handleRatingChange}
           />
         </div>
 
         <div className="comment-field">
-          <label htmlFor="comment">Your Comment</label>
+          <label htmlFor="comment">your comment</label>
           <textarea
             id="comment"
-            placeholder="Share your experience with this food..."
+            placeholder="share your experience with us..."
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             required
+            disabled={loading}
           />
           {error && <span className="error-message">{error}</span>}
         </div>
 
-        <button type="submit" className="submit-review-btn">
+        <button
+          type="submit"
+          className="submit-review-btn"
+          disabled={loading}
+          aria-busy={loading}
+        >
           <Send size={16} />
-          <span>{submitted ? "Review Submitted!" : "Submit Review"}</span>
+          <span>{submitted ? "sent!" : "send comment"}</span>
         </button>
       </form>
     </div>

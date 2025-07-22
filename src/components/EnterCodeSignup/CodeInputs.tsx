@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface CodeInputsProps {
   code1: string;
@@ -59,4 +59,4 @@ const CodeInputs: React.FC<CodeInputsProps> = ({
   );
 };
 
-export default CodeInputs; 
+export default CodeInputs;

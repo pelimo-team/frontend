@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { ThumbsUp, ThumbsDown, MessageCircle, Send } from 'lucide-react';
-import { Review } from './Type';
-import StarRating from './StarRating';
-import '../../styles/FoodPage.css';
+import React, { useState } from "react";
+import { ThumbsUp, ThumbsDown, MessageCircle, Send } from "lucide-react";
+import { Review } from "./Type";
+import StarRating from "./StarRating";
+import "../../styles/FoodPage.css";
+// import { useContext } from "react";
+// import { AuthContext } from "../../pages/AuthContext";
 
 interface ReviewItemProps {
   review: Review;
@@ -11,18 +13,23 @@ interface ReviewItemProps {
   onAddReply: (reviewId: string, reply: string) => void;
 }
 
-const ReviewItem: React.FC<ReviewItemProps> = ({ 
-  review, 
-  onLike, 
-  onDislike, 
-  onAddReply 
+const ReviewItem: React.FC<ReviewItemProps> = ({
+  review,
+  onLike,
+  onDislike,
+  onAddReply,
 }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
-  const [replyText, setReplyText] = useState('');
+  const [replyText, setReplyText] = useState("");
   const [replySubmitted, setReplySubmitted] = useState(false);
+  
 
   const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
@@ -30,9 +37,9 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
     e.preventDefault();
     if (replyText.trim()) {
       onAddReply(review.id, replyText);
-      setReplyText('');
+      setReplyText("");
       setReplySubmitted(true);
-      
+
       // Hide form after animation
       setTimeout(() => {
         setShowReplyForm(false);
@@ -45,7 +52,11 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
     <div className="review-item">
       <div className="review-header">
         <div className="user-info">
-          <img src={review.userAvatar} alt={review.userName} className="user-avatar" />
+          <img
+            src={review.userAvatar}
+            alt={review.userName}
+            className="user-avatar"
+          />
           <div>
             <h4 className="user-name">{review.userName}</h4>
             <span className="review-date">{formatDate(review.date)}</span>
@@ -55,57 +66,50 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
           <StarRating rating={review.rating} size="small" />
         </div>
       </div>
-      
+
       <p className="review-comment">{review.comment}</p>
-      
+
       <div className="review-actions">
-        <button 
-          className="action-btn like-btn" 
+        <button
+          className="action-btn like-btn"
           onClick={() => onLike(review.id)}
         >
           <ThumbsUp size={16} />
           <span className="action-count">{review.likes}</span>
         </button>
-        
-        <button 
-          className="action-btn dislike-btn" 
+
+        <button
+          className="action-btn dislike-btn"
           onClick={() => onDislike(review.id)}
         >
           <ThumbsDown size={16} />
           <span className="action-count">{review.dislikes}</span>
         </button>
-        
-        <button 
-          className="action-btn reply-btn" 
+
+        <button
+          className="action-btn reply-btn"
           onClick={() => setShowReplyForm(!showReplyForm)}
         >
           <MessageCircle size={16} />
           <span>Reply</span>
         </button>
       </div>
-      
+
       {/* Replies Section */}
-      {review.replies.length > 0 && (
+      {Array.isArray(review.replies) && review.replies.length > 0 && (
         <div className="replies-section">
-          {review.replies.map(reply => (
+          {review.replies.map((reply) => (
             <div key={reply.id} className="reply-item">
-              <div className="reply-header">
-                <img src={reply.userAvatar} alt={reply.userName} className="user-avatar small" />
-                <div>
-                  <h5 className="user-name">{reply.userName}</h5>
-                  <span className="review-date">{formatDate(reply.date)}</span>
-                </div>
-              </div>
-              <p className="reply-comment">{reply.comment}</p>
+              {/* بقیه کد */}
             </div>
           ))}
         </div>
       )}
-      
+
       {/* Reply Form */}
       {showReplyForm && (
-        <form 
-          className={`reply-form ${replySubmitted ? 'submitted' : ''}`}
+        <form
+          className={`reply-form ${replySubmitted ? "submitted" : ""}`}
           onSubmit={handleReplySubmit}
         >
           <textarea
@@ -116,7 +120,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
           />
           <button type="submit" className="send-reply-btn">
             <Send size={16} />
-            <span>{replySubmitted ? 'Sent!' : 'Send'}</span>
+            <span>{replySubmitted ? "Sent!" : "Send"}</span>
           </button>
         </form>
       )}

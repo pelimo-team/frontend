@@ -12,7 +12,7 @@
 
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { CategoryType } from "../components/AdvancedSearch/types";
-  
+
 
 interface AuthContextType {
   isLoggedIn: boolean;
@@ -30,6 +30,10 @@ interface AuthContextType {
   setTetrisScore: React.Dispatch<React.SetStateAction<number>>;
   minesScore: number;
   setMinesScore: React.Dispatch<React.SetStateAction<number>>;
+  username: string;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  imagePreview: string | null;
+  setImagePreview: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 
@@ -49,6 +53,11 @@ export const AuthContext = createContext<AuthContextType>({
   setTetrisScore: () => {},
   minesScore: 0,
   setMinesScore: () => {},
+  username: "",
+  setUsername: () => {},
+  imagePreview: null,
+  setImagePreview: () => {},
+  
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -59,6 +68,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [puzzle2048Score, setPuzzle2048Score] = useState(0);
   const [tetrisScore, setTetrisScore] = useState(0);
   const [minesScore, setMinesScore] = useState(0);
+  const [username, setUsername] = useState<string>("");
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -72,7 +83,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("cartRestaurantId");
     setIsLoggedIn(false);
+    
   };
 
   return (
@@ -93,6 +106,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setTetrisScore,
         minesScore,
         setMinesScore,
+        username,
+        setUsername,
+        imagePreview,
+        setImagePreview,
       }}
     >
       {children}
