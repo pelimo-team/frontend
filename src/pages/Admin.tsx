@@ -557,7 +557,7 @@ const Admin: React.FC = () => {
                     </LineChart>
                   </ResponsiveContainer>
 
-                  <h4 className="mt-4">Orders Table with Dropdown</h4>
+                  <h4 className="mt-4">Orders Table </h4>
                   <Table striped hover responsive>
                     <thead>
                       <tr>
