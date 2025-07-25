@@ -26,9 +26,11 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
 
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -52,14 +54,14 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
     <div className="review-item">
       <div className="review-header">
         <div className="user-info">
-          <img
+          {/* <img
             src={review.userAvatar}
-            alt={review.userName}
+            alt={review.user}
             className="user-avatar"
-          />
+          /> */}
           <div>
-            <h4 className="user-name">{review.userName}</h4>
-            <span className="review-date">{formatDate(review.date)}</span>
+            <h4 className="user-name">{review.user}</h4>
+            <span className="review-date">{formatDate(review.created_at)}</span>
           </div>
         </div>
         <div className="review-rating">
