@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/AuthPages.css';
 
 type ToggleButtonProps = {
@@ -7,6 +7,11 @@ type ToggleButtonProps = {
 
 const ToggleButton: React.FC<ToggleButtonProps> = ({ onToggle }) => {
   const [clickCount, setClickCount] = useState<number>(0);
+
+  // نقش پیش‌فرض هنگام بارگذاری اولیه
+  useEffect(() => {
+    onToggle?.('user');
+  }, []);
 
   const handleClick = () => {
     const newCount = clickCount + 1;

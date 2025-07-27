@@ -27,7 +27,7 @@ export interface Review {
 export interface Reply {
   id: string;
   userId: string;
-  userName: string;
+  user: string;
   userAvatar: string;
   comment: string;
   date: string;
