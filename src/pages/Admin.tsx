@@ -1,21 +1,19 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import { Form, Button, Table, Spinner, Alert, Nav, Tab } from "react-bootstrap";
+import { Tab } from "react-bootstrap";
 import axios from "axios";
-import { FiPackage, FiShoppingCart, FiCoffee, FiInfo } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import "../styles/Admin.css";
-
-
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-} from "recharts";
+  AdminContainer,
+  Panel,
+  Loading,
+  StatsCards,
+  ManagerStatusBanner,
+  MenuManagement,
+  OrdersHistory,
+  StockManagement,
+  RestaurantInformation
+} from "../components/admin";
 
 const token = localStorage.getItem("token");
 const csrfToken =
@@ -53,7 +51,7 @@ type OrderItem = {
 
 type Order = {
   id: number;
-  created_at: string; // تاریخ از سرور به صورت ISO string میاد
+  created_at: string;
   status: "paid" | "done";
   items: OrderItem[];
 };
@@ -70,16 +68,24 @@ type RestaurantInfo = {
   isPublished: boolean;
 };
 
-
-
+type ManagerStatus = {
+  is_manager: boolean;
+  manager_pending: boolean;
+  manager_status: string;
+  has_restaurant: boolean;
+  can_access_admin_panel: boolean;
+};
 
 const Admin: React.FC = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<
     "menu" | "orders" | "stock" | "restaurant information"
   >("menu");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [expandedOrderIds, setExpandedOrderIds] = useState<number[]>([]);
+  const [managerStatus, setManagerStatus] = useState<ManagerStatus | null>(null);
+  const [loadingStatus, setLoadingStatus] = useState(true);
 
   const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>({
     name: "",
@@ -92,29 +98,6 @@ const Admin: React.FC = () => {
     isNightwalker: false,
     isPublished: false,
   });
-  const getLineChartDataByStatus = () => {
-    const grouped: {
-      [key: string]: {
-        date: string;
-        paid: number;
-        done: number;
-      };
-    } = {};
-
-    orders.forEach((order) => {
-      const date = new Date(order.created_at).toISOString().split("T")[0];
-
-      if (!grouped[date]) {
-        grouped[date] = { date, paid: 0, done: 0 };
-      }
-
-      if (order.status === "paid" || order.status === "done") {
-        grouped[date][order.status] += 1;
-      }
-    });
-
-    return Object.values(grouped);
-  };
 
   const [formData, setFormData] = useState<MenuItem>({
     name: "",
@@ -146,6 +129,30 @@ const Admin: React.FC = () => {
     "coffee shop",
   ];
 
+  // Fetch manager status on component mount
+  useEffect(() => {
+    const fetchManagerStatus = async () => {
+      try {
+        const response = await api.get("accounts/manager-status/");
+        const status: ManagerStatus = response.data;
+        setManagerStatus(status);
+        
+        // Handle redirect logic - redirect if manager_pending is false
+        if (!status.manager_pending && !status.is_manager) {
+          navigate('/');
+          return;
+        }
+      } catch (error) {
+        console.error("Error fetching manager status:", error);
+        setError("Error fetching manager status");
+      } finally {
+        setLoadingStatus(false);
+      }
+    };
+
+    fetchManagerStatus();
+  }, [navigate]);
+
   useEffect(() => {
     const fetchUsername = async () => {
       try {
@@ -164,15 +171,15 @@ const Admin: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (activeTab === "menu") fetchMenuItems();
-    if (activeTab === "orders") fetchOrders();
-  }, [activeTab]);
-  useEffect(() => {
-    fetchOrders(); // بار اول فراخوانی
-  
+    if (activeTab === "menu" && managerStatus?.is_manager) fetchMenuItems();
+    if (activeTab === "orders" && managerStatus?.is_manager) fetchOrders();
+  }, [activeTab, managerStatus]);
 
-  }, []);
-  
+  useEffect(() => {
+    if (managerStatus?.is_manager) {
+      fetchOrders();
+    }
+  }, [managerStatus]);
 
   const toggleExpand = (id: number) => {
     setExpandedOrderIds((prev) =>
@@ -193,15 +200,12 @@ const Admin: React.FC = () => {
     }
   };
 
-  // در تابع fetchOrders:
-  
-
   const fetchOrders = async () => {
     setLoadingOrders(true);
     setErrorOrders(null);
     try {
       const response = await api.get("cart/manager/orders/");
-      setOrders(response.data.results || response.data); // بسته به ساختار ریسپانس
+      setOrders(response.data.results || response.data);
     } catch {
       setErrorOrders("Error fetching orders");
     } finally {
@@ -323,496 +327,93 @@ const Admin: React.FC = () => {
     }
   };
 
-  const formatShamsiDate = (date: Date) => {
-    return new Intl.DateTimeFormat("en-US", {
-      day: "numeric",
-      month: "numeric",
-      year: "numeric",
-    }).format(date);
-  };
+  // Loading state while checking manager status
+  if (loadingStatus) {
+    return <Loading />;
+  }
+
+  const isManager = managerStatus?.is_manager || false;
+  const isPending = managerStatus?.manager_pending || false;
+  const shouldDisableTabs = isPending && !isManager;
 
   return (
-    <div className="food-admin-panel">
-      <main className="admin-main-content">
-        <section className="stats-cards">
-          <div className="stats-card">
-            <div>
-              {loading ? <Spinner animation="border" /> : menuItems.length}
-            </div>
-            <div>Available Foods Count</div>
-            <div className="icon">🍽️</div>
-          </div>
-          <div className="stats-card">
-            <div>
-              {loadingOrders ? <Spinner animation="border" /> : orders.length}
-            </div>
-            <div>Orders Count</div>
-            <div className="icon">🛒</div>
-          </div>
-        </section>
+    <AdminContainer
+      activeTab={activeTab}
+      onTabSelect={(tab) => setActiveTab(tab as any)}
+      shouldDisableTabs={shouldDisableTabs}
+      username={username}
+      currentTime={currentTime}
+    >
+      <StatsCards
+        menuItemsCount={menuItems.length}
+        ordersCount={orders.length}
+        loading={loading}
+        loadingOrders={loadingOrders}
+      />
 
-        <Tab.Container
-          activeKey={activeTab}
-          onSelect={(k) => setActiveTab(k as any)}
+      <ManagerStatusBanner
+        isPending={isPending}
+        isManager={isManager}
+      />
+
+      <Tab.Pane eventKey="menu">
+        <Panel
+          title="Menu Management"
+          disabled={shouldDisableTabs}
+          icon="coffee"
         >
-          <Nav variant="tabs" className="mb-3">
-            <Nav.Item>
-              <Nav.Link eventKey="menu">Menu Management</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="orders">Orders History</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="stock">Stock</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="restaurant information">
-                Restaurant information
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
+          <MenuManagement
+            menuItems={menuItems}
+            formData={formData}
+            editId={editId}
+            error={error}
+            disabled={shouldDisableTabs}
+            onFormDataChange={handleChange}
+            onSubmit={handleSubmit}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </Panel>
+      </Tab.Pane>
 
-          <Tab.Content>
-            <Tab.Pane eventKey="menu">
-              {error && <Alert variant="danger">{error}</Alert>}
-              <Form onSubmit={handleSubmit} className="food-form">
-                {/* فرم مدیریت منو (همانند کد اولیه) */}
-                {/* ... (کد فرم مانند قبل) */}
-                <Form.Group className="mb-3">
-                  <Form.Label>Food Name</Form.Label>
-                  <Form.Control
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Enter food name"
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Price</Form.Label>
-                  <Form.Control
-                    type="number"
-                    name="price"
-                    min="0"
-                    value={formData.price ?? ""}
-                    onChange={handleChange}
-                    placeholder="Enter price"
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Upload Image</Form.Label>
-                  <Form.Control
-                    type="file"
-                    name="image"
-                    onChange={handleChange}
-                    accept="image/*"
-                  />
-                  {formData.image &&
-                    (typeof formData.image === "string" ? (
-                      <img
-                        src={formData.image}
-                        alt="preview"
-                        className="food-preview"
-                        style={{ maxWidth: "150px", marginTop: "8px" }}
-                      />
-                    ) : (
-                      <img
-                        src={URL.createObjectURL(formData.image)}
-                        alt="preview"
-                        className="food-preview"
-                        style={{ maxWidth: "150px", marginTop: "8px" }}
-                      />
-                    ))}
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Rating</Form.Label>
-                  <Form.Control
-                    type="number"
-                    name="rate"
-                    min="0"
-                    max={5}
-                    step="0.1"
-                    value={formData.rate ?? ""}
-                    onChange={handleChange}
-                    placeholder="Enter rating (0-5)"
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Quantity</Form.Label>
-                  <Form.Control
-                    type="number"
-                    name="quantity"
-                    min="0"
-                    value={formData.quantity ?? ""}
-                    onChange={handleChange}
-                    placeholder="Enter quantity"
-                  />
-                </Form.Group>
-                <Form.Check
-                  className="mb-2"
-                  type="checkbox"
-                  label="Available"
-                  name="availability"
-                  checked={formData.availability}
-                  onChange={handleChange}
-                />
-                <Form.Check
-                  className="mb-2"
-                  type="checkbox"
-                  label="Bestseller"
-                  name="bestseller"
-                  checked={formData.bestseller}
-                  onChange={handleChange}
-                />
-                <Form.Check
-                  className="mb-2"
-                  type="checkbox"
-                  label="On Sale"
-                  name="onsale"
-                  checked={formData.onsale}
-                  onChange={handleChange}
-                />
-                <Button type="submit">
-                  {editId !== null ? "Save Changes" : "Add Food"}
-                </Button>
-              </Form>
+      <Tab.Pane eventKey="orders">
+        <Panel
+          title="Orders History"
+          disabled={shouldDisableTabs}
+          icon="shopping-cart"
+        >
+          <OrdersHistory
+            orders={orders}
+            expandedOrderIds={expandedOrderIds}
+            errorOrders={errorOrders}
+            loadingOrders={loadingOrders}
+            onToggleExpand={toggleExpand}
+          />
+        </Panel>
+      </Tab.Pane>
 
-              <hr />
-              {/* Menu Table */}
-              <Table striped hover responsive>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Rating</th>
-                    <th>Available</th>
-                    <th>Bestseller</th>
-                    <th>On Sale</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {menuItems.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.name}</td>
-                      <td>{item.price}</td>
-                      <td>{item.quantity}</td>
-                      <td>{item.rate}</td>
-                      <td>{item.availability ? "✅" : "❌"}</td>
-                      <td>{item.bestseller ? "✅" : "❌"}</td>
-                      <td>{item.onsale ? "✅" : "❌"}</td>
-                      <td>
-                        <Button
-                          size="sm"
-                          variant="warning"
-                          onClick={() => handleEdit(item)}
-                        >
-                          Edit
-                        </Button>{" "}
-                        <Button
-                          size="sm"
-                          variant="danger"
-                          onClick={() => item.id && handleDelete(item.id)}
-                        >
-                          Delete
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Tab.Pane>
+      <Tab.Pane eventKey="stock">
+        <Panel
+          title="Stock Management"
+          disabled={shouldDisableTabs}
+          icon="package"
+        >
+          <StockManagement
+            menuItems={menuItems}
+            loading={loading}
+          />
+        </Panel>
+      </Tab.Pane>
 
-            <Tab.Pane eventKey="orders">
-              {errorOrders && <Alert variant="danger">{errorOrders}</Alert>}
-
-              {loadingOrders ? (
-                <Spinner animation="border" />
-              ) : orders.length === 0 ? (
-                <p className="text-center">No orders found.</p>
-              ) : (
-                <>
-                  <h4>Orders Bar Chart</h4>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={getLineChartDataByStatus()}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="date" />
-                      <YAxis />
-                      <Tooltip />
-                      <Bar dataKey="paid" fill="#2196f3" name="Paid" />
-                      <Bar dataKey="done" fill="#4caf50" name="Done" />
-                    </BarChart>
-                  </ResponsiveContainer>
-
-                  <h4 className="mt-4">Order Status Line Chart</h4>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={getLineChartDataByStatus()}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="date" />
-                      <YAxis />
-                      <Tooltip />
-                      <Line type="monotone" dataKey="paid" stroke="#2196f3" />
-                      <Line type="monotone" dataKey="done" stroke="#4caf50" />
-                    </LineChart>
-                  </ResponsiveContainer>
-
-                  <h4 className="mt-4">Orders Table </h4>
-                  <Table striped hover responsive>
-                    <thead>
-                      <tr>
-                        <th>Order ID</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Items Count</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {orders.map((order) => {
-                        return (
-                          <React.Fragment key={order.id}>
-                            <tr
-                              onClick={() => toggleExpand(order.id)}
-                              style={{
-                                cursor: "pointer",
-                                background: "#f7f7f7",
-                              }}
-                            >
-                              <td>{order.id}</td>
-                              <td>
-                                {new Date(order.created_at).toLocaleString()}
-                              </td>
-                              <td>{order.status}</td>
-                              <td>{order.items.length}</td>
-                            </tr>
-                            {expandedOrderIds.includes(order.id) &&
-                              order.items.map((item, idx) => (
-                                <tr
-                                  key={`${order.id}-${idx}`}
-                                  style={{
-                                    backgroundColor:
-                                      order.status === "done"
-                                        ? "#e6f4ea" // سبز کم‌رنگ
-                                        : order.status === "paid"
-                                        ? "#e3f2fd" // آبی کم‌رنگ
-                                        : "#fff", // پیش‌فرض
-                                  }}
-                                >
-                                  <td
-                                    colSpan={2}
-                                    style={{ paddingLeft: "2rem" }}
-                                  >
-                                    {item.foodName}
-                                  </td>
-                                  <td colSpan={2}>Qty: {item.quantity}</td>
-                                </tr>
-                              ))}
-                          </React.Fragment>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                </>
-              )}
-            </Tab.Pane>
-
-            <Tab.Pane eventKey="stock">
-              {loading ? (
-                <Spinner animation="border" />
-              ) : menuItems.length === 0 ? (
-                <p className="text-center">No food available.</p>
-              ) : (
-                <Table striped hover responsive>
-                  <thead>
-                    <tr>
-                      <th>Food Name</th>
-                      <th>Quantity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {menuItems.map((item) => (
-                      <tr key={item.id}>
-                        <td>{item.name}</td>
-                        <td>{item.quantity}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              )}
-            </Tab.Pane>
-
-            <Tab.Pane eventKey="restaurant information">
-              <Form
-                onSubmit={handleRestaurantInfoSubmit}
-                className="restaurant-info-form"
-              >
-                <Form.Group className="mb-3">
-                  <Form.Label>Restaurant Name</Form.Label>
-                  <Form.Control
-                    name="name"
-                    value={restaurantInfo.name}
-                    onChange={handleRestaurantInfoChange}
-                    placeholder="Enter restaurant name"
-                    required
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    name="description"
-                    value={restaurantInfo.description}
-                    onChange={handleRestaurantInfoChange}
-                    placeholder="Enter restaurant description"
-                    rows={3}
-                    required
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>City</Form.Label>
-                  <Form.Control
-                    name="city"
-                    value={restaurantInfo.city}
-                    onChange={handleRestaurantInfoChange}
-                    placeholder="Enter city"
-                    required
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Cover Image</Form.Label>
-                  <Form.Control
-                    type="file"
-                    name="coverImage"
-                    onChange={handleRestaurantInfoChange}
-                    accept="image/*"
-                  />
-                  {restaurantInfo.coverImage instanceof File && (
-                    <img
-                      src={URL.createObjectURL(restaurantInfo.coverImage)}
-                      alt="Cover preview"
-                      className="image-preview cover-preview"
-                    />
-                  )}
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Logo</Form.Label>
-                  <Form.Control
-                    type="file"
-                    name="logo"
-                    onChange={handleRestaurantInfoChange}
-                    accept="image/*"
-                  />
-                  {restaurantInfo.logo instanceof File && (
-                    <img
-                      src={URL.createObjectURL(restaurantInfo.logo)}
-                      alt="Logo preview"
-                      className="image-preview logo-preview"
-                    />
-                  )}
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Restaurant Type</Form.Label>
-                  <Form.Select
-                    name="type"
-                    value={restaurantInfo.type}
-                    onChange={handleRestaurantInfoChange}
-                    required
-                  >
-                    <option value="">Select type</option>
-                    {restaurantTypes.map((type) => (
-                      <option key={type} value={type}>
-                        {type.charAt(0).toUpperCase() + type.slice(1)}
-                      </option>
-                    ))}
-                  </Form.Select>
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Delivery Cost</Form.Label>
-                  <Form.Control
-                    type="number"
-                    name="deliveryCost"
-                    value={restaurantInfo.deliveryCost ?? ""}
-                    onChange={handleRestaurantInfoChange}
-                    placeholder="Enter delivery cost"
-                    min="0"
-                  />
-                </Form.Group>
-
-                <Form.Check
-                  type="checkbox"
-                  label="Night Walker"
-                  name="isNightwalker"
-                  checked={restaurantInfo.isNightwalker}
-                  onChange={handleRestaurantInfoChange}
-                  className="mb-2"
-                />
-
-                <Form.Check
-                  type="checkbox"
-                  label="Published"
-                  name="isPublished"
-                  checked={restaurantInfo.isPublished}
-                  onChange={handleRestaurantInfoChange}
-                  className="checkbox-info"
-                />
-
-                <Button className="submit-btn-info" type="submit">
-                  Save Restaurant Information
-                </Button>
-              </Form>
-            </Tab.Pane>
-          </Tab.Content>
-        </Tab.Container>
-      </main>
-
-      <aside className="sidebar">
-        <div className="username">
-          <h2>{username}</h2>
-          <div className="time">
-            {currentTime.toLocaleTimeString("en-US", { hour12: false })}
-            <br />
-            {formatShamsiDate(currentTime)}
-          </div>
-        </div>
-
-        <ul>
-          <li
-            onClick={() => setActiveTab("menu")}
-            className={activeTab === "menu" ? "active" : ""}
-          >
-            <FiCoffee />
-            <span>Menu Management</span>
-          </li>
-          <li
-            onClick={() => setActiveTab("orders")}
-            className={activeTab === "orders" ? "active" : ""}
-          >
-            <FiShoppingCart />
-            <span>Orders History</span>
-          </li>
-          <li
-            onClick={() => setActiveTab("stock")}
-            className={activeTab === "stock" ? "active" : ""}
-          >
-            <FiPackage />
-            <span>Stock</span>
-          </li>
-          <li
-            onClick={() => setActiveTab("restaurant information")}
-            className={activeTab === "restaurant information" ? "active" : ""}
-          >
-            <FiInfo />
-            <span>Restaurant Information</span>
-          </li>
-        </ul>
-      </aside>
-    </div>
+      <Tab.Pane eventKey="restaurant information">
+        <RestaurantInformation
+          restaurantInfo={restaurantInfo}
+          restaurantTypes={restaurantTypes}
+          onRestaurantInfoChange={handleRestaurantInfoChange}
+          onSubmit={handleRestaurantInfoSubmit}
+        />
+      </Tab.Pane>
+    </AdminContainer>
   );
 };
 
