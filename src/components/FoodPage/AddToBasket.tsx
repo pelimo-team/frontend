@@ -36,6 +36,7 @@ const AddToBasket: React.FC<AddToBasketProps> = ({
     const fetchCart = async () => {
       try {
         const response = await api.get("/api/cart/");
+        console.log("Fetched carts:", response); // 
         const cart = Array.isArray(response) ? response[0] : response;
 
         const cartRestId = cart?.restaurant?.id || null;
@@ -91,7 +92,7 @@ const AddToBasket: React.FC<AddToBasketProps> = ({
         setAdded(true);
         setCartItemId(matchingItem.id); // ✅ حالا id آیتم رو داری
         setCartRestaurantId(restaurantId);
-        localStorage.setItem("cartRestaurantId", restaurantId.toString());
+       
         if (onSuccess) onSuccess();
       } else {
         throw new Error("Item not found in cart after adding.");

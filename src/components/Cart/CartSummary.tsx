@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { CartItem } from './types';
-import { api } from '../../utils/api'; // مسیر api.ts را تنظیم کن
+import React, { useState, useEffect } from "react";
+import { CartItem } from "./types";
+import { api } from "../../utils/api"; // مسیر api.ts را تنظیم کن
 
 interface CartSummaryProps {
   items: CartItem[];
   deliveryCost: number;
+  onClearCart: () => void;
 }
 
-const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost }) => {
+const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost,onClearCart }) => {
   const [walletBalance, setWalletBalance] = useState<number | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-  const [messageType, setMessageType] = useState<'success' | 'error' | null>(null);
+  const [messageType, setMessageType] = useState<"success" | "error" | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
 
   // محاسبه جمع کل
@@ -35,12 +38,12 @@ const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost }) => {
   useEffect(() => {
     const fetchWalletBalance = async () => {
       try {
-        const walletData = await api.get('/api/accounts/wallet/balance/');
+        const walletData = await api.get("/api/accounts/wallet/balance/");
         const balance = Number(walletData.balance);
-        if (isNaN(balance)) throw new Error('موجودی نامعتبر است');
+        if (isNaN(balance)) throw new Error("موجودی نامعتبر است");
         setWalletBalance(balance);
       } catch (error) {
-        console.error('خطا در دریافت موجودی کیف پول:', error);
+        console.error("خطا در دریافت موجودی کیف پول:", error);
         setWalletBalance(null);
       }
     };
@@ -54,31 +57,32 @@ const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost }) => {
     setLoading(true);
 
     try {
-      const paymentResponse = await api.post('/api/cart/pay/', {});
-      console.log('✅ پرداخت موفق:', paymentResponse);
+      const paymentResponse = await api.post("/api/cart/pay/", {});
+      console.log("✅ پرداخت موفق:", paymentResponse);
 
-      setMessage('پرداخت با موفقیت انجام شد ✅');
-      setMessageType('success');
+      setMessage("پرداخت با موفقیت انجام شد ✅");
+      setMessageType("success");
 
       // بعد پرداخت، میتونی موجودی کیف پول رو دوباره بروزرسانی کنی اگر میخوای
       // fetchWalletBalance(); // اگر بخوای این رو به useEffect خارجیش منتقل کنی یا داخل تابع جداگانه بذاری
     } catch (error: any) {
-      console.error('❌ خطا در پرداخت:', error);
-      setMessage('مشکلی در پرداخت پیش آمد. لطفا دوباره تلاش کنید.');
-      setMessageType('error');
+      console.error("❌ خطا در پرداخت:", error);
+      setMessage("مشکلی در پرداخت پیش آمد. لطفا دوباره تلاش کنید.");
+      setMessageType("error");
     } finally {
       setLoading(false);
     }
   };
 
-  const isWalletSufficient = walletBalance !== null && walletBalance >= overallTotal;
+  const isWalletSufficient =
+    walletBalance !== null && walletBalance >= overallTotal;
 
   return (
     <div className="cart-summary mt-4">
       <div className="d-flex justify-content-between mb-2">
         <span>Order Cost:</span>
         <span className="cart-food-price">
-          {(itemsTotal || 0).toLocaleString()} Toman        
+          {(itemsTotal || 0).toLocaleString()} Toman
         </span>
       </div>
       <div className="d-flex justify-content-between mb-3">
@@ -96,15 +100,21 @@ const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost }) => {
 
       <div className="d-flex justify-content-between mb-3">
         <span>Wallet Balance:</span>
-        <span className={`cart-food-price ${isWalletSufficient ? 'text-success' : 'text-danger'}`}>
-          {walletBalance !== null ? walletBalance.toLocaleString() + ' Toman' : 'Loading...'}
+        <span
+          className={`cart-food-price ${
+            isWalletSufficient ? "text-success" : "text-danger"
+          }`}
+        >
+          {walletBalance !== null
+            ? walletBalance.toLocaleString() + " Toman"
+            : "Loading..."}
         </span>
       </div>
 
       {message && (
         <div
           className={`alert text-center mt-3 ${
-            messageType === 'success' ? 'alert-success' : 'alert-danger'
+            messageType === "success" ? "alert-success" : "alert-danger"
           }`}
         >
           {message}
@@ -114,11 +124,19 @@ const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost }) => {
       <div className="d-flex justify-content-center gap-3 mt-4">
         <button
           className="custom-continue-btn"
+          onClick={onClearCart}
+          
+        >
+clear basket
+        </button>
+
+        <button
+          className="custom-continue-btn"
           onClick={handlePayment}
           disabled={loading || !isWalletSufficient}
-          title={!isWalletSufficient ? 'موجودی کیف پول کافی نیست' : undefined}
+          title={!isWalletSufficient ? "موجودی کیف پول کافی نیست" : undefined}
         >
-          {loading ? 'در حال پردازش...' : 'پرداخت'}
+          {loading ? "loading..." : "payment"}
         </button>
       </div>
     </div>

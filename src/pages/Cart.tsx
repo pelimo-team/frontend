@@ -21,14 +21,13 @@ const Cart: React.FC = () => {
 
   useEffect(() => {
     fetchCarts(); // بار اول
-  
+
     const intervalId = setInterval(() => {
       fetchCarts();
     }, 5000); // هر ۵ ثانیه داده‌ها رو تازه می‌کنیم
-  
+
     return () => clearInterval(intervalId); // پاک کردن تایمر در unmount
   }, []);
-  
 
   const fetchCarts = async () => {
     try {
@@ -67,6 +66,20 @@ const Cart: React.FC = () => {
       setError(err.message);
     }
   };
+  const clearCart = async (restaurantId: number) => {
+    if (
+      !window.confirm("are you sure you want to delete the basket?")
+    )
+      return;
+
+    try {
+      await api.delete(`/api/cart/clear/?restaurant_id=${restaurantId}`);
+      await fetchCarts();
+    } catch (err: any) {
+      console.error("Error clearing cart:", err);
+      setError(err.message);
+    }
+  };
 
   if (loading) {
     return <CartLoading />;
@@ -76,8 +89,8 @@ const Cart: React.FC = () => {
     return (
       <CartError
         error={error}
-       /// onRetry={fetchCarts}
-        onBack={() => navigate(-1)} 
+        /// onRetry={fetchCarts}
+        onBack={() => navigate(-1)}
       />
     );
   }
@@ -87,37 +100,36 @@ const Cart: React.FC = () => {
   }
 
   return (
-  <>
-  <CartHeader /> 
-  
-    <Container className="cart-container mt-4">
-     
+    <>
+      <CartHeader />
 
-      {carts.map((cart) => (
-        <div key={cart.id} className="cart-box">
-          <CartRestaurantInfo
-            restaurant={cart.restaurant}
-            createdAt={cart.created_at}
-          />
+      <Container className="cart-container mt-4">
+        {carts.map((cart) => (
+          <div key={cart.id} className="cart-box">
+            <CartRestaurantInfo
+              restaurant={cart.restaurant}
+              createdAt={cart.created_at}
+            />
 
-          <div className="cart-items">
-            {cart.items.map((item) => (
-              <CartItem
-                key={item.id}
-                item={item}
-                onUpdateQuantity={updateQuantity}
-                onRemoveItem={removeItem}
-              />
-            ))}
+            <div className="cart-items">
+              {cart.items.map((item) => (
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  onUpdateQuantity={updateQuantity}
+                  onRemoveItem={removeItem}
+                />
+              ))}
+            </div>
+
+            <CartSummary
+              items={cart.items}
+              deliveryCost={cart.restaurant.delivery_cost}
+              onClearCart={() => clearCart(cart.restaurant.id)} // ← اضافه کردن restaurantId
+            />
           </div>
-
-          <CartSummary
-            items={cart.items}
-            deliveryCost={cart.restaurant.delivery_cost}
-          />
-        </div>
-      ))}
-    </Container>
+        ))}
+      </Container>
     </>
   );
 };
