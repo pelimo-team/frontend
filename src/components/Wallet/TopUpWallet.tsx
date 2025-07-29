@@ -55,44 +55,39 @@ const TopUpWallet: React.FC<TopUpWalletProps> = ({ onTopUpSuccess}) => {
   };
 
   // تابع برای مدیریت فرآیند شارژ کیف پول
-  const handleWalletTopUp = async () => {
-    if (walletSelectedAmount === null) {
-      setWalletMessage('Please select an amount to top up.');
-      return;
-    }
-    if (walletUserInputCaptcha.toLowerCase() !== walletCaptchaText.toLowerCase()) {
-      setWalletMessage('CAPTCHA mismatch. Please try again.');
-      generateWalletCaptcha(); // تولید کپچای جدید در صورت خطا
-      setWalletUserInputCaptcha(''); // پاک کردن ورودی کاربر
-      return;
-    }
+// در تابع handleWalletTopUp به جای تماس api.post، فقط تابع onTopUpSuccess را صدا بزن
 
-    setWalletIsProcessing(true); // شروع پردازش
-    setWalletMessage(null); // پاک کردن پیام قبلی
+const handleWalletTopUp = async () => {
+  if (walletSelectedAmount === null) {
+    setWalletMessage('Please select an amount to top up.');
+    return;
+  }
+  if (walletUserInputCaptcha.toLowerCase() !== walletCaptchaText.toLowerCase()) {
+    setWalletMessage('CAPTCHA mismatch. Please try again.');
+    generateWalletCaptcha();
+    setWalletUserInputCaptcha('');
+    return;
+  }
 
-    try {
-      // شبیه‌سازی فرآیند شارژ (مثلاً تماس با API پرداخت)
-      await new Promise(resolve => setTimeout(resolve, 2000)); // تاخیر 2 ثانیه
+  setWalletIsProcessing(true);
+  setWalletMessage(null);
 
-      setWalletMessage(`Successfully topped up ${formatWalletCurrency(walletSelectedAmount)}!`);
+  try {
+    // اینجا دیگه تماس API نمی‌زنیم، فقط والد رو مطلع می‌کنیم
+    await onTopUpSuccess?.(walletSelectedAmount);
 
-      // اگر تابعی برای اطلاع‌رسانی به کامپوننت والد وجود دارد، آن را فراخوانی کن
-      if (onTopUpSuccess) {
-        onTopUpSuccess(walletSelectedAmount); // مبلغ اضافه شده را به والد می‌فرستد
-      }
+    setWalletMessage(`Successfully topped up ${formatWalletCurrency(walletSelectedAmount)}!`);
+    setWalletSelectedAmount(null);
+    setWalletUserInputCaptcha('');
+    generateWalletCaptcha();
+  } catch (error) {
+    console.error("Top-up failed:", error);
+    setWalletMessage('Top-up failed. Please try again later.');
+  } finally {
+    setWalletIsProcessing(false);
+  }
+};
 
-      // پس از موفقیت، مبلغ انتخاب شده و ورودی کپچا را پاک کن و کپچای جدید تولید کن
-      setWalletSelectedAmount(null);
-      setWalletUserInputCaptcha('');
-      generateWalletCaptcha();
-
-    } catch (error) {
-      console.error("Top-up failed:", error);
-      setWalletMessage('Top-up failed. Please try again later.');
-    } finally {
-      setWalletIsProcessing(false); // پایان پردازش
-    }
-  };
 
   return (
     // محتوای صفحه افزایش موجودی مستقیماً رندر می‌شود
