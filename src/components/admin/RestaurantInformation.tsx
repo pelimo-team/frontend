@@ -56,7 +56,7 @@ const RestaurantForm: React.FC = () => {
 
   useEffect(() => {
     api
-      .get("/api/accounts/restaurant-form-data/")
+      .get("/accounts/restaurant-form-data/")
       .then((res) => {
         setCities(res.data.cities);
         setRestaurantTypes(res.data.restaurant_types);
