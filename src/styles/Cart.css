@@ -7,9 +7,10 @@ body {
 }
 
 .cart-container {
-  max-width: 100 rem;
+  max-width: 100rem;
   margin: auto ;
   padding: 20px;
+  
 }
 
 .cart-box {
