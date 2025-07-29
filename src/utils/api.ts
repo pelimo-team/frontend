@@ -25,11 +25,26 @@ export const api = {
         });
 
         if (!response.ok) {
-            if (response.status === 401 || response.status === 403) {
-                throw new Error('Authentication required');
+            let errorMessage = 'API request failed';
+            try {
+              const errorData = await response.json();
+              if (errorData.detail) {
+                errorMessage = errorData.detail;
+              } else if (typeof errorData === 'string') {
+                errorMessage = errorData;
+              } else if (typeof errorData === 'object') {
+                errorMessage = JSON.stringify(errorData);
+              }
+            } catch {
+              // ignore JSON parsing errors
             }
-            throw new Error('API request failed');
-        }
+            
+            if (response.status === 401 || response.status === 403) {
+              throw new Error('Authentication required');
+            }
+            throw new Error(errorMessage);
+          }
+          
 
         // For DELETE requests, return true if successful
         if (options.method === 'DELETE') {
@@ -44,7 +59,9 @@ export const api = {
     },
 
     post: (endpoint: string, data: unknown) => {
+        
         return api.request(endpoint, {
+            
             method: 'POST',
             body: JSON.stringify(data)
         });

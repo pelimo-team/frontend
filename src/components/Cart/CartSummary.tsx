@@ -6,15 +6,17 @@ interface CartSummaryProps {
   items: CartItem[];
   deliveryCost: number;
   onClearCart: () => void;
+  restaurantId: number; 
 }
 
-const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost,onClearCart }) => {
+const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost,onClearCart,restaurantId }) => {
   const [walletBalance, setWalletBalance] = useState<number | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [messageType, setMessageType] = useState<"success" | "error" | null>(
     null
   );
   const [loading, setLoading] = useState(false);
+  
 
   // محاسبه جمع کل
   const calculateTotal = (items: CartItem[]) => {
@@ -55,24 +57,27 @@ const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost,onClearCa
     setMessage(null);
     setMessageType(null);
     setLoading(true);
-
+  
     try {
-      const paymentResponse = await api.post("/api/cart/pay/", {});
-      console.log("✅ پرداخت موفق:", paymentResponse);
+      console.log("📦 Trying to pay for restaurant:", restaurantId);
 
+      const paymentResponse = await api.post("/api/cart/pay/", {
+        
+        restaurant_id: restaurantId, // ✅ ارسال رستوران
+      });
+      console.log("✅ پرداخت موفق:", paymentResponse);
+  
       setMessage("پرداخت با موفقیت انجام شد ✅");
       setMessageType("success");
-
-      // بعد پرداخت، میتونی موجودی کیف پول رو دوباره بروزرسانی کنی اگر میخوای
-      // fetchWalletBalance(); // اگر بخوای این رو به useEffect خارجیش منتقل کنی یا داخل تابع جداگانه بذاری
     } catch (error: any) {
-      console.error("❌ خطا در پرداخت:", error);
+      console.error("❌ خطا در پرداخت:", error?.response?.data || error);
       setMessage("مشکلی در پرداخت پیش آمد. لطفا دوباره تلاش کنید.");
       setMessageType("error");
     } finally {
       setLoading(false);
     }
   };
+  
 
   const isWalletSufficient =
     walletBalance !== null && walletBalance >= overallTotal;

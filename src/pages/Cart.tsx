@@ -67,10 +67,7 @@ const Cart: React.FC = () => {
     }
   };
   const clearCart = async (restaurantId: number) => {
-    if (
-      !window.confirm("are you sure you want to delete the basket?")
-    )
-      return;
+    if (!window.confirm("are you sure you want to delete the basket?")) return;
 
     try {
       await api.delete(`/api/cart/clear/?restaurant_id=${restaurantId}`);
@@ -125,7 +122,8 @@ const Cart: React.FC = () => {
             <CartSummary
               items={cart.items}
               deliveryCost={cart.restaurant.delivery_cost}
-              onClearCart={() => clearCart(cart.restaurant.id)} // ← اضافه کردن restaurantId
+              onClearCart={() => clearCart(cart.restaurant.id)}
+              restaurantId={cart.restaurant.id} // ✅ این خطو اضافه کن
             />
           </div>
         ))}
