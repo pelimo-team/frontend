@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import axios from "axios";
 import { DropZone, Draggable } from "../dnd";
 import { Trash2, GripVertical, ChefHat } from "lucide-react";
@@ -28,10 +28,23 @@ interface Recipe {
 const SEARCH_RECIPES_URL = "http://localhost:8000/api/recipes/search/";
 
 export function Canvas() {
-  const [blocks, setBlocks] = useState<Block[]>([]);
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [blocks, setBlocks] = useState<Block[]>(() => {
+  
+    const saved = localStorage.getItem("canvasBlocks");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [recipes, setRecipes] = useState<Recipe[]>(() => {
+    const saved = localStorage.getItem("canvasRecipes");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [isLoading] = useState(false);
-
+  
+  useEffect(() => {
+    localStorage.setItem("canvasBlocks", JSON.stringify(blocks));
+  }, [blocks]);
+  useEffect(() => {
+    localStorage.setItem("canvasRecipes", JSON.stringify(recipes));
+  }, [recipes]);
   const handleDrop = (
     item: any,
     sourceContainerId: string | null,

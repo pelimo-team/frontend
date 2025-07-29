@@ -10,6 +10,7 @@ const ReviewSection: React.FC = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [restaurantId, setRestaurantId] = useState<number | null>(null);
+  const [userVotes, setUserVotes] = useState<Record<string, "like" | "dislike" | null>>({});
 
   useEffect(() => {
     if (!id) return;
@@ -51,14 +52,37 @@ const ReviewSection: React.FC = () => {
   const handleLike = async (reviewId: string) => {
     if (!restaurantId) return;
 
+    const currentVote = userVotes[reviewId];
+    if (currentVote === "like") {
+      // اگر قبلاً لایک داده بود، می‌تونید اینجا لغو لایک انجام بدید یا کاری نکنید
+      return;
+    }
+
     try {
-      await api.post(
-        `/api/restaurants/${restaurantId}/reviews/${reviewId}/like/`,
-        {}
-      );
+      await api.post(`/api/restaurants/${restaurantId}/reviews/${reviewId}/like/`, {});
+
       setReviews((prev) =>
-        prev.map((r) => (r.id === reviewId ? { ...r, likes: r.likes + 1 } : r))
+        prev.map((r) => {
+          if (r.id !== reviewId) return r;
+
+          let likes = r.likes;
+          let dislikes = r.dislikes;
+
+          if (currentVote === "dislike") {
+            // اگر قبلاً دیسلایک زده بود، دیسلایک کم شود و لایک زیاد شود
+            dislikes = Math.max(dislikes - 1, 0);
+            likes = likes + 1;
+          } else if (currentVote == null) {
+            // اگر قبلاً رای نداشت، فقط لایک زیاد شود
+            likes = likes + 1;
+          }
+
+          return { ...r, likes, dislikes };
+        })
       );
+
+      // به روز رسانی وضعیت رای کاربر
+      setUserVotes((prev) => ({ ...prev, [reviewId]: "like" }));
     } catch (error) {
       console.error("Error liking review:", error);
     }
@@ -67,16 +91,36 @@ const ReviewSection: React.FC = () => {
   const handleDislike = async (reviewId: string) => {
     if (!restaurantId) return;
 
+    const currentVote = userVotes[reviewId];
+    if (currentVote === "dislike") {
+      // اگر قبلاً دیسلایک داده بود، می‌تونید لغوش کنید یا کاری نکنید
+      return;
+    }
+
     try {
-      await api.post(
-        `/api/restaurants/${restaurantId}/reviews/${reviewId}/dislike/`,
-        {}
-      );
+      await api.post(`/api/restaurants/${restaurantId}/reviews/${reviewId}/dislike/`, {});
+
       setReviews((prev) =>
-        prev.map((r) =>
-          r.id === reviewId ? { ...r, dislikes: r.dislikes + 1 } : r
-        )
+        prev.map((r) => {
+          if (r.id !== reviewId) return r;
+
+          let likes = r.likes;
+          let dislikes = r.dislikes;
+
+          if (currentVote === "like") {
+            // اگر قبلاً لایک زده بود، لایک کم شود و دیسلایک زیاد شود
+            likes = Math.max(likes - 1, 0);
+            dislikes = dislikes + 1;
+          } else if (currentVote == null) {
+            // اگر قبلاً رای نداشت، فقط دیسلایک زیاد شود
+            dislikes = dislikes + 1;
+          }
+
+          return { ...r, likes, dislikes };
+        })
       );
+
+      setUserVotes((prev) => ({ ...prev, [reviewId]: "dislike" }));
     } catch (error) {
       console.error("Error disliking review:", error);
     }
@@ -160,10 +204,11 @@ const ReviewSection: React.FC = () => {
         <ReviewItem
           key={review.id}
           review={review}
-          restaurantId={restaurantId!} // ← چون فقط بعد از دریافت تعریف شده
+          restaurantId={restaurantId!}
           onLike={handleLike}
           onDislike={handleDislike}
           onAddReply={handleAddReply}
+          voted={userVotes[review.id] ?? null}  // ← اضافه شد
         />
       ))}
 
