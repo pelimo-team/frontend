@@ -3,11 +3,10 @@ import { ThumbsUp, ThumbsDown, MessageCircle, Send } from "lucide-react";
 import { Review } from "./Type";
 import StarRating from "./StarRating";
 import "../../styles/FoodPage.css";
-// import { useContext } from "react";
-// import { AuthContext } from "../../pages/AuthContext";
 
 interface ReviewItemProps {
   review: Review;
+  restaurantId: number;
   onLike: (reviewId: string) => void;
   onDislike: (reviewId: string) => void;
   onAddReply: (reviewId: string, reply: string) => void;
@@ -19,16 +18,19 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
   onDislike,
   onAddReply,
 }) => {
+  console.log("Review replies:", review.replies);
+
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyText, setReplyText] = useState("");
   const [replySubmitted, setReplySubmitted] = useState(false);
-  
 
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
       month: "long",
       day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -40,7 +42,6 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
       setReplyText("");
       setReplySubmitted(true);
 
-      // Hide form after animation
       setTimeout(() => {
         setShowReplyForm(false);
         setReplySubmitted(false);
@@ -52,14 +53,9 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
     <div className="review-item">
       <div className="review-header">
         <div className="user-info">
-          <img
-            src={review.userAvatar}
-            alt={review.userName}
-            className="user-avatar"
-          />
           <div>
-            <h4 className="user-name">{review.userName}</h4>
-            <span className="review-date">{formatDate(review.date)}</span>
+            <h4 className="user-name">{review.user}</h4>
+            <span className="review-date">{formatDate(review.created_at)}</span>
           </div>
         </div>
         <div className="review-rating">
@@ -86,23 +82,34 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
           <span className="action-count">{review.dislikes}</span>
         </button>
 
-        <button
+        {/* <button
           className="action-btn reply-btn"
           onClick={() => setShowReplyForm(!showReplyForm)}
         >
           <MessageCircle size={16} />
           <span>Reply</span>
-        </button>
+        </button> */}
       </div>
 
       {/* Replies Section */}
       {Array.isArray(review.replies) && review.replies.length > 0 && (
         <div className="replies-section">
-          {review.replies.map((reply) => (
-            <div key={reply.id} className="reply-item">
-              {/* بقیه کد */}
-            </div>
-          ))}
+          {review.replies.map((reply, index) => {
+            const dateObj = new Date(reply.date);
+            const formattedDate = isNaN(dateObj.getTime())
+              ? "تاریخ نامعتبر"
+              : formatDate(reply.date);
+
+            return (
+              <div key={reply.id ?? `reply-${index}`} className="reply-item">
+                <div>
+                  <strong>{reply.user || "Unknown"}</strong> -{" "}
+                  <small>{formattedDate}</small>
+                </div>
+                <p>{reply.comment}</p>
+              </div>
+            );
+          })}
         </div>
       )}
 

@@ -9,58 +9,109 @@ const ReviewSection: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [restaurantId, setRestaurantId] = useState<number | null>(null);
 
   useEffect(() => {
     if (!id) return;
-
-    // گام 1: گرفتن اطلاعات آیتم برای دستیابی به restaurant.id
+  
     api
       .get(`/api/items/${id}/`)
       .then((res) => {
-        const restaurantId = res.restaurant.id;
-
-        // گام 2: دریافت ریویوهای مربوط به رستوران آن آیتم
-        return api.get(`/api/restaurants/${restaurantId}/reviews/`);
+        const restId = res.restaurant.id;
+        setRestaurantId(restId);
+        return api.get(`/api/restaurants/${restId}/reviews/`);
       })
       .then((res) => {
-        setReviews(res.results || []);
+        console.log("Reviews from API:", res.results);
+  
+        // 🟢 تبدیل replies به آرایه‌ای از آبجکت‌ها
+        const structuredReviews = (res.results || []).map((review: any) => ({
+          ...review,
+          replies: Array.isArray(review.replies)
+            ? review.replies.map((replyText: string, index: number) => ({
+                id: `reply-${review.id}-${index}`,
+                userId: "anonymous",
+                user: "کاربر ناشناس",
+                userAvatar: "https://randomuser.me/api/portraits/lego/1.jpg",
+                comment: replyText,
+                date: new Date().toISOString(),
+              }))
+            : [],
+        }));
+  
+        setReviews(structuredReviews);
       })
       .catch((err) => {
         console.error(err);
         setError("خطا در دریافت نظرات رستوران");
       });
   }, [id]);
+  
 
-  const handleLike = (reviewId: string) => {
-    setReviews((prev) =>
-      prev.map((r) => (r.id === reviewId ? { ...r, likes: r.likes + 1 } : r))
-    );
+  const handleLike = async (reviewId: string) => {
+    if (!restaurantId) return;
+
+    try {
+      await api.post(
+        `/api/restaurants/${restaurantId}/reviews/${reviewId}/like/`,
+        {}
+      );
+      setReviews((prev) =>
+        prev.map((r) => (r.id === reviewId ? { ...r, likes: r.likes + 1 } : r))
+      );
+    } catch (error) {
+      console.error("Error liking review:", error);
+    }
   };
 
-  const handleDislike = (reviewId: string) => {
-    setReviews((prev) =>
-      prev.map((r) =>
-        r.id === reviewId ? { ...r, dislikes: r.dislikes + 1 } : r
-      )
-    );
+  const handleDislike = async (reviewId: string) => {
+    if (!restaurantId) return;
+
+    try {
+      await api.post(
+        `/api/restaurants/${restaurantId}/reviews/${reviewId}/dislike/`,
+        {}
+      );
+      setReviews((prev) =>
+        prev.map((r) =>
+          r.id === reviewId ? { ...r, dislikes: r.dislikes + 1 } : r
+        )
+      );
+    } catch (error) {
+      console.error("Error disliking review:", error);
+    }
   };
 
-  const handleAddReply = (reviewId: string, replyText: string) => {
-    const newReply = {
-      id: `reply-${Date.now()}`,
-      userId: "currentUser",
-      userName: "You",
-      userAvatar: "https://randomuser.me/api/portraits/men/1.jpg",
-      comment: replyText,
-      date: new Date().toISOString().split("T")[0],
-    };
-
-    setReviews((prev) =>
-      prev.map((r) =>
-        r.id === reviewId ? { ...r, replies: [...r.replies, newReply] } : r
-      )
-    );
+  const handleAddReply = async (reviewId: string, replyText: string) => {
+    if (!restaurantId) return;
+  
+    try {
+      const res = await api.patch(
+        `/api/restaurants/${restaurantId}/reviews/${reviewId}/reply/`,
+        { reply: replyText }
+      );
+  
+      const newReply = res.reply || {
+        id: `reply-${Date.now()}-${Math.random()}`, // ← یکتا تر شده
+        userId: "currentUser",
+        userName: "You",
+        userAvatar: "https://randomuser.me/api/portraits/men/1.jpg",
+        comment: replyText,
+        date: new Date().toISOString(),
+      };
+  
+      setReviews((prev) =>
+        prev.map((r) =>
+          r.id === reviewId
+            ? { ...r, replies: [...(r.replies || []), newReply] }
+            : r
+        )
+      );
+    } catch (error) {
+      console.error("Error replying to review:", error);
+    }
   };
+  
 
   const handleAddReview = async (
     rating: number,
@@ -109,6 +160,7 @@ const ReviewSection: React.FC = () => {
         <ReviewItem
           key={review.id}
           review={review}
+          restaurantId={restaurantId!} // ← چون فقط بعد از دریافت تعریف شده
           onLike={handleLike}
           onDislike={handleDislike}
           onAddReply={handleAddReply}

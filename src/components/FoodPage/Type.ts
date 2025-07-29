@@ -14,11 +14,11 @@ export interface Food {
 export interface Review {
   id: string;
   userId: string;
-  userName: string;
+  user: string;
   userAvatar: string;
   rating: number;
   comment: string;
-  date: string;
+  created_at: string;
   likes: number;
   dislikes: number;
   replies: Reply[];
@@ -27,7 +27,7 @@ export interface Review {
 export interface Reply {
   id: string;
   userId: string;
-  userName: string;
+  user: string;
   userAvatar: string;
   comment: string;
   date: string;

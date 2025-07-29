@@ -71,19 +71,19 @@
   background-color: #e5989b;
 }
 .fruit-color {
-  background-color: #ffb5a7;
+  background-color:#fbbf24;
 }
 .bread-color {
-  background-color: #fcd5ce;
+  background-color:#e5989b;
 }
 .dairy-color {
-  background-color: #f8edeb;
+  background-color:#e11d48;
 }
 .beverage-color {
   background-color: #fec89a;
 }
 .dessert-color {
-  background-color: #f9dcc4;
+  background-color:#ec4899;
 }
 
 /*Canvas.tsx*/
