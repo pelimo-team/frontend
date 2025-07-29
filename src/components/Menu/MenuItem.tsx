@@ -49,8 +49,8 @@ const MenuItem: React.FC<MenuItemProps> = ({
         <p className="item-description">{item.description}</p>
         <div className="item-price">
           {typeof item.price === 'number'
-            ? `${item.price.toLocaleString()} تومان`
-            : 'قیمت نامشخص'}
+            ? `${item.price.toLocaleString()}toman`
+            : 'invalid price'}
         </div>
       </div>
       <div className="item-actions" onClick={(e) => e.stopPropagation()}>
@@ -65,7 +65,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
             className="add-to-cart"
             onClick={() => onQuantityChange(item.id, 1)}
           >
-            افزودن به سبد خرید
+            add to basket
           </button>
         )}
       </div>

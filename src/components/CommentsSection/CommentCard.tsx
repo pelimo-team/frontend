@@ -76,7 +76,7 @@ const CommentCard: React.FC<CommentCardProps> = ({
             onClick={onReplyClick}
             disabled={!isAuthenticated}
           >
-            پاسخ دادن
+            reply
           </button>
         )}
       </div>

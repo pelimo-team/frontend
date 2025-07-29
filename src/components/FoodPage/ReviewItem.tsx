@@ -103,7 +103,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
           {review.replies.map((reply, index) => {
             const dateObj = new Date(reply.date);
             const formattedDate = isNaN(dateObj.getTime())
-              ? "تاریخ نامعتبر"
+              ? "invalid date"
               : formatDate(reply.date);
 
             return (

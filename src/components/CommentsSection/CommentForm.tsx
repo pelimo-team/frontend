@@ -29,11 +29,11 @@ const CommentForm: React.FC<CommentFormProps> = ({
 
   return (
     <div className="card-add-comment">
-      <h4>دیدگاه خود را بنویسید</h4>
+      <h4>write your review</h4>
       {!isAuthenticated && (
         <div className="auth-warning">
-          لطفا برای ثبت نظر{" "}
-          <button onClick={onLoginClick}>وارد شوید</button> .
+        for commenting{" "}
+          <button onClick={onLoginClick}>please login</button> .
         </div>
       )}
       <form onSubmit={handleSubmit}>
@@ -46,7 +46,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
         </div>
         <textarea
           className="comment-box-add-comment"
-          placeholder="نظر خود را اینجا بنویسید..."
+          placeholder="write your review here"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           required
@@ -58,7 +58,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
           className="submit-button-add-comment"
           disabled={!isAuthenticated || !newComment.trim() || newStars === 0 || isSubmitting}
         >
-          {isSubmitting ? "در حال ثبت..." : "ثبت نظر"}
+          {isSubmitting ? "sending..." : "sent"}
         </button>
       </form>
     </div>

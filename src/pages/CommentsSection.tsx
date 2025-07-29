@@ -122,9 +122,9 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ restaurantId }) => {
       console.error("Error submitting comment:", err);
       if ((err as Error).message === "Authentication required") {
         navigate("/login");
-        setSubmitError("لطفا ابتدا وارد شوید");
+        setSubmitError("please login first");
       } else {
-        setSubmitError((err as Error).message || "خطا در ثبت نظر");
+        setSubmitError((err as Error).message || "error in sending comment");
       }
     } finally {
       setIsSubmitting(false);
@@ -150,7 +150,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ restaurantId }) => {
   };
 
   if (loading) {
-    return <div className="comments-loading">در حال بارگذاری نظرات...</div>;
+    return <div className="comments-loading">loading reviews...</div>;
   }
 
   return (

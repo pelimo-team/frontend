@@ -32,7 +32,7 @@ const ReviewSection: React.FC = () => {
             ? review.replies.map((replyText: string, index: number) => ({
                 id: `reply-${review.id}-${index}`,
                 userId: "anonymous",
-                user: "کاربر ناشناس",
+                user: "unknown user",
                 userAvatar: "https://randomuser.me/api/portraits/lego/1.jpg",
                 comment: replyText,
                 date: new Date().toISOString(),
@@ -44,7 +44,7 @@ const ReviewSection: React.FC = () => {
       })
       .catch((err) => {
         console.error(err);
-        setError("خطا در دریافت نظرات رستوران");
+        setError("error in fetching restaurant review");
       });
   }, [id]);
   
@@ -179,7 +179,7 @@ const ReviewSection: React.FC = () => {
 
       setReviews((prev) => [newReview, ...prev]);
     } catch {
-      alert("خطا در افزودن نظر");
+      alert("error in adding comment");
     }
   };
 

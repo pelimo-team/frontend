@@ -34,7 +34,7 @@ function FoodPage() {
   }, []);
 
   if (!item) {
-    return <div>هیچ آیتمی برای نمایش یافت نشد.</div>;
+    return <div>no item found!</div>;
   }
 
   return (

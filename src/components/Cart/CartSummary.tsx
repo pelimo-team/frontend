@@ -40,10 +40,10 @@ const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost,onClearCa
       try {
         const walletData = await api.get("/api/accounts/wallet/balance/");
         const balance = Number(walletData.balance);
-        if (isNaN(balance)) throw new Error("موجودی نامعتبر است");
+        if (isNaN(balance)) throw new Error(" invalid balance!");
         setWalletBalance(balance);
       } catch (error) {
-        console.error("خطا در دریافت موجودی کیف پول:", error);
+        console.error("error in fetching wallet balance", error);
         setWalletBalance(null);
       }
     };
@@ -58,16 +58,16 @@ const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost,onClearCa
 
     try {
       const paymentResponse = await api.post("/api/cart/pay/", {});
-      console.log("✅ پرداخت موفق:", paymentResponse);
+      console.log("✅ successful payment:", paymentResponse);
 
-      setMessage("پرداخت با موفقیت انجام شد ✅");
+      setMessage("payment done succesfuly✅");
       setMessageType("success");
 
       // بعد پرداخت، میتونی موجودی کیف پول رو دوباره بروزرسانی کنی اگر میخوای
       // fetchWalletBalance(); // اگر بخوای این رو به useEffect خارجیش منتقل کنی یا داخل تابع جداگانه بذاری
     } catch (error: any) {
-      console.error("❌ خطا در پرداخت:", error);
-      setMessage("مشکلی در پرداخت پیش آمد. لطفا دوباره تلاش کنید.");
+      console.error("❌ error in payment :", error);
+      setMessage("trouble in payment. please try again!");
       setMessageType("error");
     } finally {
       setLoading(false);
@@ -134,7 +134,7 @@ clear basket
           className="custom-continue-btn"
           onClick={handlePayment}
           disabled={loading || !isWalletSufficient}
-          title={!isWalletSufficient ? "موجودی کیف پول کافی نیست" : undefined}
+          title={!isWalletSufficient ? " not enough wallet amount" : undefined}
         >
           {loading ? "loading..." : "payment"}
         </button>

@@ -19,16 +19,16 @@ const FoodDetail: React.FC = () => {
           setItem(data);
         })
         .catch((err) => {
-          setError("دریافت اطلاعات غذا با خطا مواجه شد.");
+          setError("error in fetching food information");
           console.error(err);
         })
         .finally(() => setLoading(false));
     }
   }, [id]);
 
-  if (loading) return <div>در حال بارگذاری...</div>;
+  if (loading) return <div>loading...</div>;
   if (error) return <div>{error}</div>;
-  if (!item) return <div>آیتم یافت نشد.</div>;
+  if (!item) return <div>item not found!</div>;
 
   return (
     <div className="food-detail-container">
@@ -60,7 +60,7 @@ const FoodDetail: React.FC = () => {
               onSuccess={() => console.log("Item added!")}
             />
           ) : (
-            <div className="error-message">رستوران این آیتم مشخص نیست.</div>
+            <div className="error-message"> this item's restaurant is undefind</div>
           )}
         </div>
       </div>
