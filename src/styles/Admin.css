@@ -114,8 +114,8 @@
 .nav-tabs {
   border-bottom: 2px solid var(--border-color);
   font-weight: 600;
-  direction: rtl;
-  text-align: right;
+  direction: ltr;
+  text-align: left;
   margin-bottom: 20px;
 }
 
@@ -124,11 +124,12 @@
   border: 1px solid transparent;
   border-radius: 14px 14px 0 0;
   padding: 10px 20px;
-  margin-right: 12px;
+  margin-left: 12px;
+  margin-right: 0;
   transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.25s ease;
   font-size: 14px;
   font-weight: 600;
-  direction: rtl;
+  direction: ltr;
   text-align: center;
   user-select: none;
 }
@@ -191,7 +192,7 @@
   gap: 14px;
   font-size: 14px;
   color: var(--sidebar-text);
-  direction: rtl;
+  direction: ltr;
   background-color: transparent;
   box-shadow: inset 0 0 0 0 var(--sidebar-hover-bg);
   transition: background-color 0.3s ease, box-shadow 0.25s ease, transform 0.2s ease;
@@ -224,7 +225,7 @@
 
 .sidebar-item span {
   flex-grow: 1;
-  text-align: right;
+  text-align: left;
   letter-spacing: 0.2px;
 }
 
@@ -237,8 +238,8 @@
   display: grid;
   grid-template-columns: 1fr 6fr;
   gap: 20px;
-  direction: rtl;
-  text-align: right;
+  direction: ltr;
+  text-align: left;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   user-select: none;
@@ -312,8 +313,8 @@
   grid-column: 2/3;
   overflow-y: auto;
   font-family: 'Vazirmatn', sans-serif;
-  direction: rtl;
-  text-align: right;
+  direction: ltr;
+  text-align: left;
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 6px 12px var(--shadow-light);
@@ -374,8 +375,8 @@
   margin-bottom: 40px;
   box-shadow: 0 2px 10px var(--shadow-light);
   user-select: none;
-  direction: rtl;
-  text-align: right;
+  direction: ltr;
+  text-align: left;
   transition: box-shadow 0.3s ease;
 }
 
@@ -405,8 +406,8 @@
   color: var(--text-color);
   font-family: var(--font-main);
   transition: border-color 0.3s ease, box-shadow 0.25s ease;
-  direction: rtl;
-  text-align: right;
+  direction: ltr;
+  text-align: left;
 }
 
 .food-form input:focus,
@@ -515,8 +516,8 @@
   overflow: hidden;
   margin-bottom: 30px;
   user-select: none;
-  direction: rtl;
-  text-align: right;
+  direction: ltr;
+  text-align: left;
   box-shadow: 0 4px 12px var(--shadow-light);
   transition: box-shadow 0.3s ease;
 }
@@ -639,6 +640,8 @@
   resize: vertical;
   min-height: 100px;
   transition: border-color 0.3s ease, box-shadow 0.25s ease;
+  direction: ltr;
+  text-align: left;
 }
 
 .restaurant-info-form textarea:focus {
@@ -732,6 +735,74 @@
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
 }
 
+/* Quantity Input Groups */
+.input-group,
+.input-group-quantity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  max-width: 30%;
+  min-width: 25%;
+  margin: 0 6px;
+  padding: 0 4px;
+  border-radius: 10px;
+  font-size: 15px;
+  height: 36px;
+  vertical-align: middle;
+  margin: auto;
+}
+
+.input-group-quantity input,
+.input-group input {
+  padding: 5px 10px;
+  font-size: 15px;
+  border: none;
+  background: var(--bg-color);
+  text-align: center;
+  width: 44px;
+  min-width: 0;
+  outline: none;
+  color: var(--text-color);
+  font-family: var(--font-main);
+  height: 28px;
+  line-height: 28px;
+  margin: 0 2px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  box-shadow: none;
+  transition: background 0.2s, border 0.2s;
+}
+
+.input-group-quantity input:focus,
+.input-group input:focus {
+  background: #f7f7f7;
+}
+
+.input-group-quantity button,
+.input-group button {
+  padding: 3px 9px;
+  font-size: 15px;
+  background: var(--button-bg);
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin: 0 2px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group-quantity button:hover,
+.input-group button:hover {
+  background: var(--button-bg-hover);
+  color: #fff;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .food-admin-panel {
@@ -739,6 +810,8 @@
     overflow: visible;
     align-items: stretch;
     padding-right: 0;
+    direction: ltr;
+    text-align: left;
   }
 
   .sidebar {
@@ -754,6 +827,8 @@
     border-radius: 14px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     font-size: 14px;
+    direction: ltr;
+    text-align: left;
   }
 
   .sidebar-header .h2 {
@@ -777,6 +852,8 @@
     padding: 15px;
     border-radius: 14px;
     box-shadow: 0 6px 16px var(--shadow-light);
+    direction: ltr;
+    text-align: left;
   }
 
   .stats-cards {
@@ -796,16 +873,23 @@
 
   .nav-tabs {
     border-bottom: 1px solid var(--border-color);
+    direction: ltr;
+    text-align: left;
   }
 
   .nav-tabs .nav-link {
     padding: 8px 16px;
     font-size: 14px;
-    margin-right: 8px;
+    margin-left: 8px;
+    margin-right: 0;
+    direction: ltr;
+    text-align: center;
   }
 
   .food-form {
     padding: 20px 15px;
+    direction: ltr;
+    text-align: left;
   }
 
   .food-form label {
@@ -816,6 +900,8 @@
   .food-form select {
     font-size: 14px;
     padding: 8px 10px;
+    direction: ltr;
+    text-align: left;
   }
 
   .food-form button[type="submit"] {
@@ -827,10 +913,14 @@
 
   .restaurant-info-form {
     padding: 20px;
+    direction: ltr;
+    text-align: left;
   }
   
   .restaurant-info-form textarea {
     min-height: 80px;
+    direction: ltr;
+    text-align: left;
   }
   
   .cover-preview {
@@ -847,6 +937,10 @@
   .nav-tabs .nav-link {
     padding: 6px 12px;
     font-size: 13px;
+    margin-left: 0;
+    margin-right: 0;
+    direction: ltr;
+    text-align: center;
   }
 
   .stats-card {
@@ -867,6 +961,8 @@
   .food-form select {
     font-size: 13px;
     padding: 6px 8px;
+    direction: ltr;
+    text-align: left;
   }
 
   .food-form button[type="submit"] {

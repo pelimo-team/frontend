@@ -12,7 +12,7 @@ import {
   MenuManagement,
   OrdersHistory,
   StockManagement,
-  RestaurantInformation
+  RestaurantInformation,
 } from "../components/admin";
 
 const token = localStorage.getItem("token");
@@ -84,7 +84,13 @@ const Admin: React.FC = () => {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [expandedOrderIds, setExpandedOrderIds] = useState<number[]>([]);
-  const [managerStatus, setManagerStatus] = useState<ManagerStatus | null>(null);
+  const [managerStatus, setManagerStatus] = useState<ManagerStatus>({
+    is_manager: false,
+    manager_pending: false,
+    manager_status: "",
+    has_restaurant: false,
+    can_access_admin_panel: false,
+  });
   const [loadingStatus, setLoadingStatus] = useState(true);
 
   const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>({
@@ -129,27 +135,32 @@ const Admin: React.FC = () => {
     "coffee shop",
   ];
 
-  // Fetch manager status on component mount
   useEffect(() => {
     const fetchManagerStatus = async () => {
+      if (!token) {
+        navigate("/login");
+        setLoadingStatus(false);
+        return;
+      }
       try {
         const response = await api.get("accounts/manager-status/");
         const status: ManagerStatus = response.data;
         setManagerStatus(status);
-        
-        // Handle redirect logic - redirect if manager_pending is false
-        if (!status.manager_pending && !status.is_manager) {
-          navigate('/');
+
+        // اگر نه مدیر هست و نه manager_pending
+        if (!status.is_manager && !status.manager_pending) {
+          navigate("/");
+          setLoadingStatus(false);
           return;
         }
       } catch (error) {
         console.error("Error fetching manager status:", error);
-        setError("Error fetching manager status");
-      } finally {
+        navigate("/login");
         setLoadingStatus(false);
+        return;
       }
+      setLoadingStatus(false);
     };
-
     fetchManagerStatus();
   }, [navigate]);
 
@@ -171,12 +182,12 @@ const Admin: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (activeTab === "menu" && managerStatus?.is_manager) fetchMenuItems();
-    if (activeTab === "orders" && managerStatus?.is_manager) fetchOrders();
+    if (activeTab === "menu" && managerStatus.is_manager) fetchMenuItems();
+    if (activeTab === "orders" && managerStatus.is_manager) fetchOrders();
   }, [activeTab, managerStatus]);
 
   useEffect(() => {
-    if (managerStatus?.is_manager) {
+    if (managerStatus.is_manager) {
       fetchOrders();
     }
   }, [managerStatus]);
@@ -327,13 +338,12 @@ const Admin: React.FC = () => {
     }
   };
 
-  // Loading state while checking manager status
   if (loadingStatus) {
     return <Loading />;
   }
 
-  const isManager = managerStatus?.is_manager || false;
-  const isPending = managerStatus?.manager_pending || false;
+  const isManager = managerStatus.is_manager;
+  const isPending = managerStatus.manager_pending;
   const shouldDisableTabs = isPending && !isManager;
 
   return (
@@ -351,17 +361,10 @@ const Admin: React.FC = () => {
         loadingOrders={loadingOrders}
       />
 
-      <ManagerStatusBanner
-        isPending={isPending}
-        isManager={isManager}
-      />
+      <ManagerStatusBanner isPending={isPending} isManager={isManager} />
 
       <Tab.Pane eventKey="menu">
-        <Panel
-          title="Menu Management"
-          disabled={shouldDisableTabs}
-          icon="coffee"
-        >
+        <Panel title="Menu Management" disabled={shouldDisableTabs} icon="coffee">
           <MenuManagement
             menuItems={menuItems}
             formData={formData}
@@ -393,15 +396,8 @@ const Admin: React.FC = () => {
       </Tab.Pane>
 
       <Tab.Pane eventKey="stock">
-        <Panel
-          title="Stock Management"
-          disabled={shouldDisableTabs}
-          icon="package"
-        >
-          <StockManagement
-            menuItems={menuItems}
-            loading={loading}
-          />
+        <Panel title="Stock Management" disabled={shouldDisableTabs} icon="package">
+          <StockManagement menuItems={menuItems} loading={loading} />
         </Panel>
       </Tab.Pane>
 
