@@ -10,13 +10,13 @@ interface Option {
 interface RestaurantInfo {
   name: string;
   description: string;
-  cityId: number | "";
-  coverImage: File | null;
+  city: number | "";
+  cover_image: File | null;
   logo: File | null;
-  restaurantTypeId: number | "";
-  deliveryCost: number | null;
-  isNightwalker: boolean;
-  isPublished: boolean;
+  restaurant_type: number | "";
+  delivery_cost: number | null;
+  is_nightwalker: boolean;
+  is_published: boolean;
 }
 
 interface RestaurantFormProps {
@@ -43,13 +43,13 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
   const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>({
     name: "",
     description: "",
-    cityId: "",
-    coverImage: null,
+    city: "",
+    cover_image: null,
     logo: null,
-    restaurantTypeId: "",
-    deliveryCost: null,
-    isNightwalker: false,
-    isPublished: false,
+    restaurant_type: "",
+    delivery_cost: null,
+    is_nightwalker: false,
+    is_published: false,
   });
 
   const [restaurantTypes, setRestaurantTypes] = useState<Option[]>([]);
@@ -74,7 +74,7 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     if (disabled) return;
-    
+
     const { name, value, type } = e.target;
 
     if (type === "checkbox") {
@@ -98,7 +98,7 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (disabled) return;
-    
+
     setLoading(true);
     setSuccessMessage("");
     setErrorMessage("");
@@ -106,34 +106,38 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
     const formData = new FormData();
     formData.append("name", restaurantInfo.name);
     formData.append("description", restaurantInfo.description);
-    formData.append("city_id", String(restaurantInfo.cityId));
-    formData.append("restaurant_type_id", String(restaurantInfo.restaurantTypeId));
-    formData.append("delivery_cost", String(restaurantInfo.deliveryCost ?? 0));
-    formData.append("is_nightwalker", restaurantInfo.isNightwalker.toString());
-    formData.append("is_published", restaurantInfo.isPublished.toString());
+    formData.append("city_id", String(restaurantInfo.city));
+    formData.append("restaurant_type_id", String(restaurantInfo.restaurant_type));
+    formData.append("delivery_cost", String(restaurantInfo.delivery_cost ?? 0));
+    formData.append("is_nightwalker", restaurantInfo.is_nightwalker ? "1" : "0");
+    formData.append("is_published", restaurantInfo.is_published ? "1" : "0");
 
-    if (restaurantInfo.coverImage) {
-      formData.append("cover_image", restaurantInfo.coverImage);
+    if (restaurantInfo.cover_image) {
+      formData.append("cover_image", restaurantInfo.cover_image);
     }
+
     if (restaurantInfo.logo) {
       formData.append("logo", restaurantInfo.logo);
     }
 
     try {
       await api.post("/accounts/create-restaurant/", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
+
       setSuccessMessage("Restaurant created successfully.");
       setRestaurantInfo({
         name: "",
         description: "",
-        cityId: "",
-        coverImage: null,
+        city: "",
+        cover_image: null,
         logo: null,
-        restaurantTypeId: "",
-        deliveryCost: null,
-        isNightwalker: false,
-        isPublished: false,
+        restaurant_type: "",
+        delivery_cost: null,
+        is_nightwalker: false,
+        is_published: false,
       });
     } catch (err: any) {
       console.error(err);
@@ -160,7 +164,6 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
             name="name"
             value={restaurantInfo.name}
             onChange={handleChange}
-            placeholder="Enter restaurant name"
             required
             disabled={disabled}
           />
@@ -173,7 +176,6 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
             name="description"
             value={restaurantInfo.description}
             onChange={handleChange}
-            placeholder="Enter restaurant description"
             rows={3}
             required
             disabled={disabled}
@@ -183,8 +185,8 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
         <Form.Group className="mb-3">
           <Form.Label>City</Form.Label>
           <Form.Select
-            name="cityId"
-            value={restaurantInfo.cityId}
+            name="city"
+            value={restaurantInfo.city}
             onChange={handleChange}
             required
             disabled={disabled}
@@ -202,15 +204,15 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
           <Form.Label>Cover Image</Form.Label>
           <Form.Control
             type="file"
-            name="coverImage"
+            name="cover_image"
             onChange={handleChange}
             accept="image/*"
             disabled={disabled}
           />
-          {restaurantInfo.coverImage && (
+          {restaurantInfo.cover_image && (
             <img
-              src={URL.createObjectURL(restaurantInfo.coverImage)}
-              alt="Cover preview"
+              src={URL.createObjectURL(restaurantInfo.cover_image)}
+              alt="Cover Preview"
               style={{ maxWidth: "200px", marginTop: "10px" }}
             />
           )}
@@ -228,7 +230,7 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
           {restaurantInfo.logo && (
             <img
               src={URL.createObjectURL(restaurantInfo.logo)}
-              alt="Logo preview"
+              alt="Logo Preview"
               style={{ maxWidth: "200px", marginTop: "10px" }}
             />
           )}
@@ -237,8 +239,8 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
         <Form.Group className="mb-3">
           <Form.Label>Restaurant Type</Form.Label>
           <Form.Select
-            name="restaurantTypeId"
-            value={restaurantInfo.restaurantTypeId}
+            name="restaurant_type"
+            value={restaurantInfo.restaurant_type}
             onChange={handleChange}
             required
             disabled={disabled}
@@ -256,20 +258,19 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
           <Form.Label>Delivery Cost</Form.Label>
           <Form.Control
             type="number"
-            name="deliveryCost"
-            value={restaurantInfo.deliveryCost ?? ""}
+            name="delivery_cost"
+            value={restaurantInfo.delivery_cost ?? ""}
             onChange={handleChange}
-            placeholder="Enter delivery cost"
-            min="0"
+            min={0}
             disabled={disabled}
           />
         </Form.Group>
 
         <Form.Check
           type="checkbox"
+          name="is_nightwalker"
           label="Night Walker"
-          name="isNightwalker"
-          checked={restaurantInfo.isNightwalker}
+          checked={restaurantInfo.is_nightwalker}
           onChange={handleChange}
           className="mb-2"
           disabled={disabled}
@@ -277,9 +278,9 @@ const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => 
 
         <Form.Check
           type="checkbox"
+          name="is_published"
           label="Published"
-          name="isPublished"
-          checked={restaurantInfo.isPublished}
+          checked={restaurantInfo.is_published}
           onChange={handleChange}
           className="mb-3"
           disabled={disabled}
