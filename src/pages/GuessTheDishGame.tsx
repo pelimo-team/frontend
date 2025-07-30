@@ -95,9 +95,15 @@ const GuessTheDishGame: React.FC = () => {
   };
 
   const handleExit = () => {
-    if (score > 0) saveScoreToAPI(score);
+    if (score > 0) {
+      saveScoreToAPI(score);
+      localStorage.setItem("dishGameScore", String(score));
+      setTimeout(() => localStorage.removeItem("dishGameScore"), 5000);
+    }
+  
     setGameExited(true);
   };
+  
 
   return (
     <div className="guess-game">

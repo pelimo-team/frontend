@@ -1,5 +1,8 @@
-import { useState } from "react";
-import styles from "../../styles/HomePage.module.css";
+import { useState, useEffect } from "react";
+import "../../styles/GamesSectin.css";
+import { api } from "../../utils/api";
+import { useScore } from "../contexts/GameScoreContext";
+import { useNavigate } from "react-router-dom"; // import your context hook
 
 interface GameItem {
   title: string;
@@ -31,65 +34,102 @@ const games: GameItem[] = [
 ];
 
 const GamesSection: React.FC = () => {
-  const [dishScore, setDishScore] = useState<number>(0);
-  const [puzzle2048Score, setPuzzle2048Score] = useState<number>(0);
-  const [tetrisScore, setTetrisScore] = useState<number>(0);
-  const [minesScore, setMinesScore] = useState<number>(0);
+  const { totalScore: contextTotalScore, setTotalScore } = useScore();
 
-  
+  const [backendScore, setBackendScore] = useState(0);
+  const [localStorageBonus, setLocalStorageBonus] = useState(0);
+  const [, setLastSyncedScore] = useState(0);
+  const navigate = useNavigate();
+  const totalScore = backendScore + localStorageBonus;
 
-  const handleCardClick = (gameTitle: string, route: string) => {
-  // Update score based on title (same logic)
-  if (gameTitle.includes("Guess the Hidden Dish")) {
-    setDishScore((prev) => prev + 1);
-  } else if (gameTitle.includes("2048")) {
-    setPuzzle2048Score((prev) => prev + 1);
-  } else if (gameTitle.includes("Tetris")) {
-    setTetrisScore((prev) => prev + 1);
-  } else if (gameTitle.includes("Minesweeper")) {
-    setMinesScore((prev) => prev + 1);
-  }
+  // Sync local totalScore to context whenever it changes
+  useEffect(() => {
+    setTotalScore(totalScore);
+  }, [totalScore, setTotalScore]);
 
-  // Open all games (even internal routes) in a new tab
-  if (route.startsWith("/")) {
-    window.open(`${window.location.origin}${route}`, "_blank");
-  } else {
-    window.open(route, "_blank");
-  }
-};
+  const handleCardClick = (route: string) => {
+    if (route !== "/games/guess-the-dish") {
+      setLocalStorageBonus((prev) => prev + 1);
+    }
 
-  const totalScore = dishScore + puzzle2048Score + tetrisScore + minesScore;
+    if (route.startsWith("/")) {
+      window.open(`${window.location.origin}${route}`, "_blank");
+    } else {
+      window.open(route, "_blank");
+    }
+  };
+
+  useEffect(() => {
+    async function fetchAndMergeScores() {
+      try {
+        const dishScoreFromGame = localStorage.getItem("dishGameScore");
+        const localScore = dishScoreFromGame
+          ? parseInt(dishScoreFromGame, 10)
+          : 0;
+
+        const res = await api.get("/api/accounts/game-score/");
+        const backend = res.game_score ?? 0;
+
+        setBackendScore(backend);
+
+        if (!isNaN(localScore) && localScore > 0) {
+          setLocalStorageBonus(localScore);
+          localStorage.removeItem("dishGameScore");
+        }
+      } catch (error) {
+        console.error("Failed to fetch or merge scores:", error);
+      }
+    }
+
+    fetchAndMergeScores();
+  }, []);
+
+  useEffect(() => {
+    if (localStorageBonus > 0) {
+      const combinedScore = backendScore + localStorageBonus;
+
+      api
+        .put("/api/accounts/game-score/", { score: combinedScore })
+        .then(() => {
+          setBackendScore(combinedScore);
+          setLocalStorageBonus(0);
+          setLastSyncedScore(combinedScore);
+        })
+        .catch((err) => {
+          console.error("Failed to update game score:", err);
+        });
+    }
+  }, [localStorageBonus, backendScore]);
 
   return (
-
-    <section className={styles["games-section"]}>
-      <div className={styles["games-header"]}>
-        <h2 className={styles["games-title"]}>🎮 Explore Fun Games</h2>
-        <p className={styles["score"]}>Total Score: {totalScore}</p>
+    <section id="games-section" className="games-section">
+      <div className="games-header">
+        <h2 className="games-title">🎮 Explore Fun Games</h2>
+        {/* Use contextTotalScore or totalScore interchangeably here */}
+        <h2 onClick={() => navigate("/wallet")} style={{ cursor: "pointer" }}>
+          🎮 Total Score : {totalScore}
+        </h2>
       </div>
 
-      <div className={styles["games-container"]}>
+      <div className="games-container">
         {games.map((game, index) => {
-          let titleColor = "orange";
+          let titleColor = "#fec89a";
 
-          if (game.title.includes("2048")) titleColor = "#8B4513";
-          else if (game.title.includes("Tetris")) titleColor = "#FFA500";
-          else if (game.title.includes("Minesweeper")) titleColor = "#1E90FF";
+          if (game.title.includes("2048")) titleColor = "#efe6dd";
+          else if (game.title.includes("Tetris")) titleColor = "#b5e48c";
+          else if (game.title.includes("Minesweeper")) titleColor = "#ffd60a";
 
           return (
             <div
               key={index}
-              className={styles["game-card"]}
-              onClick={() => handleCardClick(game.title, game.route)}
+              className="game-card"
+              onClick={() => handleCardClick(game.route)}
               role="button"
             >
-              <div className={styles["image-box"]}>
+              <div className="image-box">
                 <img src={game.image} alt={game.title} />
-                <div className={styles["overlay"]}>
-                  <p
-                    className={styles["game-title"]}
-                    style={{ color: titleColor }}
-                  >
+                <div className="overlay">
+                  <p className="game-title" style={{ color: titleColor }}>
                     {game.title}
                   </p>
                 </div>

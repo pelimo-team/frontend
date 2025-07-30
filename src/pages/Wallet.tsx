@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import WalletShow from '../components/Wallet/WalletShow';
-import TopUpWallet from '../components/Wallet/TopUpWallet';
-import '../styles/Wallet.css';
-import '../styles/TopUpWallet.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import WalletShow from "../components/Wallet/WalletShow";
+import TopUpWallet from "../components/Wallet/TopUpWallet";
+import "../styles/Wallet.css";
+import "../styles/TopUpWallet.css";
 
 // فرض کنیم api.ts در مسیر src/api.ts موجوده
-import { api } from '../utils/api'
+import { api } from "../utils/api";
 
 const WalletPage: React.FC = () => {
   const navigate = useNavigate();
@@ -22,12 +22,12 @@ const WalletPage: React.FC = () => {
     setErrorMessage(null);
     try {
       // اگر api.ts رو استفاده می‌کنی:
-      const data = await api.get('/api/accounts/wallet/balance/');
+      const data = await api.get("/api/accounts/wallet/balance/");
       // فرض می‌کنیم پاسخ به شکل { balance: number }
       setWalletBalance(data.balance);
     } catch (error) {
-      console.error('Failed to load wallet balance:', error);
-      setErrorMessage('خطا در بارگذاری موجودی کیف پول.');
+      console.error("Failed to load wallet balance:", error);
+      setErrorMessage("خطا در بارگذاری موجودی کیف پول.");
     } finally {
       setLoadingBalance(false);
     }
@@ -42,14 +42,20 @@ const WalletPage: React.FC = () => {
   const handleTopUpSuccess = async (amountAdded: number) => {
     try {
       // ارسال درخواست شارژ به API
-      await api.post('/api/accounts/wallet/charge/', { amount: amountAdded.toString() });
+      await api.post("/api/accounts/wallet/charge/", {
+        amount: amountAdded.toString(),
+      });
       // پس از شارژ موفق، مجدد موجودی را از سرور دریافت کن
       await fetchWalletBalance();
       setShowTopUpPage(false);
-      console.log(`Wallet topped up by ${amountAdded}. New balance: ${walletBalance + amountAdded}`);
+      console.log(
+        `Wallet topped up by ${amountAdded}. New balance: ${
+          walletBalance + amountAdded
+        }`
+      );
     } catch (error) {
-      console.error('Top-up failed:', error);
-      alert('خطا در شارژ کیف پول. لطفاً دوباره تلاش کنید.');
+      console.error("Top-up failed:", error);
+      alert("خطا در شارژ کیف پول. لطفاً دوباره تلاش کنید.");
     }
   };
 
@@ -62,7 +68,7 @@ const WalletPage: React.FC = () => {
   };
 
   const handleWalletProfile = () => {
-    navigate('/userprofile');
+    navigate("/userprofile");
   };
 
   const handleShowTopUpPage = () => {
@@ -72,11 +78,23 @@ const WalletPage: React.FC = () => {
   return (
     <>
       <header className="wallet-header">
-        <button className="wallet-header-button wallet-back-button" onClick={handleWalletBack}>
-          <img src="/arrow-right-solid.svg" alt="Back" className="wallet-icon" />
+        <button
+          className="wallet-header-button wallet-back-button"
+          onClick={handleWalletBack}
+        >
+          <img
+            src="/arrow-right-solid.svg"
+            alt="Back"
+            className="wallet-icon"
+          />
         </button>
-        <div className="wallet-header-logo">{showTopUpPage ? 'Pelimo' : 'Pelimo'}</div>
-        <button className="wallet-header-button wallet-profile-button" onClick={handleWalletProfile}>
+        <div className="wallet-header-logo">
+          {showTopUpPage ? "Pelimo" : "Pelimo"}
+        </div>
+        <button
+          className="wallet-header-button wallet-profile-button"
+          onClick={handleWalletProfile}
+        >
           <img src="/profile.png" alt="Profile" className="wallet-icon" />
         </button>
       </header>
@@ -93,11 +111,12 @@ const WalletPage: React.FC = () => {
             {loadingBalance ? (
               <p>در حال بارگذاری موجودی...</p>
             ) : errorMessage ? (
-              <p style={{ color: 'red' }}>{errorMessage}</p>
+              <p style={{ color: "red" }}>{errorMessage}</p>
             ) : (
               <WalletShow
                 currentBalance={walletBalance}
                 onChargeButtonClick={handleShowTopUpPage}
+                onSubmitAmount={handleTopUpSuccess}
               />
             )}
           </>
