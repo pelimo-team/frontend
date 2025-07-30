@@ -16,6 +16,8 @@ const Header = () => {
     logout(); // خروج کاربر
     clearCart(); // پاک کردن سبد خرید
     navigate("/login"); // هدایت به صفحه ورود
+    localStorage.removeItem("canvasBlocks")
+    localStorage.removeItem("canvasRecipes")
   };
 
   useEffect(() => {
