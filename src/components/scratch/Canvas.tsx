@@ -21,6 +21,7 @@ interface Recipe {
   additional_ingredients: string[];
   instructions: string;
   image_url: string;
+  restaurant_id: number;
 }
 
 // API URLs
@@ -74,16 +75,16 @@ export function Canvas() {
 
   const handleSuggest = async () => {
     if (blocks.length === 0) return;
-    setShowHamsterLoader(true); 
+    setShowHamsterLoader(true);
     const MIN_LOADING_TIME = 3000; // ⏱ Minimum time to show loader (in ms)
     const startTime = Date.now();
-    
-    
+
     try {
       const ingredientNames = blocks.map((block) => block.label);
       const response = await axios.post(SEARCH_RECIPES_URL, {
         ingredients: ingredientNames,
       });
+      console.log("Fetched recipes from backend:", response.data);
       setRecipes(response.data.recipes);
     } catch (error: any) {
       console.error("Error searching recipes:", error);
@@ -95,16 +96,15 @@ export function Canvas() {
     } finally {
       const elapsedTime = Date.now() - startTime;
       const delay = Math.max(0, MIN_LOADING_TIME - elapsedTime);
-  
+
       setTimeout(() => {
         setShowHamsterLoader(false); // hide after enforced delay
-      },delay)
+      }, delay);
     }
   };
 
   const navigate = useNavigate();
   const [showHamsterLoader, setShowHamsterLoader] = useState(false);
-
 
   return (
     <div className="model-canvas-container">
@@ -198,59 +198,74 @@ export function Canvas() {
       {/* Recipe Results */}
       {showHamsterLoader ? (
         <div style={{ textAlign: "center", padding: "2rem" }}>
-        <div aria-label="Orange and tan hamster running in a metal wheel" role="img" className="wheel-and-hamster">
-	<div className="wheel"></div>
-	<div className="hamster">
-		<div className="hamster__body">
-			<div className="hamster__head">
-				<div className="hamster__ear"></div>
-				<div className="hamster__eye"></div>
-				<div className="hamster__nose"></div>
-			</div>
-			<div className="hamster__limb hamster__limb--fr"></div>
-			<div className="hamster__limb hamster__limb--fl"></div>
-			<div className="hamster__limb hamster__limb--br"></div>
-			<div className="hamster__limb hamster__limb--bl"></div>
-			<div className="hamster__tail"></div>
-		</div>
-	</div>
-	<div className="spoke"></div>
-</div>
-</div>
+          <div
+            aria-label="Orange and tan hamster running in a metal wheel"
+            role="img"
+            className="wheel-and-hamster"
+          >
+            <div className="wheel"></div>
+            <div className="hamster">
+              <div className="hamster__body">
+                <div className="hamster__head">
+                  <div className="hamster__ear"></div>
+                  <div className="hamster__eye"></div>
+                  <div className="hamster__nose"></div>
+                </div>
+                <div className="hamster__limb hamster__limb--fr"></div>
+                <div className="hamster__limb hamster__limb--fl"></div>
+                <div className="hamster__limb hamster__limb--br"></div>
+                <div className="hamster__limb hamster__limb--bl"></div>
+                <div className="hamster__tail"></div>
+              </div>
+            </div>
+            <div className="spoke"></div>
+          </div>
+        </div>
       ) : recipes.length > 0 ? (
         <div className="model-recipes-container">
           <h2 className="model-title3">Matching Recipes</h2>
           <div className="model-recipes-grid">
-            {recipes.map((recipe) => (
-              <div
-                key={recipe.id}
-                className="model-recipe-card"
-                onClick={() =>
-                  navigate(`/recipe/${recipe.id}`, { state: recipe })
-                }
-                style={{ cursor: "pointer" }}
-              >
-                <img
-                  src={recipe.image_url}
-                  alt={recipe.title}
-                  className="model-recipe-image"
-                  onError={(e) => (e.currentTarget.style.display = "none")}
-                />
-                <div className="model-recipe-content">
-                  <h3 className="model-recipe-title">{recipe.title}</h3>
-                  <div className="model-recipe-details">
-                    <h4>Ingredients:</h4>
-                    <ul>
-                      {recipe.ingredients.map((ing, i) => (
-                        <li key={i}>{ing}</li>
-                      ))}
-                    </ul>
+            {recipes.map((recipe) => {
+              const hasRestaurant = !!recipe.restaurant_id;
 
-                    <></>
+              return (
+                <div
+                  key={recipe.id}
+                  className={`model-recipe-card ${
+                    hasRestaurant ? "recipe-with-restaurant" : ""
+                  }`}
+                  onClick={() =>
+                    hasRestaurant
+                      ? navigate(`/restaurant/${recipe.restaurant_id}`)
+                      : navigate(`/recipe/${recipe.id}`, { state: recipe })
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  {/* Top-left tag */}
+                  {hasRestaurant && (
+                    <div className="available-tag">Available</div>
+                  )}
+
+                  <img
+                    src={recipe.image_url}
+                    alt={recipe.title}
+                    className="model-recipe-image"
+                    onError={(e) => (e.currentTarget.style.display = "none")}
+                  />
+                  <div className="model-recipe-content">
+                    <h3 className="model-recipe-title">{recipe.title}</h3>
+                    <div className="model-recipe-details">
+                      <h4>Ingredients:</h4>
+                      <ul>
+                        {recipe.ingredients.map((ing, i) => (
+                          <li key={i}>{ing}</li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       ) : blocks.length > 0 ? (

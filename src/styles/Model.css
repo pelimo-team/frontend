@@ -229,6 +229,24 @@
   background-color: #eff6ff;
   border: 2px dashed #93c5fd;
 }
+.recipe-with-restaurant {
+  border: 0.5rem solid red;
+  position: relative;
+}
+
+.available-tag {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background-color: red;
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  z-index: 1;
+}
+
 
 /*BlockPalette.tsx*/
 .ingredient-siza {
