@@ -369,6 +369,50 @@ body {
   color: var(--text-dark);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
+.order-status-label {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: white;
+  display: inline-block;
+}
+.label-paid {
+  background-color: #6c63ff; /* Or any distinct color */
+}
+
+
+.label-pending {
+  background-color: #f0ad4e; /* orange */
+}
+
+.label-confirmed {
+  background-color: #0275d8; /* blue */
+}
+
+.label-preparing {
+  background-color: #5bc0de; /* light blue */
+}
+
+.label-ready {
+  background-color: #5cb85c; /* green */
+}
+
+.label-delivering {
+  background-color: #5e5e5e; /* dark grey */
+}
+
+.status-delivered {
+  background-color: #28a745; /* green */
+}
+
+.status-cancelled {
+  background-color: #dc3545; /* red */
+}
+
+.status-done {
+  background-color: #6c757d; /* gray */
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

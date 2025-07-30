@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { api } from '../../utils/api';
 
 interface OrderItem {
   name: string;
   quantity: number;
   price: number;
+  image?: string;
 }
 
 interface Order {
@@ -12,56 +14,67 @@ interface Order {
   date: string;
   items: OrderItem[];
   totalCost: number;
+  status: string;
 }
 
+const getStatusText = (status: string) => {
+  switch (status) {
+    case 'delivered': return 'Delivered';
+    case 'cancelled': return 'Cancelled';
+    case 'done': return 'Done';
+    default: return status;
+  }
+};
+
+const getStatusClass = (status: string) => {
+  switch (status) {
+    case 'delivered': return 'status-delivered';
+    case 'cancelled': return 'status-cancelled';
+    case 'done': return 'status-done';
+    default: return '';
+  }
+};
+
 const OrderHistory: React.FC = () => {
-  // Mock data for order history
-  const orders: Order[] = [
-    {
-      id: "ORD-001",
-      restaurantName: "Bella Italia",
-      date: "2024-01-15",
-      items: [
-        { name: "Margherita Pizza", quantity: 1, price: 18.99 },
-        { name: "Caesar Salad", quantity: 1, price: 12.50 },
-        { name: "Tiramisu", quantity: 2, price: 8.99 }
-      ],
-      totalCost: 49.47
-    },
-    {
-      id: "ORD-002", 
-      restaurantName: "Dragon Palace",
-      date: "2024-01-12",
-      items: [
-        { name: "Sweet & Sour Chicken", quantity: 1, price: 16.80 },
-        { name: "Fried Rice", quantity: 2, price: 9.50 },
-        { name: "Spring Rolls", quantity: 4, price: 2.75 }
-      ],
-      totalCost: 46.80
-    },
-    {
-      id: "ORD-003",
-      restaurantName: "Burger Junction",
-      date: "2024-01-10",
-      items: [
-        { name: "Classic Cheeseburger", quantity: 2, price: 14.99 },
-        { name: "French Fries", quantity: 2, price: 5.99 },
-        { name: "Chocolate Milkshake", quantity: 1, price: 6.50 }
-      ],
-      totalCost: 42.47
-    },
-    {
-      id: "ORD-004",
-      restaurantName: "Spice Garden",
-      date: "2024-01-08",
-      items: [
-        { name: "Chicken Tikka Masala", quantity: 1, price: 19.99 },
-        { name: "Basmati Rice", quantity: 1, price: 4.50 },
-        { name: "Garlic Naan", quantity: 2, price: 3.99 }
-      ],
-      totalCost: 32.47
-    }
-  ];
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const data = await api.get('/api/cart/order-history/');
+        const ordersArray = Array.isArray(data) ? data : data.results;
+        if (!Array.isArray(ordersArray)) {
+          throw new Error('Unexpected response format: expected an array');
+        }
+
+        const filteredOrders = ordersArray.filter((order: any) =>
+          ['delivered', 'cancelled', 'done'].includes(order.status)
+        );
+
+        const mappedOrders = filteredOrders.map((order: any) => ({
+          id: order.id,
+          restaurantName: order.restaurant.name,
+          date: order.created_at,
+          items: order.items.map((item: any) => ({
+            name: item.menu_item.name,
+            quantity: item.quantity,
+            price: parseFloat(item.price),
+            image: item.menu_item.image,
+          })),
+          totalCost: parseFloat(order.total),
+          status: order.status,
+        }));
+
+        setOrders(mappedOrders);
+      } catch (err: any) {
+        console.error('Failed to fetch orders', err);
+        setError(err.message || 'An error occurred while fetching orders.');
+      }
+    };
+
+    fetchOrders();
+  }, []);
 
   return (
     <div className="page-container">
@@ -70,25 +83,68 @@ const OrderHistory: React.FC = () => {
         <p>Your past orders and purchases</p>
       </div>
 
+      {error && <p className="error">{error}</p>}
+
       <div className="orders-grid">
         {orders.map((order) => (
           <div key={order.id} className="order-card">
             <div className="order-header">
               <h3 className="restaurant-name">{order.restaurantName}</h3>
-              <span className="order-date">{new Date(order.date).toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'short', 
-                day: 'numeric' 
-              })}</span>
+              <div>
+                <span className="order-date">
+                  {new Date(order.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </span>
+                <span
+                  className={`order-status-label ${getStatusClass(order.status)}`}
+                  style={{
+                    marginLeft: '10px',
+                    padding: '4px 8px',
+                    borderRadius: '5px',
+                    color: 'white',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {getStatusText(order.status)}
+                </span>
+              </div>
             </div>
 
             <div className="order-items">
               {order.items.map((item, index) => (
-                <div key={index} className="order-item">
-                  <span className="item-name">
-                    {item.quantity}x {item.name}
-                  </span>
-                  <span className="item-price">${item.price.toFixed(2)}</span>
+                <div
+                  key={index}
+                  className="order-item"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '15px',
+                    marginBottom: '10px',
+                  }}
+                >
+                  {item.image && (
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      style={{
+                        width: '80px',
+                        height: '80px',
+                        objectFit: 'cover',
+                        borderRadius: '8px',
+                      }}
+                    />
+                  )}
+                  <div style={{ flex: 1 }}>
+                    <span className="item-name" style={{ display: 'block', fontWeight: 500 }}>
+                      {item.quantity}x {item.name}
+                    </span>
+                    <span className="item-price" style={{ color: '#555' }}>
+                      ${item.price.toFixed(2)}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
