@@ -20,12 +20,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ onToggle }) => {
     onToggle?.(role);
   };
 
-  const knobColorClass =
-    clickCount % 2 === 1
-      ? 'knob-green'
-      : clickCount > 0
-      ? 'knob-red'
-      : '';
+
 
       return (
         <div
