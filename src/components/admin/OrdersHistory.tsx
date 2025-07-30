@@ -30,6 +30,7 @@ interface OrdersHistoryProps {
   errorOrders: string | null;
   loadingOrders: boolean;
   onToggleExpand: (id: number) => void;
+  disabled?: boolean;
 }
 
 const OrdersHistory: React.FC<OrdersHistoryProps> = ({
@@ -38,6 +39,7 @@ const OrdersHistory: React.FC<OrdersHistoryProps> = ({
   errorOrders,
   loadingOrders,
   onToggleExpand,
+  disabled = false,
 }) => {
   const getLineChartDataByStatus = () => {
     const grouped: {
@@ -114,8 +116,9 @@ const OrdersHistory: React.FC<OrdersHistoryProps> = ({
             return (
               <React.Fragment key={order.id}>
                 <tr
-                  onClick={() => onToggleExpand(order.id)}
-                  className="order-row"
+                  onClick={() => !disabled && onToggleExpand(order.id)}
+                  className={`order-row ${disabled ? 'disabled' : ''}`}
+                  style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
                 >
                   <td>{order.id}</td>
                   <td>

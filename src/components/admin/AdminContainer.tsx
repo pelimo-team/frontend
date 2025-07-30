@@ -9,6 +9,7 @@ interface AdminContainerProps {
   username: string | null;
   currentTime: Date;
   children: React.ReactNode;
+  disabledTabs?: string[];
 }
 
 const AdminContainer: React.FC<AdminContainerProps> = ({
@@ -17,7 +18,8 @@ const AdminContainer: React.FC<AdminContainerProps> = ({
   shouldDisableTabs,
   username,
   currentTime,
-  children
+  children,
+  disabledTabs = []
 }) => {
   const formatShamsiDate = (date: Date) => {
     return new Intl.DateTimeFormat("en-US", {
@@ -38,8 +40,8 @@ const AdminContainer: React.FC<AdminContainerProps> = ({
             <Nav.Item>
               <Nav.Link 
                 eventKey="menu"
-                disabled={shouldDisableTabs}
-                className={shouldDisableTabs ? "nav-link disabled" : "nav-link"}
+                disabled={shouldDisableTabs || disabledTabs.includes("menu")}
+                className={(shouldDisableTabs || disabledTabs.includes("menu")) ? "nav-link disabled" : "nav-link"}
               >
                 Menu Management
               </Nav.Link>
@@ -47,8 +49,8 @@ const AdminContainer: React.FC<AdminContainerProps> = ({
             <Nav.Item>
               <Nav.Link 
                 eventKey="orders"
-                disabled={shouldDisableTabs}
-                className={shouldDisableTabs ? "nav-link disabled" : "nav-link"}
+                disabled={shouldDisableTabs || disabledTabs.includes("orders")}
+                className={(shouldDisableTabs || disabledTabs.includes("orders")) ? "nav-link disabled" : "nav-link"}
               >
                 Orders History
               </Nav.Link>
@@ -56,8 +58,8 @@ const AdminContainer: React.FC<AdminContainerProps> = ({
             <Nav.Item>
               <Nav.Link 
                 eventKey="stock"
-                disabled={shouldDisableTabs}
-                className={shouldDisableTabs ? "nav-link disabled" : "nav-link"}
+                disabled={shouldDisableTabs || disabledTabs.includes("stock")}
+                className={(shouldDisableTabs || disabledTabs.includes("stock")) ? "nav-link disabled" : "nav-link"}
               >
                 Stock
               </Nav.Link>
@@ -87,27 +89,27 @@ const AdminContainer: React.FC<AdminContainerProps> = ({
 
         <ul>
           <li
-            onClick={() => !shouldDisableTabs && onTabSelect("menu")}
+            onClick={() => !(shouldDisableTabs || disabledTabs.includes("menu")) && onTabSelect("menu")}
             className={`sidebar-item ${activeTab === "menu" ? "active" : ""} ${
-              shouldDisableTabs ? "disabled" : ""
+              (shouldDisableTabs || disabledTabs.includes("menu")) ? "disabled" : ""
             }`}
           >
             <FiCoffee />
             <span>Menu Management</span>
           </li>
           <li
-            onClick={() => !shouldDisableTabs && onTabSelect("orders")}
+            onClick={() => !(shouldDisableTabs || disabledTabs.includes("orders")) && onTabSelect("orders")}
             className={`sidebar-item ${activeTab === "orders" ? "active" : ""} ${
-              shouldDisableTabs ? "disabled" : ""
+              (shouldDisableTabs || disabledTabs.includes("orders")) ? "disabled" : ""
             }`}
           >
             <FiShoppingCart />
             <span>Orders History</span>
           </li>
           <li
-            onClick={() => !shouldDisableTabs && onTabSelect("stock")}
+            onClick={() => !(shouldDisableTabs || disabledTabs.includes("stock")) && onTabSelect("stock")}
             className={`sidebar-item ${activeTab === "stock" ? "active" : ""} ${
-              shouldDisableTabs ? "disabled" : ""
+              (shouldDisableTabs || disabledTabs.includes("stock")) ? "disabled" : ""
             }`}
           >
             <FiPackage />

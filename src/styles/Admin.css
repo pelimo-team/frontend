@@ -57,6 +57,18 @@
   margin-bottom: 16px;
 }
 
+.manager-status-banner.pending {
+  background-color: #fef3c7;
+  border: 1px solid #f59e0b;
+  color: #92400e;
+}
+
+.manager-status-banner.info {
+  background-color: #dbeafe;
+  border: 1px solid #3b82f6;
+  color: #1e40af;
+}
+
 .banner-content {
   display: flex;
   align-items: center;
@@ -71,6 +83,11 @@
   width: 20px;
 }
 
+.info-icon {
+  height: 20px;
+  width: 20px;
+}
+
 .banner-text {
   margin-left: 12px;
 }
@@ -78,6 +95,72 @@
 .banner-message {
   font-size: 14px;
   margin: 0;
+}
+
+/* Disabled State Styles */
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: not-allowed !important;
+}
+
+.order-row.disabled {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+}
+
+.order-row.disabled:hover {
+  background-color: #f7f7f7 !important;
+}
+
+/* Disabled Form Controls */
+.food-form input:disabled,
+.food-form select:disabled,
+.food-form textarea:disabled,
+.food-form .form-check-input:disabled,
+.restaurant-info-form input:disabled,
+.restaurant-info-form select:disabled,
+.restaurant-info-form textarea:disabled,
+.restaurant-info-form .form-check-input:disabled {
+  background-color: #f5f5f5 !important;
+  color: #999 !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+.food-form button:disabled,
+.restaurant-info-form button:disabled,
+.table .btn:disabled {
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.food-form button:disabled:hover,
+.restaurant-info-form button:disabled:hover,
+.table .btn:disabled:hover {
+  background-color: #ccc !important;
+  color: #666 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Disabled Input Groups */
+.input-group-quantity button:disabled {
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+.input-group-quantity input:disabled {
+  background-color: #f5f5f5 !important;
+  color: #999 !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
 }
 
 /* Disabled Panels */
