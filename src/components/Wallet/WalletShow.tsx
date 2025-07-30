@@ -85,7 +85,7 @@ const WalletShow: React.FC<WalletShowProps> = ({
       const newScore = totalScore - amount;
       await api.put("/api/accounts/game-score/", { score: newScore });
       setTotalScore(newScore);
-      await onSubmitAmount?.(amount);
+      await onSubmitAmount?.(amount*100);
       setMessage(`Successfully topped up ${formatWalletCurrency(amount)}!`);
       setAmount(0);
       setUserCaptchaInput("");
