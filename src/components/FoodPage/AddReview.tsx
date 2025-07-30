@@ -22,7 +22,7 @@ const AddReview: React.FC<AddReviewProps> = ({ onAddReview }) => {
     e.preventDefault();
 
     if (comment.trim().length < 10) {
-      setError("لطفا نظر خود را حداقل با 10 کاراکتر بنویسید.");
+      setError("please write at least 10 character");
       return;
     }
 
@@ -39,7 +39,7 @@ const AddReview: React.FC<AddReviewProps> = ({ onAddReview }) => {
         setSubmitted(false);
       }, 2000);
     } catch (err) {
-      setError("خطا در ارسال نظر. لطفا دوباره تلاش کنید.");
+      setError("error in sending comment. please try again");
     } finally {
       setLoading(false);
     }

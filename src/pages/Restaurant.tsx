@@ -164,7 +164,7 @@ function RestaurantPage() {
   }, [cities, restaurant?.city]);
 
   if (!restaurant) {
-    return <div className="loading">در حال دریافت اطلاعات رستوران...</div>;
+    return <div className="loading">loading restaurant information...</div>;
   }
 
   return (

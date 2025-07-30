@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap';
 const CartLoading: React.FC = () => {
   return (
     <Container className="cart-container">
-      <div className="cart-loading">در حال بارگذاری سبد خرید...</div>
+      <div className="cart-loading">loading basket...</div>
     </Container>
   );
 };

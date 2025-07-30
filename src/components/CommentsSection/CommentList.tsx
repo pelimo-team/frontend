@@ -83,7 +83,7 @@ const CommentList: React.FC<CommentListProps> = ({
           className="show-more-add-comment"
           onClick={() => setShowAll(!showAll)}
         >
-          {showAll ? "نمایش کمتر" : "نمایش نظرات بیشتر"}
+          {showAll ? "show less" : "show more"}
         </button>
       )}
     </>

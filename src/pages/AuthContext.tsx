@@ -1,15 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { CategoryType } from "../components/AdvancedSearch/types";
 

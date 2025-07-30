@@ -13,7 +13,7 @@ const CartHeader: React.FC = () => {
       </div>
       <h1 className="cart-title ">Shopping Cart</h1>
       <button className="back-button" onClick={() => navigate(-1)}>
-        <img src="/arrow-right-solid.svg" alt="بازگشت" />
+        <img src="/arrow-right-solid.svg" alt="back" />
       </button>
     </header>
   );

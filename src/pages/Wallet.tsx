@@ -26,8 +26,11 @@ const WalletPage: React.FC = () => {
       // فرض می‌کنیم پاسخ به شکل { balance: number }
       setWalletBalance(data.balance);
     } catch (error) {
-      console.error("Failed to load wallet balance:", error);
-      setErrorMessage("خطا در بارگذاری موجودی کیف پول.");
+
+
+      console.error('Failed to load wallet balance:', error);
+      setErrorMessage('error in loading wallet amount');
+
     } finally {
       setLoadingBalance(false);
     }
@@ -54,8 +57,12 @@ const WalletPage: React.FC = () => {
         }`
       );
     } catch (error) {
-      console.error("Top-up failed:", error);
-      alert("خطا در شارژ کیف پول. لطفاً دوباره تلاش کنید.");
+
+
+
+      console.error('Top-up failed:', error);
+      alert('error in charging wallet. please try again');
+
     }
   };
 
@@ -109,7 +116,7 @@ const WalletPage: React.FC = () => {
           <>
             <h1 className="wallet-title">My Wallet</h1>
             {loadingBalance ? (
-              <p>در حال بارگذاری موجودی...</p>
+              <p>loading...</p>
             ) : errorMessage ? (
               <p style={{ color: "red" }}>{errorMessage}</p>
             ) : (

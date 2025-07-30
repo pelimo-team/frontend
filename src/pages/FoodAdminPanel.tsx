@@ -44,9 +44,9 @@ const FoodAdminPanel: React.FC = () => {
       .catch((err) => {
         console.error("axios error:", err);
         if (err.response?.status === 401) {
-          setError("توکن نامعتبر یا منقضی شده. لطفا دوباره وارد شوید.");
+          setError("invalid token. please enter again");
         } else {
-          setError("خطا در دریافت لیست غذاها.");
+          setError("error in fetching menu items");
         }
       })
       .finally(() => setLoading(false));
@@ -104,7 +104,7 @@ const FoodAdminPanel: React.FC = () => {
         bestSeller: false,
       });
     } catch (err) {
-      setError("خطا در ذخیره اطلاعات غذا.");
+      setError("error in saving food information");
       console.error(err);
     }
   };
@@ -115,7 +115,7 @@ const FoodAdminPanel: React.FC = () => {
       await axios.delete(`${BASE_URL}${id}/`, { headers: getAuthHeader() });
       setFoods((prev) => prev.filter((food) => food.id !== id));
     } catch (err) {
-      setError("خطا در حذف غذا.");
+      setError("error in deleting food");
       console.error(err);
     }
   };
@@ -135,13 +135,13 @@ const FoodAdminPanel: React.FC = () => {
 
   return (
     <div className="food-admin-panel" style={{ maxWidth: 800, margin: "auto" }}>
-      <h2 className="mb-3">مدیریت منوی غذا</h2>
+      <h2 className="mb-3">menu management</h2>
 
       {error && <Alert variant="danger">{error}</Alert>}
 
       <Form onSubmit={handleSubmit} className="food-form">
         <Form.Group className="mb-3">
-          <Form.Label>نام غذا</Form.Label>
+          <Form.Label>name</Form.Label>
           <Form.Control
             name="name"
             value={formData.name}
@@ -151,7 +151,7 @@ const FoodAdminPanel: React.FC = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>عکس غذا</Form.Label>
+          <Form.Label>food image</Form.Label>
           <Form.Control
             type="file"
             name="image"
@@ -169,7 +169,7 @@ const FoodAdminPanel: React.FC = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>قیمت اصلی (تومان)</Form.Label>
+          <Form.Label>original cost(toman)</Form.Label>
           <Form.Control
             type="number"
             name="originalPrice"
@@ -180,7 +180,7 @@ const FoodAdminPanel: React.FC = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>قیمت با تخفیف (تومان)</Form.Label>
+          <Form.Label>sale price(toman)</Form.Label>
           <Form.Control
             type="number"
             name="discountedPrice"
@@ -204,7 +204,7 @@ const FoodAdminPanel: React.FC = () => {
         <Form.Group className="mb-3">
           <Form.Check
             type="checkbox"
-            label="پرفروش (Best Seller)"
+            label="Best Seller"
             name="bestSeller"
             checked={formData.bestSeller}
             onChange={handleChange}
@@ -212,13 +212,13 @@ const FoodAdminPanel: React.FC = () => {
         </Form.Group>
 
         <Button type="submit" className="mt-3">
-          {editId !== null ? "ذخیره تغییرات" : "افزودن غذا"}
+          {editId !== null ? "save changes" : "add food"}
         </Button>
       </Form>
 
       <hr />
 
-      <h4>لیست غذاها</h4>
+      <h4>food list</h4>
       {loading ? (
         <div className="text-center my-4">
           <Spinner animation="border" />
@@ -227,13 +227,13 @@ const FoodAdminPanel: React.FC = () => {
         <Table striped hover responsive>
           <thead>
             <tr>
-              <th>عکس</th>
-              <th>نام</th>
-              <th>قیمت اصلی</th>
-              <th>قیمت با تخفیف</th>
-              <th>موجودی</th>
-              <th>پرفروش</th>
-              <th>عملیات</th>
+              <th>image</th>
+              <th>name</th>
+              <th>original price</th>
+              <th>sale price</th>
+              <th>amount</th>
+              <th>best seller</th>
+              <th>action</th>
             </tr>
           </thead>
           <tbody>
@@ -254,14 +254,14 @@ const FoodAdminPanel: React.FC = () => {
                     onClick={() => handleEdit(food)}
                     className="me-1"
                   >
-                    ویرایش
+                    edit
                   </Button>
                   <Button
                     size="sm"
                     variant="danger"
                     onClick={() => food.id && handleDelete(food.id)}
                   >
-                    حذف
+                    delete
                   </Button>
                 </td>
               </tr>
