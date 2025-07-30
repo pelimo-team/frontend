@@ -10,6 +10,7 @@ interface ReviewItemProps {
   onLike: (reviewId: string) => void;
   onDislike: (reviewId: string) => void;
   onAddReply: (reviewId: string, reply: string) => void;
+  voted?: 'like' | 'dislike' | null;
 }
 
 const ReviewItem: React.FC<ReviewItemProps> = ({
@@ -17,6 +18,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
   onLike,
   onDislike,
   onAddReply,
+  voted,
 }) => {
   console.log("Review replies:", review.replies);
 
@@ -67,16 +69,20 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
 
       <div className="review-actions">
         <button
-          className="action-btn like-btn"
+          className={`action-btn like-btn ${voted === "like" ? "voted" : ""}`}
           onClick={() => onLike(review.id)}
+          disabled={voted === "like"}
         >
           <ThumbsUp size={16} />
           <span className="action-count">{review.likes}</span>
         </button>
 
         <button
-          className="action-btn dislike-btn"
+          className={`action-btn dislike-btn ${
+            voted === "dislike" ? "voted" : ""
+          }`}
           onClick={() => onDislike(review.id)}
+          disabled={voted === "dislike"}
         >
           <ThumbsDown size={16} />
           <span className="action-count">{review.dislikes}</span>
@@ -97,7 +103,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
           {review.replies.map((reply, index) => {
             const dateObj = new Date(reply.date);
             const formattedDate = isNaN(dateObj.getTime())
-              ? "تاریخ نامعتبر"
+              ? "invalid date"
               : formatDate(reply.date);
 
             return (

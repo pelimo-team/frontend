@@ -40,7 +40,7 @@ const Card: React.FC<CardProps> = ({ restaurant }) => {
           <strong>{restaurant.name}</strong>
         </p>
         <p>{restaurant.description}</p>
-        <p>Delivery Cost: {restaurant.delivery_cost} تومان</p>
+        <p>Delivery Cost: {restaurant.delivery_cost} toman</p>
         <div className="nightwalker-stars">
           {"⭐".repeat(Math.round(restaurant.average_rating || 0))}
         </div>

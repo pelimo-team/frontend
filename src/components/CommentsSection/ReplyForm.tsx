@@ -18,12 +18,12 @@ const ReplyForm: React.FC<ReplyFormProps> = ({ onSubmit }) => {
   return (
     <form className="reply-form" onSubmit={handleSubmit}>
       <textarea
-        placeholder="پاسخ خود را بنویسید..."
+        placeholder="write to reply..."
         value={text}
         onChange={(e) => setText(e.target.value)}
         rows={2}
       />
-      <button type="submit">ارسال پاسخ</button>
+      <button type="submit">send</button>
     </form>
   );
 };

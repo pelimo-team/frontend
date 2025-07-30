@@ -7,7 +7,7 @@ interface AddCommentProps {
 const AddComment: FC<AddCommentProps> = () => {
   return (
     <div className="comments-section">
-      <h3>نظرات</h3>
+      <h3>reviews</h3>
       {/* Comment form will go here */}
     </div>
   );

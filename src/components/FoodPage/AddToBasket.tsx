@@ -99,7 +99,7 @@ const AddToBasket: React.FC<AddToBasketProps> = ({
       }
     } catch (err: any) {
       const errorMessage =
-        err.response?.data?.error || "مشکلی در افزودن به سبد خرید رخ داد.";
+        err.response?.data?.error || "problem in adding to basket!";
       setModalMessage(errorMessage);
       setShowModal(true);
     }
@@ -126,7 +126,7 @@ const AddToBasket: React.FC<AddToBasketProps> = ({
   
       if (onSuccess) onSuccess();
     } catch (err) {
-      showError("خطا در بروزرسانی مقدار سبد خرید.");
+      showError("error in updating basket amount");
     }
   };
   

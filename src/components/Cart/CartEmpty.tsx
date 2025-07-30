@@ -8,12 +8,12 @@ const CartEmpty: React.FC = () => {
   return (
     <Container className="cart-container">
       <div className="cart-box text-center">
-        <h2>سبد خرید شما خالی است</h2>
+        <h2>empty basket</h2>
         <button
           className="custom-continue-btn mt-3"
           onClick={() => navigate("/")}
         >
-          مشاهده رستوران‌ها
+          restaurants
         </button>
       </div>
     </Container>
