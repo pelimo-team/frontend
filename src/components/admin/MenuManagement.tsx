@@ -37,18 +37,39 @@ const MenuManagement: React.FC<MenuManagementProps> = ({
   onEdit,
   onDelete,
 }) => {
+  const handleFormDataChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (disabled) return;
+    onFormDataChange(e);
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    if (disabled) return;
+    onSubmit(e);
+  };
+
+  const handleEdit = (item: MenuItem) => {
+    if (disabled) return;
+    onEdit(item);
+  };
+
+  const handleDelete = (id: number) => {
+    if (disabled) return;
+    onDelete(id);
+  };
+
   return (
     <div className="menu-management">
       {error && <Alert variant="danger">{error}</Alert>}
-      <Form onSubmit={onSubmit} className="food-form">
+      <Form onSubmit={handleSubmit} className="food-form">
         <Form.Group className="mb-3">
           <Form.Label>Food Name</Form.Label>
           <Form.Control
             name="name"
             value={formData.name}
-            onChange={onFormDataChange}
+            onChange={handleFormDataChange}
             placeholder="Enter food name"
             required
+            disabled={disabled}
           />
         </Form.Group>
         <Form.Group className="mb-3">
@@ -58,8 +79,9 @@ const MenuManagement: React.FC<MenuManagementProps> = ({
             name="price"
             min="0"
             value={formData.price ?? ""}
-            onChange={onFormDataChange}
+            onChange={handleFormDataChange}
             placeholder="Enter price"
+            disabled={disabled}
           />
         </Form.Group>
         <Form.Group className="mb-3">
@@ -67,8 +89,9 @@ const MenuManagement: React.FC<MenuManagementProps> = ({
           <Form.Control
             type="file"
             name="image"
-            onChange={onFormDataChange}
+            onChange={handleFormDataChange}
             accept="image/*"
+            disabled={disabled}
           />
           {formData.image &&
             (typeof formData.image === "string" ? (
@@ -94,8 +117,9 @@ const MenuManagement: React.FC<MenuManagementProps> = ({
             max={5}
             step="0.1"
             value={formData.rate ?? ""}
-            onChange={onFormDataChange}
+            onChange={handleFormDataChange}
             placeholder="Enter rating (0-5)"
+            disabled={disabled}
           />
         </Form.Group>
         <Form.Group className="mb-3">
@@ -105,8 +129,9 @@ const MenuManagement: React.FC<MenuManagementProps> = ({
             name="quantity"
             min="0"
             value={formData.quantity ?? ""}
-            onChange={onFormDataChange}
+            onChange={handleFormDataChange}
             placeholder="Enter quantity"
+            disabled={disabled}
           />
         </Form.Group>
         <Form.Check
@@ -115,7 +140,8 @@ const MenuManagement: React.FC<MenuManagementProps> = ({
           label="Available"
           name="availability"
           checked={formData.availability}
-          onChange={onFormDataChange}
+          onChange={handleFormDataChange}
+          disabled={disabled}
         />
         <Form.Check
           className="mb-2"
@@ -123,7 +149,8 @@ const MenuManagement: React.FC<MenuManagementProps> = ({
           label="Bestseller"
           name="bestseller"
           checked={formData.bestseller}
-          onChange={onFormDataChange}
+          onChange={handleFormDataChange}
+          disabled={disabled}
         />
         <Form.Check
           className="mb-2"
@@ -131,9 +158,10 @@ const MenuManagement: React.FC<MenuManagementProps> = ({
           label="On Sale"
           name="onsale"
           checked={formData.onsale}
-          onChange={onFormDataChange}
+          onChange={handleFormDataChange}
+          disabled={disabled}
         />
-        <Button type="submit">
+        <Button type="submit" disabled={disabled}>
           {editId !== null ? "Save Changes" : "Add Food"}
         </Button>
       </Form>
@@ -166,14 +194,16 @@ const MenuManagement: React.FC<MenuManagementProps> = ({
                 <Button
                   size="sm"
                   variant="warning"
-                  onClick={() => onEdit(item)}
+                  onClick={() => handleEdit(item)}
+                  disabled={disabled}
                 >
                   Edit
                 </Button>{" "}
                 <Button
                   size="sm"
                   variant="danger"
-                  onClick={() => item.id && onDelete(item.id)}
+                  onClick={() => item.id && handleDelete(item.id)}
+                  disabled={disabled}
                 >
                   Delete
                 </Button>

@@ -80,7 +80,7 @@ const Admin: React.FC = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<
     "menu" | "orders" | "stock" | "restaurant information"
-  >("menu");
+  >("restaurant information"); // Default to restaurant information tab
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [expandedOrderIds, setExpandedOrderIds] = useState<number[]>([]);
@@ -137,22 +137,30 @@ const Admin: React.FC = () => {
 
   useEffect(() => {
     const fetchManagerStatus = async () => {
+      // Check if user is logged in
       if (!token) {
         navigate("/login");
         setLoadingStatus(false);
         return;
       }
+
       try {
         const response = await api.get("accounts/manager-status/");
         const status: ManagerStatus = response.data;
         setManagerStatus(status);
 
-        // اگر نه مدیر هست و نه manager_pending
+        // If user is not a manager and not pending approval, redirect to home
         if (!status.is_manager && !status.manager_pending) {
           navigate("/");
           setLoadingStatus(false);
           return;
         }
+
+        // If user is a manager but can't access admin panel, only show restaurant info
+        if (status.is_manager && !status.can_access_admin_panel) {
+          setActiveTab("restaurant information");
+        }
+
       } catch (error) {
         console.error("Error fetching manager status:", error);
         navigate("/login");
@@ -182,12 +190,12 @@ const Admin: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (activeTab === "menu" && managerStatus.is_manager) fetchMenuItems();
-    if (activeTab === "orders" && managerStatus.is_manager) fetchOrders();
+    if (activeTab === "menu" && managerStatus.can_access_admin_panel) fetchMenuItems();
+    if (activeTab === "orders" && managerStatus.can_access_admin_panel) fetchOrders();
   }, [activeTab, managerStatus]);
 
   useEffect(() => {
-    if (managerStatus.is_manager) {
+    if (managerStatus.can_access_admin_panel) {
       fetchOrders();
     }
   }, [managerStatus]);
@@ -342,35 +350,95 @@ const Admin: React.FC = () => {
     return <Loading />;
   }
 
+  // Access control logic
   const isManager = managerStatus.is_manager;
   const isPending = managerStatus.manager_pending;
-  const shouldDisableTabs = isPending && !isManager;
+  const canAccessAdminPanel = managerStatus.can_access_admin_panel;
+
+  // If manager is pending approval, allow access but disable interactions
+  const shouldDisableInteractions = isPending;
+  
+  // If manager can't access admin panel, only show restaurant info
+  const shouldShowOnlyRestaurantInfo = isManager && !canAccessAdminPanel;
+
+  // Determine which tabs should be disabled for navigation
+  const getDisabledTabs = () => {
+    if (shouldShowOnlyRestaurantInfo) {
+      return ["menu", "orders", "stock"];
+    }
+    return [];
+  };
+
+  const disabledTabs = getDisabledTabs();
 
   return (
     <AdminContainer
       activeTab={activeTab}
-      onTabSelect={(tab) => setActiveTab(tab as any)}
-      shouldDisableTabs={shouldDisableTabs}
+      onTabSelect={(tab) => {
+        // Allow switching to all tabs when pending, but prevent switching to disabled tabs for other cases
+        if (!disabledTabs.includes(tab as any)) {
+          setActiveTab(tab as any);
+        }
+      }}
+      shouldDisableTabs={shouldShowOnlyRestaurantInfo}
       username={username}
       currentTime={currentTime}
+      disabledTabs={disabledTabs}
     >
-      <StatsCards
-        menuItemsCount={menuItems.length}
-        ordersCount={orders.length}
-        loading={loading}
-        loadingOrders={loadingOrders}
-      />
+      {/* Show stats only if user has full access */}
+      {canAccessAdminPanel && (
+        <StatsCards
+          menuItemsCount={menuItems.length}
+          ordersCount={orders.length}
+          loading={loading}
+          loadingOrders={loadingOrders}
+        />
+      )}
 
-      <ManagerStatusBanner isPending={isPending} isManager={isManager} />
+      {/* Show manager status banner for pending users */}
+      {isPending && (
+        <div className="manager-status-banner pending">
+          <div className="banner-content">
+            <div className="banner-icon">
+              <svg className="warning-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="banner-text">
+              <p className="banner-message">
+                Your manager application is pending approval. Some features are limited until your application is approved.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Show limited access message for managers without admin panel access */}
+      {shouldShowOnlyRestaurantInfo && (
+        <div className="manager-status-banner info">
+          <div className="banner-content">
+            <div className="banner-icon">
+              <svg className="info-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="banner-text">
+              <p className="banner-message">
+                You have limited access. You can only manage restaurant information.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Tab.Pane eventKey="menu">
-        <Panel title="Menu Management" disabled={shouldDisableTabs} icon="coffee">
+        <Panel title="Menu Management" disabled={shouldShowOnlyRestaurantInfo} icon="coffee">
           <MenuManagement
             menuItems={menuItems}
             formData={formData}
             editId={editId}
             error={error}
-            disabled={shouldDisableTabs}
+            disabled={shouldDisableInteractions || shouldShowOnlyRestaurantInfo}
             onFormDataChange={handleChange}
             onSubmit={handleSubmit}
             onEdit={handleEdit}
@@ -382,7 +450,7 @@ const Admin: React.FC = () => {
       <Tab.Pane eventKey="orders">
         <Panel
           title="Orders History"
-          disabled={shouldDisableTabs}
+          disabled={shouldShowOnlyRestaurantInfo}
           icon="shopping-cart"
         >
           <OrdersHistory
@@ -391,23 +459,23 @@ const Admin: React.FC = () => {
             errorOrders={errorOrders}
             loadingOrders={loadingOrders}
             onToggleExpand={toggleExpand}
+            disabled={shouldDisableInteractions || shouldShowOnlyRestaurantInfo}
           />
         </Panel>
       </Tab.Pane>
 
       <Tab.Pane eventKey="stock">
-        <Panel title="Stock Management" disabled={shouldDisableTabs} icon="package">
-          <StockManagement menuItems={menuItems} loading={loading} />
+        <Panel title="Stock Management" disabled={shouldShowOnlyRestaurantInfo} icon="package">
+          <StockManagement 
+            menuItems={menuItems} 
+            loading={loading} 
+            disabled={shouldDisableInteractions || shouldShowOnlyRestaurantInfo}
+          />
         </Panel>
       </Tab.Pane>
 
       <Tab.Pane eventKey="restaurant information">
-        <RestaurantInformation
-          restaurantInfo={restaurantInfo}
-          restaurantTypes={restaurantTypes}
-          onRestaurantInfoChange={handleRestaurantInfoChange}
-          onSubmit={handleRestaurantInfoSubmit}
-        />
+        <RestaurantInformation disabled={shouldDisableInteractions} />
       </Tab.Pane>
     </AdminContainer>
   );

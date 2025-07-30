@@ -18,13 +18,14 @@ interface MenuItem {
 interface StockManagementProps {
   menuItems: MenuItem[];
   loading: boolean;
+  disabled?: boolean;
 }
 
 interface DebounceTimers {
   [key: number]: number;
 }
 
-const StockManagement: React.FC<StockManagementProps> = ({ menuItems, loading }) => {
+const StockManagement: React.FC<StockManagementProps> = ({ menuItems, loading, disabled = false }) => {
   const [items, setItems] = useState<MenuItem[]>(menuItems);
   const debounceTimers = useRef<DebounceTimers>({});
 
@@ -51,6 +52,8 @@ const StockManagement: React.FC<StockManagementProps> = ({ menuItems, loading })
   }, [menuItems]);
 
   const updateStock = async (id: number, quantity: number) => {
+    if (disabled) return;
+    
     try {
       await api.patch(`manager/menu-items/${id}/`, { quantity });
     } catch (error) {
@@ -58,8 +61,8 @@ const StockManagement: React.FC<StockManagementProps> = ({ menuItems, loading })
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, id: number | undefined) => {
-    if (id === undefined) return;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id: number | undefined) => {
+    if (id === undefined || disabled) return;
     const value = Number(e.target.value);
     if (isNaN(value) || value < 0) return;
 
@@ -77,7 +80,7 @@ const StockManagement: React.FC<StockManagementProps> = ({ menuItems, loading })
   };
 
   const incrementQuantity = (id: number | undefined, delta: number) => {
-    if (id === undefined) return;
+    if (id === undefined || disabled) return;
 
     setItems((prev) => {
       const newItems = prev.map((item) =>
@@ -136,7 +139,7 @@ const StockManagement: React.FC<StockManagementProps> = ({ menuItems, loading })
                     variant="outline-danger"
                     size="sm"
                     onClick={() => incrementQuantity(item.id, -1)}
-                    disabled={(item.quantity ?? 0) <= 0}
+                    disabled={(item.quantity ?? 0) <= 0 || disabled}
                     className="btn-decrement"
                   >
                     -
@@ -147,12 +150,14 @@ const StockManagement: React.FC<StockManagementProps> = ({ menuItems, loading })
                     value={item.quantity ?? 0}
                     onChange={(e) => handleInputChange(e, item.id)}
                     className="input-quantity"
+                    disabled={disabled}
                   />
                   <Button
                     variant="outline-success"
                     size="sm"
                     onClick={() => incrementQuantity(item.id, 1)}
                     className="btn-increment"
+                    disabled={disabled}
                   >
                     +
                   </Button>

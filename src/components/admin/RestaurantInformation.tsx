@@ -19,6 +19,10 @@ interface RestaurantInfo {
   isPublished: boolean;
 }
 
+interface RestaurantFormProps {
+  disabled?: boolean;
+}
+
 const token = localStorage.getItem("token");
 const csrfToken =
   document.cookie
@@ -35,7 +39,7 @@ const api = axios.create({
   },
 });
 
-const RestaurantForm: React.FC = () => {
+const RestaurantForm: React.FC<RestaurantFormProps> = ({ disabled = false }) => {
   const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>({
     name: "",
     description: "",
@@ -69,12 +73,18 @@ const RestaurantForm: React.FC = () => {
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value, type, checked, files } = e.target;
+    if (disabled) return;
+    
+    const { name, value, type } = e.target;
 
     if (type === "checkbox") {
+      const checked = (e.target as HTMLInputElement).checked;
       setRestaurantInfo((prev) => ({ ...prev, [name]: checked }));
-    } else if (type === "file" && files) {
-      setRestaurantInfo((prev) => ({ ...prev, [name]: files[0] }));
+    } else if (type === "file") {
+      const files = (e.target as HTMLInputElement).files;
+      if (files) {
+        setRestaurantInfo((prev) => ({ ...prev, [name]: files[0] }));
+      }
     } else if (type === "select-one") {
       setRestaurantInfo((prev) => ({
         ...prev,
@@ -87,41 +97,31 @@ const RestaurantForm: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (disabled) return;
+    
     setLoading(true);
     setSuccessMessage("");
     setErrorMessage("");
 
     const formData = new FormData();
-    formData.append("restaurant[name]", restaurantInfo.name);
-    formData.append("restaurant[description]", restaurantInfo.description);
-    formData.append("restaurant[city_id]", String(restaurantInfo.cityId));
-    formData.append(
-      "restaurant[restaurant_type_id]",
-      String(restaurantInfo.restaurantTypeId)
-    );
-    formData.append(
-      "restaurant[delivery_cost]",
-      String(restaurantInfo.deliveryCost ?? 0)
-    );
-    formData.append(
-      "restaurant[is_nightwalker]",
-      restaurantInfo.isNightwalker.toString()
-    );
-    formData.append(
-      "restaurant[is_published]",
-      restaurantInfo.isPublished.toString()
-    );
+    formData.append("name", restaurantInfo.name);
+    formData.append("description", restaurantInfo.description);
+    formData.append("city_id", String(restaurantInfo.cityId));
+    formData.append("restaurant_type_id", String(restaurantInfo.restaurantTypeId));
+    formData.append("delivery_cost", String(restaurantInfo.deliveryCost ?? 0));
+    formData.append("is_nightwalker", restaurantInfo.isNightwalker.toString());
+    formData.append("is_published", restaurantInfo.isPublished.toString());
 
     if (restaurantInfo.coverImage) {
-      formData.append("restaurant[cover_image]", restaurantInfo.coverImage);
+      formData.append("cover_image", restaurantInfo.coverImage);
     }
     if (restaurantInfo.logo) {
-      formData.append("restaurant[logo]", restaurantInfo.logo);
+      formData.append("logo", restaurantInfo.logo);
     }
 
     try {
       await api.post("/accounts/create-restaurant/", formData, {
-        headers: { "Content-Type": "multipart/form-data", },
+        headers: { "Content-Type": "multipart/form-data" },
       });
       setSuccessMessage("Restaurant created successfully.");
       setRestaurantInfo({
@@ -138,9 +138,9 @@ const RestaurantForm: React.FC = () => {
     } catch (err: any) {
       console.error(err);
       if (err.response?.status === 403) {
-        setErrorMessage(
-          "Access denied: You do not have permission to create a restaurant."
-        );
+        setErrorMessage("Access denied: You do not have permission to create a restaurant.");
+      } else if (err.response?.data?.error) {
+        setErrorMessage(err.response.data.error);
       } else {
         setErrorMessage("Failed to create restaurant.");
       }
@@ -162,6 +162,7 @@ const RestaurantForm: React.FC = () => {
             onChange={handleChange}
             placeholder="Enter restaurant name"
             required
+            disabled={disabled}
           />
         </Form.Group>
 
@@ -175,6 +176,7 @@ const RestaurantForm: React.FC = () => {
             placeholder="Enter restaurant description"
             rows={3}
             required
+            disabled={disabled}
           />
         </Form.Group>
 
@@ -185,6 +187,7 @@ const RestaurantForm: React.FC = () => {
             value={restaurantInfo.cityId}
             onChange={handleChange}
             required
+            disabled={disabled}
           >
             <option value="">Select city</option>
             {cities.map((city) => (
@@ -202,12 +205,12 @@ const RestaurantForm: React.FC = () => {
             name="coverImage"
             onChange={handleChange}
             accept="image/*"
+            disabled={disabled}
           />
           {restaurantInfo.coverImage && (
             <img
               src={URL.createObjectURL(restaurantInfo.coverImage)}
               alt="Cover preview"
-              className="image-preview cover-preview"
               style={{ maxWidth: "200px", marginTop: "10px" }}
             />
           )}
@@ -220,12 +223,12 @@ const RestaurantForm: React.FC = () => {
             name="logo"
             onChange={handleChange}
             accept="image/*"
+            disabled={disabled}
           />
           {restaurantInfo.logo && (
             <img
               src={URL.createObjectURL(restaurantInfo.logo)}
               alt="Logo preview"
-              className="image-preview logo-preview"
               style={{ maxWidth: "200px", marginTop: "10px" }}
             />
           )}
@@ -238,6 +241,7 @@ const RestaurantForm: React.FC = () => {
             value={restaurantInfo.restaurantTypeId}
             onChange={handleChange}
             required
+            disabled={disabled}
           >
             <option value="">Select type</option>
             {restaurantTypes.map((type) => (
@@ -257,6 +261,7 @@ const RestaurantForm: React.FC = () => {
             onChange={handleChange}
             placeholder="Enter delivery cost"
             min="0"
+            disabled={disabled}
           />
         </Form.Group>
 
@@ -267,6 +272,7 @@ const RestaurantForm: React.FC = () => {
           checked={restaurantInfo.isNightwalker}
           onChange={handleChange}
           className="mb-2"
+          disabled={disabled}
         />
 
         <Form.Check
@@ -276,12 +282,13 @@ const RestaurantForm: React.FC = () => {
           checked={restaurantInfo.isPublished}
           onChange={handleChange}
           className="mb-3"
+          disabled={disabled}
         />
 
         {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
         {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
-        <Button type="submit" disabled={loading}>
+        <Button type="submit" disabled={loading || disabled}>
           {loading ? <Spinner animation="border" size="sm" /> : "Save Restaurant"}
         </Button>
       </Form>
