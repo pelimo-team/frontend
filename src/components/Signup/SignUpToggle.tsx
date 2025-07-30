@@ -27,33 +27,23 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ onToggle }) => {
       ? 'knob-red'
       : '';
 
-  return (
-    <div
-      className="signup-toggle-btn"
-      style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-    >
-      <label className="user-label">normal user</label>
-      <div className="toggle-container">
-        <input
-          className="toggle-input"
-          type="checkbox"
-          onClick={handleClick}
-        />
-        <div className="toggle-handle-wrapper">
-          <div className="toggle-handle">
-            <div className={`toggle-handle-knob ${knobColorClass}`}></div>
-            <div className="toggle-handle-bar-wrapper">
-              <div className="toggle-handle-bar"></div>
-            </div>
-          </div>
+      return (
+        <div
+          className="signup-toggle-btn"
+          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+        >
+          <label className="user-label">normal user</label>
+    
+          {/* Uiverse toggle starts here */}
+          <label className="switch">
+            <input type="checkbox" onClick={handleClick} />
+            <span className="slider"></span>
+          </label>
+          {/* Uiverse toggle ends here */}
+    
+          <label className="manager-label">manager</label>
         </div>
-        <div className="toggle-base">
-          <div className="toggle-base-inside"></div>
-        </div>
-      </div>
-      <label className="manager-label">manager</label>
-    </div>
-  );
+      );
 };
 
 export default ToggleButton;
