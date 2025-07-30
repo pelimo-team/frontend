@@ -90,10 +90,10 @@ const Header = () => {
                     className={styles["fifth-line"]}
                     onClick={() => {
                       
-                      navigate("/");
+                      navigate("/orders");
                     }}
                   >
-                    order history
+                    Order detail
                   </a>
                 </div>
               )}
