@@ -42,7 +42,7 @@ const FoodDetail: React.FC = () => {
 
         <div className="food-info">
           <h1 className="food-name">{item.name}</h1>
-          <h2 className="restaurant-name">{item.restaurant?.name}</h2>
+          <h2 className="restaurant-name" style={{fontSize:"2.5rem"}}>{item.restaurant?.name}</h2>
 
 
 

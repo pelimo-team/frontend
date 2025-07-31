@@ -425,7 +425,7 @@ body {
 }
 
 .food-name {
-  font-size: 2.25rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #333;
   margin-bottom: 0.75rem;
@@ -444,7 +444,7 @@ body {
 }
 
 .food-description {
-  font-size: 1rem;
+  font-size: 2rem;
   line-height: 1.7;
   color: #555;
   margin-bottom: 2rem;
