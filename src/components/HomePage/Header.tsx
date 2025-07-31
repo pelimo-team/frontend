@@ -21,6 +21,7 @@ const Header = () => {
     navigate("/login"); // هدایت به صفحه ورود
     localStorage.removeItem("canvasBlocks");
     localStorage.removeItem("canvasRecipes");
+    localStorage.removeItem("activeTab");
   };
   useEffect(() => {
     if (isLoggedIn) {
@@ -149,7 +150,7 @@ const Header = () => {
         <input
           type="text"
           name="search"
-          placeholder="Search..."
+          placeholder="Search restaurant..."
           className={styles["search-input"]}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}

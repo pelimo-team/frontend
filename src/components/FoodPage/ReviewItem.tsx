@@ -68,7 +68,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
       <p className="review-comment">{review.comment}</p>
 
       <div className="review-actions">
-        <button
+        {/* <button
           className={`action-btn like-btn ${voted === "like" ? "voted" : ""}`}
           onClick={() => onLike(review.id)}
           disabled={voted === "like"}
@@ -86,7 +86,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
         >
           <ThumbsDown size={16} />
           <span className="action-count">{review.dislikes}</span>
-        </button>
+        </button> */}
 
         {/* <button
           className="action-btn reply-btn"
