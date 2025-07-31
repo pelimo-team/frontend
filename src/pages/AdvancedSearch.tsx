@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import "../styles/AdvancedSearch.css";
 import { useLocation } from "react-router-dom";
 import {
-  
   FilterType,
   Restaurant,
   MenuItem,
@@ -16,23 +15,40 @@ import { categoryMap } from "../components/AdvancedSearch/types";
 const AdvancedSearch: React.FC = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const searchQuery = queryParams.get("query") || "";
+  const searchQuery = queryParams.get("query");
 
-  const [searchText, setSearchText] = useState<string>(searchQuery);
-  const { activeTab} = useContext(AuthContext);
+  const [searchText, setSearchText] = useState<string>(() => {
+    const saved = localStorage.getItem("searchText");
+    // If localStorage has a value, use it; otherwise use URL query param (if any)
+    return saved !== null ? saved : searchQuery || "";
+  });
+  
+  const [searchMode, setSearchMode] = useState<"restaurants" | "items">(() => {
+    return (
+      (localStorage.getItem("searchMode") as "restaurants" | "items") ||
+      "restaurants"
+    );
+  });
+
+  const { activeTab } = useContext(AuthContext);
   const [activeFilters, setActiveFilters] = useState<FilterType[]>([]);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [searchMode, setSearchMode] = useState<"restaurants" | "items">(
-    "restaurants"
-  );
+
   const [selectedShopIndex, setSelectedShopIndex] = useState<number | null>(
     null
   );
   const [showAllItems, setShowAllItems] = useState<boolean>(false);
-
+  useEffect(() => {
+    localStorage.setItem("searchText", searchText);
+  }, [searchText]);
+  
+  useEffect(() => {
+    localStorage.setItem("searchMode", searchMode);
+  }, [searchMode]);
+  
   useEffect(() => {
     console.log("Search mode changed to:", searchMode);
     if (searchMode === "restaurants") {

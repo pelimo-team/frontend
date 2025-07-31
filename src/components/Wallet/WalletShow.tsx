@@ -198,12 +198,12 @@ const WalletShow: React.FC<WalletShowProps> = ({
         </div>
       </div>
 
-      <div className="wallet-transactions-section">
+      {/* <div className="wallet-transactions-section">
         <h2 className="wallet-transactions-title">Transaction History</h2>
         <p className="wallet-no-transactions">
           This section is temporarily disabled.
         </p>
-      </div>
+      </div> */}
 
       {/* POPUP MODAL */}
       {showPopup && (

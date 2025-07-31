@@ -91,7 +91,7 @@ body {
 /* چیدمان دو ستونه برای دسکتاپ */
 .wallet-content-grid {
     display: grid; /* استفاده از CSS Grid برای چیدمان */
-    grid-template-columns: 1.1fr 1.5fr; /* دو ستون: چپ (موجودی/دکمه) 1fr، راست (تراکنش‌ها) 1.5fr */
+    grid-template-columns: 1.1fr; /* دو ستون: چپ (موجودی/دکمه) 1fr، راست (تراکنش‌ها) 1.5fr */
     gap: 40px; /* فاصله بین ستون‌ها */
     text-align: left; /* تراز راست برای محتوای داخل گرید */
 }
