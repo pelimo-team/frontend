@@ -34,7 +34,7 @@ const games: GameItem[] = [
 ];
 
 const GamesSection: React.FC = () => {
-  const { totalScore: contextTotalScore, setTotalScore } = useScore();
+  const { setTotalScore } = useScore();
 
   const [backendScore, setBackendScore] = useState(0);
   const [localStorageBonus, setLocalStorageBonus] = useState(0);
