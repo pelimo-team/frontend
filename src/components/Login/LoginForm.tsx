@@ -70,7 +70,15 @@ const LoginForm = () => {
           }),
         });
 
-        const data = await response.json();
+        let data: any = {};
+        try {
+          data = await response.json();
+        }   catch (jsonError) {
+        // اگر بدنه پاسخ اصلاً JSON نباشه، این پیام نشون داده میشه
+          setErrorMessage("خطا در پاسخ سرور. لطفاً بعداً دوباره تلاش کنید.");
+          return;
+        }
+        console.log("Login response data:", data);
 
         if (response.ok) {
           localStorage.setItem("user", JSON.stringify(data.user));
@@ -78,12 +86,19 @@ const LoginForm = () => {
             localStorage.setItem("token", data.token);
           }
           navigate("/");
-        } else {
-          setErrorMessage(data.error || "Login failed. Please check your credentials.");
+        }   else {
+            const error =
+              typeof data?.error === "string"
+                ? data.error
+                : typeof data?.detail === "string"
+                ? data.detail
+                : JSON.stringify(data?.error || data?.detail || "نام کاربری یا رمز عبور اشتباه است.");
+
+            setErrorMessage(error);
         }
-      } catch (err) {
+    }   catch (err) {
         console.error("Login error:", err);
-        setErrorMessage("Network error. Please try again.");
+        setErrorMessage("خطای شبکه. لطفاً اتصال خود را بررسی کنید.");
       }
     }
   };
