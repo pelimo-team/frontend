@@ -572,7 +572,7 @@ text-shadow: 2px 2px 3px rgba(255,255,255,0.5);*/
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.best-ones-item .image-box {
+/* .best-ones-item .image-box {
   width: 100%;
   height: auto;
   border-radius: 10px;
@@ -587,7 +587,7 @@ text-shadow: 2px 2px 3px rgba(255,255,255,0.5);*/
 .best-ones-item .image-box img {
   width: 100%;
   height: auto;
-}
+} */
 .best-ones-item .info {
   margin-top: 10px;
 }

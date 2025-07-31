@@ -1,58 +1,40 @@
 import { useState, useEffect, useRef } from "react";
 import styles from "../../styles/HomePage.module.css";
+import { api } from "../../utils/api"; // Adjust the path if necessary
 
 interface Restaurant {
   id: number;
   name: string;
   location: string;
   rating: number;
-  image: string;
+  cover_image: string;
+  delivery_cost: number;
+  logo: string;
 }
 
-const bestOnesData: Restaurant[] = [
-  {
-    id: 1,
-    name: "Restaurant A",
-    location: "City A",
-    rating: 3,
-    image: "gettyimages-1273516682.jpg",
-  },
-  {
-    id: 2,
-    name: "Restaurant B",
-    location: "City B",
-    rating: 4,
-    image: "gettyimages-1273516682.jpg",
-  },
-  {
-    id: 3,
-    name: "Restaurant C",
-    location: "City C",
-    rating: 5,
-    image: "gettyimages-1273516682.jpg",
-  },
-  {
-    id: 4,
-    name: "Restaurant D",
-    location: "City D",
-    rating: 2,
-    image: "gettyimages-1273516682.jpg",
-  },
-];
-
 const BestOnesSection = () => {
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [startIndex, setStartIndex] = useState<number>(0);
   const itemsPerView = 2;
-  const maxIndex = bestOnesData.length - itemsPerView;
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const next = () => {
-    if (startIndex < maxIndex) setStartIndex(startIndex + 1);
-  };
+  useEffect(() => {
+    const fetchTopRestaurants = async () => {
+      try {
+        const data = await api.get("/api/restaurants/top/?n=5");
+        console.log(data);
+        setRestaurants(data);
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const prev = () => {
-    if (startIndex > 0) setStartIndex(startIndex - 1);
-  };
+    fetchTopRestaurants();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -75,7 +57,20 @@ const BestOnesSection = () => {
         if (card) observer.unobserve(card);
       });
     };
-  }, []);
+  }, [restaurants]);
+
+  const maxIndex = Math.max(0, restaurants.length - itemsPerView);
+
+  const next = () => {
+    if (startIndex < maxIndex) setStartIndex(startIndex + 1);
+  };
+
+  const prev = () => {
+    if (startIndex > 0) setStartIndex(startIndex - 1);
+  };
+
+  if (loading) return <p>Loading top restaurants...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <section className={styles["best-ones-section"]}>
@@ -94,7 +89,7 @@ const BestOnesSection = () => {
             className={styles["best-ones-slider"]}
             style={{ transform: `translateX(-${startIndex * 50}%)` }}
           >
-            {bestOnesData.map((item, index) => (
+            {restaurants.map((item, index) => (
               <div
                 key={item.id}
                 ref={(el) => {
@@ -102,13 +97,56 @@ const BestOnesSection = () => {
                 }}
                 className={`${styles["best-ones-item"]} ${styles["fade-in-on-scroll"]}`}
               >
-                <div className={styles["image-box"]}>
-                  <img src={item.image} alt={item.name} />
+                <div
+                  className="image-box"
+                  style={{ height: "30rem", width: "10rem", }}
+                >
+                  <div className={styles.info}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <img
+                        src={item.cover_image}
+                        alt={`${item.name} logo`}
+                        style={{
+                          width: "53rem",
+                          height: "30rem",
+                          objectFit: "cover",
+                          borderRadius: "1%",
+                          border: "2px solid #ccc",
+                          flexShrink: 0,
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className={styles.info}>
-                  <p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <img
+                      src={item.logo}
+                      alt={`${item.name} logo`}
+                      style={{
+                        width: "5rem",
+                        height: "5rem",
+                        objectFit: "cover",
+                        borderRadius: "50%",
+                        border: "2px solid #ccc",
+                        flexShrink: 0,
+                      }}
+                    />
+
                     <strong>{item.name}</strong>
-                  </p>
+                  </div>
                   <p>{item.location}</p>
                   <p>{"★".repeat(item.rating) + "☆".repeat(5 - item.rating)}</p>
                 </div>
