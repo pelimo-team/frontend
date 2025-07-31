@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../../styles/HomePage.module.css";
 import { api } from "../../utils/api"; // Adjust the path if necessary
 
@@ -19,6 +20,7 @@ const BestOnesSection = () => {
   const [startIndex, setStartIndex] = useState<number>(0);
   const itemsPerView = 2;
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTopRestaurants = async () => {
@@ -96,9 +98,12 @@ const BestOnesSection = () => {
                   cardRefs.current[index] = el;
                 }}
                 className={`${styles["best-ones-item"]} ${styles["fade-in-on-scroll"]}`}
+                onClick={() => navigate(`/restaurant/${item.id}`)} 
+                style={{ cursor: "pointer" }} 
               >
                 <div
                   className="image-box"
+                 
                   style={{ height: "30rem", width: "10rem", }}
                 >
                   <div className={styles.info}>
