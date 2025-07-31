@@ -13,6 +13,7 @@ interface PanelProps {
 const Panel: React.FC<PanelProps> = ({ 
   title, 
   disabled = false, 
+
   active = false,
   icon,
   children 

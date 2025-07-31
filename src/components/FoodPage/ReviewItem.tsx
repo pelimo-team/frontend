@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Send } from "lucide-react";
+
+import {  Send } from "lucide-react";
+
 import { Review } from "./Type";
 import StarRating from "./StarRating";
 import "../../styles/FoodPage.css";
@@ -15,9 +17,11 @@ interface ReviewItemProps {
 
 const ReviewItem: React.FC<ReviewItemProps> = ({
   review,
- 
-  onAddReply,
+
   
+  onAddReply,
+ 
+
 }) => {
   console.log("Review replies:", review.replies);
 

@@ -2,6 +2,7 @@ import { useRef, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/HomePage.module.css";
 import { useCart } from "../Cart/UseCart";
+import { api } from "../../utils/api";
 
 import { AuthContext } from "../../pages/AuthContext";
 
@@ -12,13 +13,31 @@ const Header = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isManager, setIsManager] = useState(false);
+  const [isManagerPending, setIsManagerPending] = useState(false);
   const handleLogout = () => {
     logout(); // خروج کاربر
     clearCart(); // پاک کردن سبد خرید
     navigate("/login"); // هدایت به صفحه ورود
-    localStorage.removeItem("canvasBlocks")
-    localStorage.removeItem("canvasRecipes")
+    localStorage.removeItem("canvasBlocks");
+    localStorage.removeItem("canvasRecipes");
+    localStorage.removeItem("activeTab");
   };
+  useEffect(() => {
+    if (isLoggedIn) {
+      api
+        .get("/api/accounts/manager-status/")
+        .then((data) => {
+          setIsManager(data.is_manager);
+          setIsManagerPending(data.manager_pending);
+        })
+        .catch((err) => {
+          console.error("Failed to fetch manager status", err);
+          setIsManager(false);
+          setIsManagerPending(false)
+        });
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -61,40 +80,52 @@ const Header = () => {
                 >
                   <a
                     className={styles["first-line"]}
-                    onClick={() => navigate("/userprofile")}
+                    onClick={() => {
+                      if (isManager || isManagerPending) {
+                        navigate("/admin");
+                      } else {
+                        navigate("/userprofile");
+                      }
+                      setShowDropdown(false); // optionally close dropdown after click
+                    }}
                   >
                     profile
                   </a>
                   <a className={styles["secend-line"]} onClick={handleLogout}>
                     logout
                   </a>
-                  <a
-                    className={styles["third-line"]}
-                    onClick={() => {
-                      
-                      navigate("/wallet");
-                    }}
-                  >
-                    wallet
-                  </a>
-                  <a
-                    className={styles["fourth-line"]}
-                    onClick={() => {
-                      
-                      navigate("/cart");
-                    }}
-                  >
-                    shopping cart
-                  </a>
-                  <a
-                    className={styles["fifth-line"]}
-                    onClick={() => {
-                      
-                      navigate("/");
-                    }}
-                  >
-                    order history
-                  </a>
+                  
+    {!isManager && !isManagerPending && (
+      <>
+        <a
+          className={styles["third-line"]}
+          onClick={() => {
+            navigate("/wallet");
+            setShowDropdown(false);
+          }}
+        >
+          wallet
+        </a>
+        <a
+          className={styles["fourth-line"]}
+          onClick={() => {
+            navigate("/cart");
+            setShowDropdown(false);
+          }}
+        >
+          shopping cart
+        </a>
+        <a
+          className={styles["fifth-line"]}
+          onClick={() => {
+            navigate("/orders");
+            setShowDropdown(false);
+          }}
+        >
+          Order detail
+        </a>
+      </>
+    )}
                 </div>
               )}
             </div>
@@ -108,7 +139,6 @@ const Header = () => {
             <a href="/signup" className={styles["signup-link"]}>
               Sign up
             </a>
-            
           </>
         )}
       </div>
@@ -120,7 +150,7 @@ const Header = () => {
         <input
           type="text"
           name="search"
-          placeholder="Search..."
+          placeholder="Search restaurant..."
           className={styles["search-input"]}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}

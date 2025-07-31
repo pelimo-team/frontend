@@ -46,6 +46,14 @@ const FoodDetail: React.FC = () => {
 
 
 
+
+{/* 
+          <div className="food-rating">
+            <StarRating rating={item.rate} />
+            <span className="rating-value">({item.rate})</span>
+          </div> */}
+
+
           <p className="food-description">{item.description}</p>
 
           {item.restaurant?.id ? (

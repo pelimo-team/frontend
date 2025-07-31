@@ -16,16 +16,11 @@ import AdvanceTasadofi from "./AdvanceTasadofi";
 import MenuBuilder from "./Model";
 import Cart from "./Cart";
 import AddCommentPage from "./AddCommentPage";
-
-
 import Wallet from "./Wallet";
 import Admin from "./Admin"
-
 import GuessTheDishGame from "./GuessTheDishGame";
-
 import { RecipePage } from "../components/scratch/RecipePage";
-
-
+import UserOrders from "./UserOrders"
 export const ProjectRoutes = () => {
   return (
     <Router>
@@ -84,6 +79,7 @@ export const ProjectRoutes = () => {
         <Route path="/recipe/:id" element={<RecipePage />} />
         <Route path="/games/guess-the-dish" element={< GuessTheDishGame />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/orders" element={<UserOrders />} />
       </Routes>
     </Router>
   );

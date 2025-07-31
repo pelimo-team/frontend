@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { api } from "../utils/api";
 import "../styles/Cart.css";
-
+import Swal from 'sweetalert2';
 import CartHeader from "../components/Cart/CartHeader";
 import CartRestaurantInfo from "../components/Cart/CartRestaurantInfo";
 import CartItem from "../components/Cart/CartItem";
@@ -66,20 +66,64 @@ const Cart: React.FC = () => {
       setError(err.message);
     }
   };
-  const clearCart = async (restaurantId: number) => {
-    if (
-      !window.confirm("are you sure you want to delete the basket?")
-    )
-      return;
+  
 
+  const clearCart = async (restaurantId: number) => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "This will delete the entire basket!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',     
+      cancelButtonColor: '#d33',         // red
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      backdrop: true,
+      allowOutsideClick: false,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp',
+      }
+    });
+  
+    if (!result.isConfirmed) return;
+  
     try {
       await api.delete(`/api/cart/clear/?restaurant_id=${restaurantId}`);
       await fetchCarts();
+  
+      Swal.fire({
+        title: 'Deleted!',
+        text: 'Your basket has been cleared.',
+        icon: 'success',
+        timer: 1000,
+        showConfirmButton: false,
+        toast: true,
+        position: 'top-end',
+        background: '#e6f4ea',
+        color: '#1e4620',
+        iconColor: '#1e4620',
+        showClass: {
+          popup: 'animate__animated animate__fadeInRight',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutRight',
+        }
+      });
+  
     } catch (err: any) {
       console.error("Error clearing cart:", err);
-      setError(err.message);
+      Swal.fire({
+        title: 'Error!',
+        text: 'There was an error clearing the basket.',
+        icon: 'error',
+        confirmButtonColor: '#d33',
+      });
     }
   };
+  
 
   if (loading) {
     return <CartLoading />;

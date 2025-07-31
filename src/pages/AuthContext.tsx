@@ -50,7 +50,11 @@ export const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<CategoryType>("Restaurant"); // New State
+  const [activeTab, setActiveTab] = useState<CategoryType>(() => {
+    const storedTab = localStorage.getItem("activeTab");
+    return (storedTab as CategoryType) || "Restaurant";
+  });
+  
   const [role, setRole] = useState<"user" | "manager" | "">(""); // New role state
    const [dishScore, setDishScore] = useState(0);
   const [puzzle2048Score, setPuzzle2048Score] = useState(0);
@@ -58,7 +62,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [minesScore, setMinesScore] = useState(0);
   const [username, setUsername] = useState<string>("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-
+  useEffect(() => {
+    localStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
