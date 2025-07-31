@@ -108,7 +108,7 @@ const MenuManagement: React.FC<MenuManagementProps> = ({
               />
             ))}
         </Form.Group>
-        <Form.Group className="mb-3">
+        {/* <Form.Group className="mb-3">
           <Form.Label>Rating</Form.Label>
           <Form.Control
             type="number"
@@ -121,7 +121,7 @@ const MenuManagement: React.FC<MenuManagementProps> = ({
             placeholder="Enter rating (0-5)"
             disabled={disabled}
           />
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group className="mb-3">
           <Form.Label>Quantity</Form.Label>
           <Form.Control

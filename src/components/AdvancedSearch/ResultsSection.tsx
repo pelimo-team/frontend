@@ -93,8 +93,8 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                   ⭐{" "}
                   {restaurant.average_rating
                     ? restaurant.average_rating.toFixed(1)
-                    : "N/A"}{" "}
-                  | {restaurant.reviews_count || 0} Comment
+                    : "0"}{" "}
+                  
                 </div>
                 <div className="delivery-cost-advanced-search">
                   🛵 Delivery Cost :{" "}
@@ -141,7 +141,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                     <p className="item-category">{item.category_name}</p>
                   )}
                   <div className="item-rating">
-                    ⭐ {item.rate ? item.rate.toFixed(1) : "N/A"}
+                    ⭐ {item.rate ? item.rate.toFixed(1) : "0"}
                   </div>
                   <div className="item-price">
                     {item.onsale ? (
