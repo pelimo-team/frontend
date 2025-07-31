@@ -8,7 +8,6 @@ import {
   Panel,
   Loading,
   StatsCards,
-  ManagerStatusBanner,
   MenuManagement,
   OrdersHistory,
   StockManagement,
@@ -52,21 +51,29 @@ type OrderItem = {
 type Order = {
   id: number;
   created_at: string;
-  status: "paid" | "done";
+  status:
+    | "pending"
+    | "confirmed"
+    | "preparing"
+    | "ready"
+    | "delivering"
+    | "delivered"
+    | "cancelled"
+    | "done";
   items: OrderItem[];
 };
 
-type RestaurantInfo = {
-  name: string;
-  description: string;
-  city: string;
-  coverImage: File | string | null;
-  logo: File | string | null;
-  type: string;
-  deliveryCost: number | null;
-  isNightwalker: boolean;
-  isPublished: boolean;
-};
+// type RestaurantInfo = {
+//   name: string;
+//   description: string;
+//   city: string;
+//   coverImage: File | string | null;
+//   logo: File | string | null;
+//   type: string;
+//   deliveryCost: number | null;
+//   isNightwalker: boolean;
+//   isPublished: boolean;
+// };
 
 type ManagerStatus = {
   is_manager: boolean;
@@ -92,18 +99,47 @@ const Admin: React.FC = () => {
     can_access_admin_panel: false,
   });
   const [loadingStatus, setLoadingStatus] = useState(true);
+  const handleStatusChange = async (
+    orderId: number,
+    newStatus:
+    | "pending"
+    | "confirmed"
+    | "preparing"
+    | "ready"
+    | "delivering"
+    | "delivered"
+    | "cancelled"
+    | "done"
+  ) => {
+    setLoadingOrders(true);
+    setErrorOrders(null);
 
-  const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>({
-    name: "",
-    description: "",
-    city: "",
-    coverImage: null,
-    logo: null,
-    type: "",
-    deliveryCost: null,
-    isNightwalker: false,
-    isPublished: false,
-  });
+    try {
+      await api.patch(`cart/manager-order/${orderId}/`, { status: newStatus });
+
+      setOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order.id === orderId ? { ...order, status: newStatus } : order
+        )
+      );
+    } catch (error) {
+      setErrorOrders("Failed to update order status.");
+    } finally {
+      setLoadingOrders(false);
+    }
+  };
+
+  // const [restaurantInfo, setRestaurantInfo] = useState<RestaurantInfo>({
+  //   name: "",
+  //   description: "",
+  //   city: "",
+  //   coverImage: null,
+  //   logo: null,
+  //   type: "",
+  //   deliveryCost: null,
+  //   isNightwalker: false,
+  //   isPublished: false,
+  // });
 
   const [formData, setFormData] = useState<MenuItem>({
     name: "",
@@ -126,14 +162,14 @@ const Admin: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [errorOrders, setErrorOrders] = useState<string | null>(null);
 
-  const restaurantTypes = [
-    "restaurant",
-    "fastfood",
-    "juice and ice cream",
-    "fruits",
-    "confectionary",
-    "coffee shop",
-  ];
+  // const restaurantTypes = [
+  //   "restaurant",
+  //   "fastfood",
+  //   "juice and ice cream",
+  //   "fruits",
+  //   "confectionary",
+  //   "coffee shop",
+  // ];
 
   useEffect(() => {
     const fetchManagerStatus = async () => {
@@ -160,7 +196,6 @@ const Admin: React.FC = () => {
         if (status.is_manager && !status.can_access_admin_panel) {
           setActiveTab("restaurant information");
         }
-
       } catch (error) {
         console.error("Error fetching manager status:", error);
         navigate("/login");
@@ -190,8 +225,10 @@ const Admin: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (activeTab === "menu" && managerStatus.can_access_admin_panel) fetchMenuItems();
-    if (activeTab === "orders" && managerStatus.can_access_admin_panel) fetchOrders();
+    if (activeTab === "menu" && managerStatus.can_access_admin_panel)
+      fetchMenuItems();
+    if (activeTab === "orders" && managerStatus.can_access_admin_panel)
+      fetchOrders();
   }, [activeTab, managerStatus]);
 
   useEffect(() => {
@@ -306,45 +343,45 @@ const Admin: React.FC = () => {
     }
   };
 
-  const handleRestaurantInfoChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const { name, type, value, files } = e.target as HTMLInputElement;
-    if (type === "file" && files && files.length > 0) {
-      setRestaurantInfo((prev) => ({ ...prev, [name]: files[0] }));
-    } else if (type === "checkbox") {
-      const checked = (e.target as HTMLInputElement).checked;
-      setRestaurantInfo((prev) => ({ ...prev, [name]: checked }));
-    } else if (name === "deliveryCost") {
-      setRestaurantInfo((prev) => ({
-        ...prev,
-        [name]: value ? Number(value) : null,
-      }));
-    } else {
-      setRestaurantInfo((prev) => ({ ...prev, [name]: value }));
-    }
-  };
+  // const handleRestaurantInfoChange = (
+  //   e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  // ) => {
+  //   const { name, type, value, files } = e.target as HTMLInputElement;
+  //   if (type === "file" && files && files.length > 0) {
+  //     setRestaurantInfo((prev) => ({ ...prev, [name]: files[0] }));
+  //   } else if (type === "checkbox") {
+  //     const checked = (e.target as HTMLInputElement).checked;
+  //     setRestaurantInfo((prev) => ({ ...prev, [name]: checked }));
+  //   } else if (name === "deliveryCost") {
+  //     setRestaurantInfo((prev) => ({
+  //       ...prev,
+  //       [name]: value ? Number(value) : null,
+  //     }));
+  //   } else {
+  //     setRestaurantInfo((prev) => ({ ...prev, [name]: value }));
+  //   }
+  // };
 
-  const handleRestaurantInfoSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError(null);
+  // const handleRestaurantInfoSubmit = async (e: FormEvent) => {
+  //   e.preventDefault();
+  //   setError(null);
 
-    const infoPayload = new FormData();
-    Object.entries(restaurantInfo).forEach(([key, value]) => {
-      if (value !== null) {
-        if (value instanceof File) infoPayload.append(key, value);
-        else infoPayload.append(key, String(value));
-      }
-    });
+  //   const infoPayload = new FormData();
+  //   Object.entries(restaurantInfo).forEach(([key, value]) => {
+  //     if (value !== null) {
+  //       if (value instanceof File) infoPayload.append(key, value);
+  //       else infoPayload.append(key, String(value));
+  //     }
+  //   });
 
-    try {
-      await api.post("restaurant-info/", infoPayload, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-    } catch {
-      setError("Error saving restaurant information");
-    }
-  };
+  //   try {
+  //     await api.post("restaurant-info/", infoPayload, {
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     });
+  //   } catch {
+  //     setError("Error saving restaurant information");
+  //   }
+  // };
 
   if (loadingStatus) {
     return <Loading />;
@@ -357,7 +394,7 @@ const Admin: React.FC = () => {
 
   // If manager is pending approval, allow access but disable interactions
   const shouldDisableInteractions = isPending;
-  
+
   // If manager can't access admin panel, only show restaurant info
   const shouldShowOnlyRestaurantInfo = isManager && !canAccessAdminPanel;
 
@@ -400,13 +437,22 @@ const Admin: React.FC = () => {
         <div className="manager-status-banner pending">
           <div className="banner-content">
             <div className="banner-icon">
-              <svg className="warning-icon" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              <svg
+                className="warning-icon"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
               </svg>
             </div>
             <div className="banner-text">
               <p className="banner-message">
-                Your manager application is pending approval. Some features are limited until your application is approved.
+                Your manager application is pending approval. Some features are
+                limited until your application is approved.
               </p>
             </div>
           </div>
@@ -418,13 +464,22 @@ const Admin: React.FC = () => {
         <div className="manager-status-banner info">
           <div className="banner-content">
             <div className="banner-icon">
-              <svg className="info-icon" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              <svg
+                className="info-icon"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clipRule="evenodd"
+                />
               </svg>
             </div>
             <div className="banner-text">
               <p className="banner-message">
-                You have limited access. You can only manage restaurant information.
+                You have limited access. You can only manage restaurant
+                information.
               </p>
             </div>
           </div>
@@ -432,7 +487,11 @@ const Admin: React.FC = () => {
       )}
 
       <Tab.Pane eventKey="menu">
-        <Panel title="Menu Management" disabled={shouldShowOnlyRestaurantInfo} icon="coffee">
+        <Panel
+          title="Menu Management"
+          disabled={shouldShowOnlyRestaurantInfo}
+          icon="coffee"
+        >
           <MenuManagement
             menuItems={menuItems}
             formData={formData}
@@ -459,16 +518,21 @@ const Admin: React.FC = () => {
             errorOrders={errorOrders}
             loadingOrders={loadingOrders}
             onToggleExpand={toggleExpand}
+            onStatusChange={handleStatusChange} 
             disabled={shouldDisableInteractions || shouldShowOnlyRestaurantInfo}
           />
         </Panel>
       </Tab.Pane>
 
       <Tab.Pane eventKey="stock">
-        <Panel title="Stock Management" disabled={shouldShowOnlyRestaurantInfo} icon="package">
-          <StockManagement 
-            menuItems={menuItems} 
-            loading={loading} 
+        <Panel
+          title="Stock Management"
+          disabled={shouldShowOnlyRestaurantInfo}
+          icon="package"
+        >
+          <StockManagement
+            menuItems={menuItems}
+            loading={loading}
             disabled={shouldDisableInteractions || shouldShowOnlyRestaurantInfo}
           />
         </Panel>
