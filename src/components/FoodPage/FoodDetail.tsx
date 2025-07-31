@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { MenuItem } from "../../components/AdvancedSearch/types";
-import StarRating from "./StarRating";
 import AddToBasket from "./AddToBasket";
 import ReviewSection from "./ReviewSection";
 import { api } from "../../utils/api"; // ← آدرس دقیق نسبت به پروژه‌ات

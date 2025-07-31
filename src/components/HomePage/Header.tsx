@@ -95,7 +95,7 @@ const Header = () => {
                     logout
                   </a>
                   
-    {!isManager && (
+    {!isManager || !isManagerPending && (
       <>
         <a
           className={styles["third-line"]}

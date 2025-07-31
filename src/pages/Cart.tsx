@@ -98,7 +98,7 @@ const Cart: React.FC = () => {
         title: 'Deleted!',
         text: 'Your basket has been cleared.',
         icon: 'success',
-        timer: 2000,
+        timer: 1000,
         showConfirmButton: false,
         toast: true,
         position: 'top-end',
