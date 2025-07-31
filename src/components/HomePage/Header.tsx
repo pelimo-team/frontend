@@ -22,6 +22,8 @@ const Header = () => {
     localStorage.removeItem("canvasBlocks");
     localStorage.removeItem("canvasRecipes");
     localStorage.removeItem("activeTab");
+    localStorage.removeItem("searchMode");
+    localStorage.removeItem("searchText");
   };
   useEffect(() => {
     if (isLoggedIn) {

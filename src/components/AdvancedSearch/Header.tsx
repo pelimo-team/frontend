@@ -79,7 +79,15 @@ const Header: React.FC<HeaderProps> = ({
             onChange={(e) => setSearchText(e.target.value)}
             placeholder="Search..."
           />
-          <button className="close-btn-advanced-search">✕</button>
+          <button
+            className="close-btn-advanced-search"
+            onClick={() => {
+              setSearchText("");
+              localStorage.removeItem("searchText");
+            }}
+          >
+            ✕
+          </button>
         </div>
         <div className="search-toggle-advanced-search">
           <button
