@@ -44,10 +44,7 @@ const FoodDetail: React.FC = () => {
           <h1 className="food-name">{item.name}</h1>
           <h2 className="restaurant-name">{item.restaurant?.name}</h2>
 
-          <div className="food-rating">
-            <StarRating rating={item.rate} />
-            <span className="rating-value">({item.rate})</span>
-          </div>
+
 
           <p className="food-description">{item.description}</p>
 
