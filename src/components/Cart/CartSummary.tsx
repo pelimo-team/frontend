@@ -62,7 +62,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ items, deliveryCost,onClearCa
 
       setMessage("payment done succesfuly✅");
       setMessageType("success");
-
+      
       // بعد پرداخت، میتونی موجودی کیف پول رو دوباره بروزرسانی کنی اگر میخوای
       // fetchWalletBalance(); // اگر بخوای این رو به useEffect خارجیش منتقل کنی یا داخل تابع جداگانه بذاری
     } catch (error: any) {
