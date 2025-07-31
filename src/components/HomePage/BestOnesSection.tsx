@@ -8,7 +8,8 @@ interface Restaurant {
   location: string;
   rating: number;
   cover_image: string;
-  delivery_cost:number;
+  delivery_cost: number;
+  logo: string;
 }
 
 const BestOnesSection = () => {
@@ -23,7 +24,7 @@ const BestOnesSection = () => {
     const fetchTopRestaurants = async () => {
       try {
         const data = await api.get("/api/restaurants/top/?n=5");
-        console.log(data)
+        console.log(data);
         setRestaurants(data);
       } catch (err) {
         setError((err as Error).message);
@@ -96,16 +97,56 @@ const BestOnesSection = () => {
                 }}
                 className={`${styles["best-ones-item"]} ${styles["fade-in-on-scroll"]}`}
               >
-                <div className={styles["image-box"]}>
-                  <img src={item.cover_image} alt={item.name} />
+                <div
+                  className="image-box"
+                  style={{ height: "30rem", width: "10rem", }}
+                >
+                  <div className={styles.info}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <img
+                        src={item.cover_image}
+                        alt={`${item.name} logo`}
+                        style={{
+                          width: "53rem",
+                          height: "30rem",
+                          objectFit: "cover",
+                          borderRadius: "1%",
+                          border: "2px solid #ccc",
+                          flexShrink: 0,
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className={styles.info}>
-                  <p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <img
+                      src={item.logo}
+                      alt={`${item.name} logo`}
+                      style={{
+                        width: "5rem",
+                        height: "5rem",
+                        objectFit: "cover",
+                        borderRadius: "50%",
+                        border: "2px solid #ccc",
+                        flexShrink: 0,
+                      }}
+                    />
+
                     <strong>{item.name}</strong>
-                  </p>
-                  <p>
-                    <strong>{item.delivery_cost}</strong>
-                  </p>
+                  </div>
                   <p>{item.location}</p>
                   <p>{"★".repeat(item.rating) + "☆".repeat(5 - item.rating)}</p>
                 </div>
