@@ -59,7 +59,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
       <div className="review-header">
         <div className="user-info">
           <div>
-            <h4 className="user-name">{review.user}</h4>
+            <h4 className="user-name"style={{fontSize:"2rem"}}>{review.user}</h4>
             <span className="review-date">{formatDate(review.created_at)}</span>
           </div>
         </div>
@@ -68,7 +68,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
         </div>
       </div>
 
-      <p className="review-comment">{review.comment}</p>
+      <p className="review-comment" style={{fontSize:"1.5rem"}}>{review.comment}</p>
 
       <div className="review-actions">
         {/* <button

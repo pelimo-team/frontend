@@ -47,7 +47,7 @@ const AddReview: React.FC<AddReviewProps> = ({ onAddReview }) => {
 
   return (
     <div className="add-review">
-      <h3> add your comment</h3>
+      <h3 style={{fontSize:"1.5rem"}}> add your comment</h3>
 
       <form onSubmit={handleSubmit} className={submitted ? "submitted" : ""}>
         <div className="rating-field">
