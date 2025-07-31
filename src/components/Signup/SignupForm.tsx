@@ -141,7 +141,7 @@ const SignupForm = () => {
           res.json().then((data) => ({ status: res.status, data }))
         )
         .then(({ status, data }) => {
-          if (status === 200 ) {
+          if (status === 200||201 ) {
             navigate(
               `/enter-code-signup?email=${encodeURIComponent(formData.email)}`
             );
