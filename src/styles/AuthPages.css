@@ -109,7 +109,7 @@
 /* پیام خطا */
 .login-error {
   color: #d8000c;
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: bold;
   text-align: center;
   margin-top: 12px;

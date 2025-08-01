@@ -127,7 +127,7 @@ const LoginForm = () => {
       />
 
       {passwordError && <small className="login-error">{passwordError}</small>}
-      {errorMessage && <div className="login-error">incorrect password</div>}
+      {errorMessage && <div className="login-error">incorrect password/user name or user not found</div>}
 
       <div className="login-extra" style={{ marginTop: "10px" }}>
         <a href="/forgot-password">Forgot password?</a>
