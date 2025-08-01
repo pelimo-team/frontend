@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import styles from "../../styles/HomePage.module.css";
-import { api } from "../../utils/api"; // Adjust the path if necessary
+import { api } from "../../utils/api";
 
 interface Restaurant {
   id: number;
@@ -24,7 +24,6 @@ const BestOnesSection = () => {
     const fetchTopRestaurants = async () => {
       try {
         const data = await api.get("/api/restaurants/top/?n=5");
-        console.log(data);
         setRestaurants(data);
       } catch (err) {
         setError((err as Error).message);
@@ -32,7 +31,6 @@ const BestOnesSection = () => {
         setLoading(false);
       }
     };
-
     fetchTopRestaurants();
   }, []);
 
@@ -97,54 +95,20 @@ const BestOnesSection = () => {
                 }}
                 className={`${styles["best-ones-item"]} ${styles["fade-in-on-scroll"]}`}
               >
-                <div
-                  className="image-box"
-                  style={{ height: "30rem", width: "10rem", }}
-                >
-                  <div className={styles.info}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                      }}
-                    >
-                      <img
-                        src={item.cover_image}
-                        alt={`${item.name} logo`}
-                        style={{
-                          width: "53rem",
-                          height: "30rem",
-                          objectFit: "cover",
-                          borderRadius: "1%",
-                          border: "2px solid #ccc",
-                          flexShrink: 0,
-                        }}
-                      />
-                    </div>
-                  </div>
+                <div className={styles["image-box"]}>
+                  <img
+                    src={item.cover_image}
+                    alt={`${item.name} cover`}
+                    className={styles["restaurant-cover"]}
+                  />
                 </div>
-                <div className={styles.info}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
+                <div className={styles["info"]}>
+                  <div className={styles["info-header"]}>
                     <img
                       src={item.logo}
                       alt={`${item.name} logo`}
-                      style={{
-                        width: "5rem",
-                        height: "5rem",
-                        objectFit: "cover",
-                        borderRadius: "50%",
-                        border: "2px solid #ccc",
-                        flexShrink: 0,
-                      }}
+                      className={styles["restaurant-logo"]}
                     />
-
                     <strong>{item.name}</strong>
                   </div>
                   <p>{item.location}</p>
