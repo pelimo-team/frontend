@@ -105,7 +105,7 @@ const SignupForm = () => {
       let headers: HeadersInit = {};
 
       if (role === "manager" && managerImage) {
-        endpoint =url + "register/";
+        endpoint = url + "register/";
         const formDataToSend = new FormData();
         formDataToSend.append("username", formData.username);
         formDataToSend.append("password", formData.password);
@@ -141,7 +141,7 @@ const SignupForm = () => {
           res.json().then((data) => ({ status: res.status, data }))
         )
         .then(({ status, data }) => {
-          if (status === 200||201 ) {
+          if (status === 200 || 201) {
             navigate(
               `/enter-code-signup?email=${encodeURIComponent(formData.email)}`
             );
@@ -206,7 +206,11 @@ const SignupForm = () => {
           icon="phone.png"
           error={phoneError}
         />
-        <h1 className="upload_label">upload your documents</h1>
+        {role == "manager" && (
+          <div>
+            <h1 className="upload_label">upload your documents</h1>
+          </div>
+        )}
         {role === "manager" && (
           <div className="signup-upload">
             <input

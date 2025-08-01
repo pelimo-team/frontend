@@ -140,9 +140,9 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({
                   {item.category_name && (
                     <p className="item-category">{item.category_name}</p>
                   )}
-                  <div className="item-rating">
+                  {/* <div className="item-rating">
                     ⭐ {item.rate ? item.rate.toFixed(1) : "0"}
-                  </div>
+                  </div> */}
                   <div className="item-price">
                     {item.onsale ? (
                       <>
