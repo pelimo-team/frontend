@@ -1,0 +1,152 @@
+:root {
+  --bg-color: #F4F1EB;
+  --box-color: #ffffff;
+  --border-color: #D4B7A3;
+  --text-color: #1C1C1C;
+  --accent-color: #8B573C;
+  --button-bg: #fcddbc;
+  --button-bg-hover: #f39120;
+}
+
+/* کلیت پنل غذا */
+.food-admin-panel {
+  background-color: var(--bg-color);
+  padding: 40px;
+  min-height: 100vh;
+  border-radius: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+}
+
+/* عنوان صفحه */
+.food-admin-panel h2 {
+  color: var(--accent-color);
+  font-size: 30px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+/* فرم افزودن/ویرایش غذا */
+.food-form {
+  background-color: var(--box-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.food-form .form-group {
+  margin-bottom: 20px;
+}
+
+.food-form label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: inline-block;
+  color: var(--accent-color);
+}
+
+.food-form input,
+.food-form select {
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+/* دکمه اصلی ثبت */
+.food-form button[type="submit"] {
+  background-color: var(--button-bg);
+  border: none;
+  color: #000;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 12px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.food-form button[type="submit"]:hover {
+  background-color: var(--button-bg-hover);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* پیش‌نمایش عکس غذا */
+.food-preview {
+  display: block;
+  margin-top: 10px;
+  width: 120px;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* تیتر لیست غذاها */
+.food-admin-panel h4 {
+  margin-top: 40px;
+  color: var(--accent-color);
+}
+
+/* جدول غذاها */
+.table {
+  background-color: var(--box-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table th {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-weight: bold;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.table td {
+  vertical-align: middle;
+  color: var(--text-color);
+}
+
+.table img {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* دکمه‌های ویرایش و حذف */
+.table .btn {
+  padding: 5px 12px;
+  font-size: 13px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.table .btn-warning {
+  background: linear-gradient(to right, #fcddbc, #f3a853);
+  color: #fff;
+  border: none;
+}
+
+.table .btn-warning:hover {
+  background-color: var(--button-bg-hover);
+}
+
+.table .btn-danger {
+  background-color: #d9534f;
+  border: none;
+  color: white;
+}
+
+.table .btn-danger:hover {
+  background-color: #c9302c;
+}
+
+/* سوئیچ‌های فرم */
+.form-check-input:checked {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.form-check-label {
+  margin-right: 8px;
+  color: var(--text-color);
+}

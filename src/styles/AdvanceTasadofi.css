@@ -1,0 +1,222 @@
+.tasadofi-wrapper {
+  font-family: 'Segoe UI', sans-serif;
+  direction: ltr;
+  padding-bottom: 2rem;
+  background-color: #f4f4f4;
+}
+
+/* Top Navbar */
+.tasadofi-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.tasadofi-navbar-logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2d2d2d;
+}
+
+.tasadofi-navbar-icons {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.tasadofi-navbar-icon {
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.tasadofi-navbar-icon:hover {
+  color: #ff9800;
+}
+
+.tasadofi-header {
+  height: 111px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  color: white;
+  width: 100%;
+}
+
+.tasadofi-header img {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4cm;
+}
+
+/* Background and Start Button */
+.tasadofi-background {
+  background-image: url("/tasadofi-background.png");
+  background-size: cover;
+  background-position: center;
+  min-height: 620px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 40px;
+}
+
+.tasadofi-emoji {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  padding-top: 100px;
+}
+
+.tasadofi-menu,
+.tasadofi-profile {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+}
+
+.tasadofi-menu img,
+.tasadofi-profile img {
+  width: 50px;
+  height: 50px;
+}
+
+.tasadofi-start-button {
+  background-color: #ffbb00;
+  border: none;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  border-radius: 24px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.tasadofi-start-button:hover {
+  background-color: #ffa000;
+  transform: translateY(-2px);
+}
+
+/* Category Selector */
+.tasadofi-category-selector {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+  gap: 1.2rem;
+  padding: 0 1.2rem;
+}
+
+.tasadofi-category-item {
+  background-color: #f0f0f0;
+  border-radius: 18px;
+  padding: 12px;
+  width: 180px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.tasadofi-category-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tasadofi-category-item .tasadofi-label {
+  font-family: "Potta One", cursive;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.3rem;
+  transition: color 0.3s;
+}
+
+.tasadofi-category-item.fastfood .tasadofi-label { color: #00b89c; }
+.tasadofi-category-item.restaurant .tasadofi-label { color: #ff78b5; }
+.tasadofi-category-item.coffee .tasadofi-label { color: #573728; }
+.tasadofi-category-item.fruit .tasadofi-label { color: #f89718; }
+.tasadofi-category-item.juice .tasadofi-label { color: #bedd4b; }
+.tasadofi-category-item.candy .tasadofi-label { color: #dd172c; }
+
+.tasadofi-category-item.selected {
+  background-color: #ffbb00;
+  color: #fff;
+}
+
+.tasadofi-icon-img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 0.5rem;
+}
+
+/* Cards */
+.tasadofi-card {
+  min-width: 25%;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding: 0.75rem;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.tasadofi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.tasadofi-card img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Footer */
+.tasadofi-footer {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 2rem 1rem;
+  background-color: #fbe964;
+  color: #128415;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  margin-top: 2rem;
+}
+
+.tasadofi-footer-column h4 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #1e7121;
+}
+
+.tasadofi-footer-column li {
+  margin-bottom: 0.6rem;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.tasadofi-footer-column li:hover {
+  color: #0d0a01;
+}
+
+/* باقی بخش‌ها (نتیجه تصادفی، mood-section و ...) تغییری نکردن چون قبلاً به خوبی طراحی شده بودن */

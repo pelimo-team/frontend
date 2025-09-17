@@ -1,0 +1,38 @@
+.slider-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+  }
+  
+  .arrow {
+    background: rgba(188, 136, 80, 0.8);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+  }
+  
+  .arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+  
+  .viewport {
+    overflow: hidden;
+    flex: 1;
+  }
+  
+  .slider {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  
+  .slider-item {
+    flex: 0 0 calc(100% / var(--visible-count) - 1rem);
+    margin: 0 0.5rem;
+  }
+  
